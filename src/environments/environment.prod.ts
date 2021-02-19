@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'localhost:7878',
+  userUrl: 'users'
 };

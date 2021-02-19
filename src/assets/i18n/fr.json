@@ -1,0 +1,27 @@
+{
+    "global": {
+        "username": "Pseudo",
+        "username_required": "Veuillez renseigner votre pseudo"
+    },
+    "user": {
+        "name_required": "Veuillez renseigner votre pseudo",
+        "password": "Mot de passe",
+        "password_required": "Veuillez renseigner votre mot de passe",
+        "answer": "Réponse",
+        "answer_required": "La réponse est obligatoire",
+        "question": "Question secrète",
+        "question_required": "La question est obligatoire",
+        "error_password": "Mots de passe différents",
+        "error_question": "Questions différentes",
+        "wrong_answer": "Réponse incorrecte",
+        "lang": "Langue",
+        "signin": {
+            "title": "S'IDENTIFIER",
+            "log_in": "Se connecter",
+            "sign_up": "S'inscrire",
+            "connected": "Connecté !!",
+            "forgot": "Mot de passe oublié",
+            "wrong": "Saisie incorrecte.."
+        }
+    }
+}

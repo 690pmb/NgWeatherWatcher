@@ -1,0 +1,27 @@
+{
+    "global": {
+        "username": "Username",
+        "username_required": "Username is required"
+    },
+    "user": {
+        "name_required": "Username is required",
+        "password": "Password",
+        "password_required": "Password is required",
+        "answer": "Answer",
+        "answer_required": "Answer is required",
+        "question": "Secret question",
+        "question_required": "Question is required",
+        "error_password": "Differents passwords",
+        "error_question": "Differents questions",
+        "wrong_answer": "Incorrect answer",
+        "lang": "Language",
+        "signin": {
+            "title": "LOGIN",
+            "log_in": "Log In",
+            "sign_up": "Sign Up",
+            "connected": "Connected !!",
+            "forgot": "Forgot password",
+            "wrong": "Incorrect entry.."
+        }
+    }
+}

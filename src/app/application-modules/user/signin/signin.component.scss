@@ -1,0 +1,23 @@
+@import "../../../styles/styles";
+
+.connect-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 5vh auto;
+  padding: 25px;
+}
+
+.mat-form-field {
+  display: inherit;
+  width: 200px;
+}
+
+.connect-footer {
+  display: flex;
+  flex-direction: column;
+
+  & button {
+    margin: 5px;
+  }
+}
