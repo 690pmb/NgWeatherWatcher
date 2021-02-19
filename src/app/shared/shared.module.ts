@@ -4,6 +4,7 @@ import { AuthService } from './service/auth.service';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [],
@@ -11,12 +12,14 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     FormsModule,
     TranslateModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonModule
   ],
   exports: [
     TranslateModule,
     CommonModule,
     FormsModule,
+    MatButtonModule
   ]
 })
 export class SharedModule {

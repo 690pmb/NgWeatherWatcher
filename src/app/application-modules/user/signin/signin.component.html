@@ -15,7 +15,7 @@
     </mat-form-field>
 
     <div class="connect-footer">
-      <button type="submit" class="btn btn-outline-primary" (click)="login()" [disabled]="connectForm.invalid">{{'user.signin.log_in'|translate}}</button>
+      <button type="submit" mat-raised-button color="primary" (click)="login()" [disabled]="connectForm.invalid">{{'user.signin.log_in'|translate}}</button>
       <!-- <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: username}">{{'user.signin.forgot'|translate}}</button>
       <button type="button" class="btn btn-outline-primary" routerLink="/login/register" [queryParams]="{name: username}">{{'user.signin.sign_up'|translate}}</button> -->
       <!-- <app-dropdown-language class="dropdown-center"></app-dropdown-language> -->

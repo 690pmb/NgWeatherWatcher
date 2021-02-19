@@ -1,1 +1,30 @@
 @import './imports';
+
+body {
+    margin-bottom: 50vh;
+    font-family: $font-family !important;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4 {
+    box-sizing: border-box !important;
+    position: relative !important;
+    margin-bottom: 8px !important;
+    margin-top: 0 !important; 
+    font-family: $font-family !important;
+    text-align: center !important;
+  }
+
+  .background-color {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: map-get($depth, content) - 1;
+    width: 100vw;
+    height: 100vh;
+    background-color: mat-color($my-primary);
+    opacity: 0.04;
+  }
+
