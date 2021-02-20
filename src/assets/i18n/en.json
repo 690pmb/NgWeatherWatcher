@@ -1,7 +1,9 @@
 {
     "global": {
+        "cancel": "Cancel",
         "username": "Username",
-        "username_required": "Username is required"
+        "username_required": "Username is required",
+        "minlength": "Too short"
     },
     "user": {
         "name_required": "Username is required",
@@ -16,12 +18,21 @@
         "wrong_answer": "Incorrect answer",
         "lang": "Language",
         "signin": {
-            "title": "LOGIN",
-            "log_in": "Log In",
-            "sign_up": "Sign Up",
+            "title": "SIGN IN",
+            "sign_in": "Sign In",
             "connected": "Connected !!",
             "forgot": "Forgot password",
             "wrong": "Incorrect entry.."
+        },
+        "signup": {
+            "title": "SIGN UP",
+            "sign_up": "Sign Up",
+            "already_exist": "A user with this name already exists",
+            "bad_request": "Incorrect inputs",
+            "password2": "Retype your password",
+            "different": "Passwords are differents",
+            "username_hint": "Between 4 and 30 characters long",
+            "password_hint": "Between 6 and 30 characters long"
         }
     }
 }

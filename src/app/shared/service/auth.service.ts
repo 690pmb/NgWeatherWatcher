@@ -74,6 +74,19 @@ export class AuthService {
     });
   }
 
+  signup(username: string, password: string): Promise<number> {
+    return new Promise<number>((resolve) => {
+      return this.httpClient.post(`${environment.apiUrl}/${environment.userUrl}/signup`,
+        { username, password }, { observe: 'response' })
+        .subscribe((response: HttpResponse<any>) => {
+          return resolve(response.status);
+        }, (response: HttpErrorResponse) => {
+          console.error('error', response.error);
+          return resolve(response.status);
+        });
+    });
+  }
+
   getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
