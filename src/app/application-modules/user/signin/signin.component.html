@@ -2,22 +2,26 @@
 <div class="connect-content">
   <form #connectForm="ngForm">
     <mat-error>{{message}}</mat-error>
-    <mat-form-field>
-      <input matInput [(ngModel)]="username" placeholder="{{'global.username'|translate}}" type="text" #inputName="ngModel" name="inputName"
-        required />
-      <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">{{'global.username_required'|translate}}</mat-error>
+    <mat-form-field appearance="outline">
+      <input matInput [(ngModel)]="username" placeholder="{{'global.username'|translate}}" type="text"
+        #inputName="ngModel" name="inputName" required maxlength="30" />
+      <mat-error *ngIf="inputName.errors != null && inputName.errors.required && !inputName.pristine">
+        {{'global.username_required'|translate}}</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <input matInput [(ngModel)]="password" placeholder="{{'user.password'|translate}}" type="password"
-        #inputPassword="ngModel" name="inputPassword" required />
-      <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">{{'user.password_required'|translate}}</mat-error>
+        #inputPassword="ngModel" name="inputPassword" required maxlength="30" />
+      <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">
+        {{'user.password_required'|translate}}</mat-error>
     </mat-form-field>
 
     <div class="connect-footer">
-      <button type="submit" mat-raised-button color="primary" (click)="login()" [disabled]="connectForm.invalid">{{'user.signin.log_in'|translate}}</button>
-      <!-- <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: username}">{{'user.signin.forgot'|translate}}</button>
-      <button type="button" class="btn btn-outline-primary" routerLink="/login/register" [queryParams]="{name: username}">{{'user.signin.sign_up'|translate}}</button> -->
+      <button type="submit" mat-raised-button color="primary" (click)="login()"
+        [disabled]="connectForm.invalid">{{'user.signin.sign_in'|translate}}</button>
+      <!-- <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: username}">{{'user.signin.forgot'|translate}}</button>-->
+      <button type="button" mat-raised-button color="primary" routerLink="/user/signup"
+        [queryParams]="{username: username}">{{'user.signup.sign_up'|translate}}</button>
       <!-- <app-dropdown-language class="dropdown-center"></app-dropdown-language> -->
     </div>
   </form>

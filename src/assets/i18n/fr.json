@@ -1,7 +1,9 @@
 {
     "global": {
+        "cancel": "Annuler",
         "username": "Pseudo",
-        "username_required": "Veuillez renseigner votre pseudo"
+        "username_required": "Veuillez renseigner votre pseudo",
+        "minlength": "Trop court"
     },
     "user": {
         "name_required": "Veuillez renseigner votre pseudo",
@@ -17,11 +19,20 @@
         "lang": "Langue",
         "signin": {
             "title": "S'IDENTIFIER",
-            "log_in": "Se connecter",
-            "sign_up": "S'inscrire",
+            "sign_in": "Se connecter",
             "connected": "Connecté !!",
             "forgot": "Mot de passe oublié",
             "wrong": "Saisie incorrecte.."
+        },
+        "signup": {
+            "title": "S'INSCRIRE",
+            "sign_up": "S'inscrire",
+            "already_exist": "Un utilisateur avec ce pseudo existe déjà",
+            "bad_request": "Entrées incorrectes",
+            "password2": "Retapez votre mot de passe",
+            "different": "Les mots de passe sont différents",
+            "username_hint": "Entre 4 et 30 caractères de long",
+            "password_hint": "Entre 6 et 30 caractères de long"
         }
     }
 }
