@@ -3,7 +3,8 @@
         "cancel": "Cancel",
         "username": "Username",
         "username_required": "Username is required",
-        "minlength": "Too short"
+        "minlength": "Too short",
+        "research": "Search"
     },
     "user": {
         "name_required": "Username is required",
@@ -24,11 +25,13 @@
             "sign_in": "Sign In",
             "connected": "Connected !!",
             "forgot": "Forgot password",
-            "wrong": "Incorrect entry.."
+            "wrong": "Incorrect entry..",
+            "favourite_location": "Favourite location"
         },
         "signup": {
             "title": "SIGN UP",
             "sign_up": "Sign Up",
+            "registred": "Registred !!",
             "already_exist": "A user with this name already exists",
             "bad_request": "Incorrect inputs",
             "password2": "Retype your password",

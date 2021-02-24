@@ -1,6 +1,6 @@
 @import "../../../styles/styles";
 
-.connect-content {
+.signin-content {
   position: relative;
   display: flex;
   justify-content: center;
@@ -10,10 +10,10 @@
 
 .mat-form-field {
   display: inherit;
-  width: 200px;
+  width: 300px;
 }
 
-.connect-footer {
+.signin-footer {
   display: flex;
   flex-direction: column;
 

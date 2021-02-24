@@ -83,10 +83,10 @@ export class AuthService extends UtilsService {
     });
   }
 
-  signup(username: string, password: string): Promise<number> {
+  signup(username: string, password: string, favouriteLocation: string): Promise<number> {
     return new Promise<number>((resolve) => {
       return this.httpClient.post(`${environment.apiUrl}/${environment.userUrl}/signup`,
-        { username, password }, { observe: 'response' })
+        { username, password, favouriteLocation }, { observe: 'response' })
         .subscribe((response: HttpResponse<any>) => {
           return resolve(response.status);
         }, (response: HttpErrorResponse) => {

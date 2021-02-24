@@ -1,6 +1,6 @@
 <h2>{{'user.signin.title'|translate}}:</h2>
-<div class="connect-content">
-  <form #connectForm="ngForm">
+<div class="signin-content">
+  <form #signinForm="ngForm">
     <mat-error>{{message}}</mat-error>
     <mat-form-field appearance="outline">
       <input matInput [(ngModel)]="username" placeholder="{{'global.username'|translate}}" type="text"
@@ -16,9 +16,9 @@
         {{'user.password_required'|translate}}</mat-error>
     </mat-form-field>
 
-    <div class="connect-footer">
+    <div class="signin-footer">
       <button type="submit" mat-raised-button color="primary" (click)="login()"
-        [disabled]="connectForm.invalid">{{'user.signin.sign_in'|translate}}</button>
+        [disabled]="signinForm.invalid">{{'user.signin.sign_in'|translate}}</button>
       <!-- <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: username}">{{'user.signin.forgot'|translate}}</button>-->
       <button type="button" mat-raised-button color="primary" routerLink="/user/signup"
         [queryParams]="{username: username}">{{'user.signup.sign_up'|translate}}</button>

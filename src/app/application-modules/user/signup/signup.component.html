@@ -40,6 +40,9 @@
         <mat-error *ngIf="inputPassword.errors === null && inputPassword2.errors === null && password2 !== password">
             {{'user.signup.different'|translate}}</mat-error>
 
+        <app-search-location placeholder="user.signin.favourite_location" (selected)="favouriteLocation = $event">
+        </app-search-location>
+
         <!-- Footer -->
         <div class="signup-footer">
             <button type="button" mat-raised-button color="primary"

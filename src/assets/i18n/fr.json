@@ -3,7 +3,8 @@
         "cancel": "Annuler",
         "username": "Pseudo",
         "username_required": "Veuillez renseigner votre pseudo",
-        "minlength": "Trop court"
+        "minlength": "Trop court",
+        "research": "Rechercher"
     },
     "user": {
         "name_required": "Veuillez renseigner votre pseudo",
@@ -24,11 +25,13 @@
             "sign_in": "Se connecter",
             "connected": "Connecté !!",
             "forgot": "Mot de passe oublié",
-            "wrong": "Saisie incorrecte.."
+            "wrong": "Saisie incorrecte..",
+            "favourite_location": "Endroit préféré"
         },
         "signup": {
             "title": "S'INSCRIRE",
             "sign_up": "S'inscrire",
+            "registred": "Inscrit !!",
             "already_exist": "Un utilisateur avec ce pseudo existe déjà",
             "bad_request": "Entrées incorrectes",
             "password2": "Retapez votre mot de passe",

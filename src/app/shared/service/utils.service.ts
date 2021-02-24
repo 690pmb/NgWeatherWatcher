@@ -1,5 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { ToastService } from './toast.service';
 
 @Injectable({
@@ -13,11 +15,11 @@ export class UtilsService {
     protected toast: ToastService
   ) { }
 
-  static encodeQueryUrl(query: string): string {
+  protected static encodeQueryUrl(query: string): string {
     return encodeURIComponent(query).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16));
   }
 
-  static getErrorMessage(error: any): string {
+  protected static getErrorMessage(error: any): string {
     let message;
     if (error.response) {
       message = error.response.error;
@@ -33,15 +35,29 @@ export class UtilsService {
     return message;
   }
 
-  getHeaders(): HttpHeaders {
+  static getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: UtilsService.bearer + localStorage.getItem('token')
     });
   }
 
-  handleError(error: any): void {
+  protected handleError(error: any): void {
     console.error('handleError', error);
     this.toast.error(UtilsService.getErrorMessage(error));
+  }
+
+  protected getPromise<T>(url: string, defaultValue: T): Promise<T> {
+    return this.getObservable<T>(url, defaultValue).toPromise();
+  }
+
+  protected getObservable<T>(url: string, defaultValue: T): Observable<T> {
+    console.log('url', url);
+    return this.httpClient.get<T>(url, { headers: UtilsService.getHeaders() })
+      .pipe(map((response: T) => response),
+        catchError((err: HttpErrorResponse) => {
+          this.handleError(err);
+          return of(defaultValue);
+        }));
   }
 }
