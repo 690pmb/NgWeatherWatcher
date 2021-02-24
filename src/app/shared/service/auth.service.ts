@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Token } from '../../model/token';
+import { UtilsService } from './utils.service';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  static readonly bearer = 'Bearer ';
+export class AuthService extends UtilsService {
   token$: BehaviorSubject<Token> = new BehaviorSubject(undefined);
 
-  constructor(private router: Router, private httpClient: HttpClient) { }
+  constructor(
+    private router: Router,
+    protected httpClient: HttpClient,
+    protected toast: ToastService
+  ) {
+    super(httpClient, toast);
+  }
 
   private static setToken(token: string): void {
     localStorage.removeItem('token');
@@ -32,6 +39,7 @@ export class AuthService {
     sessionStorage.clear();
     this.token$.next(undefined);
     sessionStorage.setItem('redirectPage', '/');
+    this.toast.success('user.logged_out');
     this.router.navigate(['/user/signin']);
   }
 
@@ -53,7 +61,7 @@ export class AuthService {
     }
   }
 
-  login(username: string, password: string): Promise<boolean> {
+  signin(username: string, password: string): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       return this.httpClient.post(`${environment.apiUrl}/${environment.userUrl}/signin`,
         { username, password }, { observe: 'response' })
@@ -62,13 +70,14 @@ export class AuthService {
             const token = response.body.token;
             AuthService.setToken(token);
             this.token$.next(jwtDecode(token));
+            this.toast.success('user.signin.connected');
             return resolve(true);
           } else {
             console.error('no token', response.body);
             return this.reject(true);
           }
         }, (response: HttpErrorResponse) => {
-          console.error('error', response.error);
+          this.handleError(response);
           return this.reject(false);
         });
     });
@@ -81,16 +90,9 @@ export class AuthService {
         .subscribe((response: HttpResponse<any>) => {
           return resolve(response.status);
         }, (response: HttpErrorResponse) => {
-          console.error('error', response.error);
+          this.handleError(response);
           return resolve(response.status);
         });
-    });
-  }
-
-  getHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: AuthService.bearer + localStorage.getItem('token')
     });
   }
 

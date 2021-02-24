@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ToastService } from './service/toast.service';
 
 @NgModule({
   declarations: [],
@@ -13,13 +15,15 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     TranslateModule,
     HttpClientModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   exports: [
     TranslateModule,
     CommonModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ]
 })
 export class SharedModule {
@@ -27,7 +31,10 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
-      providers: [AuthService]
+      providers: [
+        AuthService,
+        ToastService
+      ]
     };
   }
   static forChild(): ModuleWithProviders<SharedModule> {

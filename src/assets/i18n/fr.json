@@ -17,6 +17,8 @@
         "error_question": "Questions différentes",
         "wrong_answer": "Réponse incorrecte",
         "lang": "Langue",
+        "logged_out": "Déconnecté",
+        "logout": "Se déconnecter",
         "signin": {
             "title": "S'IDENTIFIER",
             "sign_in": "Se connecter",

@@ -24,7 +24,7 @@ export class SigninComponent implements OnInit {
 
   login(): void {
     if (this.username && this.password) {
-      this.auth.login(this.username, this.password).then((isAuth) => {
+      this.auth.signin(this.username, this.password).then((isAuth) => {
         if (isAuth) {
           this.message = this.translate.instant('user.signin.connected');
           const redirectPage = sessionStorage.getItem('redirectPage');

@@ -17,6 +17,8 @@
         "error_question": "Differents questions",
         "wrong_answer": "Incorrect answer",
         "lang": "Language",
+        "logged_out": "Logged out",
+        "logout": "Logout",
         "signin": {
             "title": "SIGN IN",
             "sign_in": "Sign In",
