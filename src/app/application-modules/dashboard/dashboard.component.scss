@@ -1,0 +1,51 @@
+@import "../../styles/styles";
+
+:host {
+    position: absolute;
+    left: 0;
+    margin: auto;
+    width: 100%;
+}
+
+.weather-cover {
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 0 2em;
+    align-items: center;
+
+    & > div {
+        margin-top: 20px;
+    }
+}
+
+.weather-background {
+    border-radius: 10px;
+    position: absolute;
+    height: 100%;
+    width: calc(10vw + 200px); 
+    z-index: -1;
+}
+
+.weather-day {
+    display: flex;
+    flex-direction: row;
+
+    & img {
+        height: 64px;
+        margin-top: 32px;
+    }
+}
+
+.weather-day-items {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+@include media(#{$smallscreen}) {
+    .weather-background {
+        width: 100vw;
+    }
+}
