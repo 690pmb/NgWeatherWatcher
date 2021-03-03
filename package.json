@@ -4,9 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
+    "cordova": "ng build --prod --base-href file:///android_asset/www/ --progress false",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "run-p lint:**",
+    "lint:ts": "ng lint",
+    "lint:stylelint": "stylelint --syntax scss \"src/**/*.scss\" verbose",
+    "postinstall": "ngcc",
     "e2e": "ng e2e"
   },
   "private": true,
