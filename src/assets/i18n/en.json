@@ -6,6 +6,12 @@
         "minlength": "Too short",
         "research": "Search"
     },
+    "forecast": {
+        "wind": "Wind: ",
+        "precip": "Precipitation: ",
+        "chanceOfRain": "Chance of rain: ",
+        "chanceOfSnow": "Chance of snow: "
+    },
     "user": {
         "name_required": "Username is required",
         "password": "Password",
