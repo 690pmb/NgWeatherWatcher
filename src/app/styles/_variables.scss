@@ -18,6 +18,16 @@ $info: #283593;
 $success: #1aaa55;
 $warning: #fc6d26;
 $error: #ff3838;
+$my-primary: mat-palette($mat-light-green, A400);
+$my-accent: mat-palette($mat-indigo, A400);
+$my-warn: mat-palette($mat-orange, A400);
+$my-theme: mat-light-theme((
+    color: (
+        primary: $my-primary, 
+        accent: $my-accent, 
+        warn: $my-warn
+    )
+));
 
 $bezier: cubic-bezier(0.86, 0, 0.07, 1);
 $border_radius: 3px;

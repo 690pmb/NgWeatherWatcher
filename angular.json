@@ -56,6 +56,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/app/styles/_themes.scss",
               "src/app/styles/_styles.scss"
             ],
             "scripts": []
@@ -118,6 +119,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/app/styles/_themes.scss",
               "src/app/styles/_styles.scss"
             ],
             "scripts": []
