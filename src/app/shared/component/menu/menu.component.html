@@ -1,0 +1,25 @@
+<ng-container *ngIf="isLogged$ | async">
+    <button type="button" mat-raised-button color="primary" class="toogle-button" (click)="sidenav.toggle()">
+        <fa-icon [icon]="faBars"></fa-icon>
+    </button>
+</ng-container>
+
+<mat-sidenav-container hasBackdrop="false" fullscreen>
+    <mat-sidenav #sidenav fixedInViewport="true" [disableClose]="false" autoFocus="false" [mode]="'over'"
+        *ngIf="isLogged$ | async">
+        <mat-nav-list class="nav-list">
+            <a mat-list-item routerLink="/dashboard" label="nav-bar.dashboard" routerLinkActive="active-nav-item">
+                <fa-icon [icon]="faHome"></fa-icon>
+                {{'nav-bar.dashboard'|translate}}
+            </a>
+            <a mat-list-item (click)="logout()">
+                <fa-icon [icon]="faPowerOff"></fa-icon>
+                {{'nav-bar.logout' | translate}}
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content #content class="sidenav-content">
+        <div class="background-color"></div>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

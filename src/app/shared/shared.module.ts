@@ -8,23 +8,33 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { SearchLocationComponent } from './component/search-location/search-location.component';
 import { ToastService } from './service/toast.service';
 import { WeatherService } from './service/weather.service';
+import { MenuComponent } from './component/menu/menu.component';
 
 @NgModule({
-  declarations: [SearchLocationComponent],
+  declarations: [SearchLocationComponent, MenuComponent],
   imports: [
     CommonModule,
     FormsModule,
     TranslateModule,
     HttpClientModule,
+    FontAwesomeModule,
+    MatListModule,
     MatButtonModule,
     MatSnackBarModule,
     MatAutocompleteModule,
+    MatSidenavModule,
     MatInputModule,
-    MatTooltipModule
+    MatTooltipModule,
+    RouterModule.forChild([])
   ],
   exports: [
     TranslateModule,
@@ -32,7 +42,8 @@ import { WeatherService } from './service/weather.service';
     FormsModule,
     MatButtonModule,
     MatSnackBarModule,
-    SearchLocationComponent
+    SearchLocationComponent,
+    MenuComponent
   ]
 })
 export class SharedModule {

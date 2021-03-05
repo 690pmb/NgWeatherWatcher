@@ -29,18 +29,20 @@ export class AuthService extends UtilsService {
 
   private reject(loggout: boolean): Promise<boolean> {
     if (loggout) {
-      this.logout();
+      this.logout(loggout);
     }
     return new Promise(resolve => resolve(false));
   }
 
-  logout(): void {
+  logout(showToast: boolean): void {
     localStorage.clear();
     sessionStorage.clear();
     this.token$.next(undefined);
     sessionStorage.setItem('redirectPage', '/');
-    this.toast.success('user.logged_out');
     this.router.navigate(['/user/signin']);
+    if (showToast) {
+      this.toast.success('user.logged_out');
+    }
   }
 
   isAuthenticated(): Promise<boolean> {
@@ -94,6 +96,25 @@ export class AuthService extends UtilsService {
           return resolve(response.status);
         });
     });
+  }
+
+  getCurrentUser(): void {
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const jwtToken = jwtDecode(token) as Token;
+        if (jwtToken && (jwtToken).exp * 1000 > new Date().getTime()) {
+          this.token$.next(jwtToken);
+        } else {
+          this.logout(false);
+        }
+      } else {
+        this.logout(false);
+      }
+    } catch (err) {
+      this.handleError(err);
+      this.logout(false);
+    }
   }
 
 }

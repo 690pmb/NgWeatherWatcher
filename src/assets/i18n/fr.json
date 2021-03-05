@@ -6,6 +6,10 @@
         "minlength": "Trop court",
         "research": "Rechercher"
     },
+    "nav-bar": {
+        "dashboard": "Tableau de Bord",
+        "logout": "Déconnexion"
+    },
     "forecast": {
         "wind": "Vent: ",
         "precip": "Précipitation: ",

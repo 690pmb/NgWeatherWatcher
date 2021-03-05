@@ -6,6 +6,10 @@
         "minlength": "Too short",
         "research": "Search"
     },
+    "nav-bar": {
+        "dashboard": "Dashboard",
+        "logout": "Log Out"
+    },
     "forecast": {
         "wind": "Wind: ",
         "precip": "Precipitation: ",
