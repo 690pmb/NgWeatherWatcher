@@ -1,1 +1,20 @@
-<p>dashboard works!</p>
+<div *ngIf="forecast">
+    <h1>{{forecast.location}}</h1>
+    <div class="weather-cover">
+        <img src="assets/background.png" class="weather-background">
+        <div *ngFor="let forecastDay of forecast.forecastDay">
+            <h2>{{forecastDay.date | date:'fullDate':'':translate.currentLang}}</h2>
+            <div class="weather-day">
+                <img src="./assets/icons/day/{{forecastDay.day.condition.icon}}">
+                <div class="weather-day-items">
+                    <div>{{forecastDay.day.condition.text}}</div>
+                    <div>{{forecastDay.day.avgTempC}} °C</div>
+                    <div>{{'forecast.wind'|translate}} {{forecastDay.day.maxWindKph}} km/h</div>
+                    <div>{{'forecast.precip'|translate}} {{forecastDay.day.totalPrecipMm}} mm</div>
+                    <div>{{'forecast.chanceOfRain'|translate}} {{forecastDay.day.dailyChanceOfRain}}</div>
+                    <div>{{'forecast.chanceOfSnow'|translate}} {{forecastDay.day.dailyChanceOfSnow}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

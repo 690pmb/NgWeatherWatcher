@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -51,9 +51,9 @@ export class UtilsService {
     return this.getObservable<T>(url, defaultValue).toPromise();
   }
 
-  protected getObservable<T>(url: string, defaultValue: T): Observable<T> {
+  protected getObservable<T>(url: string, defaultValue: T, params?: HttpParams): Observable<T> {
     console.log('url', url);
-    return this.httpClient.get<T>(url, { headers: UtilsService.getHeaders() })
+    return this.httpClient.get<T>(url, { headers: UtilsService.getHeaders() , params})
       .pipe(map((response: T) => response),
         catchError((err: HttpErrorResponse) => {
           this.handleError(err);
