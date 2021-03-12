@@ -4,7 +4,12 @@
         "username": "Pseudo",
         "username_required": "Veuillez renseigner votre pseudo",
         "minlength": "Trop court",
-        "research": "Rechercher"
+        "research": "Rechercher",
+        "geolocation": {
+            "in_progress": "Géolocalisation en cours...",
+            "denied": "Géolocalisation refusé",
+            "not_supported": "Géolocalisation non supporté"
+        }
     },
     "nav-bar": {
         "dashboard": "Tableau de Bord",

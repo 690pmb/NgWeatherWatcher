@@ -1,3 +1,7 @@
+<div *ngIf="showSpinner" class="spinner-wrapper">
+    <mat-spinner mode="indeterminate"></mat-spinner>
+    <h1>{{'global.geolocation.in_progress'|translate}}</h1>
+</div>
 <div *ngIf="forecast">
     <h1>{{forecast.location}}</h1>
     <div class="weather-cover">

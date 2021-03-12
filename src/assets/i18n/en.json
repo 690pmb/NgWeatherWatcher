@@ -4,7 +4,12 @@
         "username": "Username",
         "username_required": "Username is required",
         "minlength": "Too short",
-        "research": "Search"
+        "research": "Search",
+        "geolocation": {
+            "in_progress": "Geolocation in progress...",
+            "denied": "Geolocation denied",
+            "not_supported": "Geolocation not supported"
+        }
     },
     "nav-bar": {
         "dashboard": "Dashboard",
