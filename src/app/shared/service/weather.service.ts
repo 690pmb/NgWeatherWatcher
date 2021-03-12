@@ -24,9 +24,9 @@ export class WeatherService extends UtilsService {
       `${environment.apiUrl}/${environment.weatherUrl}/locations?query=${UtilsService.encodeQueryUrl(term)}`, []);
   }
 
-  findForecastByLocation(location: string, days: string, lang: string): Observable<Forecast> {
-    return this.getObservable<Forecast>(
+  findForecastByLocation(location: string, days: string, lang: string): Promise<Forecast> {
+    return this.getPromise<Forecast>(
       `${environment.apiUrl}/${environment.weatherUrl}`, undefined,
-      new HttpParams({ fromObject: { location: UtilsService.encodeQueryUrl(location), days, lang } }));
+      new HttpParams({ fromObject: { location: location, days, lang } }));
   }
 }
