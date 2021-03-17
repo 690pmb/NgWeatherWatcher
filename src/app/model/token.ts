@@ -6,5 +6,11 @@ export class Token {
      * @param sub name
      * @param location favourite user's location
      */
-    constructor(public exp: number, public iat: number, public jti: string, public sub: string, public location: string) { }
+    constructor(
+        public exp: number,
+        public iat: number,
+        public jti: string,
+        public sub: string,
+        public location: string
+    ) {}
 }

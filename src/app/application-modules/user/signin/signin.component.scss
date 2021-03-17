@@ -1,23 +1,23 @@
-@import "../../../styles/styles";
+@import '../../../styles/styles';
 
 .signin-content {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin: 5vh auto;
-  padding: 25px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 5vh auto;
+    padding: 25px;
 }
 
 .mat-form-field {
-  display: inherit;
-  width: 300px;
+    display: inherit;
+    width: 300px;
 }
 
 .signin-footer {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-  & button {
-    margin: 5px;
-  }
+    & button {
+        margin: 5px;
+    }
 }
