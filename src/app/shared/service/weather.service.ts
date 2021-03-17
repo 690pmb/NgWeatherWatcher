@@ -19,14 +19,14 @@ export class WeatherService extends UtilsService {
     super(httpClient, toast);
   }
 
-  search(term: string): Observable<Location[]> {
+  search(term: string, encode: boolean): Observable<Location[]> {
     return this.getObservable<Location[]>(
-      `${environment.apiUrl}/${environment.weatherUrl}/locations?query=${UtilsService.encodeQueryUrl(term)}`, []);
+      `${environment.apiUrl}/${environment.weatherUrl}/locations?query=${encode ? UtilsService.encodeQueryUrl(term) : term}`, []);
   }
 
   findForecastByLocation(location: string, days: string, lang: string): Promise<Forecast> {
     return this.getPromise<Forecast>(
       `${environment.apiUrl}/${environment.weatherUrl}`, undefined,
-      new HttpParams({ fromObject: { location: location, days, lang } }));
+      new HttpParams({ fromObject: { location, days, lang } }));
   }
 }
