@@ -3,4 +3,4 @@ export enum Level {
     warning = 'warning',
     success = 'success',
     error = 'error'
-  }
+}
