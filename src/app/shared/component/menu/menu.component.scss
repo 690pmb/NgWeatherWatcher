@@ -1,58 +1,58 @@
 @import '../../../styles/styles';
 
 .toogle-button {
-    z-index: map-get($depth, 'content');
+  z-index: map-get($depth, 'content');
 
-    & fa-icon {
-        opacity: 1;
-        color: mat-color($my-primary);
-    }
+  & fa-icon {
+    color: mat-color($my-primary);
+    opacity: 1;
+  }
 }
 
 .active-nav-item {
-    color: mat-color($my-primary);
+  color: mat-color($my-primary);
 }
 
 .nav-list {
-    display: inline-flex;
-    flex-direction: column;
-    height: 95%;
-    overflow-y: visible;
-    overflow-x: hidden;
+  display: inline-flex;
+  flex-direction: column;
+  height: 95%;
+  overflow-x: hidden;
+  overflow-y: visible;
 
-    & > * {
-        margin: 0 2px 0 2px;
-    }
+  & > * {
+    margin: 0 2px;
+  }
 
-    & .btn {
-        padding: 10px;
-    }
+  & .btn {
+    padding: 10px;
+  }
 
-    & .ng-fa-icon {
-        margin-right: 6px;
-    }
+  & .ng-fa-icon {
+    margin-right: 6px;
+  }
 }
 
 .mat-drawer-container {
-    background-color: #fff !important;
+  background-color: #fff !important;
 }
 
 .mat-sidenav {
-    top: 55px !important;
+  top: 55px !important;
 }
 
 .sidenav-content {
-    width: 101vw;
+  width: 101vw;
 }
 
 @include media(#{$smallscreen}) {
-    :host .nav-list {
-        & > * {
-            margin: 0;
-        }
+  :host .nav-list {
+    & > * {
+      margin: 0;
     }
+  }
 
-    .header-buttons {
-        padding: 10px 0 0 0;
-    }
+  .header-buttons {
+    padding: 10px 0 0;
+  }
 }

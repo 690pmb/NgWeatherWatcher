@@ -1,46 +1,46 @@
 @import './imports';
 
 body {
-    margin-bottom: 50vh;
-    font-family: $font-family !important;
+  font-family: $font-family !important;
+  margin-bottom: 50vh;
 }
 
 h1,
 h2,
 h3,
 h4 {
-    box-sizing: border-box !important;
-    position: relative !important;
-    margin-bottom: 8px !important;
-    margin-top: 0 !important;
-    font-family: $font-family !important;
-    text-align: center !important;
+  box-sizing: border-box !important;
+  font-family: $font-family !important;
+  margin-bottom: 8px !important;
+  margin-top: 0 !important;
+  position: relative !important;
+  text-align: center !important;
 }
 
 @mixin background-color($color) {
-    background-color: $color;
+  background-color: $color;
 }
 
 .background-color {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: map-get($depth, 'background') - 1;
-    width: 100vw;
-    height: 100vh;
-    background-color: mat-color($my-primary);
-    opacity: 0.04;
+  background-color: mat-color($my-primary);
+  height: 100vh;
+  left: 0;
+  opacity: 0.04;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: map-get($depth, 'background') - 1;
 }
 
 $levels: (
-    ('success', $success),
-    ('warning', $warning),
-    ('error', $error),
-    ('info', $info)
+  ('success', $success),
+  ('warning', $warning),
+  ('error', $error),
+  ('info', $info)
 );
 
 @each $lvl, $color in $levels {
-    .toast-#{$lvl} {
-        @include background-color($color);
-    }
+  .toast-#{$lvl} {
+    @include background-color($color);
+  }
 }
