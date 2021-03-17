@@ -5,16 +5,22 @@
 </ng-container>
 
 <mat-sidenav-container hasBackdrop="false" fullscreen>
-    <mat-sidenav #sidenav fixedInViewport="true" [disableClose]="false" autoFocus="false" [mode]="'over'"
-        *ngIf="isLogged$ | async">
+    <mat-sidenav
+        #sidenav
+        fixedInViewport="true"
+        [disableClose]="false"
+        autoFocus="false"
+        [mode]="'over'"
+        *ngIf="isLogged$ | async"
+    >
         <mat-nav-list class="nav-list">
             <a mat-list-item routerLink="/dashboard" label="nav-bar.dashboard" routerLinkActive="active-nav-item">
                 <fa-icon [icon]="faHome"></fa-icon>
-                {{'nav-bar.dashboard'|translate}}
+                {{ 'nav-bar.dashboard' | translate }}
             </a>
             <a mat-list-item (click)="logout()">
                 <fa-icon [icon]="faSignOutAlt"></fa-icon>
-                {{'nav-bar.logout' | translate}}
+                {{ 'nav-bar.logout' | translate }}
             </a>
         </mat-nav-list>
     </mat-sidenav>

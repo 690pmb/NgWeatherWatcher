@@ -20,47 +20,43 @@ import { WeatherService } from './service/weather.service';
 import { MenuComponent } from './component/menu/menu.component';
 
 @NgModule({
-  declarations: [SearchLocationComponent, MenuComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    TranslateModule,
-    HttpClientModule,
-    FontAwesomeModule,
-    MatListModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatAutocompleteModule,
-    MatSidenavModule,
-    MatInputModule,
-    MatTooltipModule,
-    RouterModule.forChild([])
-  ],
-  exports: [
-    TranslateModule,
-    CommonModule,
-    FormsModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    SearchLocationComponent,
-    MenuComponent
-  ]
+    declarations: [SearchLocationComponent, MenuComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        HttpClientModule,
+        FontAwesomeModule,
+        MatListModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatAutocompleteModule,
+        MatSidenavModule,
+        MatInputModule,
+        MatTooltipModule,
+        RouterModule.forChild([])
+    ],
+    exports: [
+        TranslateModule,
+        CommonModule,
+        FormsModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        SearchLocationComponent,
+        MenuComponent
+    ]
 })
 export class SharedModule {
-  constructor() { }
-  static forRoot(): ModuleWithProviders<SharedModule> {
-    return {
-      ngModule: SharedModule,
-      providers: [
-        AuthService,
-        ToastService,
-        WeatherService
-      ]
-    };
-  }
-  static forChild(): ModuleWithProviders<SharedModule> {
-    return { ngModule: SharedModule };
-  }
+    constructor() {}
+    static forRoot(): ModuleWithProviders<SharedModule> {
+        return {
+            ngModule: SharedModule,
+            providers: [AuthService, ToastService, WeatherService]
+        };
+    }
+    static forChild(): ModuleWithProviders<SharedModule> {
+        return { ngModule: SharedModule };
+    }
 }
 
 export { AuthService } from './service/auth.service';
