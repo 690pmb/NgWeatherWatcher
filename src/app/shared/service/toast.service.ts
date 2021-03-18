@@ -11,7 +11,7 @@ export class ToastService {
         private translate: TranslateService
     ) {}
 
-    open(level: Level, message: string, translateArgs?: object): void {
+    open(level: Level, message: string, translateArgs?: string): void {
         if (
             message &&
             message !== undefined &&
@@ -29,19 +29,19 @@ export class ToastService {
         }
     }
 
-    error(message: string, translateArgs?: object): void {
+    error(message: string, translateArgs?: string): void {
         this.open(Level.error, message, translateArgs);
     }
 
-    warning(message: string, translateArgs?: object): void {
+    warning(message: string, translateArgs?: string): void {
         this.open(Level.warning, message, translateArgs);
     }
 
-    info(message: string, translateArgs?: object): void {
+    info(message: string, translateArgs?: string): void {
         this.open(Level.info, message, translateArgs);
     }
 
-    success(message: string, translateArgs?: object): void {
+    success(message: string, translateArgs?: string): void {
         this.open(Level.success, message, translateArgs);
     }
 }

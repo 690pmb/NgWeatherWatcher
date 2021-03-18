@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastService, AuthService } from 'src/app/shared/shared.module';
+import { ToastService, AuthService } from '../../../shared/shared.module';
 
 @Component({
     selector: 'app-signup',
@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
 
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe(params => {
-            this.username = params.username ? params.username : '';
+            this.username = params.username ? (params.username as string) : '';
         });
     }
 
@@ -45,9 +45,12 @@ export class SignupComponent implements OnInit {
                     } else {
                         this.message = 'user.signup.registred';
                         this.toast.success('user.signup.registred');
-                        this.router.navigateByUrl('/user/signin');
+                        this.router
+                            .navigateByUrl('/user/signin')
+                            .catch(err => console.error(err));
                     }
-                });
+                })
+                .catch(err => this.authService.handleError(err));
         }
     }
 }
