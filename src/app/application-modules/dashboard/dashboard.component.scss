@@ -1,61 +1,61 @@
-@import "../../styles/styles";
+@import '../../styles/styles';
 
 :host {
-    position: absolute;
-    left: 0;
-    margin: auto;
-    width: 100%;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  width: 100%;
 }
 
 .spinner-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 40vh;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  justify-content: center;
 }
 
 .weather-cover {
-    color: #fff;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    padding: 0 2em;
-    align-items: center;
+  align-items: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2em;
+  text-align: center;
 
-    & > div {
-        margin-top: 20px;
-    }
+  div {
+    margin-top: 20px;
+  }
 }
 
-.weather-background {    
-    top: 45px;
-    border-radius: 10px;
-    position: absolute;
-    height: 100%;
-    width: calc(10vw + 200px); 
-    z-index: -1;
+.weather-background {
+  border-radius: 10px;
+  height: 100%;
+  position: absolute;
+  top: 45px;
+  width: calc(10vw + 200px);
+  z-index: -1;
 }
 
 .weather-day {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    & img {
-        height: 64px;
-        margin-top: 32px;
-    }
+  img {
+    height: 64px;
+    margin-top: 32px;
+  }
 }
 
 .weather-day-items {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
 @include media(#{$smallscreen}) {
-    .weather-background {
-        left: 0;
-        width: 100vw;
-    }
+  .weather-background {
+    left: 0;
+    width: 100vw;
+  }
 }

@@ -1,0 +1,13 @@
+arrowParens: 'avoid'
+bracketSpacing: true
+htmlWhitespaceSensitivity: 'css'
+proseWrap: 'always'
+semi: true
+singleQuote: true
+tabWidth: 4
+trailingComma: 'none'
+useTabs: false
+overrides:
+  - files: '*.html'
+    options:
+      printWidth: 120
