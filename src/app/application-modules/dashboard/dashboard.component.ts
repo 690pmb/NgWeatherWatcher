@@ -67,10 +67,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     searchForecast(location: string): void {
         this.weatherService
             .findForecastByLocation(location, '5', this.translate.currentLang)
-            .then(forecast => (this.forecast = forecast));
+            .then(forecast => (this.forecast = forecast))
+            .catch(err => this.weatherService.handleError(err));
     }
 
     ngOnDestroy(): void {
-        this.subs.forEach(sub => sub.unsubscribe);
+        this.subs.forEach(sub => sub.unsubscribe());
     }
 }

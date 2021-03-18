@@ -11,12 +11,13 @@ import { environment } from '../../../environments/environment';
 import { Token } from '../../model/token';
 import { UtilsService } from './utils.service';
 import { ToastService } from './toast.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService extends UtilsService {
-    token$: BehaviorSubject<Token> = new BehaviorSubject(undefined);
+    token$: BehaviorSubject<Token> = new BehaviorSubject(undefined as Token);
 
     constructor(
         private router: Router,
@@ -43,7 +44,7 @@ export class AuthService extends UtilsService {
         sessionStorage.clear();
         this.token$.next(undefined);
         sessionStorage.setItem('redirectPage', '/');
-        this.router.navigate(['/user/signin']);
+        this.router.navigate(['/user/signin']).catch(err => console.error(err));
         if (showToast) {
             this.toast.success('user.logged_out');
         }
@@ -55,7 +56,9 @@ export class AuthService extends UtilsService {
             return new Promise(resolve => resolve(true));
         } else {
             try {
-                const jwtToken = jwtDecode(localStorage.getItem('token'));
+                const jwtToken: Token = jwtDecode(
+                    localStorage.getItem('token')
+                );
                 if (jwtToken && jwtToken.exp * 1000 > new Date().getTime()) {
                     return new Promise(resolve => resolve(true));
                 } else {
@@ -68,36 +71,34 @@ export class AuthService extends UtilsService {
     }
 
     signin(username: string, password: string): Promise<boolean> {
-        return new Promise<boolean>(resolve =>
-            this.httpClient
-                .post(
-                    `${environment.apiUrl}/${environment.userUrl}/signin`,
-                    { username, password },
-                    { observe: 'response' }
-                )
-                .subscribe(
-                    (response: HttpResponse<any>) => {
-                        if (
-                            response.body != null &&
-                            response.body !== 'null' &&
-                            response.body
-                        ) {
+        return this.httpClient
+            .post(
+                `${environment.apiUrl}/${environment.userUrl}/signin`,
+                { username, password },
+                { observe: 'response' }
+            )
+            .pipe(
+                map(
+                    (response: HttpResponse<{ token: string }>) => {
+                        if (response.body != null && response.body) {
                             const token = response.body.token;
                             AuthService.setToken(token);
                             this.token$.next(jwtDecode(token));
                             this.toast.success('user.signin.connected');
-                            return resolve(true);
+                            return true;
                         } else {
                             console.error('no token', response.body);
-                            return this.reject(true);
+                            return true;
                         }
                     },
                     (response: HttpErrorResponse) => {
                         this.handleError(response);
-                        return this.reject(false);
+                        this.logout(false);
+                        return false;
                     }
                 )
-        );
+            )
+            .toPromise();
     }
 
     signup(
@@ -126,7 +127,7 @@ export class AuthService extends UtilsService {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const jwtToken = jwtDecode(token);
+                const jwtToken: Token = jwtDecode(token);
                 if (jwtToken && jwtToken.exp * 1000 > new Date().getTime()) {
                     this.token$.next(jwtToken);
                 } else {
