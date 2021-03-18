@@ -1,15 +1,25 @@
 <mat-form-field appearance="outline">
-    <input type="text" placeholder="{{placeholder|translate}}" matInput [matAutocomplete]="auto"
-        #inputLocation="matInput" />
+    <input
+        type="text"
+        placeholder="{{ placeholder | translate }}"
+        matInput
+        [matAutocomplete]="auto"
+        #inputLocation="matInput"
+    />
 </mat-form-field>
 <button mat-button type="button" class="location-btn">
     <fa-icon [icon]="faLocationArrow" size="2x" (click)="geolocation()"></fa-icon>
 </button>
-<button type="button" mat-raised-button color="primary"
-    (click)="search(inputLocation.value, true)">{{'global.research'|translate}}</button>
-<mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption panelWidth="100 %"
-    (optionSelected)="select($event.option.value)">
+<button type="button" mat-raised-button color="primary" (click)="search(inputLocation.value, true)">
+    {{ 'global.research' | translate }}
+</button>
+<mat-autocomplete
+    #auto="matAutocomplete"
+    autoActiveFirstOption
+    panelWidth="100 %"
+    (optionSelected)="select($event.option.value)"
+>
     <mat-option *ngFor="let location of locations" [value]="location.name">
-        <div [matTooltip]="location.name">{{location.name}}</div>
+        <div [matTooltip]="location.name">{{ location.name }}</div>
     </mat-option>
 </mat-autocomplete>

@@ -6,34 +6,42 @@ import { Level } from './../../model/level';
 
 @Injectable()
 export class ToastService {
+    constructor(
+        public snackBar: MatSnackBar,
+        private translate: TranslateService
+    ) {}
 
-  constructor(
-    public snackBar: MatSnackBar,
-    private translate: TranslateService
-  ) { }
-
-  open(level: Level, message: string, translateArgs?: object): void {
-    if (message && message !== undefined && typeof message === 'string' && message !== '') {
-      this.snackBar.open(this.translate.instant(message, translateArgs), undefined, {
-        duration: 3000,
-        panelClass: 'toast-' + level
-      });
+    open(level: Level, message: string, translateArgs?: string): void {
+        if (
+            message &&
+            message !== undefined &&
+            typeof message === 'string' &&
+            message !== ''
+        ) {
+            this.snackBar.open(
+                this.translate.instant(message, translateArgs),
+                undefined,
+                {
+                    duration: 3000,
+                    panelClass: 'toast-' + level
+                }
+            );
+        }
     }
-  }
 
-  error(message: string, translateArgs?: object): void {
-    this.open(Level.error, message, translateArgs);
-  }
+    error(message: string, translateArgs?: string): void {
+        this.open(Level.error, message, translateArgs);
+    }
 
-  warning(message: string, translateArgs?: object): void {
-    this.open(Level.warning, message, translateArgs);
-  }
+    warning(message: string, translateArgs?: string): void {
+        this.open(Level.warning, message, translateArgs);
+    }
 
-  info(message: string, translateArgs?: object): void {
-    this.open(Level.info, message, translateArgs);
-  }
+    info(message: string, translateArgs?: string): void {
+        this.open(Level.info, message, translateArgs);
+    }
 
-  success(message: string, translateArgs?: object): void {
-    this.open(Level.success, message, translateArgs);
-  }
+    success(message: string, translateArgs?: string): void {
+        this.open(Level.success, message, translateArgs);
+    }
 }
