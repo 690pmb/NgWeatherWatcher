@@ -7,24 +7,24 @@ import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { SharedModule } from '../../shared/shared.module';
 
-
 const childRoutes: Routes = [
-  {
-    path: '',
-    children: [
-      { path: '', redirectTo: 'signin', pathMatch: 'full' },
-      { path: 'signin', component: SigninComponent },
-      { path: 'signup', component: SignupComponent }
-    ]
-  }];
+    {
+        path: '',
+        children: [
+            { path: '', redirectTo: 'signin', pathMatch: 'full' },
+            { path: 'signin', component: SigninComponent },
+            { path: 'signup', component: SignupComponent }
+        ]
+    }
+];
 
 @NgModule({
-  declarations: [SignupComponent, SigninComponent],
-  imports: [
-    SharedModule.forChild(),
-    MatFormFieldModule,
-    MatInputModule,
-    RouterModule.forChild(childRoutes),
-  ]
+    declarations: [SignupComponent, SigninComponent],
+    imports: [
+        SharedModule.forChild(),
+        MatFormFieldModule,
+        MatInputModule,
+        RouterModule.forChild(childRoutes)
+    ]
 })
-export class UserModule { }
+export class UserModule {}

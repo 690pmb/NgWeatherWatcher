@@ -6,17 +6,18 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
 
 const childRoutes: Routes = [
-  {
-    path: '', component: DashboardComponent
-  },
+    {
+        path: '',
+        component: DashboardComponent
+    }
 ];
 
 @NgModule({
-  declarations: [DashboardComponent],
-  imports: [
-    MatProgressSpinnerModule,
-    SharedModule.forChild(),
-    RouterModule.forChild(childRoutes),
-  ]
+    declarations: [DashboardComponent],
+    imports: [
+        MatProgressSpinnerModule,
+        SharedModule.forChild(),
+        RouterModule.forChild(childRoutes)
+    ]
 })
-export class DashboardModule { }
+export class DashboardModule {}

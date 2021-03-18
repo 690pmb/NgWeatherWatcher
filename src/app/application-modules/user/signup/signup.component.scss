@@ -1,11 +1,11 @@
-@import "../../../styles/styles";
+@import '../../../styles/styles';
 
 .signup-content {
-  position: relative;
   display: flex;
   justify-content: center;
   margin: 5vh auto;
   padding: 25px;
+  position: relative;
 }
 
 .mat-form-field {
@@ -17,12 +17,12 @@
   display: flex;
   padding-top: 1.25em;
 
-  & button {
+  button {
     margin: 5px;
   }
 }
 
 ::ng-deep.mat-form-field-subscript-wrapper {
-  padding: 0 0 1em 0 !important;
   margin-top: 0 !important;
+  padding: 0 0 1em !important;
 }
