@@ -23,7 +23,9 @@ export class AuthGuard implements CanActivate {
             return this.auth.isAuthenticated().then(isAuth => {
                 if (!isAuth) {
                     console.log('not authenticated');
-                    this.router.navigate(['/user/signin']);
+                    this.router
+                        .navigate(['/user/signin'])
+                        .catch(err => console.error(err));
                     sessionStorage.setItem('redirectPage', state.url);
                     return false;
                 }

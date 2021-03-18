@@ -39,7 +39,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     logout(): void {
         this.authService.logout(true);
-        this.router.navigate(['/user/signin']);
+        this.router.navigate(['/user/signin']).catch(err => console.error(err));
     }
 
     ngOnDestroy(): void {
