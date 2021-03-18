@@ -3,7 +3,7 @@
 .toogle-button {
   z-index: map-get($depth, 'content');
 
-  & fa-icon {
+  fa-icon {
     color: mat-color($my-primary);
     opacity: 1;
   }
@@ -20,15 +20,15 @@
   overflow-x: hidden;
   overflow-y: visible;
 
-  & > * {
+  * {
     margin: 0 2px;
   }
 
-  & .btn {
+  .btn {
     padding: 10px;
   }
 
-  & .ng-fa-icon {
+  .ng-fa-icon {
     margin-right: 6px;
   }
 }
@@ -47,7 +47,7 @@
 
 @include media(#{$smallscreen}) {
   :host .nav-list {
-    & > * {
+    * {
       margin: 0;
     }
   }
