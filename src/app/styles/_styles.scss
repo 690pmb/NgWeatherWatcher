@@ -21,6 +21,11 @@ h4 {
   background-color: $color;
 }
 
+.mat-raised-button {
+  border: solid 3px mat-color($my-primary);
+  color: mat-color($my-primary);
+}
+
 .background-color {
   background-color: mat-color($my-primary);
   height: 100vh;

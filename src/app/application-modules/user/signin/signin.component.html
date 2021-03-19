@@ -35,17 +35,11 @@
         </mat-form-field>
 
         <div class="signin-footer">
-            <button type="submit" mat-raised-button color="primary" (click)="login()" [disabled]="signinForm.invalid">
+            <button type="submit" mat-raised-button (click)="login()" [disabled]="signinForm.invalid">
                 {{ 'user.signin.sign_in' | translate }}
             </button>
             <!-- <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: username}">{{'user.signin.forgot'|translate}}</button>-->
-            <button
-                type="button"
-                mat-raised-button
-                color="primary"
-                routerLink="/user/signup"
-                [queryParams]="{ username: username }"
-            >
+            <button type="button" mat-raised-button routerLink="/user/signup" [queryParams]="{ username: username }">
                 {{ 'user.signup.sign_up' | translate }}
             </button>
             <!-- <app-dropdown-language class="dropdown-center"></app-dropdown-language> -->
