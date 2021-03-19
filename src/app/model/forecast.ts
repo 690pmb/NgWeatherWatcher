@@ -1,6 +1,7 @@
 import { ForecastDay } from './forecast-day';
+import { Location } from './location';
 
 export class Forecast {
-    location: string;
+    location: Location;
     forecastDay: ForecastDay[];
 }

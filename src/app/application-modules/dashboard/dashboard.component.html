@@ -3,7 +3,7 @@
     <h1>{{ 'global.geolocation.in_progress' | translate }}</h1>
 </div>
 <div *ngIf="forecast">
-    <h1>{{ forecast.location }}</h1>
+    <h1>{{ forecast.location.name }}, {{ forecast.location.region }} - {{ forecast.location.country }}</h1>
     <div class="weather-cover">
         <img src="assets/background.png" class="weather-background" />
         <div *ngFor="let forecastDay of forecast.forecastDay">
