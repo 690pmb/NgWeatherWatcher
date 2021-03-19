@@ -20,10 +20,10 @@ import { Observable, Observer } from 'rxjs';
 export class SearchLocationComponent {
     @Input()
     placeholder: string;
-    @ViewChild(MatAutocompleteTrigger)
-    trigger: MatAutocompleteTrigger;
     @Output()
     selected = new EventEmitter<string>();
+    @ViewChild(MatAutocompleteTrigger)
+    trigger: MatAutocompleteTrigger;
     locations: Location[] = [];
     faLocationArrow = faLocationArrow;
 
