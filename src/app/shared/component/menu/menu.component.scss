@@ -6,6 +6,11 @@
   fa-icon {
     color: mat-color($my-primary);
     opacity: 1;
+    vertical-align: unset !important;
+  }
+
+  ::ng-deep svg {
+    vertical-align: middle;
   }
 }
 
