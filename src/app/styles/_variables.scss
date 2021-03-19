@@ -17,9 +17,11 @@ $info: #283593;
 $success: #1aaa55;
 $warning: #fc6d26;
 $error: #ff3838;
-$my-primary: mat-palette($mat-light-green, a400);
-$my-accent: mat-palette($mat-indigo, a400);
-$my-warn: mat-palette($mat-orange, a400);
+/* stylelint-disable */
+$my-primary: mat-palette($mat-light-green, A400);
+$my-accent: mat-palette($mat-indigo, A400);
+$my-warn: mat-palette($mat-orange, A400);
+/* stylelint-enable */
 $my-theme: mat-light-theme(
   (
     color: (
