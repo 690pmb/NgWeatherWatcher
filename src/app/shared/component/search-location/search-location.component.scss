@@ -3,12 +3,3 @@
 :host > * {
   margin: 0 3px;
 }
-
-.location-btn {
-  margin: 0 !important;
-  padding: 0 !important;
-
-  fa-icon::ng-deep svg {
-    vertical-align: middle;
-  }
-}

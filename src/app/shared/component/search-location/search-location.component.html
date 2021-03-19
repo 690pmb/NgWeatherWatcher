@@ -6,10 +6,10 @@
         [matAutocomplete]="auto"
         #inputLocation="matInput"
     />
+    <button mat-icon-button type="button" matSuffix>
+        <fa-icon [icon]="faLocationArrow" size="2x" (click)="geolocation()"></fa-icon>
+    </button>
 </mat-form-field>
-<button mat-button type="button" class="location-btn">
-    <fa-icon [icon]="faLocationArrow" size="2x" (click)="geolocation()"></fa-icon>
-</button>
 <button type="button" mat-raised-button color="primary" (click)="search(inputLocation.value, true)">
     {{ 'global.research' | translate }}
 </button>
