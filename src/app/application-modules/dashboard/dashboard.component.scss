@@ -36,10 +36,9 @@
 }
 
 .weather-background {
-  border-radius: 10px;
   height: 100%;
   position: absolute;
-  top: 55px;
+  top: 0;
   width: calc(10vw + 200px);
   z-index: -1;
 }
