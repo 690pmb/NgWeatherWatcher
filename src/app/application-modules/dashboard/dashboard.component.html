@@ -1,3 +1,4 @@
+<img src="assets/background.png" class="weather-background" />
 <div *ngIf="showSpinner" class="spinner-wrapper">
     <mat-spinner mode="indeterminate"></mat-spinner>
     <h1>{{ 'global.geolocation.in_progress' | translate }}</h1>
@@ -6,7 +7,6 @@
 <div *ngIf="forecast">
     <h1>{{ forecast.location.name }}, {{ forecast.location.region }} - {{ forecast.location.country }}</h1>
     <div class="weather-cover">
-        <img src="assets/background.png" class="weather-background" />
         <div *ngFor="let forecastDay of forecast.forecastDay">
             <h2>{{ forecastDay.date | date: 'fullDate':'':translate.currentLang }}</h2>
             <div class="weather-day">
