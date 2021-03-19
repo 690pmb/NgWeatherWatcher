@@ -11,3 +11,6 @@ overrides:
   - files: '*.html'
     options:
       printWidth: 120
+  - files: '*.scss'
+    options:
+      tabWidth: 2
