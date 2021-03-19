@@ -3,3 +3,7 @@
 :host > * {
   margin: 0 3px;
 }
+
+fa-icon {
+  color: mat-color($my-primary);
+}
