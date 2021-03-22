@@ -29,7 +29,11 @@
                 required
                 maxlength="30"
             />
-            <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">
+            <mat-error
+                *ngIf="
+                    inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine
+                "
+            >
                 {{ 'user.password_required' | translate }}</mat-error
             >
         </mat-form-field>
@@ -39,7 +43,12 @@
                 {{ 'user.signin.sign_in' | translate }}
             </button>
             <!-- <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: username}">{{'user.signin.forgot'|translate}}</button>-->
-            <button type="button" mat-raised-button routerLink="/user/signup" [queryParams]="{ username: username }">
+            <button
+                type="button"
+                mat-raised-button
+                routerLink="/user/signup"
+                [queryParams]="{ username: username }"
+            >
                 {{ 'user.signup.sign_up' | translate }}
             </button>
             <!-- <app-dropdown-language class="dropdown-center"></app-dropdown-language> -->
