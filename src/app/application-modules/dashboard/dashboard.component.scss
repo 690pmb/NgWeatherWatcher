@@ -37,9 +37,10 @@
 
 .weather-background {
   height: 100%;
+  left: 0;
   position: absolute;
   top: 0;
-  width: calc(10vw + 200px);
+  width: 100vw;
   z-index: -1;
 }
 
@@ -57,11 +58,4 @@
   display: flex;
   flex-direction: column;
   margin: auto;
-}
-
-@include media(#{$smallscreen}) {
-  .weather-background {
-    left: 0;
-    width: 100vw;
-  }
 }
