@@ -1,16 +1,15 @@
 import {
     Component,
+    EventEmitter,
     Input,
     Output,
-    ViewChild,
-    EventEmitter
+    ViewChild
 } from '@angular/core';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
-
-import { WeatherService } from '../../service/weather.service';
-import { Location } from '../../../model/location';
 import { Observable, Observer } from 'rxjs';
+import { Location } from '../../../model/location';
+import { WeatherService } from '../../service/weather.service';
 
 @Component({
     selector: 'app-search-location',
@@ -29,8 +28,8 @@ export class SearchLocationComponent {
 
     constructor(private weatherService: WeatherService) {}
 
-    search(term: string, encode: boolean): void {
-        this.weatherService.search(term, encode).subscribe(locations => {
+    search(term: string): void {
+        this.weatherService.search(term).subscribe(locations => {
             this.locations = locations;
             this.trigger.openPanel();
         });
@@ -44,7 +43,7 @@ export class SearchLocationComponent {
         new Observable((observer: Observer<string>) =>
             WeatherService.findUserPosition(observer)
         ).subscribe(
-            location => this.search(location, false),
+            location => this.search(location),
             err => this.weatherService.handleError(err)
         );
     }
