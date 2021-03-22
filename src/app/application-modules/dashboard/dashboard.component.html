@@ -16,8 +16,12 @@
                     <div>{{ forecastDay.day.avgTempC }} °C</div>
                     <div>{{ 'forecast.wind' | translate }} {{ forecastDay.day.maxWindKph }} km/h</div>
                     <div>{{ 'forecast.precip' | translate }} {{ forecastDay.day.totalPrecipMm }} mm</div>
-                    <div>{{ 'forecast.chanceOfRain' | translate }} {{ forecastDay.day.dailyChanceOfRain }} %</div>
-                    <div>{{ 'forecast.chanceOfSnow' | translate }} {{ forecastDay.day.dailyChanceOfSnow }} %</div>
+                    <div>
+                        {{ 'forecast.chanceOfRain' | translate }} {{ forecastDay.day.dailyChanceOfRain }} %
+                    </div>
+                    <div>
+                        {{ 'forecast.chanceOfSnow' | translate }} {{ forecastDay.day.dailyChanceOfSnow }} %
+                    </div>
                 </div>
             </div>
         </div>

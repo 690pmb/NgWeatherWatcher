@@ -10,7 +10,7 @@ useTabs: false
 overrides:
   - files: '*.html'
     options:
-      printWidth: 120
+      printWidth: 110
   - files: '*.scss'
     options:
       tabWidth: 2

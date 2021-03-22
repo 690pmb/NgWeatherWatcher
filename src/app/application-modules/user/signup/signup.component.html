@@ -16,11 +16,17 @@
                 minlength="4"
                 maxlength="30"
             />
-            <mat-error *ngIf="inputUsername.errors != null && inputUsername.errors.required && !inputUsername.pristine">
+            <mat-error
+                *ngIf="
+                    inputUsername.errors != null && inputUsername.errors.required && !inputUsername.pristine
+                "
+            >
                 {{ 'global.username_required' | translate }}</mat-error
             >
             <mat-error
-                *ngIf="inputUsername.errors != null && inputUsername.errors.minlength && !inputUsername.pristine"
+                *ngIf="
+                    inputUsername.errors != null && inputUsername.errors.minlength && !inputUsername.pristine
+                "
             >
                 {{ 'global.minlength' | translate }}</mat-error
             >
@@ -39,11 +45,17 @@
                 minlength="6"
                 maxlength="30"
             />
-            <mat-error *ngIf="inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine">
+            <mat-error
+                *ngIf="
+                    inputPassword.errors != null && inputPassword.errors.required && !inputPassword.pristine
+                "
+            >
                 {{ 'user.password_required' | translate }}</mat-error
             >
             <mat-error
-                *ngIf="inputPassword.errors != null && inputPassword.errors.minlength && !inputPassword.pristine"
+                *ngIf="
+                    inputPassword.errors != null && inputPassword.errors.minlength && !inputPassword.pristine
+                "
             >
                 {{ 'global.minlength' | translate }}</mat-error
             >
@@ -63,22 +75,35 @@
                 maxlength="30"
             />
             <mat-error
-                *ngIf="inputPassword2.errors != null && inputPassword2.errors.required && !inputPassword2.pristine"
+                *ngIf="
+                    inputPassword2.errors != null &&
+                    inputPassword2.errors.required &&
+                    !inputPassword2.pristine
+                "
             >
                 {{ 'user.password_required' | translate }}</mat-error
             >
             <mat-error
-                *ngIf="inputPassword2.errors != null && inputPassword2.errors.minlength && !inputPassword2.pristine"
+                *ngIf="
+                    inputPassword2.errors != null &&
+                    inputPassword2.errors.minlength &&
+                    !inputPassword2.pristine
+                "
             >
                 {{ 'global.minlength' | translate }}</mat-error
             >
         </mat-form-field>
 
-        <mat-error *ngIf="inputPassword.errors === null && inputPassword2.errors === null && password2 !== password">
+        <mat-error
+            *ngIf="inputPassword.errors === null && inputPassword2.errors === null && password2 !== password"
+        >
             {{ 'user.signup.different' | translate }}</mat-error
         >
 
-        <app-search-location placeholder="user.signin.favourite_location" (selected)="favouriteLocation = $event">
+        <app-search-location
+            placeholder="user.signin.favourite_location"
+            (selected)="favouriteLocation = $event"
+        >
         </app-search-location>
 
         <!-- Footer -->
