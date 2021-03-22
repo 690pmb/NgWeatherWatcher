@@ -4,17 +4,21 @@
     </button>
 </ng-container>
 
-<mat-sidenav-container hasBackdrop="false" fullscreen>
+<mat-sidenav-container [hasBackdrop]="true" fullscreen>
     <mat-sidenav
         #sidenav
-        fixedInViewport="true"
-        [disableClose]="false"
-        autoFocus="false"
+        [fixedInViewport]="true"
+        [autoFocus]="false"
         [mode]="'over'"
         *ngIf="isLogged$ | async"
     >
         <mat-nav-list class="nav-list">
-            <a mat-list-item routerLink="/dashboard" label="nav-bar.dashboard" routerLinkActive="active-nav-item">
+            <a
+                mat-list-item
+                routerLink="/dashboard"
+                label="nav-bar.dashboard"
+                routerLinkActive="active-nav-item"
+            >
                 <fa-icon [icon]="faHome"></fa-icon>
                 {{ 'nav-bar.dashboard' | translate }}
             </a>
