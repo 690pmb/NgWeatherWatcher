@@ -1,11 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { Forecast } from '../../model/forecast';
+import { Location } from '../../model/location';
 import { ToastService } from './toast.service';
 import { UtilsService } from './utils.service';
-import { environment } from '../../../environments/environment';
-import { Location } from '../../model/location';
-import { Forecast } from '../../model/forecast';
 
 @Injectable({
     providedIn: 'root'
@@ -18,11 +18,9 @@ export class WeatherService extends UtilsService {
         super(httpClient, toast);
     }
 
-    search(term: string, encode: boolean): Observable<Location[]> {
+    search(term: string): Observable<Location[]> {
         return this.getObservable<Location[]>(
-            `${environment.apiUrl}/${environment.weatherUrl}/locations?query=${
-                encode ? UtilsService.encodeQueryUrl(term) : term
-            }`,
+            `${environment.apiUrl}/${environment.weatherUrl}/locations?query=${term}`,
             []
         );
     }

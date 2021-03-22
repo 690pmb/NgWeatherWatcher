@@ -20,13 +20,6 @@ export class UtilsService {
         protected toast: ToastService
     ) {}
 
-    public static encodeQueryUrl(query: string): string {
-        return encodeURIComponent(query).replace(
-            /[!'()*]/g,
-            c => '%' + c.charCodeAt(0).toString(16)
-        );
-    }
-
     public static findUserPosition(observer: Observer<string>): void {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(

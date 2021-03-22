@@ -32,9 +32,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 .pipe(
                     map(token => {
                         if (token && token.location) {
-                            return WeatherService.encodeQueryUrl(
-                                token.location
-                            );
+                            return token.location;
                         } else {
                             return undefined;
                         }
