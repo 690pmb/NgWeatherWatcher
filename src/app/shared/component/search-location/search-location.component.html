@@ -1,4 +1,11 @@
 <mat-form-field appearance="outline">
+    <button mat-icon-button type="button" matPrefix>
+        <fa-icon
+            [icon]="faLocationArrow"
+            size="2x"
+            (click)="geolocation(); $event.stopPropagation()"
+        ></fa-icon>
+    </button>
     <input
         type="text"
         placeholder="{{ placeholder | translate }}"
@@ -6,11 +13,11 @@
         [matAutocomplete]="auto"
         #inputLocation="matInput"
     />
-    <button mat-icon-button type="button" matSuffix>
+    <button mat-icon-button type="button" matSuffix *ngIf="inputLocation.value">
         <fa-icon
-            [icon]="faLocationArrow"
+            [icon]="faTimes"
             size="2x"
-            (click)="geolocation(); $event.stopPropagation()"
+            (click)="inputLocation.value = ''; $event.stopPropagation()"
         ></fa-icon>
     </button>
 </mat-form-field>
