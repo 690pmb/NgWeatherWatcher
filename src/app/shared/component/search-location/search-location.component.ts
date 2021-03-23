@@ -6,7 +6,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
+import { faLocationArrow, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Observable, Observer } from 'rxjs';
 import { Location } from '../../../model/location';
 import { WeatherService } from '../../service/weather.service';
@@ -25,6 +25,7 @@ export class SearchLocationComponent {
     trigger: MatAutocompleteTrigger;
     locations: Location[] = [];
     faLocationArrow = faLocationArrow;
+    faTimes = faTimes;
 
     constructor(private weatherService: WeatherService) {}
 
