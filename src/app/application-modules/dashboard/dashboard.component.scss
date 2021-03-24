@@ -29,10 +29,6 @@
   flex-direction: column;
   padding: 0 2em;
   text-align: center;
-
-  > div {
-    margin-top: 20px;
-  }
 }
 
 .weather-background {
@@ -58,4 +54,8 @@
   display: flex;
   flex-direction: column;
   margin: auto;
+}
+
+.mat-divider {
+  margin: 10px 0;
 }
