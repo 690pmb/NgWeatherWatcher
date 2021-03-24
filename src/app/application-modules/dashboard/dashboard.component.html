@@ -7,7 +7,7 @@
 <div *ngIf="forecast">
     <h1>{{ forecast.location.name }}, {{ forecast.location.region }} - {{ forecast.location.country }}</h1>
     <div class="weather-cover">
-        <div *ngFor="let forecastDay of forecast.forecastDay">
+        <div *ngFor="let forecastDay of forecast.forecastDay; last as last">
             <h2>{{ forecastDay.date | date: 'fullDate':'':translate.currentLang }}</h2>
             <div class="weather-day">
                 <img src="./assets/icons/day/{{ forecastDay.day.condition.icon }}" />
@@ -24,6 +24,7 @@
                     </div>
                 </div>
             </div>
+            <mat-divider *ngIf="!last"></mat-divider>
         </div>
     </div>
 </div>
