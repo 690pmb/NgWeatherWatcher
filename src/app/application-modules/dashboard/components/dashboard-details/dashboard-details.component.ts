@@ -25,6 +25,8 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
         'precipMm',
         'chanceOfRain'
     ];
+    showAll = false;
+    pageIndex: number;
     subs: Subscription[] = [];
 
     constructor(
@@ -50,13 +52,26 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                         this.forecastDay = this.forecast.forecastDay.find(
                             day => day.date === this.date
                         );
-                        this.hours = this.forecastDay.hour.filter(
-                            h => new Date(h.time).getHours() % 3 === 0
-                        );
+                        this.onFilterAndPaginate(false, 0);
                     }
                 }
             })
         );
+    }
+
+    onFilterAndPaginate(showAll: boolean, pageIndex: number): void {
+        this.showAll = showAll;
+        this.pageIndex = pageIndex;
+        if (this.showAll) {
+            this.hours = this.forecastDay.hour.slice(
+                this.pageIndex * 12,
+                (this.pageIndex + 1) * 12
+            );
+        } else {
+            this.hours = this.forecastDay.hour.filter(
+                h => new Date(h.time).getHours() % 3 === 0
+            );
+        }
     }
 
     ngOnDestroy(): void {

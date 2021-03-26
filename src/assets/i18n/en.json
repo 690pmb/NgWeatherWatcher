@@ -25,6 +25,9 @@
         "temp": "Temperature",
         "condition": "Weather"
     },
+    "dashboard": {
+        "show_all": "Show all"
+    },
     "user": {
         "name_required": "Username is required",
         "password": "Password",

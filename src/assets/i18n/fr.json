@@ -25,6 +25,9 @@
         "temp": "Température",
         "condition": "Météo"
     },
+    "dashboard": {
+        "show_all": "Afficher tout"
+    },
     "user": {
         "name_required": "Veuillez renseigner votre pseudo",
         "password": "Mot de passe",

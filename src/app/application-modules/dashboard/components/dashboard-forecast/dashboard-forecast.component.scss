@@ -49,3 +49,9 @@ a {
     text-decoration: underline;
   }
 }
+
+@media (min-height: 700px) {
+  app-dashboard {
+    height: 100%;
+  }
+}

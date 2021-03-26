@@ -11,17 +11,10 @@
 }
 
 .weather-background {
-  height: 700px;
+  height: 100%;
   left: 0;
   position: absolute;
   top: 0;
   width: 100vw;
   z-index: -1;
-}
-
-@media (height > 640px) {
-  :host,
-  .weather-background {
-    height: 100%;
-  }
 }
