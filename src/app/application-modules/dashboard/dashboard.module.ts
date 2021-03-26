@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
-
-import { DashboardComponent } from './dashboard.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
+import { DashboardForecastComponent } from './components/dashboard-forecast/dashboard-forecast.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const childRoutes: Routes = [
     {
         path: '',
-        component: DashboardComponent
+        component: DashboardForecastComponent
     }
 ];
 
 @NgModule({
-    declarations: [DashboardComponent],
+    declarations: [DashboardComponent, DashboardForecastComponent],
     imports: [
         MatProgressSpinnerModule,
         MatDividerModule,
@@ -22,4 +22,4 @@ const childRoutes: Routes = [
         RouterModule.forChild(childRoutes)
     ]
 })
-export class DashboardModule {}
+export class DashboardModule { }

@@ -2,19 +2,19 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Observer, Subscription } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
-import { Forecast } from '../../model/forecast';
+import { Forecast } from '../../../../model/forecast';
 import {
     AuthService,
     ToastService,
     WeatherService
-} from '../../shared/shared.module';
+} from '../../../../shared/shared.module';
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+    selector: 'app-dashboard-forecast',
+    templateUrl: './dashboard-forecast.component.html',
+    styleUrls: ['./dashboard-forecast.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardForecastComponent implements OnInit, OnDestroy {
     forecast: Forecast;
     showSpinner = false;
     subs: Subscription[] = [];
