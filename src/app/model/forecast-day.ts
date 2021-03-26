@@ -3,7 +3,7 @@ import { Day } from './day';
 import { Hour } from './hour';
 
 export class ForecastDay {
-    date: Date;
+    date: string;
     day: Day;
     astro: Astro;
     hour: Hour[];
