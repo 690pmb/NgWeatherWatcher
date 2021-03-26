@@ -1,8 +1,24 @@
-<app-dashboard>
-    <div *ngIf="forecast">
+<app-dashboard [ngClass]="{ 'show-all': showAll }">
+    <ng-container *ngIf="forecast">
         <h2>{{ forecast.location.name }} - {{ date | date: 'fullDate':'':translate.currentLang }}</h2>
-    </div>
-    <ng-container *ngIf="hours">
+        <div class="show-all-header">
+            <mat-slide-toggle
+                color="primary"
+                (change)="onFilterAndPaginate($event.checked, pageIndex); paginator.firstPage()"
+            >
+                {{ 'dashboard.show_all' | translate }}</mat-slide-toggle
+            >
+            <mat-paginator
+                #paginator
+                [length]="24"
+                [pageIndex]="pageIndex"
+                [pageSize]="12"
+                [hidePageSize]="true"
+                (page)="onFilterAndPaginate(showAll, $event.pageIndex)"
+                [ngClass]="{ hide: !showAll }"
+            >
+            </mat-paginator>
+        </div>
         <mat-table [dataSource]="hours">
             <ng-container matColumnDef="time">
                 <mat-header-cell mat-header-cell *matHeaderCellDef>

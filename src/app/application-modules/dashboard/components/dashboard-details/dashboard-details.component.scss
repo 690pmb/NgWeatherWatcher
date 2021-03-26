@@ -1,3 +1,14 @@
+.show-all {
+  height: initial !important;
+}
+
+.show-all-header {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin: 0 25%;
+}
+
 .mat-header-cell {
   overflow: visible !important;
 }
@@ -15,6 +26,35 @@
 }
 
 .mat-table {
+  width: 90vw;
+}
+
+::ng-deep.mat-paginator-range-label {
+  display: none;
+}
+
+.mat-table,
+.mat-paginator {
   background: none !important;
-  width: 90%;
+}
+
+@media (max-width: 500px) {
+  .mat-table {
+    width: 100vw;
+  }
+  .mat-cell,
+  .mat-header-cell {
+    &:first-of-type {
+      padding-left: 0 !important;
+    }
+    &:last-of-type {
+      padding-right: 0 !important;
+    }
+  }
+}
+
+@media (min-height: 640px) {
+  app-dashboard {
+    height: 100%;
+  }
 }
