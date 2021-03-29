@@ -16,7 +16,7 @@
                     }}</a>
                 </h2>
                 <div class="weather-day">
-                    <img src="./assets/icons/day/{{ forecastDay.day.condition.icon }}" />
+                    <img src="{{ forecastDay.day.condition.icon | icon }}" />
                     <div class="weather-day-items">
                         <div>{{ forecastDay.day.condition.text }}</div>
                         <div>{{ forecastDay.day.avgTempC }} °C</div>
