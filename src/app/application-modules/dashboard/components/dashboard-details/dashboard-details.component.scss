@@ -2,6 +2,10 @@
   height: initial !important;
 }
 
+.wrapper {
+  touch-action: pan-y !important;
+}
+
 .show-all-header {
   align-items: center;
   display: flex;

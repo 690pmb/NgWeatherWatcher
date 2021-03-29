@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Predicate } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -48,11 +48,12 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                             this.router
                                 .navigateByUrl('dashboard')
                                 .catch(err => console.error(err));
+                        } else {
+                            this.forecastDay = this.forecast.forecastDay.find(
+                                day => day.date === this.date
+                            );
+                            this.onFilterAndPaginate(false, 0);
                         }
-                        this.forecastDay = this.forecast.forecastDay.find(
-                            day => day.date === this.date
-                        );
-                        this.onFilterAndPaginate(false, 0);
                     }
                 }
             })
@@ -72,6 +73,25 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                 h => new Date(h.time).getHours() % 3 === 0
             );
         }
+    }
+
+    onSwipe(canSwipe: Predicate<number>, next: 1 | -1): void {
+        const index = this.forecast.forecastDay
+            .map(day => day.date)
+            .indexOf(this.date);
+        if (canSwipe(index)) {
+            this.forecastDay = this.forecast.forecastDay[index + next];
+            this.date = this.forecastDay.date;
+            this.onFilterAndPaginate(this.showAll, 0);
+        }
+    }
+
+    onSwipeLeft(): void {
+        this.onSwipe(i => i < this.forecast.forecastDay.length - 1, 1);
+    }
+
+    onSwipeRight(): void {
+        this.onSwipe(i => i > 0, -1);
     }
 
     ngOnDestroy(): void {
