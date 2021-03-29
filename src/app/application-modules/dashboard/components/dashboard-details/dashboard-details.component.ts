@@ -6,11 +6,13 @@ import { Subscription } from 'rxjs';
 import { Forecast } from '../../../../model/forecast';
 import { ForecastDay } from '../../../../model/forecast-day';
 import { Hour } from '../../../../model/hour';
+import { slideInOutAnimation } from './slide-in-out';
 
 @Component({
     selector: 'app-dashboard-details',
     templateUrl: './dashboard-details.component.html',
-    styleUrls: ['./dashboard-details.component.scss']
+    styleUrls: ['./dashboard-details.component.scss'],
+    animations: [slideInOutAnimation]
 })
 export class DashboardDetailsComponent implements OnInit, OnDestroy {
     date: string;
@@ -27,6 +29,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     ];
     showAll = false;
     pageIndex: number;
+    index: number;
     subs: Subscription[] = [];
 
     constructor(
@@ -52,6 +55,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                             this.forecastDay = this.forecast.forecastDay.find(
                                 day => day.date === this.date
                             );
+                            this.index = this.getIndex();
                             this.onFilterAndPaginate(false, 0);
                         }
                     }
@@ -75,14 +79,24 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
         }
     }
 
-    onSwipe(canSwipe: Predicate<number>, next: 1 | -1): void {
-        const index = this.forecast.forecastDay
+    getIndex(): number {
+        return this.forecast.forecastDay
             .map(day => day.date)
             .indexOf(this.date);
+    }
+
+    onSwipe(canSwipe: Predicate<number>, next: 1 | -1): void {
+        const index = this.getIndex();
         if (canSwipe(index)) {
-            this.forecastDay = this.forecast.forecastDay[index + next];
-            this.date = this.forecastDay.date;
-            this.onFilterAndPaginate(this.showAll, 0);
+            this.router
+                .navigate(
+                    [
+                        '/dashboard/details/' +
+                            this.forecast.forecastDay[this.index + next].date
+                    ],
+                    { state: this.forecast }
+                )
+                .catch(err => console.error(err));
         }
     }
 
