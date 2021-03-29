@@ -5,6 +5,7 @@
         "username_required": "Veuillez renseigner votre pseudo",
         "minlength": "Trop court",
         "research": "Rechercher",
+        "hour": "Heure",
         "geolocation": {
             "in_progress": "Géolocalisation en cours...",
             "denied": "Géolocalisation refusé",
@@ -16,10 +17,16 @@
         "logout": "Déconnexion"
     },
     "forecast": {
-        "wind": "Vent: ",
-        "precip": "Précipitation: ",
-        "chanceOfRain": "Probabilité de pluie: ",
-        "chanceOfSnow": "Probabilité de neige: "
+        "wind": "Vent",
+        "precip": "Précipitation",
+        "rain": "Pluie",
+        "chanceOfRain": "Probabilité de pluie",
+        "chanceOfSnow": "Probabilité de neige",
+        "temp": "Température",
+        "condition": "Météo"
+    },
+    "dashboard": {
+        "show_all": "Afficher tout"
     },
     "user": {
         "name_required": "Veuillez renseigner votre pseudo",

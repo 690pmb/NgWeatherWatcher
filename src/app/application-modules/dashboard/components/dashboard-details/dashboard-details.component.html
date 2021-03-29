@@ -1,0 +1,74 @@
+<app-dashboard [ngClass]="{ 'show-all': showAll }">
+    <ng-container *ngIf="forecast && forecast.forecastDay">
+        <div [@slideInOut]="index" (swipeleft)="onSwipeLeft()" (swiperight)="onSwipeRight()" class="wrapper">
+            <h2>{{ forecast.location.name }} - {{ date | date: 'fullDate':'':translate.currentLang }}</h2>
+            <div class="show-all-header">
+                <mat-slide-toggle
+                    (change)="onFilterAndPaginate($event.checked, pageIndex); paginator.firstPage()"
+                >
+                    {{ 'dashboard.show_all' | translate }}</mat-slide-toggle
+                >
+                <mat-paginator
+                    #paginator
+                    [length]="24"
+                    [pageIndex]="pageIndex"
+                    [pageSize]="12"
+                    [hidePageSize]="true"
+                    (page)="onFilterAndPaginate(showAll, $event.pageIndex)"
+                    [ngClass]="{ hide: !showAll }"
+                >
+                </mat-paginator>
+            </div>
+            <mat-table [dataSource]="hours">
+                <ng-container matColumnDef="time">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>
+                        {{ 'global.hour' | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let hour">
+                        {{ hour.time | date: 'H:mm' }}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="condition">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>
+                        {{ 'forecast.condition' | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let hour">
+                        <img src="{{ hour.condition.icon | icon: hour.isDay }}" />
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="tempC">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>
+                        {{ 'forecast.temp' | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let hour"> {{ hour.tempC }} °C </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="windKph">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>
+                        {{ 'forecast.wind' | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let hour"> {{ hour.windKph }} km/h </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="precipMm">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>
+                        {{ 'forecast.precip' | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let hour"> {{ hour.precipMm }} mm </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="chanceOfRain">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>
+                        {{ 'forecast.rain' | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let hour"> {{ hour.chanceOfRain }} % </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+                <mat-row *matRowDef="let hours; columns: columnsToDisplay"></mat-row>
+            </mat-table>
+        </div>
+    </ng-container>
+</app-dashboard>

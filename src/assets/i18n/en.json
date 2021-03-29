@@ -5,6 +5,7 @@
         "username_required": "Username is required",
         "minlength": "Too short",
         "research": "Search",
+        "hour": "Hour",
         "geolocation": {
             "in_progress": "Geolocation in progress...",
             "denied": "Geolocation denied",
@@ -16,10 +17,16 @@
         "logout": "Log Out"
     },
     "forecast": {
-        "wind": "Wind: ",
-        "precip": "Precipitation: ",
-        "chanceOfRain": "Chance of rain: ",
-        "chanceOfSnow": "Chance of snow: "
+        "wind": "Wind",
+        "precip": "Precipitation",
+        "rain": "Rain",
+        "chanceOfRain": "Chance of rain",
+        "chanceOfSnow": "Chance of snow",
+        "temp": "Temperature",
+        "condition": "Weather"
+    },
+    "dashboard": {
+        "show_all": "Show all"
     },
     "user": {
         "name_required": "Username is required",

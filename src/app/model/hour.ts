@@ -3,7 +3,7 @@ import { Condition } from './condition';
 export class Hour {
     time: string;
     tempC: number;
-    isDay: number;
+    isDay: boolean;
     condition: Condition;
     windKph: number;
     windDir: string;
