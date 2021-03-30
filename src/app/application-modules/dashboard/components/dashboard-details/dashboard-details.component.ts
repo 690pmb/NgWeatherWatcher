@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, Predicate } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { Forecast } from '../../../../model/forecast';
 import { ForecastDay } from '../../../../model/forecast-day';
 import { Hour } from '../../../../model/hour';
@@ -29,6 +30,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     ];
     showAll = false;
     pageIndex: number;
+    pageSize = 8;
     index: number;
     subs: Subscription[] = [];
 
@@ -41,36 +43,42 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.subs.push(
-            this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
-                if (params) {
-                    const date = params.get('date');
-                    if (date) {
-                        this.date = date;
-                        this.forecast = this.location.getState() as Forecast;
-                        if (!this.forecast || !this.forecast.forecastDay) {
-                            this.router
-                                .navigateByUrl('dashboard')
-                                .catch(err => console.error(err));
-                        } else {
-                            this.forecastDay = this.forecast.forecastDay.find(
-                                day => day.date === this.date
-                            );
-                            this.index = this.getIndex();
-                            this.onFilterAndPaginate(false, 0);
-                        }
+            combineLatest([
+                this.activatedRoute.paramMap.pipe(filter(p => p !== undefined)),
+                this.activatedRoute.queryParamMap.pipe(
+                    filter(q => q !== undefined)
+                )
+            ]).subscribe(([params, queryParam]) => {
+                const date = params.get('date');
+                if (date) {
+                    this.date = date;
+                    this.forecast = this.location.getState() as Forecast;
+                    if (!this.forecast || !this.forecast.forecastDay) {
+                        this.router
+                            .navigateByUrl('dashboard')
+                            .catch(err => console.error(err));
+                    } else {
+                        this.forecastDay = this.forecast.forecastDay.find(
+                            day => day.date === this.date
+                        );
+                        this.index = this.getIndex();
+                        this.filterAndPaginate(
+                            queryParam.get('showAll') === 'true',
+                            0
+                        );
                     }
                 }
             })
         );
     }
 
-    onFilterAndPaginate(showAll: boolean, pageIndex: number): void {
+    filterAndPaginate(showAll: boolean, pageIndex: number): void {
         this.showAll = showAll;
         this.pageIndex = pageIndex;
         if (this.showAll) {
             this.hours = this.forecastDay.hour.slice(
-                this.pageIndex * 12,
-                (this.pageIndex + 1) * 12
+                this.pageIndex * this.pageSize,
+                (this.pageIndex + 1) * this.pageSize
             );
         } else {
             this.hours = this.forecastDay.hour.filter(
@@ -88,16 +96,18 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     onSwipe(canSwipe: Predicate<number>, next: 1 | -1): void {
         const index = this.getIndex();
         if (canSwipe(index)) {
-            this.router
-                .navigate(
-                    [
-                        '/dashboard/details/' +
-                            this.forecast.forecastDay[this.index + next].date
-                    ],
-                    { state: this.forecast }
-                )
-                .catch(err => console.error(err));
+            this.navigate(this.forecast.forecastDay[this.index + next].date);
         }
+    }
+
+    navigate(date: string): void {
+        this.router
+            .navigate(['/dashboard/details/' + date], {
+                queryParams: { showAll: this.showAll },
+                state: this.forecast,
+                replaceUrl: true
+            })
+            .catch(err => console.error(err));
     }
 
     onSwipeLeft(): void {
