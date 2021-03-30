@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Observer, Subscription } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { combineLatest, EMPTY, Observable, Observer, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap } from 'rxjs/operators';
 import { Forecast } from '../../../../model/forecast';
 import {
     AuthService,
@@ -23,50 +24,82 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
         private weatherService: WeatherService,
         private translate: TranslateService,
         private authService: AuthService,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
         private toast: ToastService
     ) {}
 
     ngOnInit(): void {
         this.subs.push(
-            this.authService.token$
-                .pipe(
-                    map(token => {
-                        if (token && token.location) {
-                            return token.location;
-                        } else {
-                            return undefined;
-                        }
-                    }),
-                    mergeMap(
-                        location =>
-                            new Observable((observer: Observer<string>) => {
-                                if (location) {
-                                    observer.next(location);
-                                } else {
-                                    this.showSpinner = true;
-                                    WeatherService.findUserPosition(observer);
-                                }
-                            })
+            combineLatest([
+                this.authService.token$.pipe(
+                    map(token =>
+                        token && token.location ? token.location : undefined
                     )
+                ),
+                this.activatedRoute.queryParamMap.pipe(
+                    filter(q => q !== undefined)
+                )
+            ])
+                .pipe(
+                    mergeMap(([location, query]) => {
+                        const queryLocation = query.get('location');
+                        if (queryLocation === null) {
+                            return new Observable(
+                                (observer: Observer<string>) => {
+                                    if (location) {
+                                        observer.next(location);
+                                    } else {
+                                        this.showSpinner = true;
+                                        WeatherService.findUserPosition(
+                                            observer
+                                        );
+                                    }
+                                }
+                            );
+                        } else {
+                            return EMPTY;
+                        }
+                    })
                 )
                 .subscribe(
-                    location => {
-                        this.showSpinner = false;
-                        this.searchForecast(location);
-                    },
+                    (location: string) => this.navigate(location),
                     err => {
                         this.showSpinner = false;
                         this.toast.info(err);
                     }
                 )
         );
+        this.subs.push(
+            this.activatedRoute.queryParamMap
+                .pipe(
+                    filter(q => q !== undefined),
+                    map(query => query.get('location')),
+                    filter(l => l !== null),
+                    distinctUntilChanged()
+                )
+                .subscribe(
+                    location => this.searchForecast(location),
+                    err => this.weatherService.handleError(err)
+                )
+        );
     }
 
     searchForecast(location: string): void {
+        this.showSpinner = false;
         this.weatherService
             .findForecastByLocation(location, '5', this.translate.currentLang)
             .then(forecast => (this.forecast = forecast))
             .catch(err => this.weatherService.handleError(err));
+    }
+
+    navigate(location: string): void {
+        this.router
+            .navigate(['.'], {
+                queryParams: { location },
+                relativeTo: this.activatedRoute
+            })
+            .catch(err => console.error(err));
     }
 
     ngOnDestroy(): void {
