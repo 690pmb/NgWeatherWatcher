@@ -1,9 +1,8 @@
-@import '../../../../styles/styles';
-
 :host {
   align-items: center;
   display: flex;
   flex-direction: column;
+  height: 100%;
   left: 0;
   margin: auto;
   position: absolute;
@@ -11,10 +10,11 @@
 }
 
 .weather-background {
+  display: block;
   height: 100%;
   left: 0;
-  position: absolute;
-  top: 0;
+  object-fit: cover;
+  position: fixed;
   width: 100vw;
   z-index: -1;
 }

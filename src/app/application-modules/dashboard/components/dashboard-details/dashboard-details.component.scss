@@ -1,4 +1,5 @@
 .wrapper {
+  margin-top: 25px;
   touch-action: pan-y !important;
 }
 
@@ -50,11 +51,5 @@
     &:last-of-type {
       padding-right: 0 !important;
     }
-  }
-}
-
-@media (min-height: 640px) {
-  app-dashboard {
-    height: 100%;
   }
 }

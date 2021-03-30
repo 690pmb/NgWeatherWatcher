@@ -1,7 +1,6 @@
 <app-dashboard>
     <ng-container *ngIf="forecast && forecast.forecastDay">
         <div [@slideInOut]="index" (swipeleft)="onSwipeLeft()" (swiperight)="onSwipeRight()" class="wrapper">
-            <h2>{{ forecast.location.name }} - {{ date | date: 'fullDate':'':translate.currentLang }}</h2>
             <div class="show-all-header">
                 <mat-slide-toggle [(ngModel)]="showAll" (change)="navigate(date)">
                     {{ 'dashboard.show_all' | translate }}</mat-slide-toggle
