@@ -3,7 +3,7 @@
         <mat-spinner mode="indeterminate"></mat-spinner>
         <h1>{{ 'global.geolocation.in_progress' | translate }}</h1>
     </div>
-    <app-search-location (selected)="searchForecast($event)" class="search-location"></app-search-location>
+    <app-search-location (selected)="navigate($event)" class="search-location"></app-search-location>
     <div *ngIf="forecast">
         <h1>
             {{ forecast.location.name }}, {{ forecast.location.region }} - {{ forecast.location.country }}
