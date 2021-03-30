@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, Predicate } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -7,6 +7,7 @@ import { filter } from 'rxjs/operators';
 import { Forecast } from '../../../../model/forecast';
 import { ForecastDay } from '../../../../model/forecast-day';
 import { Hour } from '../../../../model/hour';
+import { MenuService } from '../../../../shared/shared.module';
 import { slideInOutAnimation } from './slide-in-out';
 
 @Component({
@@ -38,7 +39,9 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute,
         private location: Location,
         private router: Router,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private menuService: MenuService,
+        private datePipe: DatePipe
     ) {}
 
     ngOnInit(): void {
@@ -58,6 +61,16 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                             .navigateByUrl('dashboard')
                             .catch(err => console.error(err));
                     } else {
+                        this.menuService.title$.next(
+                            `${
+                                this.forecast.location.name
+                            } - ${this.datePipe.transform(
+                                this.date,
+                                'fullDate',
+                                '',
+                                this.translate.currentLang
+                            )}`
+                        );
                         this.forecastDay = this.forecast.forecastDay.find(
                             day => day.date === this.date
                         );

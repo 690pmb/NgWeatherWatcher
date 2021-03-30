@@ -7,7 +7,7 @@
 }
 
 .search-location {
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 .weather-cover {
@@ -47,11 +47,5 @@ a {
   &:hover {
     color: darken($color: #4550e6, $amount: 15%);
     text-decoration: underline;
-  }
-}
-
-@media (min-height: 700px) {
-  app-dashboard {
-    height: 100%;
   }
 }

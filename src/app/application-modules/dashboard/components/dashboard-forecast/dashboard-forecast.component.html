@@ -5,9 +5,6 @@
     </div>
     <app-search-location (selected)="navigate($event)" class="search-location"></app-search-location>
     <div *ngIf="forecast">
-        <h1>
-            {{ forecast.location.name }}, {{ forecast.location.region }} - {{ forecast.location.country }}
-        </h1>
         <div class="weather-cover">
             <div *ngFor="let forecastDay of forecast.forecastDay; last as last">
                 <h2>

@@ -8,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { AuthService } from '../../service/auth.service';
+import { MenuService } from '../../service/menu.service';
 
 @Component({
     selector: 'app-menu',
@@ -23,7 +24,11 @@ export class MenuComponent implements OnInit, OnDestroy {
     faHome = faHome;
     @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
 
-    constructor(public authService: AuthService, private router: Router) {}
+    constructor(
+        public authService: AuthService,
+        private router: Router,
+        private menuService: MenuService
+    ) {}
 
     ngOnInit(): void {
         this.subs.push(

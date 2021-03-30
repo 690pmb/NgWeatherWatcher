@@ -1,6 +1,21 @@
-@import '../../../styles/styles';
+@import '../../../styles/imports';
+
+.toolbar {
+  color: #fff;
+  left: 0;
+  position: fixed;
+  top: 0;
+  z-index: map-get($depth, 'toolbar');
+  h1 {
+    font-size: 20px;
+    margin: auto;
+    margin-top: 8px !important;
+  }
+}
 
 .toogle-button {
+  background-color: #fff !important;
+  border-radius: 15% !important;
   z-index: map-get($depth, 'content');
 
   fa-icon {
@@ -12,6 +27,18 @@
   ::ng-deep svg {
     vertical-align: middle;
   }
+}
+
+.menu {
+  height: 100%;
+  position: relative;
+  width: 100%;
+  z-index: map-get($depth, content);
+}
+
+.menu,
+.mat-sidenav {
+  top: 64px !important;
 }
 
 .active-nav-item {
@@ -38,18 +65,13 @@
   }
 }
 
-.mat-drawer-container {
-  background-color: #fff !important;
-}
-
-.mat-sidenav {
-  top: 55px !important;
-}
-
 .sidenav-content {
   width: 101vw;
 }
 
-.header-buttons {
-  padding: 10px 0 0;
+@media (max-width: 599px) {
+  .menu,
+  .mat-sidenav {
+    top: 56px !important;
+  }
 }

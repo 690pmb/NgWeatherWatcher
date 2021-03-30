@@ -6,6 +6,7 @@ import { distinctUntilChanged, filter, map, mergeMap } from 'rxjs/operators';
 import { Forecast } from '../../../../model/forecast';
 import {
     AuthService,
+    MenuService,
     ToastService,
     WeatherService
 } from '../../../../shared/shared.module';
@@ -26,7 +27,8 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
         private authService: AuthService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private toast: ToastService
+        private toast: ToastService,
+        private menuService: MenuService
     ) {}
 
     ngOnInit(): void {
@@ -89,7 +91,12 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
         this.showSpinner = false;
         this.weatherService
             .findForecastByLocation(location, '5', this.translate.currentLang)
-            .then(forecast => (this.forecast = forecast))
+            .then(forecast => {
+                this.menuService.title$.next(
+                    `${forecast.location.name}, ${forecast.location.region} - ${forecast.location.country}`
+                );
+                this.forecast = forecast;
+            })
             .catch(err => this.weatherService.handleError(err));
     }
 

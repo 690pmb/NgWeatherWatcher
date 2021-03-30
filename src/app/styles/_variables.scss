@@ -14,7 +14,7 @@ $success: #1aaa55;
 $warning: #fc6d26;
 $error: #ff3838;
 /* stylelint-disable */
-$my-primary: mat-palette($mat-light-green, A400);
+$my-primary: mat-palette($mat-green, A200);
 $my-accent: mat-palette($mat-indigo, A400);
 $my-warn: mat-palette($mat-orange, A400);
 /* stylelint-enable */
@@ -35,6 +35,7 @@ $border-radius: 3px;
 $depth: (
   'background': -10,
   'content': 2,
+  'toolbar': 10,
   'tooltip': 75,
   'overlay': 200,
   'top': 300,

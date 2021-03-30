@@ -5,8 +5,7 @@ import { BehaviorSubject } from 'rxjs';
     providedIn: 'root'
 })
 export class MenuService {
-    visible$ = new BehaviorSubject<boolean>(true);
-    scrollTo$ = new BehaviorSubject<number>(0);
+    title$ = new BehaviorSubject<string>('');
 
     constructor() {}
 }

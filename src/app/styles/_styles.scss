@@ -2,7 +2,6 @@
 
 body {
   font-family: $font-family !important;
-  margin-bottom: 50vh;
 }
 
 h1,
@@ -32,9 +31,9 @@ h4 {
 
 .background-color {
   background-color: mat-color($my-primary);
-  height: 100vh;
+  height: 100%;
   left: 0;
-  opacity: 0.04;
+  opacity: 0.05;
   position: fixed;
   top: 0;
   width: 100vw;
