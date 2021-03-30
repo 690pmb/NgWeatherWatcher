@@ -1,20 +1,17 @@
-<app-dashboard [ngClass]="{ 'show-all': showAll }">
+<app-dashboard>
     <ng-container *ngIf="forecast && forecast.forecastDay">
         <div [@slideInOut]="index" (swipeleft)="onSwipeLeft()" (swiperight)="onSwipeRight()" class="wrapper">
             <h2>{{ forecast.location.name }} - {{ date | date: 'fullDate':'':translate.currentLang }}</h2>
             <div class="show-all-header">
-                <mat-slide-toggle
-                    (change)="onFilterAndPaginate($event.checked, pageIndex); paginator.firstPage()"
-                >
+                <mat-slide-toggle [(ngModel)]="showAll" (change)="navigate(date)">
                     {{ 'dashboard.show_all' | translate }}</mat-slide-toggle
                 >
                 <mat-paginator
-                    #paginator
                     [length]="24"
                     [pageIndex]="pageIndex"
-                    [pageSize]="12"
+                    [pageSize]="pageSize"
                     [hidePageSize]="true"
-                    (page)="onFilterAndPaginate(showAll, $event.pageIndex)"
+                    (page)="filterAndPaginate(showAll, $event.pageIndex)"
                     [ngClass]="{ hide: !showAll }"
                 >
                 </mat-paginator>
