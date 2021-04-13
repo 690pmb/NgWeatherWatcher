@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-
+import { Utils } from '../utils';
 import { Level } from './../../model/level';
 
 @Injectable()
@@ -12,12 +12,7 @@ export class ToastService {
     ) {}
 
     open(level: Level, message: string, translateArgs?: string): void {
-        if (
-            message &&
-            message !== undefined &&
-            typeof message === 'string' &&
-            message !== ''
-        ) {
+        if (Utils.isNotBlank(message)) {
             this.snackBar.open(
                 this.translate.instant(message, translateArgs),
                 undefined,
