@@ -8,6 +8,7 @@ import { Forecast } from '../../../../model/forecast';
 import { ForecastDay } from '../../../../model/forecast-day';
 import { Hour } from '../../../../model/hour';
 import { MenuService } from '../../../../shared/shared.module';
+import { Utils } from '../../../../shared/utils';
 import { slideInOutAnimation } from './slide-in-out';
 
 @Component({
@@ -77,7 +78,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                         this.index = this.getIndex();
                         this.filterAndPaginate(
                             queryParam.get('showAll') === 'true',
-                            0
+                            Utils.getOrElse(+queryParam.get('page'), 0)
                         );
                     }
                 }
@@ -109,14 +110,17 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     onSwipe(canSwipe: Predicate<number>, next: 1 | -1): void {
         const index = this.getIndex();
         if (canSwipe(index)) {
-            this.navigate(this.forecast.forecastDay[this.index + next].date);
+            this.navigate(
+                this.forecast.forecastDay[this.index + next].date,
+                this.showAll ? 1 : 0
+            );
         }
     }
 
-    navigate(date: string): void {
+    navigate(date: string, page: number): void {
         this.router
             .navigate(['/dashboard/details/' + date], {
-                queryParams: { showAll: this.showAll },
+                queryParams: { showAll: this.showAll, page },
                 state: this.forecast,
                 replaceUrl: true
             })

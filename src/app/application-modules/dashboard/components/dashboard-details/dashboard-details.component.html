@@ -2,7 +2,7 @@
     <ng-container *ngIf="forecast && forecast.forecastDay">
         <div [@slideInOut]="index" (swipeleft)="onSwipeLeft()" (swiperight)="onSwipeRight()" class="wrapper">
             <div class="show-all-header">
-                <mat-slide-toggle [(ngModel)]="showAll" (change)="navigate(date)">
+                <mat-slide-toggle [(ngModel)]="showAll" (change)="navigate(date, showAll ? 1 : 0)">
                     {{ 'dashboard.show_all' | translate }}</mat-slide-toggle
                 >
                 <mat-paginator
@@ -10,7 +10,7 @@
                     [pageIndex]="pageIndex"
                     [pageSize]="pageSize"
                     [hidePageSize]="true"
-                    (page)="filterAndPaginate(showAll, $event.pageIndex)"
+                    (page)="navigate(date, $event.pageIndex)"
                     [ngClass]="{ hide: !showAll }"
                 >
                 </mat-paginator>
