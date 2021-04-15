@@ -1,11 +1,10 @@
-import { MatInputModule } from '@angular/material/input';
 import { NgModule } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Routes, RouterModule } from '@angular/router';
-
-import { SignupComponent } from './signup/signup.component';
-import { SigninComponent } from './signin/signin.component';
+import { MatInputModule } from '@angular/material/input';
+import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
+import { SigninComponent } from './components/signin/signin.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 const childRoutes: Routes = [
     {

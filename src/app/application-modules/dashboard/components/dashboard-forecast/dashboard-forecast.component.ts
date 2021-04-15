@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest, EMPTY, Observable, Observer, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap } from 'rxjs/operators';
-import { Forecast } from '../../../../model/forecast';
+import { Forecast } from '../../../../model/weather/forecast';
 import {
     AuthService,
     MenuService,

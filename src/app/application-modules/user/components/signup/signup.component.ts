@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastService, AuthService } from '../../../shared/shared.module';
+import { AuthService, ToastService } from '../../../../shared/shared.module';
 
 @Component({
     selector: 'app-signup',

@@ -2,8 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Forecast } from '../../model/forecast';
-import { Location } from '../../model/location';
+import { Forecast } from '../../model/weather/forecast';
+import { Location } from '../../model/weather/location';
 import { ToastService } from './toast.service';
 import { UtilsService } from './utils.service';
 
