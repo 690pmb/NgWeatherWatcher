@@ -29,4 +29,14 @@ export class Utils {
     result.setMinutes(minute);
     return result;
   }
+
+  static unique<T>(array: T[]): T[] {
+    const result: T[] = [];
+    array.forEach(element => {
+      if (!result.includes(element)) {
+        result.push(element);
+      }
+    });
+    return result;
+  }
 }

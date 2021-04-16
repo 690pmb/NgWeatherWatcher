@@ -9,10 +9,30 @@
     "min": "Min",
     "max": "Max",
     "average": "Average",
+    "expand": "Expand",
+    "edit": "Edit",
     "geolocation": {
       "in_progress": "Geolocation in progress...",
       "denied": "Geolocation denied",
       "not_supported": "Geolocation not supported"
+    },
+    "day": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "mat-table": {
+      "of": " of ",
+      "no_result": "No Data",
+      "nextPageLabel": "Next Page",
+      "previousPageLabel": "Previous Page",
+      "lastPageLabel": "Last Page",
+      "firstPageLabel": "First Page",
+      "itemsPerPageLabel": "Items per page: "
     }
   },
   "nav-bar": {
@@ -31,6 +51,35 @@
   },
   "dashboard": {
     "show_all": "Show all"
+  },
+  "alert": {
+    "trigger_day": "Trigger day",
+    "trigger_hour": "Trigger hour",
+    "monitored_day": "Monitored day",
+    "monitored_hour": "Monitored hour",
+    "location": "Location",
+    "force_notification": "Force the notification",
+    "monitored_field": "Monitored datas",
+    "all_working_days": "All working days",
+    "every_days": "Every days",
+    "week_end": "The week-end",
+    "monitored_days": {
+      "same_day": "same day",
+      "next_day": "next day",
+      "two_day_later": "two day later"
+    },
+    "field": {
+      "temp": "Temperature",
+      "wind": "Wind",
+      "pressure": "Atmospheric pressure",
+      "precip": "Precipitation",
+      "humidity": "Humidity",
+      "cloud": "Cloudiness",
+      "feels_like": "Feels like temperature",
+      "chance_of_rain": "Probability of rain",
+      "chance_of_snow": "Probability of snow",
+      "uv": "UV"
+    }
   },
   "user": {
     "name_required": "Username is required",

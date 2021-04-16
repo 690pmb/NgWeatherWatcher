@@ -29,9 +29,9 @@ export class AlertService extends UtilsService {
             map(alerts =>
                 alerts.map((a: AlertDto) => {
                     a.triggerHourDate = Utils.parseOffsetTime(a.triggerHour);
-                    a.monitoredHoursDate = a.monitoredHours.map(h =>
-                        Utils.parseOffsetTime(h)
-                    );
+                    a.monitoredHoursDate = a.monitoredHours
+                        .map(h => Utils.parseOffsetTime(h))
+                        .sort();
                     a.triggerDaysEnum = a.triggerDays.map(
                         day => DayOfWeek[day as keyof typeof DayOfWeek]
                     );

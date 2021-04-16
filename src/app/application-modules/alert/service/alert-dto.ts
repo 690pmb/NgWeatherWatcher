@@ -3,9 +3,9 @@ import { DayOfWeek } from '../../../model/alert/day-of-week';
 
 export class AlertDto extends Alert {
     triggerDaysEnum: DayOfWeek[];
-    triggerDaysPretty?: string;
+    triggerDaysPretty?: string[];
     triggerHourDate: Date;
     monitoredDaysPretty?: string;
-    monitoredHoursPretty?: string;
+    monitoredHoursPretty?: string[];
     monitoredHoursDate: Date[];
 }

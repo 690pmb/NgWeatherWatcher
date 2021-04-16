@@ -8,12 +8,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TranslateModule} from '@ngx-translate/core';
 import {MenuComponent} from './component/menu/menu.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
 import {SearchLocationComponent} from './component/search-location/search-location.component';
 import {IconPipe} from './pipe/icon.pipe';
 
@@ -43,6 +43,7 @@ import {IconPipe} from './pipe/icon.pipe';
     IconPipe,
     MatSnackBarModule,
     SearchLocationComponent,
+    FontAwesomeModule,
     MenuComponent,
   ],
   providers: [DatePipe],

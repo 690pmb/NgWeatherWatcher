@@ -25,6 +25,20 @@ h4 {
   color: color('theme');
 }
 
+@mixin my-primary {
+  color: mat-color($my-primary);
+}
+
+.mat-raised-button {
+  @include my-primary;
+
+  border: solid 3px mat-color($my-primary);
+}
+
+.color-primary {
+  @include my-primary;
+}
+
 .background-color {
   @include bg-color('theme');
 
