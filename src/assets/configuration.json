@@ -1,5 +1,6 @@
 {
   "apiUrl": "https://xxx.com",
   "userUrl": "users",
-  "weatherUrl": "weathers"
+  "weatherUrl": "weathers",
+  "alertUrl": "alerts"
 }
