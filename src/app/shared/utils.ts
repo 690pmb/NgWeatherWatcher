@@ -14,4 +14,19 @@ export class Utils {
   static getOrElse<T>(nullableValue: T | undefined | null, defaultValue: T): T {
     return Utils.isBlank(nullableValue) ? defaultValue : nullableValue;
   }
+
+  static parseOffsetTime(offsetTime: string): Date {
+    const result = new Date();
+    const hourIndex = offsetTime.indexOf(':');
+    const timeZoneIndex = offsetTime.indexOf('+');
+    const hour = +offsetTime.slice(0, hourIndex);
+    const minute = +offsetTime.slice(hourIndex + 1, timeZoneIndex);
+    const timeZone = +offsetTime.slice(
+      timeZoneIndex + 1,
+      offsetTime.length - 3
+    );
+    result.setUTCHours(hour - timeZone);
+    result.setMinutes(minute);
+    return result;
+  }
 }

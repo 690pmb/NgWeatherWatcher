@@ -4,6 +4,10 @@
 
 export const environment = {
   production: false,
+  apiUrl: 'http://localhost:8080',
+  userUrl: 'users',
+  weatherUrl: 'weathers',
+  alertUrl: 'alerts',
 };
 
 /*
