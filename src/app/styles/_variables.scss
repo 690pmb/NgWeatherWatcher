@@ -41,3 +41,4 @@ $dark-primary-text: rgb(get-color('black'), 0.87);
 /* stylelint-enable */
 $light-primary-text: get-color('white');
 $toolbar-height: 64px;
+$darken-theme: darken(get-color('theme'), 20%);

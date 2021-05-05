@@ -55,6 +55,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
   faHome = faHome;
   faBell = faBell;
   direction: Direction = 'UP';
+  title = '';
 
   constructor(
     public authService: AuthService,
@@ -73,6 +74,10 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       })
     );
+    this.menuService.title$.subscribe(t => {
+      this.title = t;
+      this.cdk.detectChanges();
+    });
   }
 
   ngAfterViewInit(): void {
