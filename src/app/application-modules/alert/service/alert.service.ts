@@ -5,10 +5,12 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { Alert } from '../../../model/alert/alert';
 import { DayOfWeek } from '../../../model/alert/day-of-week';
+import { WeatherField } from '../../../model/alert/weather-field';
 import { ToastService } from '../../../shared/service/toast.service';
 import { UtilsService } from '../../../shared/service/utils.service';
 import { Utils } from '../../../shared/utils';
 import { AlertDto } from './alert-dto';
+import { MonitoredFieldDto } from './monitored-field-dto';
 
 @Injectable({
     providedIn: 'root'
@@ -34,6 +36,15 @@ export class AlertService extends UtilsService {
                         .sort();
                     a.triggerDaysEnum = a.triggerDays.map(
                         day => DayOfWeek[day as keyof typeof DayOfWeek]
+                    );
+                    a.monitoredFieldsDto = a.monitoredFields.map(
+                        (field: MonitoredFieldDto) => {
+                            field.fieldEnum =
+                                WeatherField[
+                                    field.field as keyof typeof WeatherField
+                                ];
+                            return field;
+                        }
                     );
                     return a;
                 })

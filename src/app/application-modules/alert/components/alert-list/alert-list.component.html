@@ -8,7 +8,7 @@
         >
         </mat-paginator>
     </div>
-    <mat-table [dataSource]="shownAlerts">
+    <mat-table [dataSource]="shownAlerts" multiTemplateDataRows>
         <ng-container matColumnDef="trigger-day">
             <mat-header-cell mat-header-cell *matHeaderCellDef>
                 {{ 'alert.trigger_day' | translate }}
@@ -80,7 +80,47 @@
             </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="{{ expandedColumn }}">
+            <td
+                mat-cell
+                *matCellDef="let alert"
+                [attr.colspan]="columnsToDisplay.length"
+                [@detailExpand]="alert == expandedAlert ? 'expanded' : 'collapsed'"
+            >
+                <ng-container *ngIf="alert == expandedAlert">
+                    <mat-divider></mat-divider>
+                    <div class="alert-expand">
+                        <div>
+                            <span>{{ 'alert.trigger_day' | translate }}: </span>{{ alert.triggerDaysPretty }}
+                        </div>
+                        <div>
+                            <span>{{ 'alert.monitored_day' | translate }}: </span
+                            >{{ alert.monitoredDaysPretty }}
+                        </div>
+                        <div>
+                            <span>{{ 'alert.monitored_hour' | translate }}: </span
+                            >{{ alert.monitoredHoursPretty }}
+                        </div>
+                        <div>
+                            <span>{{ 'alert.location' | translate }}: </span>{{ alert.location }}
+                        </div>
+                        <div>
+                            <span>{{ 'alert.monitored_field' | translate }}: </span
+                            >{{ alert.monitoredFieldsPretty }}
+                        </div>
+                    </div>
+                </ng-container>
+            </td>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-        <mat-row *matRowDef="let alerts; columns: columnsToDisplay"></mat-row>
+        <mat-row
+            *matRowDef="let alert; columns: columnsToDisplay"
+            class="alert-row"
+            [class.expanded-row]="expandedAlert === alert"
+            (click)="expand(alert)"
+        >
+        </mat-row>
+        <mat-row *matRowDef="let row; columns: [expandedColumn]" class="detail-row"></mat-row>
     </mat-table>
 </ng-container>

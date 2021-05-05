@@ -1,3 +1,10 @@
+import {
+    animate,
+    state,
+    style,
+    transition,
+    trigger
+} from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { DayOfWeek } from '../../../../model/alert/day-of-week';
+import { WeatherField } from '../../../../model/alert/weather-field';
 import { MenuService } from '../../../../shared/shared.module';
 import { Utils } from '../../../../shared/utils';
 import { AlertDto } from '../../service/alert-dto';
@@ -14,9 +22,37 @@ import { AlertService } from '../../service/alert.service';
 @Component({
     selector: 'app-alert-list',
     templateUrl: './alert-list.component.html',
-    styleUrls: ['./alert-list.component.scss']
+    styleUrls: ['./alert-list.component.scss'],
+    animations: [
+        trigger('detailExpand', [
+            state(
+                'collapsed',
+                style({ height: '0px', minHeight: '0', display: 'none' })
+            ),
+            state('expanded', style({ height: '*' })),
+            transition(
+                'expanded <=> collapsed',
+                animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+            )
+        ])
+    ]
 })
 export class AlertListComponent implements OnInit, OnDestroy {
+    static readonly weatherFieldUnit: Map<WeatherField, string> = new Map<
+        WeatherField,
+        string
+    >([
+        [WeatherField.TEMP, '°C'],
+        [WeatherField.CHANCE_OF_RAIN, '%'],
+        [WeatherField.CHANCE_OF_SNOW, '%'],
+        [WeatherField.CLOUD, '%'],
+        [WeatherField.FEELS_LIKE, '°C'],
+        [WeatherField.HUMIDITY, '%'],
+        [WeatherField.PRECIP, 'mm'],
+        [WeatherField.PRESSURE, 'hPa'],
+        [WeatherField.UV, ''],
+        [WeatherField.WIND, 'km/h']
+    ]);
     static readonly workingDays = [
         DayOfWeek.MONDAY,
         DayOfWeek.TUESDAY,
@@ -35,6 +71,8 @@ export class AlertListComponent implements OnInit, OnDestroy {
         'force',
         'edit'
     ];
+    expandedAlert: AlertDto;
+    expandedColumn = 'details';
     pageIndex: number;
     pageSize = 10;
     faCheck = faCheck;
@@ -83,6 +121,7 @@ export class AlertListComponent implements OnInit, OnDestroy {
             alert.monitoredHoursPretty = alert.monitoredHoursDate.map(h =>
                 this.datePipe.transform(h, 'HH:mm')
             );
+            this.mapMonitoredFields(alert);
             return alert;
         });
     }
@@ -150,6 +189,29 @@ export class AlertListComponent implements OnInit, OnDestroy {
             alert.monitoredDaysPretty.slice(1);
     }
 
+    private mapMonitoredFields(alert: AlertDto) {
+        alert.monitoredFieldsPretty = alert.monitoredFieldsDto
+            .map(field => {
+                let minMax = '';
+                if (field.min && field.max) {
+                    minMax = `${field.min} - ${field.max}`;
+                } else if (field.min && !field.max) {
+                    minMax = `${field.min} min`;
+                } else if (!field.min && field.max) {
+                    minMax = `${field.max} max`;
+                }
+                return `${
+                    this.translate.instant(
+                        'alert.field.' + field.field.toLowerCase()
+                    ) as string
+                } 
+            ${minMax} ${AlertListComponent.weatherFieldUnit.get(
+                    field.fieldEnum
+                )}`;
+            })
+            .join(' / ');
+    }
+
     navigate(page: number): void {
         this.router
             .navigate(['.'], {
@@ -157,6 +219,10 @@ export class AlertListComponent implements OnInit, OnDestroy {
                 replaceUrl: true
             })
             .catch(err => console.error(err));
+    }
+
+    expand(alert: AlertDto): void {
+        this.expandedAlert = this.expandedAlert === alert ? undefined : alert;
     }
 
     ngOnDestroy(): void {
