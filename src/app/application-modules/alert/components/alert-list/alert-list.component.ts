@@ -1,7 +1,13 @@
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {faCheck, faEdit} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
@@ -9,6 +15,7 @@ import {Utils} from '../../../../shared/utils';
 import {AlertService} from '../../../../service/alert.service';
 import {MenuService} from '../../../../service/menu.service';
 import {Alert} from '../../../../model/alert/alert';
+import {MatBottomSheet} from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-alert-list',
@@ -35,8 +42,10 @@ export class AlertListComponent implements OnInit, OnDestroy {
   pageSize = 10;
   faCheck = faCheck;
   faEdit = faEdit;
+  faTrash = faTrash;
   subs: Subscription[] = [];
   expandedAlert?: Alert;
+  selected: number[] = [];
   expandedColumn = 'details';
   columnsToDisplay = [
     'trigger-day',
@@ -47,12 +56,16 @@ export class AlertListComponent implements OnInit, OnDestroy {
     'edit',
   ];
 
+  @ViewChild('deleteButton')
+  deleteButton!: TemplateRef<number>;
+
   constructor(
     private router: Router,
     private alertService: AlertService,
     private activatedRoute: ActivatedRoute,
     public translate: TranslateService,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private bottomSheet: MatBottomSheet
   ) {}
 
   ngOnInit(): void {
@@ -102,6 +115,31 @@ export class AlertListComponent implements OnInit, OnDestroy {
 
   expand(alert: Alert): void {
     this.expandedAlert = this.expandedAlert === alert ? undefined : alert;
+  }
+
+  handleSelection(id: number): void {
+    this.selected.push(id);
+    this.bottomSheet.open(this.deleteButton, {
+      data: {selected: this.selected.length},
+      hasBackdrop: false,
+      closeOnNavigation: true,
+      panelClass: 'delete-button',
+    });
+  }
+
+  isRowSelected(id: number): boolean {
+    return this.selected.includes(id);
+  }
+
+  delete(): void {
+    this.alertService
+      .deleteBydIds(this.selected)
+      .subscribe(() => this.resetSelection());
+  }
+
+  resetSelection(): void {
+    this.selected = [];
+    this.bottomSheet.dismiss();
   }
 
   ngOnDestroy(): void {

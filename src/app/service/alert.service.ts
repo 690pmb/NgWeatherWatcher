@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {Alert} from '../model/alert/alert';
 import {plainToInstance} from 'class-transformer';
 import {ToastService} from './toast.service';
@@ -28,6 +28,12 @@ export class AlertService extends UtilsService {
   getAllByUser(): Observable<Alert[]> {
     return this.get<Alert[]>().pipe(
       map((alerts: Object[]) => plainToInstance(Alert, alerts))
+    );
+  }
+
+  deleteBydIds(ids: number[]): Observable<void> {
+    return this.delete(`?ids=${ids}`).pipe(
+      tap(() => this.toast.info('alert.deleted', `${ids.length}`))
     );
   }
 }

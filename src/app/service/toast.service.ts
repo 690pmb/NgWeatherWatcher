@@ -11,7 +11,7 @@ export class ToastService {
     private translate: TranslateService
   ) {}
 
-  open(level: Level, message: string, translateArgs?: string): void {
+  open(level: Level, message: string, translateArgs?: string | number): void {
     if (Utils.isNotBlank(message)) {
       this.snackBar.open(
         this.translate.instant(message, translateArgs),
@@ -24,19 +24,19 @@ export class ToastService {
     }
   }
 
-  error(message: string, translateArgs?: string): void {
+  error(message: string, translateArgs?: string | number): void {
     this.open(Level.error, message, translateArgs);
   }
 
-  warning(message: string, translateArgs?: string): void {
+  warning(message: string, translateArgs?: string | number): void {
     this.open(Level.warning, message, translateArgs);
   }
 
-  info(message: string, translateArgs?: string): void {
+  info(message: string, translateArgs?: string | number): void {
     this.open(Level.info, message, translateArgs);
   }
 
-  success(message: string, translateArgs?: string): void {
+  success(message: string, translateArgs?: string | number): void {
     this.open(Level.success, message, translateArgs);
   }
 }

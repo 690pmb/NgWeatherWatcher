@@ -55,6 +55,8 @@
     "all_working_days": "All working days",
     "every_days": "Every days",
     "week_end": "The week-end",
+    "delete": "Delete",
+    "deleted": "{{0}} deleted alert(s)",
     "monitored_days": {
       "same_day": "same day",
       "next_day": "next day",

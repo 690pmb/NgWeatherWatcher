@@ -1,9 +1,14 @@
 @use '/src/app/styles/imports' as *;
 
+:host {
+  display: block;
+  height: calc(100% + 120px);
+}
+
 .header {
   align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -37,6 +42,11 @@
 
 .alert-row {
   border-bottom-width: 0;
+  user-select: none;
+}
+
+.row-selected {
+  @include bg-color('purple');
 }
 
 .mat-row {
@@ -56,6 +66,11 @@
     color: $darken-theme;
     font-weight: bold;
   }
+}
+
+::ng-deep .delete-button .mat-raised-button {
+  display: flex;
+  margin: auto;
 }
 
 @media (max-width: 500px) {

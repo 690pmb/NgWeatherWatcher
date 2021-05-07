@@ -6,7 +6,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable, Observer, throwError} from 'rxjs';
+import {Observable, Observer, throwError, EMPTY} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ToastService} from './toast.service';
 
@@ -100,6 +100,19 @@ export class UtilsService {
         catchError((err: HttpErrorResponse) => {
           this.handleError(err);
           return throwError(err);
+        })
+      );
+  }
+
+  protected delete(url?: string): Observable<void> {
+    return this.httpClient
+      .delete<void>(`${this.baseUrl}/${this.apiUrl}/${url ?? ''}`, {
+        headers: UtilsService.getHeaders(),
+      })
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.handleError(err);
+          return EMPTY;
         })
       );
   }
