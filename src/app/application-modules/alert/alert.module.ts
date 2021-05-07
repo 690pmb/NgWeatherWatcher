@@ -11,6 +11,7 @@ import {MyPaginator} from '../../shared/my-paginator';
 import {SharedModule} from '../../shared/shared.module';
 import {AlertListComponent} from './components/alert-list/alert-list.component';
 import {AlertService} from './service/alert.service';
+import {SelectRowDirective} from './select-row.directive';
 
 const childRoutes: Routes = [
   {
@@ -20,7 +21,7 @@ const childRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AlertListComponent],
+  declarations: [AlertListComponent, SelectRowDirective],
   imports: [
     MatTableModule,
     MatPaginatorModule,

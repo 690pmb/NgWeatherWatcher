@@ -3,7 +3,7 @@
 .header {
   align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -43,6 +43,10 @@
 
 .alert-row {
   border-bottom-width: 0;
+}
+
+.row-selected {
+  @include background-color($gray);
 }
 
 /* stylelint-disable selector-type-no-unknown */

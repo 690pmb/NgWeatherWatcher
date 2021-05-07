@@ -8,7 +8,12 @@ import {
 import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faCheck, faEdit } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCheck,
+    faEdit,
+    faSync,
+    faTrash
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -75,6 +80,8 @@ export class AlertListComponent implements OnInit, OnDestroy {
     expandedColumn = 'details';
     pageIndex: number;
     pageSize = 10;
+    faSync = faSync;
+    faTrash = faTrash;
     faCheck = faCheck;
     faEdit = faEdit;
     subs: Subscription[] = [];
@@ -223,6 +230,20 @@ export class AlertListComponent implements OnInit, OnDestroy {
 
     expand(alert: AlertDto): void {
         this.expandedAlert = this.expandedAlert === alert ? undefined : alert;
+    }
+
+    numberOfSelectedAlert(): number {
+        return this.shownAlerts.filter(a => a.selected).length;
+    }
+
+    resetSelected(): void {
+        this.shownAlerts.forEach(a => (a.selected = false));
+    }
+
+    delete(): void {
+        this.alertService.deleteAlerts(
+            this.shownAlerts.filter(a => a.selected).map(a => a.id)
+        );
     }
 
     ngOnDestroy(): void {

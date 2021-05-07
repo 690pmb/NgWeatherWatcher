@@ -11,4 +11,5 @@ export class AlertDto extends Alert {
     monitoredHoursDate: Date[];
     monitoredFieldsDto?: MonitoredFieldDto[];
     monitoredFieldsPretty?: string;
+    selected: boolean;
 }

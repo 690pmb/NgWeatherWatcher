@@ -7,6 +7,24 @@
             (page)="navigate($event.pageIndex)"
         >
         </mat-paginator>
+        <div>
+            <button
+                type="button"
+                mat-raised-button
+                *ngIf="numberOfSelectedAlert() as selected"
+                (click)="delete()"
+            >
+                ({{ selected }})&nbsp;<fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+            <button
+                type="button"
+                mat-raised-button
+                *ngIf="numberOfSelectedAlert() > 0"
+                (click)="resetSelected()"
+            >
+                <fa-icon [icon]="faSync"></fa-icon>
+            </button>
+        </div>
     </div>
     <mat-table [dataSource]="shownAlerts" multiTemplateDataRows>
         <ng-container matColumnDef="trigger-day">
@@ -117,10 +135,11 @@
         <mat-row
             *matRowDef="let alert; columns: columnsToDisplay"
             class="alert-row"
-            [class.expanded-row]="expandedAlert === alert"
             (click)="expand(alert)"
-        >
-        </mat-row>
+            [ngClass]="{ 'row-selected': alert.selected }"
+            appSelectRow
+            [alert]="alert"
+        ></mat-row>
         <mat-row *matRowDef="let row; columns: [expandedColumn]" class="detail-row"></mat-row>
     </mat-table>
 </ng-container>
