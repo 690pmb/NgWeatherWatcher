@@ -1,36 +1,36 @@
 <mat-form-field appearance="outline">
-    <button mat-icon-button type="button" matPrefix>
-        <fa-icon
-            [icon]="faLocationArrow"
-            size="2x"
-            (click)="geolocation(); $event.stopPropagation()"
-        ></fa-icon>
-    </button>
-    <input
-        type="text"
-        placeholder="{{ placeholder | translate }}"
-        matInput
-        [matAutocomplete]="auto"
-        #inputLocation="matInput"
-    />
-    <button mat-icon-button type="button" matSuffix *ngIf="inputLocation.value">
-        <fa-icon
-            [icon]="faTimes"
-            size="2x"
-            (click)="inputLocation.value = ''; $event.stopPropagation()"
-        ></fa-icon>
-    </button>
+  <button mat-icon-button type="button" matPrefix>
+    <fa-icon
+      [icon]="faLocationArrow"
+      size="2x"
+      (click)="geolocation(); $event.stopPropagation()"
+    ></fa-icon>
+  </button>
+  <input
+    type="text"
+    placeholder="{{ placeholder | translate }}"
+    matInput
+    [matAutocomplete]="auto"
+    #inputLocation="matInput"
+  />
+  <button mat-icon-button type="button" matSuffix *ngIf="inputLocation.value">
+    <fa-icon
+      [icon]="faTimes"
+      size="2x"
+      (click)="inputLocation.value = ''; $event.stopPropagation()"
+    ></fa-icon>
+  </button>
 </mat-form-field>
 <button type="button" mat-raised-button (click)="search(inputLocation.value)">
-    {{ 'global.research' | translate }}
+  {{ 'global.research' | translate }}
 </button>
 <mat-autocomplete
-    #auto="matAutocomplete"
-    autoActiveFirstOption
-    panelWidth="100 %"
-    (optionSelected)="select($event.option.value)"
+  #auto="matAutocomplete"
+  autoActiveFirstOption
+  panelWidth="100 %"
+  (optionSelected)="select($event.option.value)"
 >
-    <mat-option *ngFor="let location of locations" [value]="location.name">
-        <div [matTooltip]="location.name">{{ location.name }}</div>
-    </mat-option>
+  <mat-option *ngFor="let location of locations" [value]="location.name">
+    <div [matTooltip]="location.name">{{ location.name }}</div>
+  </mat-option>
 </mat-autocomplete>

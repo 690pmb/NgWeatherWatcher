@@ -1,5 +1,5 @@
 export class Condition {
-    text: string;
-    icon: string;
-    code: number;
+  text: string;
+  icon: string;
+  code: number;
 }
