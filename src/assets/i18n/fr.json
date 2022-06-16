@@ -1,65 +1,65 @@
 {
-    "global": {
-        "cancel": "Annuler",
-        "username": "Pseudo",
-        "username_required": "Veuillez renseigner votre pseudo",
-        "minlength": "Trop court",
-        "research": "Rechercher",
-        "hour": "Heure",
-        "geolocation": {
-            "in_progress": "Géolocalisation en cours...",
-            "denied": "Géolocalisation refusé",
-            "not_supported": "Géolocalisation non supporté"
-        }
-    },
-    "nav-bar": {
-        "dashboard": "Tableau de Bord",
-        "logout": "Déconnexion"
-    },
-    "forecast": {
-        "wind": "Vent",
-        "precip": "Précipitation",
-        "rain": "Pluie",
-        "chanceOfRain": "Probabilité de pluie",
-        "chanceOfSnow": "Probabilité de neige",
-        "temp": "Température",
-        "condition": "Météo"
-    },
-    "dashboard": {
-        "show_all": "Afficher tout"
-    },
-    "user": {
-        "name_required": "Veuillez renseigner votre pseudo",
-        "password": "Mot de passe",
-        "password_required": "Veuillez renseigner votre mot de passe",
-        "answer": "Réponse",
-        "answer_required": "La réponse est obligatoire",
-        "question": "Question secrète",
-        "question_required": "La question est obligatoire",
-        "error_password": "Mots de passe différents",
-        "error_question": "Questions différentes",
-        "wrong_answer": "Réponse incorrecte",
-        "lang": "Langue",
-        "logged_out": "Déconnecté",
-        "logout": "Se déconnecter",
-        "signin": {
-            "title": "S'IDENTIFIER",
-            "sign_in": "Se connecter",
-            "connected": "Connecté !!",
-            "forgot": "Mot de passe oublié",
-            "wrong": "Saisie incorrecte..",
-            "favourite_location": "Endroit préféré"
-        },
-        "signup": {
-            "title": "S'INSCRIRE",
-            "sign_up": "S'inscrire",
-            "registred": "Inscrit !!",
-            "already_exist": "Un utilisateur avec ce pseudo existe déjà",
-            "bad_request": "Entrées incorrectes",
-            "password2": "Retapez votre mot de passe",
-            "different": "Les mots de passe sont différents",
-            "username_hint": "Entre 4 et 30 caractères de long",
-            "password_hint": "Entre 6 et 30 caractères de long"
-        }
+  "global": {
+    "cancel": "Annuler",
+    "username": "Pseudo",
+    "username_required": "Veuillez renseigner votre pseudo",
+    "minlength": "Trop court",
+    "research": "Rechercher",
+    "hour": "Heure",
+    "geolocation": {
+      "in_progress": "Géolocalisation en cours...",
+      "denied": "Géolocalisation refusé",
+      "not_supported": "Géolocalisation non supporté"
     }
+  },
+  "nav-bar": {
+    "dashboard": "Tableau de Bord",
+    "logout": "Déconnexion"
+  },
+  "forecast": {
+    "wind": "Vent",
+    "precip": "Précipitation",
+    "rain": "Pluie",
+    "chanceOfRain": "Probabilité de pluie",
+    "chanceOfSnow": "Probabilité de neige",
+    "temp": "Température",
+    "condition": "Météo"
+  },
+  "dashboard": {
+    "show_all": "Afficher tout"
+  },
+  "user": {
+    "name_required": "Veuillez renseigner votre pseudo",
+    "password": "Mot de passe",
+    "password_required": "Veuillez renseigner votre mot de passe",
+    "answer": "Réponse",
+    "answer_required": "La réponse est obligatoire",
+    "question": "Question secrète",
+    "question_required": "La question est obligatoire",
+    "error_password": "Mots de passe différents",
+    "error_question": "Questions différentes",
+    "wrong_answer": "Réponse incorrecte",
+    "lang": "Langue",
+    "logged_out": "Déconnecté",
+    "logout": "Se déconnecter",
+    "signin": {
+      "title": "S'IDENTIFIER",
+      "sign_in": "Se connecter",
+      "connected": "Connecté !!",
+      "forgot": "Mot de passe oublié",
+      "wrong": "Saisie incorrecte..",
+      "favourite_location": "Endroit préféré"
+    },
+    "signup": {
+      "title": "S'INSCRIRE",
+      "sign_up": "S'inscrire",
+      "registred": "Inscrit !!",
+      "already_exist": "Un utilisateur avec ce pseudo existe déjà",
+      "bad_request": "Entrées incorrectes",
+      "password2": "Retapez votre mot de passe",
+      "different": "Les mots de passe sont différents",
+      "username_hint": "Entre 4 et 30 caractères de long",
+      "password_hint": "Entre 6 et 30 caractères de long"
+    }
+  }
 }

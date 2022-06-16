@@ -23,8 +23,8 @@ $my-theme: mat-light-theme(
     color: (
       primary: $my-primary,
       accent: $my-accent,
-      warn: $my-warn
-    )
+      warn: $my-warn,
+    ),
   )
 );
 
@@ -39,5 +39,5 @@ $depth: (
   'tooltip': 75,
   'overlay': 200,
   'top': 300,
-  'modal': 400
+  'modal': 400,
 );

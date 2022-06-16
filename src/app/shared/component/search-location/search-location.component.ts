@@ -1,51 +1,48 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    Output,
-    ViewChild
-} from '@angular/core';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { faLocationArrow, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Observable, Observer } from 'rxjs';
-import { Location } from '../../../model/weather/location';
-import { WeatherService } from '../../service/weather.service';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {faLocationArrow, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {Observable, Observer} from 'rxjs';
+import {Location} from '../../../model/weather/location';
+import {WeatherService} from '../../service/weather.service';
 
 @Component({
-    selector: 'app-search-location',
-    templateUrl: './search-location.component.html',
-    styleUrls: ['./search-location.component.scss']
+  selector: 'app-search-location',
+  templateUrl: './search-location.component.html',
+  styleUrls: ['./search-location.component.scss'],
 })
 export class SearchLocationComponent {
-    @Input()
-    placeholder: string;
-    @Output()
-    selected = new EventEmitter<string>();
-    @ViewChild(MatAutocompleteTrigger)
-    trigger: MatAutocompleteTrigger;
-    locations: Location[] = [];
-    faLocationArrow = faLocationArrow;
-    faTimes = faTimes;
+  @Input()
+  placeholder: string;
 
-    constructor(private weatherService: WeatherService) {}
+  @Output()
+  selected = new EventEmitter<string>();
 
-    search(term: string): void {
-        this.weatherService.search(term).subscribe(locations => {
-            this.locations = locations;
-            this.trigger.openPanel();
-        });
-    }
+  @ViewChild(MatAutocompleteTrigger)
+  trigger: MatAutocompleteTrigger;
 
-    select(location: string): void {
-        this.selected.emit(location);
-    }
+  locations: Location[] = [];
+  faLocationArrow = faLocationArrow;
+  faTimes = faTimes;
 
-    geolocation(): void {
-        new Observable((observer: Observer<string>) =>
-            WeatherService.findUserPosition(observer)
-        ).subscribe(
-            location => this.search(location),
-            err => this.weatherService.handleError(err)
-        );
-    }
+  constructor(private weatherService: WeatherService) {}
+
+  search(term: string): void {
+    this.weatherService.search(term).subscribe(locations => {
+      this.locations = locations;
+      this.trigger.openPanel();
+    });
+  }
+
+  select(location: string): void {
+    this.selected.emit(location);
+  }
+
+  geolocation(): void {
+    new Observable((observer: Observer<string>) =>
+      WeatherService.findUserPosition(observer)
+    ).subscribe(
+      location => this.search(location),
+      err => this.weatherService.handleError(err)
+    );
+  }
 }

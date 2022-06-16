@@ -1,29 +1,30 @@
-import { NgModule } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { RouterModule, Routes } from '@angular/router';
-import { SharedModule } from '../../shared/shared.module';
-import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
+import {MatInputModule} from '@angular/material/input';
+import {NgModule} from '@angular/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {Routes, RouterModule} from '@angular/router';
+
+import {SignupComponent} from './components/signup/signup.component';
+import {SigninComponent} from './components/signin/signin.component';
+import {SharedModule} from '../../shared/shared.module';
 
 const childRoutes: Routes = [
-    {
-        path: '',
-        children: [
-            { path: '', redirectTo: 'signin', pathMatch: 'full' },
-            { path: 'signin', component: SigninComponent },
-            { path: 'signup', component: SignupComponent }
-        ]
-    }
+  {
+    path: '',
+    children: [
+      {path: '', redirectTo: 'signin', pathMatch: 'full'},
+      {path: 'signin', component: SigninComponent},
+      {path: 'signup', component: SignupComponent},
+    ],
+  },
 ];
 
 @NgModule({
-    declarations: [SignupComponent, SigninComponent],
-    imports: [
-        SharedModule.forChild(),
-        MatFormFieldModule,
-        MatInputModule,
-        RouterModule.forChild(childRoutes)
-    ]
+  declarations: [SignupComponent, SigninComponent],
+  imports: [
+    SharedModule.forChild(),
+    MatFormFieldModule,
+    MatInputModule,
+    RouterModule.forChild(childRoutes),
+  ],
 })
 export class UserModule {}
