@@ -1,26 +1,22 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
+  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "outDir": "build",
     "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "typeRoots": ["../node_modules/@types"],
     "target": "es2015",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"],
+    "strict": false
   },
+  "include": ["src/**/*.ts", "test/**/*.ts"],
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
+    "disableTypeScriptVersionCheck": true
   }
 }

@@ -1,6 +1,6 @@
 export enum Level {
-    info = 'info',
-    warning = 'warning',
-    success = 'success',
-    error = 'error'
+  info = 'info',
+  warning = 'warning',
+  success = 'success',
+  error = 'error',
 }

@@ -1,65 +1,65 @@
 {
-    "global": {
-        "cancel": "Cancel",
-        "username": "Username",
-        "username_required": "Username is required",
-        "minlength": "Too short",
-        "research": "Search",
-        "hour": "Hour",
-        "geolocation": {
-            "in_progress": "Geolocation in progress...",
-            "denied": "Geolocation denied",
-            "not_supported": "Geolocation not supported"
-        }
-    },
-    "nav-bar": {
-        "dashboard": "Dashboard",
-        "logout": "Log Out"
-    },
-    "forecast": {
-        "wind": "Wind",
-        "precip": "Precipitation",
-        "rain": "Rain",
-        "chanceOfRain": "Chance of rain",
-        "chanceOfSnow": "Chance of snow",
-        "temp": "Temperature",
-        "condition": "Weather"
-    },
-    "dashboard": {
-        "show_all": "Show all"
-    },
-    "user": {
-        "name_required": "Username is required",
-        "password": "Password",
-        "password_required": "Password is required",
-        "answer": "Answer",
-        "answer_required": "Answer is required",
-        "question": "Secret question",
-        "question_required": "Question is required",
-        "error_password": "Differents passwords",
-        "error_question": "Differents questions",
-        "wrong_answer": "Incorrect answer",
-        "lang": "Language",
-        "logged_out": "Logged out",
-        "logout": "Logout",
-        "signin": {
-            "title": "SIGN IN",
-            "sign_in": "Sign In",
-            "connected": "Connected !!",
-            "forgot": "Forgot password",
-            "wrong": "Incorrect entry..",
-            "favourite_location": "Favourite location"
-        },
-        "signup": {
-            "title": "SIGN UP",
-            "sign_up": "Sign Up",
-            "registred": "Registred !!",
-            "already_exist": "A user with this name already exists",
-            "bad_request": "Incorrect inputs",
-            "password2": "Retype your password",
-            "different": "Passwords are differents",
-            "username_hint": "Between 4 and 30 characters long",
-            "password_hint": "Between 6 and 30 characters long"
-        }
+  "global": {
+    "cancel": "Cancel",
+    "username": "Username",
+    "username_required": "Username is required",
+    "minlength": "Too short",
+    "research": "Search",
+    "hour": "Hour",
+    "geolocation": {
+      "in_progress": "Geolocation in progress...",
+      "denied": "Geolocation denied",
+      "not_supported": "Geolocation not supported"
     }
+  },
+  "nav-bar": {
+    "dashboard": "Dashboard",
+    "logout": "Log Out"
+  },
+  "forecast": {
+    "wind": "Wind",
+    "precip": "Precipitation",
+    "rain": "Rain",
+    "chanceOfRain": "Chance of rain",
+    "chanceOfSnow": "Chance of snow",
+    "temp": "Temperature",
+    "condition": "Weather"
+  },
+  "dashboard": {
+    "show_all": "Show all"
+  },
+  "user": {
+    "name_required": "Username is required",
+    "password": "Password",
+    "password_required": "Password is required",
+    "answer": "Answer",
+    "answer_required": "Answer is required",
+    "question": "Secret question",
+    "question_required": "Question is required",
+    "error_password": "Differents passwords",
+    "error_question": "Differents questions",
+    "wrong_answer": "Incorrect answer",
+    "lang": "Language",
+    "logged_out": "Logged out",
+    "logout": "Logout",
+    "signin": {
+      "title": "SIGN IN",
+      "sign_in": "Sign In",
+      "connected": "Connected !!",
+      "forgot": "Forgot password",
+      "wrong": "Incorrect entry..",
+      "favourite_location": "Favourite location"
+    },
+    "signup": {
+      "title": "SIGN UP",
+      "sign_up": "Sign Up",
+      "registred": "Registred !!",
+      "already_exist": "A user with this name already exists",
+      "bad_request": "Incorrect inputs",
+      "password2": "Retype your password",
+      "different": "Passwords are differents",
+      "username_hint": "Between 4 and 30 characters long",
+      "password_hint": "Between 6 and 30 characters long"
+    }
+  }
 }
