@@ -17,6 +17,7 @@
   },
   "nav-bar": {
     "dashboard": "Dashboard",
+    "alert": "My Alerts",
     "logout": "Log Out"
   },
   "forecast": {

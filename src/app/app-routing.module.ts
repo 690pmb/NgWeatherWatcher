@@ -13,6 +13,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'alert',
+    loadChildren: () =>
+      import('./application-modules/alert/alert.module').then(
+        m => m.AlertModule
+      ),
+  },
+  {
     path: 'user',
     loadChildren: () =>
       import('./application-modules/user/user.module').then(m => m.UserModule),

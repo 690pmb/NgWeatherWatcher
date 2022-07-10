@@ -36,6 +36,15 @@
         <fa-icon [icon]="faHome"></fa-icon>
         {{ 'nav-bar.dashboard' | translate }}
       </a>
+      <a
+        mat-list-item
+        routerLink="/alert"
+        label="nav-bar.alert"
+        routerLinkActive="active-nav-item"
+      >
+        <fa-icon [icon]="faBell"></fa-icon>
+        {{ 'nav-bar.alert' | translate }}
+      </a>
       <a mat-list-item (click)="logout()">
         <fa-icon [icon]="faSignOutAlt"></fa-icon>
         {{ 'nav-bar.logout' | translate }}

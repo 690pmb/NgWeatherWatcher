@@ -8,7 +8,12 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import {Router} from '@angular/router';
-import {faBars, faSignOutAlt, faHome} from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faBell,
+  faHome,
+  faSignOutAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {BehaviorSubject, Subscription} from 'rxjs';
 import {MatSidenav, MatSidenavContent} from '@angular/material/sidenav';
 import {AuthService} from '../../../service/auth.service';
@@ -48,6 +53,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
   faBars = faBars;
   faSignOutAlt = faSignOutAlt;
   faHome = faHome;
+  faBell = faBell;
   direction: Direction = 'UP';
 
   constructor(
