@@ -17,6 +17,7 @@
   },
   "nav-bar": {
     "dashboard": "Tableau de Bord",
+    "alert": "Mes Alertes",
     "logout": "Déconnexion"
   },
   "forecast": {
