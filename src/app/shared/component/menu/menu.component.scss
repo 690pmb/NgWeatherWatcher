@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '../../../styles/imports';
 
 .toolbar {
@@ -19,7 +20,7 @@
   z-index: map-get($depth, 'content');
 
   fa-icon {
-    color: mat-color($my-primary);
+    color: mat.get-color-from-palette($my-primary);
     opacity: 1;
     vertical-align: unset !important;
   }
@@ -42,7 +43,7 @@
 }
 
 .active-nav-item {
-  color: mat-color($my-primary);
+  color: mat.get-color-from-palette($my-primary);
 }
 
 .nav-list {

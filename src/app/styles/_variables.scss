@@ -1,4 +1,5 @@
 /* Font */
+@use '~@angular/material' as mat;
 $font-family: arial, 'Helvetica Neue', helvetica, sans-serif;
 
 /* Color */
@@ -14,11 +15,11 @@ $success: #1aaa55;
 $warning: #fc6d26;
 $error: #ff3838;
 /* stylelint-disable */
-$my-primary: mat-palette($mat-green, A200);
-$my-accent: mat-palette($mat-indigo, A400);
-$my-warn: mat-palette($mat-orange, A400);
+$my-primary: mat.define-palette(mat.$green-palette, A200);
+$my-accent: mat.define-palette(mat.$indigo-palette, A400);
+$my-warn: mat.define-palette(mat.$orange-palette, A400);
 /* stylelint-enable */
-$my-theme: mat-light-theme(
+$my-theme: mat.define-light-theme(
   (
     color: (
       primary: $my-primary,
