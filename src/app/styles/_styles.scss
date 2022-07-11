@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import './imports';
 
 body {
@@ -25,12 +26,12 @@ h4 {
 }
 
 .mat-raised-button {
-  border: solid 3px mat-color($my-primary);
-  color: mat-color($my-primary);
+  border: solid 3px mat.get-color-from-palette($my-primary);
+  color: mat.get-color-from-palette($my-primary);
 }
 
 .background-color {
-  background-color: mat-color($my-primary);
+  background-color: mat.get-color-from-palette($my-primary);
   height: 100%;
   left: 0;
   opacity: 0.05;
