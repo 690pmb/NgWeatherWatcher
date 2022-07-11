@@ -18,10 +18,10 @@ import {slideInOutAnimation} from './slide-in-out';
   animations: [slideInOutAnimation],
 })
 export class DashboardDetailsComponent implements OnInit, OnDestroy {
-  date: string;
-  forecast: Forecast;
-  forecastDay: ForecastDay;
-  hours: Hour[];
+  date!: string;
+  forecast!: Forecast;
+  forecastDay?: ForecastDay;
+  hours: Hour[] = [];
   columnsToDisplay = [
     'time',
     'condition',
@@ -32,9 +32,9 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   ];
 
   showAll = false;
-  pageIndex: number;
+  pageIndex!: number;
   pageSize = 8;
-  index: number;
+  index!: number;
   subs: Subscription[] = [];
 
   constructor(
@@ -75,7 +75,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
             this.index = this.getIndex();
             this.filterAndPaginate(
               queryParam.get('showAll') === 'true',
-              Utils.getOrElse(+queryParam.get('page'), 0)
+              +Utils.getOrElse(queryParam.get('page'), '0')
             );
           }
         }
@@ -87,14 +87,16 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     this.showAll = showAll;
     this.pageIndex = pageIndex;
     if (this.showAll) {
-      this.hours = this.forecastDay.hour.slice(
-        this.pageIndex * this.pageSize,
-        (this.pageIndex + 1) * this.pageSize
-      );
+      this.hours =
+        this.forecastDay?.hour.slice(
+          this.pageIndex * this.pageSize,
+          (this.pageIndex + 1) * this.pageSize
+        ) ?? [];
     } else {
-      this.hours = this.forecastDay.hour.filter(
-        h => new Date(h.time).getHours() % 3 === 0
-      );
+      this.hours =
+        this.forecastDay?.hour.filter(
+          h => new Date(h.time).getHours() % 3 === 0
+        ) ?? [];
     }
   }
 

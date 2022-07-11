@@ -1,6 +1,6 @@
 import {Condition} from './condition';
 
-export class Day {
+export interface Day {
   maxTempC: number;
   minTempC: number;
   avgTempC: number;

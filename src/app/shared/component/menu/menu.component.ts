@@ -1,10 +1,8 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
-import {MatSidenav} from '@angular/material/sidenav';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {faBars, faSignOutAlt, faHome} from '@fortawesome/free-solid-svg-icons';
 import {BehaviorSubject, Subscription} from 'rxjs';
 import {AuthService} from '../../service/auth.service';
-import {MenuService} from '../../service/menu.service';
 
 @Component({
   selector: 'app-menu',
@@ -18,13 +16,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   faBars = faBars;
   faSignOutAlt = faSignOutAlt;
   faHome = faHome;
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
 
-  constructor(
-    public authService: AuthService,
-    private router: Router,
-    private menuService: MenuService
-  ) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.subs.push(

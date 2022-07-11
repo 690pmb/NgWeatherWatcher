@@ -17,7 +17,7 @@ import {
   styleUrls: ['./dashboard-forecast.component.scss'],
 })
 export class DashboardForecastComponent implements OnInit, OnDestroy {
-  forecast: Forecast;
+  forecast?: Forecast;
   showSpinner = false;
   subs: Subscription[] = [];
 
@@ -69,7 +69,10 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
         .pipe(
           filter(q => q !== undefined),
           map(query => query.get('location')),
-          filter(l => l !== null),
+          filter(
+            (l): l is string =>
+              typeof l === 'string' && l !== null && l.trim() !== ''
+          ),
           distinctUntilChanged()
         )
         .subscribe(

@@ -12,13 +12,13 @@ import {WeatherService} from '../../service/weather.service';
 })
 export class SearchLocationComponent {
   @Input()
-  placeholder: string;
+  placeholder!: string;
 
   @Output()
   selected = new EventEmitter<string>();
 
   @ViewChild(MatAutocompleteTrigger)
-  trigger: MatAutocompleteTrigger;
+  trigger!: MatAutocompleteTrigger;
 
   locations: Location[] = [];
   faLocationArrow = faLocationArrow;

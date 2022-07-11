@@ -8,11 +8,11 @@ import {ToastService, AuthService} from '../../../../shared/shared.module';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  username: string;
-  password: string;
-  password2: string;
-  favouriteLocation: string;
-  message: string;
+  username?: string;
+  password?: string;
+  password2?: string;
+  favouriteLocation?: string;
+  message?: string;
 
   constructor(
     private authService: AuthService,
