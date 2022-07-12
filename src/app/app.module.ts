@@ -2,7 +2,7 @@ import {registerLocaleData} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import localeEn from '@angular/common/locales/en';
 import localeFr from '@angular/common/locales/fr';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule, HammerModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
@@ -15,6 +15,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthGuard} from './auth.guard';
 import {SharedModule} from './shared/shared.module';
+import {Observable} from 'rxjs';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,12 +36,22 @@ import {SharedModule} from './shared/shared.module';
       },
     }),
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    {
+      provide: APP_INITIALIZER,
+      useFactory:
+        (service: TranslateService): (() => Observable<string>) =>
+        () =>
+          service.use('fr'),
+      deps: [TranslateService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(translate: TranslateService) {
-    translate.use('fr');
+  constructor() {
     registerLocaleData(localeFr);
     registerLocaleData(localeEn);
   }
