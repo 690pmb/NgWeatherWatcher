@@ -1,10 +1,10 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
-import {MatSidenav} from '@angular/material/sidenav';
 import {Router} from '@angular/router';
 import {faBars, faSignOutAlt, faHome} from '@fortawesome/free-solid-svg-icons';
 import {BehaviorSubject, Subscription} from 'rxjs';
 import {AuthService} from '../../service/auth.service';
 import {MenuService} from '../../service/menu.service';
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-menu',
@@ -15,15 +15,15 @@ export class MenuComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   isLogged$ = new BehaviorSubject<boolean>(false);
 
+  @ViewChild('sidenav', {static: false}) sidenav!: MatSidenav;
   faBars = faBars;
   faSignOutAlt = faSignOutAlt;
   faHome = faHome;
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
 
   constructor(
     public authService: AuthService,
     private router: Router,
-    private menuService: MenuService
+    public menuService: MenuService
   ) {}
 
   ngOnInit(): void {

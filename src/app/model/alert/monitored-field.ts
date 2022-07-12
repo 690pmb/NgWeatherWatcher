@@ -1,6 +1,6 @@
 import {WeatherField} from './weather-field';
 
-export class MonitoredField {
+export interface MonitoredField {
   field: WeatherField;
   min: number;
   max: number;

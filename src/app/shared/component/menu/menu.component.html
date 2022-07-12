@@ -20,7 +20,7 @@
     [mode]="'over'"
     *ngIf="isLogged$ | async"
   >
-    <mat-nav-list class="nav-list">
+    <mat-nav-list class="nav-list" (click)="sidenav.close()">
       <a
         mat-list-item
         routerLink="/dashboard"

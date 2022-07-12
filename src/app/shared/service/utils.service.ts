@@ -5,9 +5,11 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable, Observer, of} from 'rxjs';
+import {Observable, Observer, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ToastService} from './toast.service';
+
+type GobalError = HttpErrorResponse | string | ErrorEvent | Error;
 
 @Injectable({
   providedIn: 'root',
@@ -41,13 +43,13 @@ export class UtilsService {
     }
   }
 
-  protected static getErrorMessage(
-    error: HttpErrorResponse | string | ErrorEvent
-  ): string {
+  protected static getErrorMessage(error: GobalError): string {
     let message: string;
     if (error instanceof HttpErrorResponse) {
       message = `Status ${error.status}: ${error.message}`;
     } else if (error instanceof ErrorEvent) {
+      message = error.message;
+    } else if (error instanceof Error) {
       message = error.message;
     } else {
       message = error;
@@ -62,31 +64,23 @@ export class UtilsService {
     });
   }
 
-  public handleError(error: HttpErrorResponse | string | ErrorEvent): void {
+  public handleError(error: GobalError): void {
     console.error('handleError', error);
     this.toast.error(UtilsService.getErrorMessage(error));
   }
 
-  protected getPromise<T>(
-    url: string,
-    defaultValue: T,
-    params?: HttpParams
-  ): Promise<T> {
-    return this.getObservable<T>(url, defaultValue, params).toPromise();
+  protected getPromise<T>(url: string, params?: HttpParams): Promise<T> {
+    return this.getObservable<T>(url, params).toPromise();
   }
 
-  protected getObservable<T>(
-    url: string,
-    defaultValue: T,
-    params?: HttpParams
-  ): Observable<T> {
+  protected getObservable<T>(url: string, params?: HttpParams): Observable<T> {
     return this.httpClient
       .get<T>(url, {headers: UtilsService.getHeaders(), params})
       .pipe(
         map((response: T) => response),
         catchError((err: HttpErrorResponse) => {
           this.handleError(err);
-          return of(defaultValue);
+          return throwError(err);
         })
       );
   }

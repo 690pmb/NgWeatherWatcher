@@ -1,7 +1,7 @@
 import {MonitoredDays} from './monitored-days';
 import {MonitoredField} from './monitored-field';
 
-export class Alert {
+export interface Alert {
   id: number;
   triggerDays: string[];
   triggerHour: string;

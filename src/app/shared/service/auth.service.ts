@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import jwtDecode from 'jwt-decode';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -9,15 +8,19 @@ import {
 import {BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Token} from '../../model/token';
+import jwtDecode, {InvalidTokenError} from 'jwt-decode';
 import {UtilsService} from './utils.service';
 import {ToastService} from './toast.service';
 import {map} from 'rxjs/operators';
+import {Utils} from '../utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService extends UtilsService {
-  token$: BehaviorSubject<Token> = new BehaviorSubject(undefined as Token);
+  token$: BehaviorSubject<Token | undefined> = new BehaviorSubject<
+    Token | undefined
+  >(undefined);
 
   constructor(
     private router: Router,
@@ -52,12 +55,15 @@ export class AuthService extends UtilsService {
 
   isAuthenticated(): Promise<boolean> {
     const token = this.token$.getValue();
-    if (token && token.exp * 1000 > new Date().getTime()) {
+    if (
+      Utils.isNotBlank(token) &&
+      (!token.exp || token.exp * 1000 > new Date().getTime())
+    ) {
       return new Promise(resolve => resolve(true));
     } else {
       try {
-        const jwtToken: Token = jwtDecode(localStorage.getItem('token'));
-        if (jwtToken && jwtToken.exp * 1000 > new Date().getTime()) {
+        const jwtToken = jwtDecode<Token>(localStorage.getItem('token') ?? '');
+        if (!jwtToken.exp || jwtToken.exp * 1000 > new Date().getTime()) {
           return new Promise(resolve => resolve(true));
         } else {
           return this.reject(false);
@@ -70,7 +76,7 @@ export class AuthService extends UtilsService {
 
   signin(username: string, password: string): Promise<boolean> {
     return this.httpClient
-      .post(
+      .post<{token: string}>(
         `${environment.apiUrl}/${environment.userUrl}/signin`,
         {username, password},
         {observe: 'response'}
@@ -81,7 +87,7 @@ export class AuthService extends UtilsService {
             if (response.body !== null && response.body) {
               const token = response.body.token;
               AuthService.setToken(token);
-              this.token$.next(jwtDecode(token));
+              this.token$.next(jwtDecode<Token>(token));
               this.toast.success('user.signin.connected');
               return true;
             } else {
@@ -102,7 +108,7 @@ export class AuthService extends UtilsService {
   signup(
     username: string,
     password: string,
-    favouriteLocation: string
+    favouriteLocation?: string
   ): Promise<number> {
     return new Promise<number>(resolve =>
       this.httpClient
@@ -125,8 +131,8 @@ export class AuthService extends UtilsService {
     try {
       const token = localStorage.getItem('token');
       if (token) {
-        const jwtToken: Token = jwtDecode(token);
-        if (jwtToken && jwtToken.exp * 1000 > new Date().getTime()) {
+        const jwtToken = jwtDecode<Token>(token);
+        if (!jwtToken.exp || jwtToken.exp * 1000 > new Date().getTime()) {
           this.token$.next(jwtToken);
         } else {
           this.logout(false);
@@ -134,8 +140,8 @@ export class AuthService extends UtilsService {
       } else {
         this.logout(false);
       }
-    } catch (err) {
-      this.handleError(err);
+    } catch (err: unknown) {
+      this.handleError(err as InvalidTokenError);
       this.logout(false);
     }
   }
