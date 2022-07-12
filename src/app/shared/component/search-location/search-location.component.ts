@@ -3,7 +3,7 @@ import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {faLocationArrow, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {Observable, Observer} from 'rxjs';
 import {Location} from '../../../model/weather/location';
-import {WeatherService} from '../../service/weather.service';
+import {WeatherService} from '../../../service/weather.service';
 
 @Component({
   selector: 'app-search-location',

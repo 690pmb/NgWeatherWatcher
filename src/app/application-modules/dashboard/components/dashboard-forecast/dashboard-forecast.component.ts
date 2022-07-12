@@ -4,12 +4,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {combineLatest, EMPTY, Observable, Observer, Subscription} from 'rxjs';
 import {distinctUntilChanged, filter, map, mergeMap} from 'rxjs/operators';
 import {Forecast} from '../../../../model/weather/forecast';
-import {
-  AuthService,
-  MenuService,
-  ToastService,
-  WeatherService,
-} from '../../../../shared/shared.module';
+import {WeatherService} from '../../../../service/weather.service';
+import {AuthService} from '../../../../service/auth.service';
+import {ToastService} from '../../../../service/toast.service';
+import {MenuService} from '../../../../service/menu.service';
 
 @Component({
   selector: 'app-dashboard-forecast',
