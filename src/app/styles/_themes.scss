@@ -1,4 +1,0 @@
-@use '@angular/material' as mat;
-@use './imports' as *;
-@include mat.core();
-@include mat.all-component-themes($my-theme);

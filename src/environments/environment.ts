@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://weather.broca-nas.synology.me',
+  apiUrl: 'http://localhost:8080',
   userUrl: 'users',
   weatherUrl: 'weathers',
 };

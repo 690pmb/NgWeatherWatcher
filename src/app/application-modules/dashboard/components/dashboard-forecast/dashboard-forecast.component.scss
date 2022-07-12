@@ -1,3 +1,5 @@
+@use '/src/app/styles/imports' as *;
+
 .spinner-wrapper {
   align-items: center;
   display: flex;
@@ -40,13 +42,13 @@
 }
 
 a {
-  color: #4550e6;
+  color: color('blue');
   font-size: larger;
   font-weight: bolder;
   text-decoration: none;
 
   &:hover {
-    color: darken($color: #4550e6, $amount: 15%);
+    color: darken($color: color('blue'), $amount: 15%);
     text-decoration: underline;
   }
 }

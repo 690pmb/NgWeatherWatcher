@@ -1,0 +1,35 @@
+@use '@angular/material' as mat;
+@use './imports' as *;
+@include mat.core();
+
+$my-primary: mat.define-palette(
+  (
+    100: color('success'),
+    500: color('theme'),
+    700: color('info'),
+    contrast: (
+      100: $dark-primary-text,
+      500: $light-primary-text,
+      700: $light-primary-text,
+    ),
+  )
+);
+/* stylelint-disable */
+$my-accent: mat.define-palette(mat.$indigo-palette, A400);
+$my-warn: mat.define-palette(mat.$orange-palette, A400);
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+      warn: $my-warn,
+    ),
+    typography:
+      mat.define-typography-config(
+        $font-family: $font-family,
+      ),
+  )
+);
+/* stylelint-enable */
+
+@include mat.all-component-themes($my-theme);

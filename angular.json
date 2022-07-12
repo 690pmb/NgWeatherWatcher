@@ -51,8 +51,8 @@
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/assets", "src/favicon.ico"],
             "styles": [
-              "src/app/styles/_themes.scss",
-              "src/app/styles/_styles.scss"
+              "src/app/styles/themes.scss",
+              "src/app/styles/styles.scss"
             ],
             "scripts": [],
             "vendorChunk": true,
