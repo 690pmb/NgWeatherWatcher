@@ -1,5 +1,5 @@
-@use '~@angular/material' as mat;
-@import '../../../styles/imports';
+@use '@angular/material' as mat;
+@use '../../../styles/imports' as *;
 
 .toolbar {
   color: #fff;
@@ -7,6 +7,7 @@
   position: fixed;
   top: 0;
   z-index: map-get($depth, 'toolbar');
+
   h1 {
     font-size: 20px;
     margin: auto;

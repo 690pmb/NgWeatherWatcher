@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   0% {
     opacity: 0;
   }
@@ -16,7 +16,7 @@
   }
 }
 
-@keyframes fadeOut {
+@keyframes fade-out {
   0% {
     opacity: 1;
   }

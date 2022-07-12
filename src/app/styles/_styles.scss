@@ -1,5 +1,5 @@
-@use '~@angular/material' as mat;
-@import './imports';
+@use '@angular/material' as mat;
+@use './imports' as *;
 
 body {
   font-family: $font-family !important;
