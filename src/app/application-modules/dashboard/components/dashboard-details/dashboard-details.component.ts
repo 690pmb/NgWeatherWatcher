@@ -114,7 +114,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
 
   navigate(date: string, page: number): void {
     this.router
-      .navigate(['/dashboard/details/' + date], {
+      .navigate([`/dashboard/details/${date}`], {
         queryParams: {showAll: this.showAll, page},
         state: this.forecast,
         replaceUrl: true,
