@@ -18,7 +18,7 @@ export class ToastService {
         undefined,
         {
           duration: 3000,
-          panelClass: 'toast-' + level,
+          panelClass: `toast-${level}`,
         }
       );
     }
