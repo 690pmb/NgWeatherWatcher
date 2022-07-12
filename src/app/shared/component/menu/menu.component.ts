@@ -2,9 +2,9 @@ import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {faBars, faSignOutAlt, faHome} from '@fortawesome/free-solid-svg-icons';
 import {BehaviorSubject, Subscription} from 'rxjs';
-import {AuthService} from '../../service/auth.service';
-import {MenuService} from '../../service/menu.service';
 import {MatSidenav} from '@angular/material/sidenav';
+import {AuthService} from '../../../service/auth.service';
+import {MenuService} from '../../../service/menu.service';
 
 @Component({
   selector: 'app-menu',

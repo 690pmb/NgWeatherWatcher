@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslateService} from '@ngx-translate/core';
-import {Utils} from '../utils';
-import {Level} from './../../model/level';
+import {Utils} from '../shared/utils';
+import {Level} from '../model/level';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ToastService {
   constructor(
     public snackBar: MatSnackBar,
