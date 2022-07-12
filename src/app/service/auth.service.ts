@@ -6,13 +6,13 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
-import {environment} from '../../../environments/environment';
-import {Token} from '../../model/token';
+import {environment} from '../../environments/environment';
+import {Token} from '../model/token';
 import jwtDecode, {InvalidTokenError} from 'jwt-decode';
 import {UtilsService} from './utils.service';
 import {ToastService} from './toast.service';
 import {map} from 'rxjs/operators';
-import {Utils} from '../utils';
+import {Utils} from '../shared/utils';
 
 @Injectable({
   providedIn: 'root',

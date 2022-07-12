@@ -7,9 +7,9 @@ import {filter} from 'rxjs/operators';
 import {Forecast} from '../../../../model/weather/forecast';
 import {ForecastDay} from '../../../../model/weather/forecast-day';
 import {Hour} from '../../../../model/weather/hour';
-import {MenuService} from '../../../../shared/shared.module';
 import {Utils} from '../../../../shared/utils';
 import {slideInOutAnimation} from './slide-in-out';
+import {MenuService} from '../../../../service/menu.service';
 
 @Component({
   selector: 'app-dashboard-details',

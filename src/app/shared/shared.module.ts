@@ -16,9 +16,6 @@ import {MenuComponent} from './component/menu/menu.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {SearchLocationComponent} from './component/search-location/search-location.component';
 import {IconPipe} from './pipe/icon.pipe';
-import {AuthService} from './service/auth.service';
-import {ToastService} from './service/toast.service';
-import {WeatherService} from './service/weather.service';
 
 @NgModule({
   declarations: [SearchLocationComponent, MenuComponent, IconPipe],
@@ -55,7 +52,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
-      providers: [AuthService, ToastService, WeatherService],
+      providers: [IconPipe],
     };
   }
 
@@ -63,8 +60,3 @@ export class SharedModule {
     return {ngModule: SharedModule};
   }
 }
-
-export {AuthService} from './service/auth.service';
-export {ToastService} from './service/toast.service';
-export {WeatherService} from './service/weather.service';
-export {MenuService} from './service/menu.service';
