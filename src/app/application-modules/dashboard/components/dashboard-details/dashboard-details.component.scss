@@ -18,9 +18,11 @@
 .mat-header-cell {
   color: #fff;
   justify-content: center;
+
   &:first-of-type {
     padding-left: 10px !important;
   }
+
   &:last-of-type {
     padding-right: 10px !important;
   }
@@ -43,11 +45,13 @@
   .mat-table {
     width: 100vw;
   }
+
   .mat-cell,
   .mat-header-cell {
     &:first-of-type {
       padding-left: 0 !important;
     }
+
     &:last-of-type {
       padding-right: 0 !important;
     }

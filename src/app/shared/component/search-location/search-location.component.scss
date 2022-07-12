@@ -1,5 +1,5 @@
-@use '~@angular/material' as mat;
-@import '../../../styles/styles';
+@use '@angular/material' as mat;
+@use '/src/app/styles/imports' as *;
 
 :host > * {
   margin: 0 3px;

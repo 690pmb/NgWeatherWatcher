@@ -9,6 +9,17 @@
     "no-empty-source": null,
     "color-hex-case": "lower",
     "color-hex-length": "short",
+    "function-no-unknown": [
+      true,
+      {
+        "ignoreFunctions": [
+          "map-get",
+          "darken",
+          "mat.get-color-from-palette",
+          "mat.define-light-theme"
+        ]
+      }
+    ],
     "at-rule-empty-line-before": null,
     "at-rule-no-unknown": null,
     "selector-pseudo-element-no-unknown": [

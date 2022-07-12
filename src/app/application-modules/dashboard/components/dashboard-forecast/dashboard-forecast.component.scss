@@ -44,6 +44,7 @@ a {
   font-size: larger;
   font-weight: bolder;
   text-decoration: none;
+
   &:hover {
     color: darken($color: #4550e6, $amount: 15%);
     text-decoration: underline;
