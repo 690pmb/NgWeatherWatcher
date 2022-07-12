@@ -9,3 +9,4 @@ cordova/
 e2e/
 *.spec.ts
 *.conf.js
+.angular

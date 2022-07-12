@@ -26,8 +26,7 @@
         "@schematics/angular:interceptor": {
           "skipTests": true
         },
-        "@schematics/angular:module": {
-        },
+        "@schematics/angular:module": {},
         "@schematics/angular:pipe": {
           "skipTests": true
         },
@@ -97,8 +96,7 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-          },
+          "options": {},
           "configurations": {
             "production": {
               "browserTarget": "NgWeatherWatcher:build:production"
@@ -124,6 +122,5 @@
         }
       }
     }
-  },
-  "defaultProject": "NgWeatherWatcher"
+  }
 }
