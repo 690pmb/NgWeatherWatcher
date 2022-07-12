@@ -17,8 +17,7 @@ export class WeatherService extends UtilsService {
 
   search(term: string): Observable<Location[]> {
     return this.getObservable<Location[]>(
-      `${environment.apiUrl}/${environment.weatherUrl}/locations?query=${term}`,
-      []
+      `${environment.apiUrl}/${environment.weatherUrl}/locations?query=${term}`
     );
   }
 
@@ -29,7 +28,6 @@ export class WeatherService extends UtilsService {
   ): Promise<Forecast> {
     return this.getPromise<Forecast>(
       `${environment.apiUrl}/${environment.weatherUrl}`,
-      undefined,
       new HttpParams({fromObject: {location, days, lang}})
     );
   }

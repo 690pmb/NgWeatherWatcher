@@ -1,4 +1,4 @@
-export class Astro {
+export interface Astro {
   sunrise: string;
   sunset: string;
   moonrise: string;

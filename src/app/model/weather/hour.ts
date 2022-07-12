@@ -1,6 +1,6 @@
 import {Condition} from './condition';
 
-export class Hour {
+export interface Hour {
   time: string;
   tempC: number;
   isDay: boolean;
