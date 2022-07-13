@@ -1,5 +1,4 @@
-@use '@angular/material' as mat;
-@use './imports' as *;
+@use 'imports' as *;
 
 body {
   font-family: $font-family !important;
@@ -17,21 +16,18 @@ h4 {
   text-align: center !important;
 }
 
-@mixin background-color($color) {
-  background-color: $color;
-}
-
 .hide {
   display: none !important;
 }
 
 .mat-raised-button {
-  border: solid 3px mat.get-color-from-palette($my-primary);
-  color: mat.get-color-from-palette($my-primary);
+  border: solid 3px color('theme') !important;
+  color: color('theme');
 }
 
 .background-color {
-  background-color: mat.get-color-from-palette($my-primary);
+  @include bg-color('theme');
+
   height: 100%;
   left: 0;
   opacity: 0.05;
@@ -41,15 +37,10 @@ h4 {
   z-index: map-get($depth, 'background') - 1;
 }
 
-$levels: (
-  ('success', $success),
-  ('warning', $warning),
-  ('error', $error),
-  ('info', $info)
-);
+$levels: 'success', 'warning', 'error', 'info';
 
-@each $lvl, $color in $levels {
+@each $lvl in $levels {
   .toast-#{$lvl} {
-    @include background-color($color);
+    @include bg-color($lvl);
   }
 }
