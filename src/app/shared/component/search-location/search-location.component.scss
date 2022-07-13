@@ -1,4 +1,3 @@
-@use '@angular/material' as mat;
 @use '/src/app/styles/imports' as *;
 
 :host > * {
@@ -6,5 +5,5 @@
 }
 
 fa-icon {
-  color: mat.get-color-from-palette($my-primary);
+  color: color('theme');
 }

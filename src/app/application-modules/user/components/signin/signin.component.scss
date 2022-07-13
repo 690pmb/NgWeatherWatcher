@@ -1,4 +1,4 @@
-@use '../../../../styles/styles';
+@use '/src/app/styles/imports' as *;
 
 .signin-content {
   display: flex;
