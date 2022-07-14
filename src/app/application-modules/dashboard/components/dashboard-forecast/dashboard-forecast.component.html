@@ -23,7 +23,16 @@
           <img src="{{ forecastDay.day.condition.icon | icon }}" />
           <div class="weather-day-items">
             <div>{{ forecastDay.day.condition.text }}</div>
-            <div>{{ forecastDay.day.avgTempC }} °C</div>
+            <div>
+              {{ 'global.min' | translate }}: {{ forecastDay.day.minTempC }} °C
+            </div>
+            <div>
+              {{ 'global.average' | translate }}:
+              {{ forecastDay.day.avgTempC }} °C
+            </div>
+            <div>
+              {{ 'global.max' | translate }}: {{ forecastDay.day.maxTempC }} °C
+            </div>
             <div>
               {{ 'forecast.wind' | translate }}:
               {{ forecastDay.day.maxWindKph }} km/h
