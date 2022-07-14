@@ -7,7 +7,7 @@
     "mobile": "ng serve --host 0.0.0.0 --disable-host-check",
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "cordova": "ng build --configuration production --base-href file:///android_asset/www/ --progress false",
+    "cordova": "ng build --configuration cordova --base-href file:///android_asset/www/ --progress false",
     "test": "ng test",
     "lint": "run-s lint:*",
     "lint:stylelint": "stylelint \"**/*.scss\" verbose",
