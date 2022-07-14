@@ -2,6 +2,7 @@
   <ng-container *ngIf="forecast && forecast.forecastDay">
     <div
       [@slideInOut]="index"
+      [@slideInOut]="pageIndex"
       (swipeleft)="onSwipeLeft()"
       (swiperight)="onSwipeRight()"
       class="wrapper"
