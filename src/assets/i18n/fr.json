@@ -6,6 +6,9 @@
     "minlength": "Trop court",
     "research": "Rechercher",
     "hour": "Heure",
+    "min": "Min",
+    "max": "Max",
+    "average": "Moyenne",
     "geolocation": {
       "in_progress": "Géolocalisation en cours...",
       "denied": "Géolocalisation refusé",
