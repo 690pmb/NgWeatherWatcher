@@ -1,5 +1,5 @@
 import {DatePipe, Location} from '@angular/common';
-import {Component, OnDestroy, OnInit, Predicate} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {combineLatest, Subscription} from 'rxjs';
@@ -104,13 +104,19 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     return this.forecast.forecastDay.map(day => day.date).indexOf(this.date);
   }
 
-  onSwipe(canSwipe: Predicate<number>, next: 1 | -1): void {
+  onSwipe(
+    canSwipeNextDay: (i: number, p: number) => boolean,
+    canSwipeNextPage: (p: number) => boolean,
+    next: 1 | -1
+  ): void {
     const index = this.getIndex();
-    if (canSwipe(index)) {
+    if (canSwipeNextDay(index, this.pageIndex)) {
       this.navigate(
         this.forecast.forecastDay[this.index + next].date,
         this.showAll ? 1 : 0
       );
+    } else if (canSwipeNextPage(this.pageIndex)) {
+      this.navigate(this.date, this.pageIndex + next);
     }
   }
 
@@ -125,11 +131,23 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   }
 
   onSwipeLeft(): void {
-    this.onSwipe(i => i < this.forecast.forecastDay.length - 1, 1);
+    this.onSwipe(
+      (i, p) =>
+        (!this.showAll && i < this.forecast.forecastDay.length - 1) ||
+        (this.showAll && p === 2 && i < this.forecast.forecastDay.length - 1),
+      p => this.showAll && p < 2,
+      1
+    );
   }
 
   onSwipeRight(): void {
-    this.onSwipe(i => i > 0, -1);
+    this.onSwipe(
+      i =>
+        (!this.showAll && i > 0) ||
+        (this.showAll && i > 0 && this.pageIndex === 0),
+      p => this.showAll && p > 0,
+      -1
+    );
   }
 
   ngOnDestroy(): void {
