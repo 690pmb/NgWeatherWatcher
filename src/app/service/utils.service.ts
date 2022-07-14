@@ -3,6 +3,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
   HttpParams,
+  HttpResponse,
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, Observer, throwError} from 'rxjs';
@@ -19,7 +20,9 @@ export class UtilsService {
 
   constructor(
     protected httpClient: HttpClient,
-    protected toast: ToastService
+    protected toast: ToastService,
+    private baseUrl: string,
+    private apiUrl: string
   ) {}
 
   public static findUserPosition(observer: Observer<string>): void {
@@ -69,13 +72,29 @@ export class UtilsService {
     this.toast.error(UtilsService.getErrorMessage(error));
   }
 
-  protected getPromise<T>(url: string, params?: HttpParams): Promise<T> {
-    return this.getObservable<T>(url, params).toPromise();
+  protected post<T>(
+    url: string,
+    body: unknown | null,
+    params?: HttpParams
+  ): Observable<HttpResponse<T>> {
+    return this.httpClient.post<T>(
+      `${this.baseUrl}/${this.apiUrl}/${url}`,
+      body,
+      {
+        headers: UtilsService.getHeaders(),
+        observe: 'response',
+        params,
+        responseType: 'json',
+      }
+    );
   }
 
-  protected getObservable<T>(url: string, params?: HttpParams): Observable<T> {
+  protected get<T>(url: string, params?: HttpParams): Observable<T> {
     return this.httpClient
-      .get<T>(url, {headers: UtilsService.getHeaders(), params})
+      .get<T>(`${this.baseUrl}/${this.apiUrl}/${url}`, {
+        headers: UtilsService.getHeaders(),
+        params,
+      })
       .pipe(
         map((response: T) => response),
         catchError((err: HttpErrorResponse) => {

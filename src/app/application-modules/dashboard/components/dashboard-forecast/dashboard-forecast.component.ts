@@ -84,13 +84,15 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
     this.showSpinner = false;
     this.weatherService
       .findForecastByLocation(location, '5', this.translate.currentLang)
-      .then(forecast => {
-        this.menuService.title$.next(
-          `${forecast.location.name}, ${forecast.location.region} - ${forecast.location.country}`
-        );
-        this.forecast = forecast;
-      })
-      .catch(err => this.weatherService.handleError(err));
+      .subscribe(
+        forecast => {
+          this.menuService.title$.next(
+            `${forecast.location.name}, ${forecast.location.region} - ${forecast.location.country}`
+          );
+          this.forecast = forecast;
+        },
+        err => this.weatherService.handleError(err)
+      );
   }
 
   navigate(location: string): void {

@@ -16,6 +16,8 @@ import {AppComponent} from './app.component';
 import {AuthGuard} from './auth.guard';
 import {SharedModule} from './shared/shared.module';
 import {Observable} from 'rxjs';
+import {ConfigurationService} from './service/configuration.service';
+import {Configuration} from './model/configuration';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,6 +47,15 @@ import {Observable} from 'rxjs';
         () =>
           service.use('fr'),
       deps: [TranslateService],
+      multi: true,
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory:
+        (conf: ConfigurationService): (() => Observable<Configuration>) =>
+        () =>
+          conf.load(),
+      deps: [ConfigurationService],
       multi: true,
     },
   ],
