@@ -6,13 +6,13 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
-import {environment} from '../../environments/environment';
 import {Token} from '../model/token';
 import jwtDecode, {InvalidTokenError} from 'jwt-decode';
 import {UtilsService} from './utils.service';
 import {ToastService} from './toast.service';
 import {map} from 'rxjs/operators';
 import {Utils} from '../shared/utils';
+import {ConfigurationService} from './configuration.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,9 +25,15 @@ export class AuthService extends UtilsService {
   constructor(
     private router: Router,
     protected httpClient: HttpClient,
-    protected toast: ToastService
+    protected toast: ToastService,
+    protected configurationService: ConfigurationService
   ) {
-    super(httpClient, toast);
+    super(
+      httpClient,
+      toast,
+      configurationService.get().apiUrl,
+      configurationService.get().userUrl
+    );
   }
 
   private static setToken(token: string): void {
@@ -75,12 +81,7 @@ export class AuthService extends UtilsService {
   }
 
   signin(username: string, password: string): Promise<boolean> {
-    return this.httpClient
-      .post<{token: string}>(
-        `${environment.apiUrl}/${environment.userUrl}/signin`,
-        {username, password},
-        {observe: 'response'}
-      )
+    return this.post<{token: string}>('signin', {username, password})
       .pipe(
         map(
           (response: HttpResponse<{token: string}>) => {
@@ -111,19 +112,17 @@ export class AuthService extends UtilsService {
     favouriteLocation?: string
   ): Promise<number> {
     return new Promise<number>(resolve =>
-      this.httpClient
-        .post(
-          `${environment.apiUrl}/${environment.userUrl}/signup`,
-          {username, password, favouriteLocation},
-          {observe: 'response'}
-        )
-        .subscribe(
-          (response: HttpResponse<unknown>) => resolve(response.status),
-          (response: HttpErrorResponse) => {
-            this.handleError(response);
-            return resolve(response.status);
-          }
-        )
+      this.post(
+        'signup',
+        {username, password, favouriteLocation},
+        undefined
+      ).subscribe(
+        (response: HttpResponse<unknown>) => resolve(response.status),
+        (response: HttpErrorResponse) => {
+          this.handleError(response);
+          return resolve(response.status);
+        }
+      )
     );
   }
 
