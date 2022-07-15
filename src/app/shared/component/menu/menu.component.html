@@ -8,7 +8,9 @@
     >
       <fa-icon [icon]="faBars" size="2x"></fa-icon>
     </button>
-    <h1 *ngIf="menuService.title$ | async as title">{{ title }}</h1>
+    <h1 *ngIf="menuService.title$ | async as title" routerLink="/dashboard">
+      {{ title }}
+    </h1>
   </mat-toolbar>
 </ng-container>
 
@@ -36,7 +38,7 @@
       </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content #content class="sidenav-content">
+  <mat-sidenav-content class="sidenav-content">
     <div class="background-color"></div>
     <div [ngClass]="{menu: (isLogged$ | async)}">
       <router-outlet></router-outlet>
