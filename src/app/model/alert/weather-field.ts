@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 export enum WeatherField {
   TEMP = 'TEMP',
   WIND = 'WIND',

@@ -1,13 +1,72 @@
 import {MonitoredDays} from './monitored-days';
 import {MonitoredField} from './monitored-field';
+import {Type, Expose, Transform} from 'class-transformer';
+import {DateTime} from 'luxon';
+import {DayOfWeek} from './day-of-week';
 
-export interface Alert {
-  id: number;
-  triggerDays: string[];
-  triggerHour: string;
-  monitoredDays: MonitoredDays;
-  monitoredHours: string[];
-  monitoredFields: MonitoredField[];
-  location: string;
-  forceNotification: boolean;
+const hourToDateTime = (v: string): DateTime =>
+  DateTime.fromFormat(v, 'HH:mmZ');
+const ALL_DAYS = {key: 'every_days', value: Object.values(DayOfWeek)};
+const WORKING_DAYS = {
+  key: 'all_working_days',
+  value: [
+    DayOfWeek.MONDAY,
+    DayOfWeek.TUESDAY,
+    DayOfWeek.WEDNESDAY,
+    DayOfWeek.THURSDAY,
+    DayOfWeek.FRIDAY,
+  ],
+};
+const WEEK_END = {
+  key: 'week_end',
+  value: [DayOfWeek.SATURDAY, DayOfWeek.SUNDAY],
+};
+
+export class Alert {
+  id!: number;
+  triggerDays!: DayOfWeek[];
+  @Transform(({value}) => hourToDateTime(value), {
+    toClassOnly: true,
+  })
+  triggerHour!: DateTime;
+
+  monitoredDays!: MonitoredDays;
+
+  @Transform(({value}) => (value as string[]).map(v => hourToDateTime(v)), {
+    toClassOnly: true,
+  })
+  monitoredHours!: DateTime[];
+
+  @Type(() => MonitoredField)
+  monitoredFields!: MonitoredField[];
+
+  location!: string;
+  forceNotification!: boolean;
+
+  @Expose()
+  get monitored(): string[] {
+    return [
+      {key: 'same_day', value: this.monitoredDays.sameDay},
+      {key: 'next_day', value: this.monitoredDays.nextDay},
+      {key: 'two_day_later', value: this.monitoredDays.twoDayLater},
+    ]
+      .filter(monitored => monitored.value)
+      .map(monitored => `alert.monitored_days.${monitored.key}`);
+  }
+
+  @Expose()
+  get trigger(): string[] {
+    const summary = [ALL_DAYS, WORKING_DAYS, WEEK_END].find(
+      days =>
+        days.value.length === this.triggerDays.length &&
+        days.value.every(day => this.triggerDays.includes(day))
+    )?.key;
+    if (summary) {
+      return [`alert.${summary}`];
+    } else {
+      return this.triggerDays.map(
+        t => `global.day.${t.toString().toLowerCase()}`
+      );
+    }
+  }
 }
