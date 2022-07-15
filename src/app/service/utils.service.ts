@@ -89,9 +89,9 @@ export class UtilsService {
     );
   }
 
-  protected get<T>(url: string, params?: HttpParams): Observable<T> {
+  protected get<T>(url?: string, params?: HttpParams): Observable<T> {
     return this.httpClient
-      .get<T>(`${this.baseUrl}/${this.apiUrl}/${url}`, {
+      .get<T>(`${this.baseUrl}/${this.apiUrl}/${url ?? ''}`, {
         headers: UtilsService.getHeaders(),
         params,
       })

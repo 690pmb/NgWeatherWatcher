@@ -12,6 +12,5 @@ import {SharedModule} from '../../shared/shared.module';
     MatSlideToggleModule,
     SharedModule.forChild(),
   ],
-  providers: [],
 })
 export class AlertModule {}

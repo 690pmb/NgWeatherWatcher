@@ -1,5 +1,5 @@
-export interface MonitoredDays {
-  sameDay: boolean;
-  nextDay: boolean;
-  twoDayLater: boolean;
+export class MonitoredDays {
+  sameDay!: boolean;
+  nextDay!: boolean;
+  twoDayLater!: boolean;
 }
