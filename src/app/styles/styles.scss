@@ -20,13 +20,17 @@ h4 {
   display: none !important;
 }
 
+fa-icon {
+  @include color();
+}
+
 .mat-raised-button {
-  border: solid 3px color('theme') !important;
-  color: color('theme');
+  @include border($size: 3px);
+  @include color();
 }
 
 .background-color {
-  @include bg-color('theme');
+  @include bg-color();
 
   height: 100%;
   left: 0;

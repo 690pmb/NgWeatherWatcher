@@ -15,6 +15,7 @@
         "ignoreFunctions": [
           "map-get",
           "darken",
+          "get-color",
           "mat.define-light-theme",
           "mat.define-palette",
           "mat.define-typography-config"

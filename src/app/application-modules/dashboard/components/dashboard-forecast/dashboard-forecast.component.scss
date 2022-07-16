@@ -42,13 +42,14 @@
 }
 
 a {
-  color: color('blue');
+  @include color('blue');
+
   font-size: larger;
   font-weight: bolder;
   text-decoration: none;
 
   &:hover {
-    color: darken($color: color('blue'), $amount: 15%);
+    color: darken($color: get-color('blue'), $amount: 15%);
     text-decoration: underline;
   }
 }

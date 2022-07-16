@@ -9,10 +9,30 @@
     "min": "Min",
     "max": "Max",
     "average": "Moyenne",
+    "expand": "Étendre",
+    "edit": "Éditer",
     "geolocation": {
       "in_progress": "Géolocalisation en cours...",
       "denied": "Géolocalisation refusé",
       "not_supported": "Géolocalisation non supporté"
+    },
+    "day": {
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "saturday": "Samedi",
+      "sunday": "Dimanche"
+    },
+    "mat-table": {
+      "of": " sur ",
+      "no_result": "Aucune Donnée",
+      "nextPageLabel": "Page Suivante",
+      "previousPageLabel": "Page Précédente",
+      "lastPageLabel": "Dernière Page",
+      "firstPageLabel": "Première Page",
+      "itemsPerPageLabel": "Objets par page: "
     }
   },
   "nav-bar": {
@@ -31,6 +51,36 @@
   },
   "dashboard": {
     "show_all": "Afficher tout"
+  },
+  "alert": {
+    "trigger_day": "Jour de notification",
+    "trigger_hour": "Heures de notification",
+    "monitored_day": "Jours surveillés",
+    "monitored_hour": "Heures surveillées",
+    "location": "Localisation",
+    "force_notification": "Forcer la notification",
+    "monitored_field": "Données surveillées",
+    "all_working_days": "Tous les jours travaillés",
+    "every_days": "Tous les jours",
+    "week_end": "Le week-end",
+    "monitored_days": {
+      "same_day": "le jour même",
+      "next_day": "le lendemain",
+      "two_day_later": "le surlendemain"
+    },
+    "mat-table.itemsPerPageLabel": "Alertes par page: ",
+    "field": {
+      "temp": "Température",
+      "wind": "Vent",
+      "pressure": "Pression atmosphérique",
+      "precip": "Précipitation",
+      "humidity": "Humidité",
+      "cloud": "Ennuagement",
+      "feels_like": "Température ressentie",
+      "chance_of_rain": "Probabilité de pluie",
+      "chance_of_snow": "Probabilité de neige",
+      "uv": "UV"
+    }
   },
   "user": {
     "name_required": "Veuillez renseigner votre pseudo",
