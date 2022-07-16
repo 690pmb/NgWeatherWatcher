@@ -16,7 +16,7 @@ $colors: (
   'error': #ff3838,
 );
 
-@function color($name) {
+@function get-color($name) {
   @if map.has-key($colors, $name) {
     @return map.get($colors, $name);
   }
@@ -37,7 +37,7 @@ $depth: (
 $bezier: cubic-bezier(0.86, 0, 0.07, 1);
 $font-family: arial, 'Helvetica Neue', helvetica, sans-serif;
 /* stylelint-disable */
-$dark-primary-text: rgb(color('black'), 0.87);
+$dark-primary-text: rgb(get-color('black'), 0.87);
 /* stylelint-enable */
-$light-primary-text: color('white');
+$light-primary-text: get-color('white');
 $toolbar-height: 64px;

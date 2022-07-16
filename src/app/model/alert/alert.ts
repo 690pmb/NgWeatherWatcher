@@ -4,8 +4,7 @@ import {Type, Expose, Transform} from 'class-transformer';
 import {DateTime} from 'luxon';
 import {DayOfWeek} from './day-of-week';
 
-const hourToDateTime = (v: string): DateTime =>
-  DateTime.fromFormat(v, 'HH:mmZ');
+const formatHours = (v: string): DateTime => DateTime.fromISO(v);
 const ALL_DAYS = {key: 'every_days', value: Object.values(DayOfWeek)};
 const WORKING_DAYS = {
   key: 'all_working_days',
@@ -25,14 +24,14 @@ const WEEK_END = {
 export class Alert {
   id!: number;
   triggerDays!: DayOfWeek[];
-  @Transform(({value}) => hourToDateTime(value), {
+  @Transform(({value}) => formatHours(value), {
     toClassOnly: true,
   })
   triggerHour!: DateTime;
 
   monitoredDays!: MonitoredDays;
 
-  @Transform(({value}) => (value as string[]).map(v => hourToDateTime(v)), {
+  @Transform(({value}) => (value as string[]).map(v => formatHours(v)).sort(), {
     toClassOnly: true,
   })
   monitoredHours!: DateTime[];
@@ -44,7 +43,7 @@ export class Alert {
   forceNotification!: boolean;
 
   @Expose()
-  get monitored(): string[] {
+  getMonitoredDays(): string[] {
     return [
       {key: 'same_day', value: this.monitoredDays.sameDay},
       {key: 'next_day', value: this.monitoredDays.nextDay},
@@ -55,7 +54,7 @@ export class Alert {
   }
 
   @Expose()
-  get trigger(): string[] {
+  getTriggerDays(): string[] {
     const summary = [ALL_DAYS, WORKING_DAYS, WEEK_END].find(
       days =>
         days.value.length === this.triggerDays.length &&

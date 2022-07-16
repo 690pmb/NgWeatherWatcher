@@ -1,0 +1,78 @@
+<ng-container *ngIf="alerts">
+  <div class="header">
+    <mat-paginator
+      [length]="alerts.length"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      (page)="navigate($event.pageIndex)"
+    >
+    </mat-paginator>
+  </div>
+  <mat-table [dataSource]="shownAlerts">
+    <ng-container matColumnDef="trigger-day">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        {{ 'alert.trigger_day' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let alert">
+        {{ formatField(alert.getTriggerDays()) }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="trigger-hour">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        {{ 'alert.trigger_hour' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let alert">
+        {{ alert.triggerHour | dateTime: 'hour' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="monitored-hour">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        {{ 'alert.monitored_hour' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let alert">
+        {{ formatField(alert.getMonitoredDays()) }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        {{ 'alert.location' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let alert">
+        <ng-container *ngIf="alert.location.length > 13"
+          >{{ alert.location | slice: 0:13 }}...</ng-container
+        >
+        <ng-container *ngIf="alert.location.length <= 13">{{
+          alert.location
+        }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="force">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        {{ 'alert.force_notification' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let alert">
+        <div *ngIf="alert.forceNotification">
+          <fa-icon [icon]="faCheck"></fa-icon>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        {{ 'global.edit' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let alert">
+        <button type="button" mat-raised-button>
+          <fa-icon [icon]="faEdit"></fa-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let alerts; columns: columnsToDisplay"></mat-row>
+  </mat-table>
+</ng-container>

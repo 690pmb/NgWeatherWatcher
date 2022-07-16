@@ -16,9 +16,15 @@ import {MenuComponent} from './component/menu/menu.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {SearchLocationComponent} from './component/search-location/search-location.component';
 import {IconPipe} from './pipe/icon.pipe';
+import {DateTimePipe} from './pipe/date-time.pipe';
 
 @NgModule({
-  declarations: [SearchLocationComponent, MenuComponent, IconPipe],
+  declarations: [
+    SearchLocationComponent,
+    MenuComponent,
+    IconPipe,
+    DateTimePipe,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -41,8 +47,10 @@ import {IconPipe} from './pipe/icon.pipe';
     FormsModule,
     MatButtonModule,
     IconPipe,
+    DateTimePipe,
     MatSnackBarModule,
     SearchLocationComponent,
+    FontAwesomeModule,
     MenuComponent,
   ],
   providers: [DatePipe],
@@ -52,7 +60,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
-      providers: [IconPipe],
+      providers: [IconPipe, DateTimePipe],
     };
   }
 
