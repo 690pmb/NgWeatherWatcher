@@ -4,9 +4,9 @@
 
 $my-primary: mat.define-palette(
   (
-    100: color('success'),
-    500: color('theme'),
-    700: color('info'),
+    100: get-color('success'),
+    500: get-color('theme'),
+    700: get-color('info'),
     contrast: (
       100: $dark-primary-text,
       500: $light-primary-text,
