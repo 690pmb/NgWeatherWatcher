@@ -1,3 +1,4 @@
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {faCheck, faEdit} from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +14,19 @@ import {Alert} from '../../../../model/alert/alert';
   selector: 'app-alert-list',
   templateUrl: './alert-list.component.html',
   styleUrls: ['./alert-list.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state(
+        'collapsed',
+        style({height: '0px', minHeight: '0', display: 'none'})
+      ),
+      state('expanded', style({height: '*'})),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
+    ]),
+  ],
 })
 export class AlertListComponent implements OnInit, OnDestroy {
   alerts!: Alert[];
@@ -22,6 +36,8 @@ export class AlertListComponent implements OnInit, OnDestroy {
   faCheck = faCheck;
   faEdit = faEdit;
   subs: Subscription[] = [];
+  expandedAlert?: Alert;
+  expandedColumn = 'details';
   columnsToDisplay = [
     'trigger-day',
     'trigger-hour',
@@ -40,7 +56,7 @@ export class AlertListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.menuService.title$.next('');
+    this.menuService.title$.next('alert.title');
     this.subs.push(
       this.alertService.getAllByUser().subscribe(alerts => {
         this.alerts = alerts;
@@ -74,14 +90,18 @@ export class AlertListComponent implements OnInit, OnDestroy {
       .catch(err => console.error(err));
   }
 
-  formatField(field: string[]): string {
+  formatField(field: string[], handleEllips: boolean): string {
     let result = field;
     let ellips = '';
-    if (result.length > 3) {
+    if (handleEllips && result.length > 3) {
       result = result.slice(0, 2);
       ellips = '...';
     }
     return `${result.map(a => this.translate.instant(a)).join(', ')}${ellips}`;
+  }
+
+  expand(alert: Alert): void {
+    this.expandedAlert = this.expandedAlert === alert ? undefined : alert;
   }
 
   ngOnDestroy(): void {

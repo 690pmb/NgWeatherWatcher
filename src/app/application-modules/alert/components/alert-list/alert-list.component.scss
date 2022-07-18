@@ -31,6 +31,33 @@
   background: none !important;
 }
 
+.alert-detail {
+  overflow: hidden;
+}
+
+.alert-row {
+  border-bottom-width: 0;
+}
+
+.mat-row {
+  min-height: 0 !important;
+}
+
+.alert-expand {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-column-details {
+  border-bottom-style: unset !important;
+  width: 100%;
+
+  span {
+    color: $darken-theme;
+    font-weight: bold;
+  }
+}
+
 @media (max-width: 500px) {
   .mat-table {
     width: 100vw;

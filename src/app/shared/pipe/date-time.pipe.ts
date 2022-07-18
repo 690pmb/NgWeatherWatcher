@@ -7,7 +7,10 @@ type Format = 'full' | 'date' | 'hour';
   name: 'dateTime',
 })
 export class DateTimePipe implements PipeTransform {
-  transform(value: DateTime, format: Format = 'full'): string {
+  transform(
+    value: DateTime | DateTime[],
+    format: Format = 'full'
+  ): string | string[] {
     let fmt: string;
     switch (format) {
       case 'full':
@@ -20,6 +23,10 @@ export class DateTimePipe implements PipeTransform {
         fmt = 'HH:mm';
         break;
     }
-    return value.toFormat(fmt);
+    if (value instanceof DateTime) {
+      return value.toFormat(fmt);
+    } else {
+      return value.map(v => v.toFormat(fmt));
+    }
   }
 }
