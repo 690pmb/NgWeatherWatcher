@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {MatDividerModule} from '@angular/material/divider';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
@@ -32,7 +31,6 @@ const childRoutes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatSlideToggleModule,
-    MatDividerModule,
     SharedModule.forChild(),
     RouterModule.forChild(childRoutes),
   ],

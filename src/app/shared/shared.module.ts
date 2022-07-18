@@ -4,6 +4,7 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -38,6 +39,7 @@ import {DateTimePipe} from './pipe/date-time.pipe';
     MatAutocompleteModule,
     MatSidenavModule,
     MatInputModule,
+    MatDividerModule,
     MatTooltipModule,
     RouterModule.forChild([]),
   ],
@@ -48,6 +50,7 @@ import {DateTimePipe} from './pipe/date-time.pipe';
     MatButtonModule,
     IconPipe,
     DateTimePipe,
+    MatDividerModule,
     MatSnackBarModule,
     SearchLocationComponent,
     FontAwesomeModule,

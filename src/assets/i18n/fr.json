@@ -16,15 +16,6 @@
       "denied": "Géolocalisation refusé",
       "not_supported": "Géolocalisation non supporté"
     },
-    "day": {
-      "monday": "Lundi",
-      "tuesday": "Mardi",
-      "wednesday": "Mercredi",
-      "thursday": "Jeudi",
-      "friday": "Vendredi",
-      "saturday": "Samedi",
-      "sunday": "Dimanche"
-    },
     "mat-table": {
       "of": " sur ",
       "no_result": "Aucune Donnée",
@@ -53,6 +44,7 @@
     "show_all": "Afficher tout"
   },
   "alert": {
+    "title": "Mes alertes",
     "trigger_day": "Jour de notification",
     "trigger_hour": "Heures de notification",
     "monitored_day": "Jours surveillés",

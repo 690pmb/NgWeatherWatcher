@@ -54,7 +54,7 @@ export class Alert {
   }
 
   @Expose()
-  getTriggerDays(): string[] {
+  getTriggerDays(locale: string): string[] {
     const summary = [ALL_DAYS, WORKING_DAYS, WEEK_END].find(
       days =>
         days.value.length === this.triggerDays.length &&
@@ -63,9 +63,10 @@ export class Alert {
     if (summary) {
       return [`alert.${summary}`];
     } else {
-      return this.triggerDays.map(
-        t => `global.day.${t.toString().toLowerCase()}`
-      );
+      return this.triggerDays
+        .map(t => DateTime.fromFormat(t, 'EEEE'))
+        .sort()
+        .map(v => v.toFormat('EEEE', {locale}));
     }
   }
 }
