@@ -22,14 +22,10 @@ const WEEK_END = {
 };
 
 export class Alert {
-  id!: number;
-  triggerDays!: DayOfWeek[];
   @Transform(({value}) => formatHours(value), {
     toClassOnly: true,
   })
   triggerHour!: DateTime;
-
-  monitoredDays!: MonitoredDays;
 
   @Transform(
     ({value}) =>
@@ -45,9 +41,6 @@ export class Alert {
 
   @Type(() => MonitoredField)
   monitoredFields!: MonitoredField[];
-
-  location!: string;
-  forceNotification!: boolean;
 
   @Expose()
   getMonitoredDays(): string[] {
@@ -76,4 +69,12 @@ export class Alert {
         .map(v => v.toFormat('EEEE', {locale}));
     }
   }
+
+  id!: number;
+  triggerDays!: DayOfWeek[];
+
+  monitoredDays!: MonitoredDays;
+
+  location!: string;
+  forceNotification!: boolean;
 }

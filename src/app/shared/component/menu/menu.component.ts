@@ -45,11 +45,10 @@ type Direction = 'UP' | 'DOWN';
   ],
 })
 export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
-  subs: Subscription[] = [];
-  isLogged$ = new BehaviorSubject<boolean>(false);
-
   @ViewChild('sidenav', {static: false}) sidenav!: MatSidenav;
   @ViewChild('content', {static: false}) content!: MatSidenavContent;
+  subs: Subscription[] = [];
+  isLogged$ = new BehaviorSubject<boolean>(false);
   faBars = faBars;
   faSignOutAlt = faSignOutAlt;
   faHome = faHome;
