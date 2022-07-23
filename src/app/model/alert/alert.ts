@@ -31,10 +31,17 @@ export class Alert {
 
   monitoredDays!: MonitoredDays;
 
-  @Transform(({value}) => (value as string[]).map(v => formatHours(v)).sort(), {
-    toClassOnly: true,
-  })
-  monitoredHours!: DateTime[];
+  @Transform(
+    ({value}) =>
+      (value as string[])
+        .map(v => formatHours(v))
+        .sort()
+        .map(v => v.toFormat('HH:mm')),
+    {
+      toClassOnly: true,
+    }
+  )
+  monitoredHours!: string[];
 
   @Type(() => MonitoredField)
   monitoredFields!: MonitoredField[];

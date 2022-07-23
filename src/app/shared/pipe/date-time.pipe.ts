@@ -7,22 +7,17 @@ type Format = 'full' | 'date' | 'hour';
   name: 'dateTime',
 })
 export class DateTimePipe implements PipeTransform {
+  static readonly typeFormat: {[key in Format]: string} = {
+    full: 'dd/MM/yyyy HH:mm',
+    date: 'dd/MM/yyyy',
+    hour: 'HH:mm',
+  };
+
   transform(
     value: DateTime | DateTime[],
     format: Format = 'full'
   ): string | string[] {
-    let fmt: string;
-    switch (format) {
-      case 'full':
-        fmt = 'dd/MM/yyyy HH:mm';
-        break;
-      case 'date':
-        fmt = 'dd/MM/yyyy';
-        break;
-      case 'hour':
-        fmt = 'HH:mm';
-        break;
-    }
+    const fmt = DateTimePipe.typeFormat[format];
     if (value instanceof DateTime) {
       return value.toFormat(fmt);
     } else {
