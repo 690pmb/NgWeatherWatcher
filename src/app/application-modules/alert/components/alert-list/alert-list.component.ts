@@ -36,6 +36,9 @@ import {MatBottomSheet} from '@angular/material/bottom-sheet';
   ],
 })
 export class AlertListComponent implements OnInit, OnDestroy {
+  @ViewChild('deleteButton')
+  deleteButton!: TemplateRef<number>;
+
   alerts!: Alert[];
   shownAlerts!: Alert[];
   pageIndex!: number;
@@ -55,9 +58,6 @@ export class AlertListComponent implements OnInit, OnDestroy {
     'force',
     'edit',
   ];
-
-  @ViewChild('deleteButton')
-  deleteButton!: TemplateRef<number>;
 
   constructor(
     private router: Router,

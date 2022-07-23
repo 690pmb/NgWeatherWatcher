@@ -4,7 +4,9 @@ import {Directive, HostListener, EventEmitter, Output} from '@angular/core';
   selector: '[appClickOutside]',
 })
 export class ClickOutsideDirective {
-  inside = false;
+  @Output()
+  outside = new EventEmitter<boolean>();
+
   @HostListener('click')
   clicked(): void {
     this.inside = true;
@@ -18,8 +20,7 @@ export class ClickOutsideDirective {
     this.inside = false;
   }
 
-  @Output()
-  outside = new EventEmitter<boolean>();
+  inside = false;
 
   constructor() {}
 }

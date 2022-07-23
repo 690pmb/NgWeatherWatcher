@@ -32,12 +32,27 @@
         "allowModules": ["protractor"]
       }
     ],
+    "@typescript-eslint/member-ordering": [
+      "error",
+      {
+        "default": [
+          "signature",
+          "decorated-field",
+          "decorated-method",
+          "field",
+          "constructor",
+          "method"
+        ]
+      }
+    ],
+    "curly": ["warn"],
     "complexity": ["error", 12],
     "arrow-body-style": ["error", "as-needed"],
     "@typescript-eslint/explicit-function-return-type": [
       "error",
       {
-        "allowExpressions": true
+        "allowExpressions": true,
+        "allowedNames": ["ngOnInit", "ngAfterViewInit"]
       }
     ],
     "no-console": ["error", {"allow": ["warn", "error"]}],

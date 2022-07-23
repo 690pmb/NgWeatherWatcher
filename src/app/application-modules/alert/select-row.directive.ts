@@ -18,8 +18,6 @@ export class SelectRowDirective {
   @Output()
   selected: EventEmitter<void> = new EventEmitter<void>();
 
-  setTimeoutConst?: number;
-
   @HostListener('mouseover', ['$event']) onMouseEnter(): void {
     this.setTimeoutConst = setTimeout(
       () => {
@@ -36,6 +34,8 @@ export class SelectRowDirective {
   @HostListener('click') onClick(): void {
     clearTimeout(this.setTimeoutConst);
   }
+
+  setTimeoutConst?: number;
 
   constructor() {}
 }
