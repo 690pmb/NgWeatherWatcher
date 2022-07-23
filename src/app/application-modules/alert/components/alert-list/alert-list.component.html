@@ -35,7 +35,7 @@
         {{ 'alert.monitored_hour' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
-        {{ formatField(alert.getMonitoredDays(), true) | titlecase }}
+        {{ formatField(alert.monitoredHours, true) }}
       </mat-cell>
     </ng-container>
 
@@ -98,7 +98,7 @@
             </div>
             <div>
               <span>{{ 'alert.monitored_hour' | translate }}: </span
-              >{{ alert.monitoredHours | dateTime: 'hour' }}
+              >{{ formatField(alert.monitoredHours, false) }}
             </div>
             <div>
               <span>{{ 'alert.location' | translate }}: </span
@@ -129,13 +129,30 @@
     <mat-row
       *matRowDef="let alert; columns: columnsToDisplay"
       class="alert-row"
-      [class.expanded-row]="expandedAlert === alert"
       (click)="expand(alert)"
-    >
-    </mat-row>
+      [ngClass]="{'row-selected': isRowSelected(alert.id)}"
+      appSelectRow
+      [speed]="selected.length > 0 ? 'fast' : 'slow'"
+      (selected)="handleSelection(alert.id)"
+    ></mat-row>
     <mat-row
       *matRowDef="let row; columns: [expandedColumn]"
       class="detail-row"
     ></mat-row>
   </mat-table>
 </ng-container>
+
+<ng-template #deleteButton let-data>
+  <button
+    type="button"
+    mat-raised-button
+    (click)="delete()"
+    appClickOutside
+    (outside)="resetSelection()"
+  >
+    <div [matBadge]="data.selected">
+      {{ 'alert.delete' | translate }}&nbsp;
+      <fa-icon [icon]="faTrash"></fa-icon>
+    </div>
+  </button>
+</ng-template>
