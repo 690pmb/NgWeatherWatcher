@@ -1,0 +1,19 @@
+@use '/src/app/styles/imports' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  margin-top: $alert-edit-margin;
+}
+
+.label {
+  @include color('theme');
+
+  font-weight: bold;
+}
+
+.error {
+  @include color('error');
+
+  font-weight: bold;
+}

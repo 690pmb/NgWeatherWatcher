@@ -18,7 +18,7 @@
     <fa-icon
       [icon]="faTimes"
       size="2x"
-      (click)="inputLocation.value = ''; $event.stopPropagation()"
+      (click)="$event.stopPropagation(); reset()"
     ></fa-icon>
   </button>
 </mat-form-field>

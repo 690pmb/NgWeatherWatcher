@@ -21,7 +21,7 @@ $colors: (
   @if map.has-key($colors, $name) {
     @return map.get($colors, $name);
   }
-  @error 'Color "' + $color + '" does not exist in color map. Available colors are: ' + map.keys($colors);
+  @error 'Color "#{$name}" does not exist in color map. Available colors are: ' + map.keys($colors);
 }
 
 /* zindex */
@@ -43,3 +43,4 @@ $dark-primary-text: rgb(get-color('black'), 0.87);
 $light-primary-text: get-color('white');
 $toolbar-height: 56px;
 $darken-theme: darken(get-color('theme'), 20%);
+$alert-edit-margin: 15px;

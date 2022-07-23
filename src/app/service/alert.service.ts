@@ -7,6 +7,7 @@ import {plainToInstance} from 'class-transformer';
 import {ToastService} from './toast.service';
 import {UtilsService} from './utils.service';
 import {ConfigurationService} from './configuration.service';
+import {CreateAlert} from '../model/alert/create-alert';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,12 @@ export class AlertService extends UtilsService {
   getAllByUser(): Observable<Alert[]> {
     return this.get<Alert[]>().pipe(
       map((alerts: Object[]) => plainToInstance(Alert, alerts))
+    );
+  }
+
+  create(alert: CreateAlert): Observable<boolean> {
+    return this.post<void>('', plainToInstance(CreateAlert, alert)).pipe(
+      map(response => response.ok)
     );
   }
 

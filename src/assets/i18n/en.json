@@ -7,6 +7,8 @@
     "hour": "Hour",
     "min": "Min",
     "max": "Max",
+    "true": "yes",
+    "false": "no",
     "average": "Average",
     "expand": "Expand",
     "edit": "Edit",
@@ -44,11 +46,13 @@
   },
   "alert": {
     "title": "My alerts",
+    "create": "Create an alert",
     "trigger_day": "Trigger day",
     "trigger_hour": "Trigger hour",
     "monitored_day": "Monitored day",
     "monitored_hour": "Monitored hour",
     "location": "Location",
+    "required": "This field is required",
     "force_notification": "Force the notification",
     "monitored_field": "Monitored datas",
     "all_working_days": "All working days",
@@ -56,6 +60,7 @@
     "week_end": "The week-end",
     "delete": "Delete",
     "deleted": "{{0}} deleted alert(s)",
+    "created": "Alert created !",
     "monitored_days": {
       "same_day": "same day",
       "next_day": "next day",
@@ -63,6 +68,7 @@
     },
     "mat-table.itemsPerPageLabel": "Alert per page: ",
     "field": {
+      "placeholder": "Pick a field",
       "temp": "Temperature",
       "wind": "Wind",
       "pressure": "Atmospheric pressure",

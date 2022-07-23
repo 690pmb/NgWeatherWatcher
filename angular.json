@@ -52,7 +52,8 @@
             "assets": ["src/assets", "src/favicon.ico"],
             "styles": [
               "src/app/styles/themes.scss",
-              "src/app/styles/styles.scss"
+              "src/app/styles/styles.scss",
+              "node_modules/nouislider/dist/nouislider.min.css"
             ],
             "scripts": [],
             "vendorChunk": true,

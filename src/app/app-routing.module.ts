@@ -18,6 +18,7 @@ const routes: Routes = [
       import('./application-modules/alert/alert.module').then(
         m => m.AlertModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'user',
