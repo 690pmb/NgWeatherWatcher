@@ -7,23 +7,18 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
 } from '@angular/core';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {
   faBars,
   faBell,
   faHome,
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import {BehaviorSubject, Subscription} from 'rxjs';
-import {MatSidenav, MatSidenavContent} from '@angular/material/sidenav';
+import {BehaviorSubject, fromEvent, Subscription} from 'rxjs';
+import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../../../service/auth.service';
 import {MenuService} from '../../../service/menu.service';
-import {
-  throttleTime,
-  map,
-  pairwise,
-  distinctUntilChanged,
-} from 'rxjs/operators';
+import {throttleTime, map, filter, distinctUntilChanged} from 'rxjs/operators';
 
 type Direction = 'UP' | 'DOWN';
 
@@ -46,8 +41,8 @@ type Direction = 'UP' | 'DOWN';
 })
 export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('sidenav', {static: false}) sidenav!: MatSidenav;
-  @ViewChild('content', {static: false}) content!: MatSidenavContent;
   subs: Subscription[] = [];
+  readonly toolbarHeight = 56;
   isLogged$ = new BehaviorSubject<boolean>(false);
   faBars = faBars;
   faSignOutAlt = faSignOutAlt;
@@ -77,16 +72,25 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
       this.title = t;
       this.cdk.detectChanges();
     });
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(() => (this.direction = 'UP'));
   }
 
   ngAfterViewInit(): void {
-    this.content
-      .elementScrolled()
+    fromEvent(window, 'scroll')
       .pipe(
-        throttleTime(100),
-        map((e: Event) => (e.target as HTMLElement).scrollTop),
-        pairwise(),
-        map(([y1, y2]): Direction => (y2 < y1 ? 'UP' : 'DOWN')),
+        throttleTime(25),
+        map(() => document?.querySelector('html')?.scrollTop ?? 0),
+        map(y => {
+          if (this.direction === 'UP' && y > this.toolbarHeight) {
+            return 'DOWN';
+          } else if (this.direction === 'DOWN' && y < this.toolbarHeight) {
+            return 'UP';
+          } else {
+            return this.direction;
+          }
+        }),
         distinctUntilChanged()
       )
       .subscribe(dir => {

@@ -41,5 +41,5 @@ $font-family: arial, 'Helvetica Neue', helvetica, sans-serif;
 $dark-primary-text: rgb(get-color('black'), 0.87);
 /* stylelint-enable */
 $light-primary-text: get-color('white');
-$toolbar-height: 64px;
+$toolbar-height: 56px;
 $darken-theme: darken(get-color('theme'), 20%);

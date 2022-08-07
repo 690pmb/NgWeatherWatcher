@@ -64,5 +64,10 @@
 }
 
 .sidenav-content {
-  width: 101vw;
+  width: 100vw;
+}
+
+.mat-sidenav-container,
+.sidenav-content {
+  overflow: unset !important;
 }
