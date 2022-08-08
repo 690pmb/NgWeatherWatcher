@@ -51,7 +51,7 @@
       </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content #content class="sidenav-content">
+  <mat-sidenav-content class="sidenav-content">
     <div class="background-color"></div>
     <div [ngClass]="{menu: (isLogged$ | async)}" [@menu]="direction">
       <router-outlet></router-outlet>
