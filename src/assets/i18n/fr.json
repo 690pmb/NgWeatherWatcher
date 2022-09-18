@@ -4,7 +4,6 @@
     "username": "Pseudo",
     "username_required": "Veuillez renseigner votre pseudo",
     "minlength": "Trop court",
-    "research": "Rechercher",
     "hour": "Heure",
     "min": "Min",
     "max": "Max",
