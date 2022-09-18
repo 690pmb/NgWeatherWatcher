@@ -12,6 +12,7 @@
     matInput
     [matAutocomplete]="auto"
     #inputLocation="matInput"
+    [formControl]="inputCtrl"
   />
   <button mat-icon-button type="button" matSuffix *ngIf="inputLocation.value">
     <fa-icon
@@ -21,14 +22,10 @@
     ></fa-icon>
   </button>
 </mat-form-field>
-<button type="button" mat-raised-button (click)="search(inputLocation.value)">
-  {{ 'global.research' | translate }}
-</button>
 <mat-autocomplete
   #auto="matAutocomplete"
   autoActiveFirstOption
-  panelWidth="100 %"
-  (optionSelected)="select($event.option.value)"
+  (optionSelected)="selected.emit($event.option.value)"
 >
   <mat-option *ngFor="let location of locations" [value]="location.name">
     <div [matTooltip]="location.name">{{ location.name }}</div>
