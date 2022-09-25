@@ -7,7 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {faCheck, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faEdit,
+  faPlusSquare,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
@@ -46,6 +51,7 @@ export class AlertListComponent implements OnInit, OnDestroy {
   faCheck = faCheck;
   faEdit = faEdit;
   faTrash = faTrash;
+  faPlus = faPlusSquare;
   subs: Subscription[] = [];
   expandedAlert?: Alert;
   selected: number[] = [];
@@ -99,6 +105,7 @@ export class AlertListComponent implements OnInit, OnDestroy {
       .navigate(['.'], {
         queryParams: {page},
         replaceUrl: true,
+        relativeTo: this.activatedRoute,
       })
       .catch(err => console.error(err));
   }

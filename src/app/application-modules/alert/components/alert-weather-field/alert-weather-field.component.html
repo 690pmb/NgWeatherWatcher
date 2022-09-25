@@ -1,0 +1,10 @@
+<app-select-weather-field
+  (selected)="selectedField = $event; configureSlider(); shownAddBtn.emit(true)"
+></app-select-weather-field>
+<app-slider
+  *ngIf="selectedField"
+  [configuration]="configuration"
+  (selected)="
+    selected.emit({field: selectedField, min: $event[0], max: $event[1]})
+  "
+></app-slider>

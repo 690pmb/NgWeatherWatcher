@@ -1,0 +1,8 @@
+<mat-select
+  placeholder="{{ 'alert.field.placeholder' | translate }}"
+  (selectionChange)="selected.emit($event.value)"
+>
+  <mat-option *ngFor="let choice of choices" [value]="choice.value">{{
+    'alert.field.' + choice.key.toLowerCase() | translate
+  }}</mat-option>
+</mat-select>

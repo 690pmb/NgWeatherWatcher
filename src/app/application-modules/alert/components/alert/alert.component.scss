@@ -1,0 +1,35 @@
+@use '/src/app/styles/imports' as *;
+
+:host {
+  @include size(calc(100% - 4 * #{$alert-edit-margin}));
+
+  display: flex;
+  flex-direction: column;
+  left: 2 * $alert-edit-margin;
+  position: relative;
+
+  .row {
+    display: flex;
+    flex-flow: wrap;
+    gap: 10px;
+  }
+  /* stylelint-disable */
+  ::ng-deep app-question:last-of-type .mat-divider {
+    /* stylelint-enable */
+    margin-bottom: 50px !important;
+  }
+}
+
+.submit-btn {
+  display: flex;
+  width: 100%;
+
+  button {
+    margin: auto;
+    width: 80%;
+
+    &.mat-button-disabled {
+      @include color('warning', true);
+    }
+  }
+}

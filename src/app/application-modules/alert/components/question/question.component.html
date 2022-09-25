@@ -1,0 +1,10 @@
+<span *ngIf="label" class="label"
+  >{{ label | translate }}
+  <span *ngIf="ctrl?.validator" class="error">*</span>
+  :</span
+>
+<ng-content></ng-content>
+<div *ngIf="ctrl?.invalid && ctrl?.dirty" class="error">
+  {{ 'alert.required' | translate }}
+</div>
+<mat-divider></mat-divider>
