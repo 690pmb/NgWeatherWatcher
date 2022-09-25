@@ -7,6 +7,8 @@
     "hour": "Heure",
     "min": "Min",
     "max": "Max",
+    "true": "oui",
+    "false": "non",
     "average": "Moyenne",
     "expand": "Étendre",
     "edit": "Éditer",
@@ -44,11 +46,13 @@
   },
   "alert": {
     "title": "Mes alertes",
+    "create": "Créer une alerte",
     "trigger_day": "Jour de notification",
     "trigger_hour": "Heures de notification",
     "monitored_day": "Jours surveillés",
     "monitored_hour": "Heures surveillées",
     "location": "Localisation",
+    "required": "Ce champ est obligatoire",
     "force_notification": "Forcer la notification",
     "monitored_field": "Données surveillées",
     "all_working_days": "Tous les jours travaillés",
@@ -56,6 +60,7 @@
     "week_end": "Le week-end",
     "delete": "Supprimer",
     "deleted": "{{0}} alerte(s) supprimée(s)",
+    "created": "Alerte créee !",
     "monitored_days": {
       "same_day": "le jour même",
       "next_day": "le lendemain",
@@ -63,6 +68,7 @@
     },
     "mat-table.itemsPerPageLabel": "Alertes par page: ",
     "field": {
+      "placeholder": "Choisis un champ",
       "temp": "Température",
       "wind": "Vent",
       "pressure": "Pression atmosphérique",

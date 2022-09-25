@@ -1,3 +1,11 @@
+import {
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+  FormArray,
+} from '@angular/forms';
+import {Duration, DateTime} from 'luxon';
+
 export class Utils {
   static isBlank<T>(str: T | undefined | null): str is undefined | null {
     return (
@@ -14,4 +22,17 @@ export class Utils {
   static getOrElse<T>(nullableValue: T | undefined | null, defaultValue: T): T {
     return Utils.isBlank(nullableValue) ? defaultValue : nullableValue;
   }
+
+  static minutesToFormat(minutes: number, format = 'h:mm'): string {
+    return Duration.fromObject({minutes: Math.round(minutes)}).toFormat(format);
+  }
+
+  static formatHours = (v: string): DateTime => DateTime.fromISO(v);
+
+  static arrayValidator: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null =>
+    (control as FormArray).controls.every(c => !c.value)
+      ? {required: true}
+      : null;
 }

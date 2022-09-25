@@ -1,3 +1,14 @@
+<button
+  type="button"
+  mat-raised-button
+  routerLink="/alert/create"
+  class="create-button"
+>
+  <div>
+    {{ 'alert.create' | translate }}&nbsp;
+    <fa-icon [icon]="faPlus"></fa-icon>
+  </div>
+</button>
 <ng-container *ngIf="alerts">
   <div class="header">
     <mat-paginator

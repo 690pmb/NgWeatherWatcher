@@ -1,0 +1,11 @@
+<nouislider
+  [connect]="configuration.multiple"
+  [min]="configuration.min"
+  [max]="configuration.max"
+  [format]="configuration.formatter"
+  [step]="configuration.step ?? 1"
+  [tooltips]="tooltips"
+  [config]="config"
+  [(ngModel)]="configuration.initialValue"
+  (end)="selected.emit($event)"
+></nouislider>

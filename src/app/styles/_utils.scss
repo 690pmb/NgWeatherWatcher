@@ -4,8 +4,12 @@
   background-color: get-color($color);
 }
 
-@mixin color($color: 'theme') {
-  color: get-color($color);
+@mixin color($color: 'theme', $important: false) {
+  @if $important {
+    color: get-color($color) !important;
+  } @else {
+    color: get-color($color);
+  }
 }
 
 @mixin border($color: 'theme', $size: 1px) {
@@ -18,6 +22,17 @@
 
 @mixin box-sizing {
   box-sizing: border-box;
+}
+
+@mixin size($size) {
+  height: $size;
+  width: $size;
+}
+
+@mixin mq($type, $value) {
+  @media only screen and (#{$type}-width: #{$value}) {
+    @content;
+  }
 }
 
 @keyframes fade-in {

@@ -73,6 +73,12 @@
   margin: auto;
 }
 
+.create-button {
+  display: flex;
+  margin: auto;
+  top: 8px;
+}
+
 @media (max-width: 500px) {
   .mat-table {
     width: 100vw;
@@ -89,5 +95,11 @@
     &:last-of-type {
       padding-right: 5px !important;
     }
+  }
+}
+
+@include mq('min', 599px) {
+  .create-button {
+    top: 16px;
   }
 }

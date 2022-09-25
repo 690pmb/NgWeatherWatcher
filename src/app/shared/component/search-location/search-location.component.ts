@@ -30,13 +30,15 @@ export class SearchLocationComponent implements OnInit {
   @Input()
   placeholder!: string;
 
+  @Input()
+  inputCtrl?: FormControl<string>;
+
   @Output()
   selected = new EventEmitter<string>();
 
   @ViewChild(MatAutocompleteTrigger)
   trigger!: MatAutocompleteTrigger;
 
-  inputCtrl = new FormControl('');
   locations: Location[] = [];
   faLocationArrow = faLocationArrow;
   faTimes = faTimes;
@@ -44,6 +46,11 @@ export class SearchLocationComponent implements OnInit {
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit(): void {
+    if (!this.inputCtrl) {
+      this.inputCtrl = new FormControl('', {
+        nonNullable: true,
+      });
+    }
     this.inputCtrl.valueChanges
       .pipe(
         debounceTime(300),
@@ -73,5 +80,11 @@ export class SearchLocationComponent implements OnInit {
         this.locations = locations;
         this.trigger.openPanel();
       });
+  }
+
+  reset(): void {
+    this.inputCtrl?.setValue('');
+    this.inputCtrl?.markAsDirty({onlySelf: true});
+    this.selected.emit('');
   }
 }

@@ -3,8 +3,8 @@ import {MonitoredField} from './monitored-field';
 import {Type, Expose, Transform} from 'class-transformer';
 import {DateTime} from 'luxon';
 import {DayOfWeek} from './day-of-week';
+import {Utils} from '../../shared/utils';
 
-const formatHours = (v: string): DateTime => DateTime.fromISO(v);
 const ALL_DAYS = {key: 'every_days', value: Object.values(DayOfWeek)};
 const WORKING_DAYS = {
   key: 'all_working_days',
@@ -22,15 +22,15 @@ const WEEK_END = {
 };
 
 export class Alert {
-  @Transform(({value}) => formatHours(value), {
+  @Transform(({value}) => Utils.formatHours(value), {
     toClassOnly: true,
   })
-  triggerHour!: DateTime;
+  triggerHour!: string;
 
   @Transform(
     ({value}) =>
       (value as string[])
-        .map(v => formatHours(v))
+        .map(v => Utils.formatHours(v))
         .sort()
         .map(v => v.toFormat('HH:mm')),
     {

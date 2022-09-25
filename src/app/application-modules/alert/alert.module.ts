@@ -14,21 +14,51 @@ import {AlertListComponent} from './components/alert-list/alert-list.component';
 import {SelectRowDirective} from './select-row.directive';
 import {ClickOutsideDirective} from './click-outside.directive';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {AlertComponent} from './components/alert/alert.component';
+import {QuestionComponent} from './components/question/question.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {NouisliderModule} from 'ng2-nouislider';
+import {SliderComponent} from './components/slider/slider.component';
+import {MatSelectModule} from '@angular/material/select';
+import {SelectWeatherFieldComponent} from './components/select-weather-field/select-weather-field.component';
+import {AlertWeatherFieldComponent} from './components/alert-weather-field/alert-weather-field.component';
+import {MultipleComponent} from './components/multiple/multiple.component';
+import {ContainerDirective} from './components/multiple/container.directive';
+import {ReactiveFormsModule} from '@angular/forms';
 
 const childRoutes: Routes = [
   {
     path: '',
     component: AlertListComponent,
   },
+  {
+    path: 'create',
+    component: AlertComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [AlertListComponent, SelectRowDirective, ClickOutsideDirective],
+  declarations: [
+    AlertListComponent,
+    AlertComponent,
+    AlertWeatherFieldComponent,
+    QuestionComponent,
+    MultipleComponent,
+    SliderComponent,
+    SelectWeatherFieldComponent,
+    SelectRowDirective,
+    ClickOutsideDirective,
+    ContainerDirective,
+  ],
   imports: [
     MatTableModule,
     MatBadgeModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    ReactiveFormsModule,
     MatBottomSheetModule,
     MatPaginatorModule,
+    NouisliderModule,
     MatSlideToggleModule,
     SharedModule.forChild(),
     RouterModule.forChild(childRoutes),

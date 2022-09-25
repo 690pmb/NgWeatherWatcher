@@ -9,6 +9,8 @@
     "no-empty-source": null,
     "color-hex-case": "lower",
     "color-hex-length": "short",
+    "max-nesting-depth": 2,
+    "selector-no-qualifying-type": null,
     "function-no-unknown": [
       true,
       {

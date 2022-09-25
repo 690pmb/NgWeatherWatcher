@@ -1,0 +1,70 @@
+<form [formGroup]="alertForm" (ngSubmit)="onSubmit()">
+  <app-question label="alert.location" [ctrl]="alertForm.get('location')">
+    <app-search-location
+      [inputCtrl]="alertForm.get('location')"
+    ></app-search-location>
+  </app-question>
+  <app-question label="alert.trigger_day" [ctrl]="alertForm.get('triggerDays')">
+    <div class="row" formArrayName="triggerDays">
+      <mat-checkbox
+        *ngFor="let trigger of triggerDayChoices; let i = index"
+        color="primary"
+        [formControlName]="i"
+        >{{ trigger.value | titlecase }}</mat-checkbox
+      >
+    </div>
+  </app-question>
+  <app-question label="alert.trigger_hour" [ctrl]="alertForm.get('triggerHour')"
+    ><app-slider
+      [configuration]="triggerHourConfig"
+      (selected)="alertForm.get('triggerHour')?.setValue($event)"
+    ></app-slider>
+  </app-question>
+  <app-question label="alert.force_notification">
+    <mat-checkbox color="primary" formControlName="forceNotification">{{
+      'global.' + alertForm.get('forceNotification')?.value
+        | translate
+        | titlecase
+    }}</mat-checkbox>
+  </app-question>
+  <app-question
+    label="alert.monitored_day"
+    [ctrl]="alertForm.get('monitoredDays')"
+  >
+    <div class="row" formArrayName="monitoredDays">
+      <mat-checkbox
+        *ngFor="let monitoredDay of monitoredDayChoices; let i = index"
+        color="primary"
+        [formControlName]="i"
+        >{{
+          'alert.monitored_days.' + monitoredDay | translate | titlecase
+        }}</mat-checkbox
+      >
+    </div>
+  </app-question>
+  <app-question
+    label="alert.monitored_field"
+    [ctrl]="alertForm.get('monitoredFields')"
+    ><app-multiple
+      [compo]="alertWeatherFieldComponent"
+      [form]="alertForm.get('monitoredFields')"
+    ></app-multiple>
+  </app-question>
+  <app-question label="alert.monitored_hour">
+    <app-multiple
+      [compo]="sliderComponent"
+      [configuration]="monitoredHourConfig"
+      [form]="alertForm.get('monitoredHours')"
+    ></app-multiple>
+  </app-question>
+</form>
+<div class="submit-btn">
+  <button
+    type="submit"
+    mat-raised-button
+    [disabled]="!alertForm.valid"
+    (click)="onSubmit()"
+  >
+    {{ 'alert.create' | translate }}
+  </button>
+</div>
