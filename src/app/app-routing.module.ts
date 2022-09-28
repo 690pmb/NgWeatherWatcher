@@ -1,6 +1,8 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes, Router, NavigationError} from '@angular/router';
 import {AuthGuard} from './auth.guard';
+import {filter} from 'rxjs/operators';
+import {ToastService} from './service/toast.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -25,11 +27,19 @@ const routes: Routes = [
     loadChildren: () =>
       import('./application-modules/user/user.module').then(m => m.UserModule),
   },
-  {path: '**', redirectTo: ''},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+  constructor(router: Router, toast: ToastService) {
+    router.events
+      .pipe(filter((e): e is NavigationError => e instanceof NavigationError))
+      .subscribe(e => {
+        toast.error(e.error.message);
+        router.navigateByUrl('/dashboard');
+      });
+  }
+}
