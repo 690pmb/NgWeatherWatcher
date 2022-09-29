@@ -7,7 +7,7 @@ import {DateTime} from 'luxon';
 export class CreateAlert {
   @Transform(
     ({value}) =>
-      `${Utils.minutesToFormat(value, 'hh:mm:00.000')}${DateTime.now().toFormat(
+      `${Utils.formatMinutes(value, 'hh:mm:00.000')}${DateTime.now().toFormat(
         'ZZ'
       )}`
   )
@@ -16,7 +16,7 @@ export class CreateAlert {
   @Transform(({value}) =>
     (value as number[]).map(
       v =>
-        `${Utils.minutesToFormat(v, 'hh:mm:00.000')}${DateTime.now().toFormat(
+        `${Utils.formatMinutes(v, 'hh:mm:00.000')}${DateTime.now().toFormat(
           'ZZ'
         )}`
     )
@@ -27,9 +27,8 @@ export class CreateAlert {
   monitoredFields!: CreateMonitoredField[];
 
   triggerDays!: string[];
-
+  id?: number;
   monitoredDays!: MonitoredDays;
-
   location!: string;
   forceNotification!: boolean;
 }

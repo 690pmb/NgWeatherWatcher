@@ -26,16 +26,18 @@ export class AlertWeatherFieldComponent
   selected = new EventEmitter<AlertWeatherField>();
   ctrl!: FormControl<AlertWeatherField>;
   configuration!: SliderConfig;
+  initialValue?: AlertWeatherField;
 
   constructor() {}
 
-  configureSlider(): void {
+  configureSlider(selected: WeatherFieldConfig): void {
     this.configuration = {
-      min: this.selectedField?.min ?? 0,
-      max: this.selectedField?.max ?? 0,
-      step: this.selectedField?.step ?? 1,
+      min: selected.min,
+      max: selected.max,
+      step: selected.step ?? 1,
       multiple: true,
       pips: this.fieldPip,
-    };
+    } as SliderConfig;
+    this.selectedField = selected;
   }
 }

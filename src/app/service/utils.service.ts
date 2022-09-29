@@ -92,6 +92,26 @@ export class UtilsService {
       );
   }
 
+  protected put<T>(
+    url: string,
+    body: unknown | null,
+    params?: HttpParams
+  ): Observable<HttpResponse<T>> {
+    return this.httpClient
+      .put<T>(`${this.baseUrl}/${this.apiUrl}/${url}`, body, {
+        headers: UtilsService.getHeaders(),
+        observe: 'response',
+        params,
+        responseType: 'json',
+      })
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.handleError(err);
+          return throwError(err);
+        })
+      );
+  }
+
   protected get<T>(url?: string, params?: HttpParams): Observable<T> {
     return this.httpClient
       .get<T>(`${this.baseUrl}/${this.apiUrl}/${url ?? ''}`, {
