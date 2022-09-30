@@ -50,17 +50,6 @@ export class MultipleComponent<T, U> implements OnInit {
   @ViewChild('btn', {static: true}) btn!: TemplateRef<unknown>;
 
   createdList: Created<T, U>[] = [];
-  readonly dataAdd: DataBtn = {
-    shown: false,
-    clicked: new EventEmitter<void>(),
-    icon: faPlusSquare,
-  };
-
-  readonly dataDelete: DataBtn = {
-    shown: false,
-    clicked: new EventEmitter<void>(),
-    icon: faMinusSquare,
-  };
 
   constructor() {}
 
@@ -73,16 +62,26 @@ export class MultipleComponent<T, U> implements OnInit {
     const component = this.host.viewContainerRef.createComponent<
       MultipleData<T, U>
     >(this.compo);
+    const dataAdd: DataBtn = {
+      shown: false,
+      clicked: new EventEmitter<void>(),
+      icon: faPlusSquare,
+    };
+    const dataDelete: DataBtn = {
+      shown: false,
+      clicked: new EventEmitter<void>(),
+      icon: faMinusSquare,
+    };
     const addComponent = this.host.viewContainerRef.createEmbeddedView(
       this.btn,
       {
-        $implicit: this.dataAdd,
+        $implicit: dataAdd,
       }
     );
     const deleteComponent = this.host.viewContainerRef.createEmbeddedView(
       this.btn,
       {
-        $implicit: this.dataDelete,
+        $implicit: dataDelete,
       }
     );
     this.createdList.push({component, addComponent, deleteComponent});
@@ -98,16 +97,14 @@ export class MultipleComponent<T, U> implements OnInit {
       }
       component.instance.ctrl.setValue(s);
     });
-    component.instance.shownAddBtn.subscribe(s => (this.dataAdd.shown = s));
-    component.instance.shownDeleteBtn.subscribe(
-      s => (this.dataDelete.shown = s)
-    );
-    this.dataAdd.clicked.subscribe(() => {
+    component.instance.shownAddBtn.subscribe(s => (dataAdd.shown = s));
+    component.instance.shownDeleteBtn.subscribe(s => (dataDelete.shown = s));
+    dataAdd.clicked.subscribe(() => {
       component.instance.shownAddBtn.emit(false);
       component.instance.shownDeleteBtn.emit(true);
       this.add();
     });
-    this.dataDelete.clicked?.subscribe(() => this.destroy(component));
+    dataDelete.clicked?.subscribe(() => this.destroy(component));
   }
 
   destroy(ref: ComponentRef<MultipleData<T, U>>): void {
