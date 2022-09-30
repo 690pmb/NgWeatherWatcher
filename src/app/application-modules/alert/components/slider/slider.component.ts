@@ -52,7 +52,7 @@ export class SliderComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ((changes.min || changes.max) && !changes.initValue) {
+    if (!changes.configuration.currentValue.initValue) {
       this.configuration.initialValue = undefined;
       this.initValue();
     }
@@ -65,10 +65,15 @@ export class SliderComponent
     if (!this.configuration.initialValue) {
       if (!this.configuration.multiple) {
         this.configuration.initialValue = mean;
-      } else {
+      } else if (this.configuration.step && this.configuration.step !== 1) {
         this.configuration.initialValue = [
           mean,
-          mean + 2 * (this.configuration.step ?? 1),
+          mean + 2 * this.configuration.step,
+        ];
+      } else {
+        this.configuration.initialValue = [
+          Math.round((this.configuration.min + this.configuration.max) * 0.375),
+          Math.round((this.configuration.min + this.configuration.max) * 0.625),
         ];
       }
     }
