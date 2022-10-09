@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
@@ -8,6 +9,8 @@ import {WeatherService} from '../../../../service/weather.service';
 import {AuthService} from '../../../../service/auth.service';
 import {ToastService} from '../../../../service/toast.service';
 import {MenuService} from '../../../../service/menu.service';
+import {NotificationService} from '../../../../service/notification.service';
+import {Token} from '../../../../model/token';
 
 @Component({
   selector: 'app-dashboard-forecast',
@@ -26,14 +29,17 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toast: ToastService,
-    private menuService: MenuService
+    private menuService: MenuService,
+    public notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
+    this.notificationService.subscribeToNotifications();
     this.subs.push(
       combineLatest([
         this.authService.token$.pipe(
-          map(token => (token && token.location ? token.location : undefined))
+          filter((t): t is Token => t !== undefined),
+          map(token => (token.location ? token.location : undefined))
         ),
         this.activatedRoute.queryParamMap.pipe(filter(q => q !== undefined)),
       ])
