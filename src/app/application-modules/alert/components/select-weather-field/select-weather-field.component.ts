@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 import {ConfigurationService} from '../../../../service/configuration.service';
 import {WeatherFieldConfig} from '../../../../model/configuration';
 import {WeatherField} from '../../../../model/alert/weather-field';
@@ -11,10 +11,14 @@ export type DropDownChoice = {key: WeatherField; value: WeatherFieldConfig};
   styleUrls: ['./select-weather-field.component.scss'],
 })
 export class SelectWeatherFieldComponent implements OnInit {
+  @Input()
+  initialValue?: WeatherField;
+
   @Output()
   selected = new EventEmitter<WeatherFieldConfig>();
 
   choices: DropDownChoice[] = [];
+  initialChoice?: DropDownChoice;
 
   constructor(private config: ConfigurationService) {}
 
@@ -24,5 +28,11 @@ export class SelectWeatherFieldComponent implements OnInit {
       key,
       value: {...weatherFields[key], field: key},
     }));
+    if (this.initialValue) {
+      this.initialChoice = this.choices.find(c => c.key === this.initialValue);
+      if (this.initialChoice) {
+        this.selected.emit(this.initialChoice.value);
+      }
+    }
   }
 }

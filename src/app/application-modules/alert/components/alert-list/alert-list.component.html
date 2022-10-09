@@ -80,7 +80,11 @@
         {{ 'global.edit' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
-        <button type="button" mat-raised-button>
+        <button
+          type="button"
+          mat-raised-button
+          routerLink="/alert/edit/{{ alert.id }}"
+        >
           <fa-icon [icon]="faEdit"></fa-icon>
         </button>
       </mat-cell>

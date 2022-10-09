@@ -25,7 +25,7 @@ export class Alert {
   @Transform(({value}) => Utils.formatHours(value), {
     toClassOnly: true,
   })
-  triggerHour!: string;
+  triggerHour!: DateTime;
 
   @Transform(
     ({value}) =>
@@ -54,13 +54,13 @@ export class Alert {
   }
 
   @Expose()
-  getTriggerDays(locale: string): string[] {
+  getTriggerDays(locale: string, enableSummary = true): string[] {
     const summary = [ALL_DAYS, WORKING_DAYS, WEEK_END].find(
       days =>
         days.value.length === this.triggerDays.length &&
         days.value.every(day => this.triggerDays.includes(day))
     )?.key;
-    if (summary) {
+    if (enableSummary && summary) {
       return [`alert.${summary}`];
     } else {
       return this.triggerDays

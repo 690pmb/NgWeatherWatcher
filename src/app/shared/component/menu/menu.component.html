@@ -2,17 +2,18 @@
   <mat-toolbar
     class="toolbar mat-elevation-z4"
     color="primary"
+    routerLink="/dashboard"
     [@toggle]="direction"
   >
     <button
       type="button"
       mat-icon-button
       class="toogle-button mat-elevation-z4"
-      (click)="sidenav.toggle()"
+      (click)="sidenav.toggle(); $event.stopPropagation()"
     >
       <fa-icon [icon]="faBars" size="2x"></fa-icon>
     </button>
-    <h1 *ngIf="title" routerLink="/dashboard">
+    <h1 *ngIf="title">
       {{ title | translate }}
     </h1>
   </mat-toolbar>

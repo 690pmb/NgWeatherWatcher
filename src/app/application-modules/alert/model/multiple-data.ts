@@ -6,5 +6,6 @@ export interface MultipleData<T, U> {
   shownDeleteBtn: EventEmitter<boolean>;
   selected: EventEmitter<T>;
   ctrl: FormControl<T>;
+  initialValue?: T;
   configuration: U;
 }
