@@ -35,6 +35,10 @@ const childRoutes: Routes = [
     path: 'create',
     component: AlertComponent,
   },
+  {
+    path: 'edit/:id',
+    component: AlertComponent,
+  },
 ];
 
 @NgModule({

@@ -32,8 +32,20 @@ export class AlertService extends UtilsService {
     );
   }
 
+  getById(id: string): Observable<Alert> {
+    return this.get<Alert>(id).pipe(
+      map((alerts: Object) => plainToInstance(Alert, alerts))
+    );
+  }
+
   create(alert: CreateAlert): Observable<boolean> {
     return this.post<void>('', plainToInstance(CreateAlert, alert)).pipe(
+      map(response => response.ok)
+    );
+  }
+
+  update(alert: CreateAlert): Observable<boolean> {
+    return this.put<void>('', plainToInstance(CreateAlert, alert)).pipe(
       map(response => response.ok)
     );
   }

@@ -10,13 +10,16 @@ import {CreateMonitoredField} from '../../../../model/alert/create-monitored-fie
 import {SliderFormatter} from '../../model/slider-formatter';
 import {Utils} from '../../../../shared/utils';
 import {AlertWeatherFieldComponent} from '../alert-weather-field/alert-weather-field.component';
-import {FormArray, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, Validators} from '@angular/forms';
 import {ToastService} from '../../../../service/toast.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {AlertWeatherField} from '../../model/alert-weather-field';
 import {Pip, pipTypeMapping} from '../../model/pip';
 import {SliderConfig} from '../../model/slider-config';
 import {SliderType} from '../../model/slider-type';
+import {of, iif} from 'rxjs';
+import {mergeMap, tap, map} from 'rxjs/operators';
+import {Alert} from '../../../../model/alert/alert';
 
 @Component({
   selector: 'app-alert',
@@ -25,8 +28,10 @@ import {SliderType} from '../../model/slider-type';
 })
 export class AlertComponent implements OnInit {
   initLocation!: string;
+  existingAlert?: Alert;
   triggerDayChoices!: {key: string; value: string}[];
-  monitoredDayChoices = ['same_day', 'next_day', 'two_day_later'];
+  monitoredDayChoices!: string[];
+  ready = false;
 
   hourPip: Pip = {
     mode: 'steps',
@@ -82,12 +87,59 @@ export class AlertComponent implements OnInit {
     private alertService: AlertService,
     protected authService: AuthService,
     private toast: ToastService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    const days = Array.from(Array(7).keys());
-    this.triggerDayChoices = days.map(i => {
+    of(this.activatedRoute.snapshot.paramMap.get('id'))
+      .pipe(
+        mergeMap(id =>
+          iif(
+            () => Utils.isNotBlank(id),
+            this.alertService.getById(id ?? '').pipe(
+              tap(a => (this.existingAlert = a)),
+              map(a => a.location)
+            ),
+            this.authService.token$.pipe(map(t => t?.location))
+          )
+        )
+      )
+      .subscribe(location => this.initFormValue(location));
+  }
+
+  private initFormValue(location?: string): void {
+    this.ready = true;
+    this.initLocation = location ?? '';
+    this.alertForm.get('location')?.setValue(this.initLocation);
+    this.initTriggerDays();
+    this.initMonitoredDays();
+    this.alertForm
+      .get('forceNotification')
+      ?.setValue(this.existingAlert?.forceNotification ?? false);
+    this.initTriggerHour();
+    this.existingAlert?.monitoredHours.forEach(m => {
+      const split = m.split(':');
+      this.addToFormArray(
+        'monitoredHours',
+        Utils.timeToMinutes(+split[0], +split[1])
+      );
+    });
+    this.existingAlert?.monitoredFields.forEach(f =>
+      this.addToFormArray('monitoredFields', {
+        min: f.min,
+        max: f.max,
+        field: {min: f.min, max: f.max, field: f.field},
+      } as AlertWeatherField)
+    );
+  }
+
+  private initTriggerDays(): void {
+    const existingTriggerDays = this.existingAlert?.getTriggerDays(
+      this.translate.currentLang,
+      false
+    );
+    this.triggerDayChoices = Array.from(Array(7).keys()).map(i => {
       const day = DateTime.fromFormat(`${i + 1} 8 2022`, 'd M yyyy');
       return {
         key: day.toFormat('EEEE'),
@@ -96,25 +148,46 @@ export class AlertComponent implements OnInit {
         }),
       };
     });
-    days.forEach(() =>
-      this.addToFormArray('triggerDays', this.fb.control(false))
+    this.triggerDayChoices.forEach(d =>
+      this.addToFormArray(
+        'triggerDays',
+        existingTriggerDays?.includes(d.value.toLowerCase())
+      )
     );
-    this.monitoredDayChoices.forEach(() =>
-      this.addToFormArray('monitoredDays', this.fb.control(false))
-    );
-    this.authService.token$.subscribe(token => {
-      this.initLocation = token?.location ?? '';
-      this.alertForm.get('location')?.setValue(this.initLocation);
-    });
   }
 
-  addToFormArray(name: string, control: FormControl): void {
-    (this.alertForm.get(name) as FormArray).push(control);
+  private initMonitoredDays(): void {
+    const existingMonitoredDays = this.existingAlert?.getMonitoredDays() ?? [];
+    this.monitoredDayChoices = ['same_day', 'next_day', 'two_day_later'].map(
+      m => `alert.monitored_days.${m}`
+    );
+    this.monitoredDayChoices.forEach(m =>
+      this.addToFormArray('monitoredDays', existingMonitoredDays.includes(m))
+    );
+  }
+
+  private initTriggerHour(): void {
+    const existingTriggerHour = this.existingAlert?.triggerHour;
+    if (existingTriggerHour) {
+      this.alertForm
+        .get('triggerHour')
+        ?.setValue(
+          Utils.timeToMinutes(
+            existingTriggerHour.hour,
+            existingTriggerHour.minute
+          )
+        );
+    }
+  }
+
+  addToFormArray<T>(name: string, value: T): void {
+    (this.alertForm.get(name) as FormArray).push(this.fb.control(value));
   }
 
   onSubmit(): void {
     const formValue = this.alertForm.value;
     const alert: CreateAlert = {
+      id: this.existingAlert?.id,
       monitoredDays: {
         sameDay: formValue?.monitoredDays?.[0] ?? false,
         nextDay: formValue?.monitoredDays?.[1] ?? false,
@@ -143,9 +216,15 @@ export class AlertComponent implements OnInit {
           ) ?? [],
       forceNotification: formValue.forceNotification ?? false,
     };
-    this.alertService.create(alert).subscribe(() => {
-      this.toast.success('alert.created');
-      this.router.navigateByUrl('alert');
-    });
+    if (this.existingAlert?.id) {
+      this.alertService.update(alert).subscribe(() => {
+        this.toast.success('alert.updated');
+      });
+    } else {
+      this.alertService.create(alert).subscribe(() => {
+        this.toast.success('alert.created');
+        this.router.navigateByUrl('alert');
+      });
+    }
   }
 }

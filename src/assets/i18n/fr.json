@@ -47,6 +47,7 @@
   "alert": {
     "title": "Mes alertes",
     "create": "Créer une alerte",
+    "edit": "Modifier l'alerte",
     "trigger_day": "Jour de notification",
     "trigger_hour": "Heures de notification",
     "monitored_day": "Jours surveillés",
@@ -61,6 +62,7 @@
     "delete": "Supprimer",
     "deleted": "{{0}} alerte(s) supprimée(s)",
     "created": "Alerte créee !",
+    "updated": "Alerte mise à jour !",
     "monitored_days": {
       "same_day": "le jour même",
       "next_day": "le lendemain",

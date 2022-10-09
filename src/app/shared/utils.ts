@@ -23,8 +23,15 @@ export class Utils {
     return Utils.isBlank(nullableValue) ? defaultValue : nullableValue;
   }
 
-  static minutesToFormat(minutes: number, format = 'h:mm'): string {
+  static formatMinutes(minutes: number, format = 'h:mm'): string {
     return Duration.fromObject({minutes: Math.round(minutes)}).toFormat(format);
+  }
+
+  static timeToMinutes(hours: number, minutes: number): number {
+    return Duration.fromObject({
+      hours: hours,
+      minutes: minutes,
+    }).as('minutes');
   }
 
   static formatHours = (v: string): DateTime => DateTime.fromISO(v);

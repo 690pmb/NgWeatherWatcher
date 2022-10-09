@@ -55,10 +55,16 @@ export class MultipleComponent<T, U> implements OnInit {
 
   ngOnInit(): void {
     this.host.viewContainerRef.clear();
-    this.add();
+    if (!this.form.length) {
+      this.add();
+    } else {
+      Array.from(Array(this.form.length).keys()).forEach(i =>
+        this.add(this.form.at(i), i === this.form.length - 1)
+      );
+    }
   }
 
-  add(): void {
+  add(ctrl?: FormControl<T>, last?: boolean): void {
     const component = this.host.viewContainerRef.createComponent<
       MultipleData<T, U>
     >(this.compo);
@@ -84,8 +90,26 @@ export class MultipleComponent<T, U> implements OnInit {
         $implicit: dataDelete,
       }
     );
-    this.createdList.push({component, addComponent, deleteComponent});
+    this.createdList.push({
+      component,
+      addComponent,
+      deleteComponent,
+    });
     component.instance.configuration = {...this.configuration};
+    this.addListeners(component, dataAdd, dataDelete);
+    if (ctrl) {
+      component.instance.ctrl = ctrl;
+      component.instance.initialValue = ctrl.value;
+      dataAdd.shown = last ?? false;
+      dataDelete.shown = !last ?? true;
+    }
+  }
+
+  private addListeners(
+    component: ComponentRef<MultipleData<T, U>>,
+    dataAdd: DataBtn,
+    dataDelete: DataBtn
+  ): void {
     component.instance.selected.subscribe(s => {
       if (
         !this.createdList.find(c => c.component.instance === component.instance)

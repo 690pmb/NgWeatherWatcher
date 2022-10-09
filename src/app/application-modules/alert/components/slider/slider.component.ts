@@ -23,6 +23,9 @@ export class SliderComponent
   @Input()
   configuration!: SliderConfig;
 
+  @Input()
+  initialValue?: SliderType;
+
   @Output()
   selected = new EventEmitter<SliderType>();
 
@@ -35,7 +38,9 @@ export class SliderComponent
   constructor() {}
 
   ngOnInit() {
-    this.shownAddBtn.emit(true);
+    if (!this.initialValue) {
+      this.shownAddBtn.emit(true);
+    }
     this.configuration.multiple = this.configuration.multiple ?? false;
     this.initValue();
     this.config = {
@@ -52,8 +57,8 @@ export class SliderComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.configuration.currentValue.initValue) {
-      this.configuration.initialValue = undefined;
+    if (!changes.initialValue?.currentValue) {
+      this.initialValue = undefined;
       this.initValue();
     }
   }
@@ -62,7 +67,7 @@ export class SliderComponent
     const mean = Math.floor(
       (this.configuration.min + this.configuration.max) / 2
     );
-    if (!this.configuration.initialValue) {
+    if (!this.initialValue) {
       if (!this.configuration.multiple) {
         this.configuration.initialValue = mean;
       } else if (this.configuration.step && this.configuration.step !== 1) {
@@ -76,7 +81,9 @@ export class SliderComponent
           Math.round((this.configuration.min + this.configuration.max) * 0.625),
         ];
       }
+      this.selected.emit(this.configuration.initialValue ?? 0);
+    } else {
+      this.configuration.initialValue = this.initialValue;
     }
-    this.selected.emit(this.configuration.initialValue ?? 0);
   }
 }
