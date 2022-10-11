@@ -12,5 +12,6 @@ export class Configuration {
   userUrl!: string;
   weatherUrl!: string;
   alertUrl!: string;
+  notificationUrl!: string;
   weatherFields!: {[key in WeatherField]: WeatherFieldConfig};
 }
