@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SwPush} from '@angular/service-worker';
-import {from, throwError} from 'rxjs';
+import {from, throwError, EMPTY} from 'rxjs';
 import {catchError, switchMap} from 'rxjs/operators';
 import {UtilsService} from './utils.service';
 import {HttpClient} from '@angular/common/http';
@@ -36,12 +36,24 @@ export class NotificationService extends UtilsService {
       })
     )
       .pipe(
-        switchMap(push =>
-          this.post<Subscription>('subscriptions', {
-            endpoint: push.endpoint,
-            userAgent: window.navigator.userAgent,
-          } as Subscription)
-        ),
+        switchMap(push => {
+          const key = push.getKey ? push.getKey('p256dh') : '';
+          const auth = push.getKey ? push.getKey('auth') : '';
+          if (key && auth) {
+            return this.post<Subscription>('subscriptions', {
+              endpoint: push.endpoint,
+              publicKey: btoa(
+                String.fromCharCode.apply(null, [...new Uint8Array(key)])
+              ),
+              privateKey: btoa(
+                String.fromCharCode.apply(null, [...new Uint8Array(auth)])
+              ),
+              userAgent: window.navigator.userAgent,
+            } as Subscription);
+          } else {
+            return EMPTY;
+          }
+        }),
         catchError(err => {
           this.toast.error(
             `Could not subscribe to notifications: ${NotificationService.getErrorMessage(
