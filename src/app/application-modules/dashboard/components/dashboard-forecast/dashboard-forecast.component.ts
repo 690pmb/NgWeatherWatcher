@@ -9,7 +9,6 @@ import {WeatherService} from '../../../../service/weather.service';
 import {AuthService} from '../../../../service/auth.service';
 import {ToastService} from '../../../../service/toast.service';
 import {MenuService} from '../../../../service/menu.service';
-import {NotificationService} from '../../../../service/notification.service';
 import {Token} from '../../../../model/token';
 
 @Component({
@@ -29,12 +28,10 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toast: ToastService,
-    private menuService: MenuService,
-    public notificationService: NotificationService
+    private menuService: MenuService
   ) {}
 
   ngOnInit(): void {
-    this.notificationService.subscribeToNotifications();
     this.subs.push(
       combineLatest([
         this.authService.token$.pipe(

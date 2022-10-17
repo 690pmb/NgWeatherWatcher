@@ -116,5 +116,10 @@
       "username_hint": "Between 4 and 30 characters long",
       "password_hint": "Between 6 and 30 characters long"
     }
+  },
+  "notification": {
+    "not-supported": "Notifications are not supported",
+    "success": "Notification subscription successful",
+    "error": "Unable to subscribe to notifications: {{err}}"
   }
 }
