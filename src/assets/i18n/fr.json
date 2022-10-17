@@ -60,7 +60,7 @@
     "every_days": "Tous les jours",
     "week_end": "Le week-end",
     "delete": "Supprimer",
-    "deleted": "{{0}} alerte(s) supprimée(s)",
+    "deleted": "{{size}} alerte(s) supprimée(s)",
     "created": "Alerte créee !",
     "updated": "Alerte mise à jour !",
     "monitored_days": {
@@ -116,5 +116,10 @@
       "username_hint": "Entre 4 et 30 caractères de long",
       "password_hint": "Entre 6 et 30 caractères de long"
     }
+  },
+  "notification": {
+    "not-supported": "Les notifications ne sont pas supportées",
+    "success": "Abonnement aux notifications réussi",
+    "error": "Impossible de s'abonner aux notifications: {{err}}"
   }
 }

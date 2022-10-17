@@ -52,7 +52,7 @@ export class AlertService extends UtilsService {
 
   deleteBydIds(ids: number[]): Observable<void> {
     return this.delete(`?ids=${ids}`).pipe(
-      tap(() => this.toast.info('alert.deleted', `${ids.length}`))
+      tap(() => this.toast.info('alert.deleted', {size: ids.length}))
     );
   }
 }
