@@ -75,7 +75,8 @@ export class UtilsService {
   protected post<T>(
     url: string,
     body: unknown | null,
-    params?: HttpParams
+    params?: HttpParams,
+    handleError = true
   ): Observable<HttpResponse<T>> {
     return this.httpClient
       .post<T>(`${this.baseUrl}/${this.apiUrl}/${url}`, body, {
@@ -86,8 +87,12 @@ export class UtilsService {
       })
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.handleError(err);
-          return throwError(err);
+          if (handleError) {
+            this.handleError(err);
+            return throwError(err);
+          } else {
+            return EMPTY;
+          }
         })
       );
   }

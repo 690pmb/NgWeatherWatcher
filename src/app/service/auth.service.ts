@@ -81,7 +81,12 @@ export class AuthService extends UtilsService {
   }
 
   signin(username: string, password: string): Promise<boolean> {
-    return this.post<{token: string}>('signin', {username, password})
+    return this.post<{token: string}>(
+      'signin',
+      {username, password},
+      undefined,
+      false
+    )
       .pipe(
         map(
           (response: HttpResponse<{token: string}>) => {
