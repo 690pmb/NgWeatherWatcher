@@ -67,8 +67,8 @@ export class NotificationService extends UtilsService {
           })
         )
         .subscribe(response => {
-          if (response.ok) {
-            this.toast.success('notification.success');
+          if (!response.ok) {
+            this.toast.error('notification.error');
           }
         });
     } else {
