@@ -25,9 +25,16 @@
 <mat-autocomplete
   #auto="matAutocomplete"
   autoActiveFirstOption
+  class="search-panel"
   (optionSelected)="selected.emit($event.option.value)"
 >
   <mat-option *ngFor="let location of locations" [value]="location.name">
     <div [matTooltip]="location.name">{{ location.name }}</div>
+    <div class="subtitle">
+      {{ location.country
+      }}<ng-container *ngIf="location.region">
+        - {{ location.region }}</ng-container
+      >
+    </div>
   </mat-option>
 </mat-autocomplete>

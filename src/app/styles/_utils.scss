@@ -12,6 +12,17 @@
   }
 }
 
+@mixin font($size, $color, $weight: normal, $important: false) {
+  @if $important {
+    font-size: #{$size}px !important;
+    font-weight: $weight !important;
+  } @else {
+    font-size: #{$size}px;
+    font-weight: $weight;
+  }
+  @include color($color, $important);
+}
+
 @mixin border($color: 'theme', $size: 1px) {
   border: solid $size get-color($color) !important;
 }

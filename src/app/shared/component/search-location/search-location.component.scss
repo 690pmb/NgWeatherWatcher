@@ -3,3 +3,14 @@
 :host > * {
   margin: 0 3px;
 }
+
+::ng-deep .search-panel {
+  .mat-option {
+    border-bottom: get-color('dark-gray') 1px solid;
+    line-height: unset !important;
+  }
+
+  .subtitle {
+    @include font('12', 'dark-gray');
+  }
+}
