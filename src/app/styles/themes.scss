@@ -15,13 +15,12 @@ $my-primary: mat.define-palette(
   )
 );
 /* stylelint-disable */
-$my-accent: mat.define-palette(mat.$indigo-palette, A400);
 $my-warn: mat.define-palette(mat.$orange-palette, A400);
 $my-theme: mat.define-light-theme(
   (
     color: (
       primary: $my-primary,
-      accent: $my-accent,
+      accent: $my-primary,
       warn: $my-warn,
     ),
     typography:
