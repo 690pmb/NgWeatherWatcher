@@ -18,6 +18,7 @@ import {Token} from '../../../../model/token';
 })
 export class DashboardForecastComponent implements OnInit, OnDestroy {
   forecast?: Forecast;
+  location?: string;
   showSpinner = false;
   subs: Subscription[] = [];
 
@@ -85,6 +86,7 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
 
   searchForecast(location: string): void {
     this.showSpinner = false;
+    this.location = location;
     this.weatherService
       .findForecastByLocation(location, '5', this.translate.currentLang)
       .subscribe(

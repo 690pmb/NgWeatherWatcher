@@ -2,14 +2,15 @@ import {DatePipe, Location} from '@angular/common';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {combineLatest, Subscription} from 'rxjs';
-import {filter} from 'rxjs/operators';
+import {combineLatest, Subscription, Observable, of, EMPTY, iif} from 'rxjs';
+import {filter, mergeMap, switchMap} from 'rxjs/operators';
 import {Forecast} from '../../../../model/weather/forecast';
 import {ForecastDay} from '../../../../model/weather/forecast-day';
 import {Hour} from '../../../../model/weather/hour';
 import {Utils} from '../../../../shared/utils';
 import {slideInOutAnimation} from './slide-in-out';
 import {MenuService} from '../../../../service/menu.service';
+import {WeatherService} from '../../../../service/weather.service';
 
 @Component({
   selector: 'app-dashboard-details',
@@ -21,6 +22,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   date!: string;
   forecast!: Forecast;
   forecastDay?: ForecastDay;
+  place?: string;
   hours: Hour[] = [];
   columnsToDisplay = [
     'time',
@@ -38,6 +40,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   constructor(
+    private weatherService: WeatherService,
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private router: Router,
@@ -53,14 +56,11 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
         this.activatedRoute.queryParamMap.pipe(filter(q => q !== undefined)),
       ]).subscribe(([params, queryParam]) => {
         const date = params.get('date');
+        this.place = queryParam.get('location') ?? undefined;
         if (date) {
           this.date = date;
-          this.forecast = this.location.getState() as Forecast;
-          if (!this.forecast || !this.forecast.forecastDay) {
-            this.router
-              .navigateByUrl('dashboard')
-              .catch(err => console.error(err));
-          } else {
+          this.getForecast().subscribe(forecast => {
+            this.forecast = forecast;
             this.menuService.title$.next(
               `${this.forecast.location.name} - ${this.datePipe.transform(
                 this.date,
@@ -77,9 +77,36 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
               queryParam.get('showAll') === 'true',
               +Utils.getOrElse(queryParam.get('page'), '0')
             );
-          }
+          });
         }
       })
+    );
+  }
+
+  getForecast(): Observable<Forecast> {
+    return of(this.location.getState() as Forecast).pipe(
+      mergeMap(forecast =>
+        iif(
+          () => !forecast || !forecast.forecastDay,
+          of(this.place).pipe(
+            switchMap(place => {
+              if (place) {
+                return this.weatherService.findForecastByLocation(
+                  place,
+                  '5',
+                  this.translate.currentLang
+                );
+              } else {
+                this.router
+                  .navigateByUrl('dashboard')
+                  .catch(err => console.error(err));
+                return EMPTY;
+              }
+            })
+          ),
+          of(forecast)
+        )
+      )
     );
   }
 

@@ -13,6 +13,7 @@
         <h2>
           <a
             [routerLink]="['/dashboard/details/', forecastDay.date]"
+            [queryParams]="{location: location}"
             [state]="forecast"
             >{{
               forecastDay.date | date: 'fullDate':'':translate.currentLang
