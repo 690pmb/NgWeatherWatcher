@@ -1,5 +1,5 @@
 {
-  "apiUrl": "https://xxx.com",
+  "apiUrl": "https://{{apiUrl}}",
   "userUrl": "users",
   "weatherUrl": "weathers",
   "alertUrl": "alerts",
