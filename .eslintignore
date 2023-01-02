@@ -6,7 +6,5 @@ node_modules/
 .husky/
 *.conf.js
 cordova/
-e2e/
-*.spec.ts
 *.conf.js
 .angular

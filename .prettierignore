@@ -2,7 +2,6 @@ build
 dist
 node_modules
 cordova
-e2e
 .husky
 .angular
 *.conf.js
