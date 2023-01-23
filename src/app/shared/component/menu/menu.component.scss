@@ -71,3 +71,15 @@
 .sidenav-content {
   overflow: unset !important;
 }
+
+$icon-width: 70px;
+
+.weather-icon {
+  bottom: 0;
+  left: calc((var(--menu-width) - $icon-width) / 2);
+  position: fixed;
+
+  img {
+    width: $icon-width;
+  }
+}

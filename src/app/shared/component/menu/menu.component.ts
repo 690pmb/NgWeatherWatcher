@@ -6,6 +6,8 @@ import {
   ViewChild,
   AfterViewInit,
   ChangeDetectorRef,
+  Renderer2,
+  RendererStyleFlags2,
 } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {
@@ -55,7 +57,8 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     public authService: AuthService,
     private router: Router,
     public menuService: MenuService,
-    private cdk: ChangeDetectorRef
+    private cdk: ChangeDetectorRef,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -97,11 +100,27 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
         this.direction = dir;
         this.cdk.detectChanges();
       });
+    this.setMenuWidth();
   }
 
   logout(): void {
     this.authService.logout(true);
     this.router.navigate(['/user/signin']).catch(err => console.error(err));
+  }
+
+  setMenuWidth(): void {
+    if (this.sidenav) {
+      setTimeout(
+        () =>
+          this.renderer.setStyle(
+            document.documentElement,
+            '--menu-width',
+            `${this.sidenav._getWidth()}px`,
+            RendererStyleFlags2.DashCase
+          ),
+        20
+      );
+    }
   }
 
   ngOnDestroy(): void {
