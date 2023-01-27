@@ -6,6 +6,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {SignupComponent} from './components/signup/signup.component';
 import {SigninComponent} from './components/signin/signin.component';
 import {SharedModule} from '../../shared/shared.module';
+import {ProfileComponent} from './components/profile/profile.component';
 
 const childRoutes: Routes = [
   {
@@ -14,12 +15,13 @@ const childRoutes: Routes = [
       {path: '', redirectTo: 'signin', pathMatch: 'full'},
       {path: 'signin', component: SigninComponent},
       {path: 'signup', component: SignupComponent},
+      {path: 'profile', component: ProfileComponent},
     ],
   },
 ];
 
 @NgModule({
-  declarations: [SignupComponent, SigninComponent],
+  declarations: [SignupComponent, SigninComponent, ProfileComponent],
   imports: [
     SharedModule.forChild(),
     MatFormFieldModule,

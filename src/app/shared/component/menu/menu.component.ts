@@ -15,12 +15,14 @@ import {
   faBell,
   faHome,
   faSignOutAlt,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import {BehaviorSubject, fromEvent, Subscription} from 'rxjs';
 import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../../../service/auth.service';
 import {MenuService} from '../../../service/menu.service';
 import {throttleTime, map, filter, distinctUntilChanged} from 'rxjs/operators';
+import {MenuItem} from '../../../model/menu-item';
 
 type Direction = 'UP' | 'DOWN';
 
@@ -48,10 +50,13 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
   isLogged$ = new BehaviorSubject<boolean>(false);
   faBars = faBars;
   faSignOutAlt = faSignOutAlt;
-  faHome = faHome;
-  faBell = faBell;
   direction: Direction = 'UP';
   title = '';
+  menuItems: MenuItem[] = [
+    {route: '/dashboard', icon: faHome, label: 'nav-bar.dashboard'},
+    {route: '/user/profile', icon: faUser, label: 'user.profile.title'},
+    {route: '/alert', icon: faBell, label: 'nav-bar.alert'},
+  ];
 
   constructor(
     public authService: AuthService,

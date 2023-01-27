@@ -9,6 +9,7 @@
     "max": "Max",
     "true": "yes",
     "false": "no",
+    "none": "none",
     "average": "Average",
     "expand": "Expand",
     "edit": "Edit",
@@ -115,6 +116,9 @@
       "different": "Passwords are differents",
       "username_hint": "Between 4 and 30 characters long",
       "password_hint": "Between 6 and 30 characters long"
+    },
+    "profile": {
+      "title": "Profile"
     }
   },
   "notification": {
