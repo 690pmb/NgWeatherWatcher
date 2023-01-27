@@ -29,22 +29,14 @@
   >
     <mat-nav-list class="nav-list" (click)="sidenav.close()">
       <a
+        *ngFor="let item of menuItems"
         mat-list-item
-        routerLink="/dashboard"
-        label="nav-bar.dashboard"
+        [routerLink]="item.route"
+        [label]="item.label"
         routerLinkActive="active-nav-item"
       >
-        <fa-icon [icon]="faHome"></fa-icon>
-        {{ 'nav-bar.dashboard' | translate }}
-      </a>
-      <a
-        mat-list-item
-        routerLink="/alert"
-        label="nav-bar.alert"
-        routerLinkActive="active-nav-item"
-      >
-        <fa-icon [icon]="faBell"></fa-icon>
-        {{ 'nav-bar.alert' | translate }}
+        <fa-icon [icon]="item.icon"></fa-icon>
+        {{ item.label | translate }}
       </a>
       <a mat-list-item (click)="logout()">
         <fa-icon [icon]="faSignOutAlt"></fa-icon>

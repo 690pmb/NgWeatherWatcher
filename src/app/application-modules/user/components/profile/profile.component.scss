@@ -1,0 +1,21 @@
+@use '/src/app/styles/imports' as *;
+
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 5vh auto;
+  padding: 25px;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+span {
+  @include color();
+
+  font-weight: bold;
+  padding-right: 5px;
+}

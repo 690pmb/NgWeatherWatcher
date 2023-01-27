@@ -1,14 +1,15 @@
 {
   "global": {
     "cancel": "Annuler",
-    "username": "Pseudo",
-    "username_required": "Veuillez renseigner votre pseudo",
+    "username": "Login",
+    "username_required": "Veuillez renseigner votre login",
     "minlength": "Trop court",
     "hour": "Heure",
     "min": "Min",
     "max": "Max",
     "true": "oui",
     "false": "non",
+    "none": "aucun",
     "average": "Moyenne",
     "expand": "Étendre",
     "edit": "Éditer",
@@ -84,7 +85,7 @@
     }
   },
   "user": {
-    "name_required": "Veuillez renseigner votre pseudo",
+    "name_required": "Veuillez renseigner votre login",
     "password": "Mot de passe",
     "password_required": "Veuillez renseigner votre mot de passe",
     "answer": "Réponse",
@@ -109,12 +110,15 @@
       "title": "S'INSCRIRE",
       "sign_up": "S'inscrire",
       "registred": "Inscrit !!",
-      "already_exist": "Un utilisateur avec ce pseudo existe déjà",
+      "already_exist": "Un utilisateur avec ce login existe déjà",
       "bad_request": "Entrées incorrectes",
       "password2": "Retapez votre mot de passe",
       "different": "Les mots de passe sont différents",
       "username_hint": "Entre 4 et 30 caractères de long",
       "password_hint": "Entre 6 et 30 caractères de long"
+    },
+    "profile": {
+      "title": "Profil"
     }
   },
   "notification": {
