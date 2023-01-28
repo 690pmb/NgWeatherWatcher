@@ -8,13 +8,23 @@
   </button>
   <input
     type="text"
-    placeholder="{{ placeholder | translate }}"
+    placeholder="{{ (showPlaceholder ? placeholder : '') | translate }}"
     matInput
     [matAutocomplete]="auto"
     #inputLocation="matInput"
     [formControl]="inputCtrl"
+    (focus)="placeholder = undefined"
+    (blur)="placeholder = inputCtrl?.value || initialPlaceholder"
   />
-  <button mat-icon-button type="button" matSuffix *ngIf="inputLocation.value">
+  <button
+    mat-icon-button
+    type="button"
+    matSuffix
+    *ngIf="
+      inputLocation.value ||
+      (placeholder && placeholder !== 'global.none' && showPlaceholder)
+    "
+  >
     <fa-icon
       [icon]="faTimes"
       size="2x"
@@ -26,7 +36,7 @@
   #auto="matAutocomplete"
   autoActiveFirstOption
   class="search-panel"
-  (optionSelected)="selected.emit($event.option.value)"
+  (optionSelected)="select($event.option.value)"
 >
   <mat-option *ngFor="let location of locations" [value]="location.name">
     <div [matTooltip]="location.name">{{ location.name }}</div>

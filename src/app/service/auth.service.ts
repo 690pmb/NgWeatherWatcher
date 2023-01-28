@@ -91,9 +91,7 @@ export class AuthService extends UtilsService {
         map(
           (response: HttpResponse<{token: string}>) => {
             if (response.body !== null && response.body) {
-              const token = response.body.token;
-              AuthService.setToken(token);
-              this.token$.next(jwtDecode<Token>(token));
+              this.setToken(response.body.token);
               this.toast.success('user.signin.connected');
               return true;
             } else {
@@ -131,6 +129,18 @@ export class AuthService extends UtilsService {
     );
   }
 
+  edit(favouriteLocation: string): void {
+    this.put<{token: string}>('', {favouriteLocation}).subscribe(
+      response => {
+        if (response.body !== null && response.body) {
+          this.setToken(response.body?.token);
+          this.toast.success('user.profile.updated');
+        }
+      },
+      (response: HttpErrorResponse) => this.handleError(response)
+    );
+  }
+
   getCurrentUser(): void {
     try {
       const token = localStorage.getItem('token');
@@ -148,5 +158,10 @@ export class AuthService extends UtilsService {
       this.handleError(err as InvalidTokenError);
       this.logout(false);
     }
+  }
+
+  private setToken(token: string): void {
+    AuthService.setToken(token);
+    this.token$.next(jwtDecode<Token>(token));
   }
 }

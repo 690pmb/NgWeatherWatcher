@@ -3,6 +3,7 @@ import {AuthService} from './service/auth.service';
 import {NotificationService} from './service/notification.service';
 import {filter} from 'rxjs/operators';
 import {Token} from './model/token';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.auth.getCurrentUser();
     this.auth.token$
-      .pipe(filter((t): t is Token => !!t))
+      .pipe(filter((t): t is Token => !!t && environment.production))
       .subscribe(() => this.notificationService.subscribeToNotifications());
   }
 }

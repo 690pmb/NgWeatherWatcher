@@ -4,9 +4,9 @@
   </div>
   <div>
     <span>{{ 'user.signin.favourite_location' | translate }}:</span
-    ><ng-container *ngIf="user.location; else noneBlock">{{
-      user.location
-    }}</ng-container>
-    <ng-template #noneBlock>{{ 'global.none' | translate }}</ng-template>
+    ><app-search-location
+      [placeholder]="user.location"
+      (selected)="edit($event)"
+    ></app-search-location>
   </div>
 </div>

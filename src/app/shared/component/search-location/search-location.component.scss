@@ -14,3 +14,9 @@
     @include font('12', 'dark-gray');
   }
 }
+
+::placeholder {
+  @include color('black');
+
+  opacity: 1;
+}

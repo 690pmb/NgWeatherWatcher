@@ -5,6 +5,7 @@ import {
   Output,
   ViewChild,
   OnInit,
+  OnChanges,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
@@ -26,9 +27,12 @@ import {Utils} from '../../utils';
   templateUrl: './search-location.component.html',
   styleUrls: ['./search-location.component.scss'],
 })
-export class SearchLocationComponent implements OnInit {
+export class SearchLocationComponent implements OnInit, OnChanges {
   @Input()
-  placeholder!: string;
+  placeholder?: string;
+
+  @Input()
+  showPlaceholder = true;
 
   @Input()
   inputCtrl?: FormControl<string>;
@@ -40,12 +44,14 @@ export class SearchLocationComponent implements OnInit {
   trigger!: MatAutocompleteTrigger;
 
   locations: Location[] = [];
+  initialPlaceholder?: string;
   faLocationArrow = faLocationArrow;
   faTimes = faTimes;
 
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit(): void {
+    this.initialPlaceholder = this.placeholder;
     if (!this.inputCtrl) {
       this.inputCtrl = new FormControl('', {
         nonNullable: true,
@@ -71,6 +77,10 @@ export class SearchLocationComponent implements OnInit {
       .subscribe(locations => (this.locations = locations));
   }
 
+  ngOnChanges(): void {
+    this.placeholder ||= 'global.none';
+  }
+
   geolocation(): void {
     new Observable((observer: Observer<string>) =>
       WeatherService.findUserPosition(observer)
@@ -82,9 +92,17 @@ export class SearchLocationComponent implements OnInit {
       });
   }
 
+  select(location: string): void {
+    this.inputCtrl?.disable();
+    this.selected.emit(location);
+    setTimeout(() => this.inputCtrl?.enable(), 0);
+    this.placeholder = location;
+  }
+
   reset(): void {
-    this.inputCtrl?.setValue('');
-    this.inputCtrl?.markAsDirty({onlySelf: true});
+    this.inputCtrl?.reset();
+    this.trigger.closePanel();
     this.selected.emit('');
+    this.placeholder = this.initialPlaceholder || 'global.none';
   }
 }
