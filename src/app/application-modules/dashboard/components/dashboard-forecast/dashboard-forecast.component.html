@@ -5,6 +5,7 @@
   </div>
   <app-search-location
     (selected)="navigate($event)"
+    [showPlaceholder]="false"
     class="search-location"
   ></app-search-location>
   <div *ngIf="forecast">

@@ -9,7 +9,7 @@
     "max": "Max",
     "true": "oui",
     "false": "non",
-    "none": "aucun",
+    "none": "Aucun",
     "average": "Moyenne",
     "expand": "Étendre",
     "edit": "Éditer",
@@ -118,7 +118,8 @@
       "password_hint": "Entre 6 et 30 caractères de long"
     },
     "profile": {
-      "title": "Profil"
+      "title": "Profil",
+      "updated": "Profil mis à jour"
     }
   },
   "notification": {

@@ -20,4 +20,8 @@ export class ProfileComponent implements OnInit {
       this.translateService.instant('user.profile.title')
     );
   }
+
+  edit(location: string): void {
+    this.authService.edit(location);
+  }
 }
