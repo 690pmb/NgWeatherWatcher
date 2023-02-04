@@ -112,12 +112,13 @@ export class AuthService extends UtilsService {
   signup(
     username: string,
     password: string,
+    lang: string,
     favouriteLocation?: string
   ): Promise<number> {
     return new Promise<number>(resolve =>
       this.post(
         'signup',
-        {username, password, favouriteLocation},
+        {username, password, favouriteLocation, lang},
         undefined
       ).subscribe(
         (response: HttpResponse<unknown>) => resolve(response.status),

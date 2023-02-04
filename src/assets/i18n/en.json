@@ -26,6 +26,10 @@
       "lastPageLabel": "Last Page",
       "firstPageLabel": "First Page",
       "itemsPerPageLabel": "Items per page: "
+    },
+    "lang": {
+      "fr": "French",
+      "en": "English"
     }
   },
   "nav-bar": {

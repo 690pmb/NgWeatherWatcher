@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../../service/auth.service';
 import {ToastService} from '../../../../service/toast.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
@@ -19,7 +20,8 @@ export class SignupComponent implements OnInit {
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private toast: ToastService
+    private toast: ToastService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +39,12 @@ export class SignupComponent implements OnInit {
       this.password === this.password2
     ) {
       this.authService
-        .signup(this.username, this.password, this.favouriteLocation)
+        .signup(
+          this.username,
+          this.password,
+          this.translateService.currentLang,
+          this.favouriteLocation
+        )
         .then(status => {
           if (status === 409) {
             this.message = 'user.signup.already_exist';

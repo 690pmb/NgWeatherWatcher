@@ -3,6 +3,10 @@
     <span>{{ 'global.username' | translate }}:</span>{{ user.sub }}
   </div>
   <div>
+    <span>{{ 'user.lang' | translate }}:</span
+    >{{ 'global.lang.' + user.lang | translate }}
+  </div>
+  <div>
     <span>{{ 'user.signin.favourite_location' | translate }}:</span
     ><app-search-location
       [placeholder]="user.location"
