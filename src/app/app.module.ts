@@ -53,7 +53,7 @@ import {environment} from '../environments/environment';
       useFactory:
         (service: TranslateService): (() => Observable<string>) =>
         () =>
-          service.use('fr'),
+          service.use(service.getBrowserLang() === 'fr' ? 'fr' : 'en' ?? 'fr'),
       deps: [TranslateService],
       multi: true,
     },
