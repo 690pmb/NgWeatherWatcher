@@ -28,12 +28,9 @@ export class AuthService extends UtilsService {
     protected toast: ToastService,
     protected configurationService: ConfigurationService
   ) {
-    super(
-      httpClient,
-      toast,
-      configurationService.get().apiUrl,
-      configurationService.get().userUrl
-    );
+    super(httpClient, toast);
+    this.baseUrl = configurationService.get().apiUrl;
+    this.apiUrl = configurationService.get().weatherUrl;
   }
 
   private static setToken(token: string): void {

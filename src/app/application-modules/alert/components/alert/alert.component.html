@@ -17,7 +17,7 @@
   <app-question label="alert.trigger_hour" [ctrl]="alertForm.get('triggerHour')"
     ><app-slider
       [configuration]="triggerHourConfig"
-      [initialValue]="this.alertForm.get('triggerHour').value"
+      [initialValue]="this.alertForm.get('triggerHour')?.value"
       (selected)="alertForm.get('triggerHour')?.setValue($event)"
     ></app-slider>
   </app-question>

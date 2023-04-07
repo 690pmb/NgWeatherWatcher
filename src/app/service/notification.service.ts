@@ -21,12 +21,9 @@ export class NotificationService extends UtilsService {
     protected toast: ToastService,
     protected configurationService: ConfigurationService
   ) {
-    super(
-      httpClient,
-      toast,
-      configurationService.get().apiUrl,
-      configurationService.get().notificationUrl
-    );
+    super(httpClient, toast);
+    this.baseUrl = configurationService.get().apiUrl;
+    this.apiUrl = configurationService.get().weatherUrl;
   }
 
   subscribeToNotifications(): void {

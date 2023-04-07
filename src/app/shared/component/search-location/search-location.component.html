@@ -8,7 +8,7 @@
   </button>
   <input
     type="text"
-    placeholder="{{ (showPlaceholder ? placeholder : '') | translate }}"
+    placeholder="{{ (showPlaceholder ? placeholder ?? '' : '') | translate }}"
     matInput
     [matAutocomplete]="auto"
     #inputLocation="matInput"

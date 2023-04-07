@@ -32,7 +32,6 @@
         *ngFor="let item of menuItems"
         mat-list-item
         [routerLink]="item.route"
-        [label]="item.label"
         routerLinkActive="active-nav-item"
       >
         <fa-icon [icon]="item.icon"></fa-icon>

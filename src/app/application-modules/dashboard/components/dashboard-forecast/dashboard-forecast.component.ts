@@ -24,7 +24,7 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
 
   constructor(
     private weatherService: WeatherService,
-    private translate: TranslateService,
+    protected translate: TranslateService,
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,

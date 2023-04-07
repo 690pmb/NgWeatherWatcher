@@ -18,6 +18,8 @@
   },
   "include": ["src/**/*.ts", "test/**/*.ts"],
   "angularCompilerOptions": {
-    "disableTypeScriptVersionCheck": true
+    "disableTypeScriptVersionCheck": true,
+    "strictInjectionParameters": true,
+    "fullTemplateTypeCheck": true
   }
 }

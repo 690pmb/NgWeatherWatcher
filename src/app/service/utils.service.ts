@@ -17,12 +17,12 @@ type GobalError = HttpErrorResponse | string | ErrorEvent | Error;
 })
 export class UtilsService {
   static readonly bearer = 'Bearer ';
+  protected baseUrl!: string;
+  protected apiUrl!: string;
 
   constructor(
     protected httpClient: HttpClient,
-    protected toast: ToastService,
-    private baseUrl: string,
-    private apiUrl: string
+    protected toast: ToastService
   ) {}
 
   public static findUserPosition(observer: Observer<string>): void {
