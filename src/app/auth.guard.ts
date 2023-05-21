@@ -7,6 +7,8 @@ import {
   UrlTree,
 } from '@angular/router';
 import {AuthService} from './service/auth.service';
+import {map} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,21 +19,23 @@ export class AuthGuard implements CanActivate {
   canActivate(
     _route: ActivatedRouteSnapshot, // eslint-disable-line
     state: RouterStateSnapshot
-  ): Promise<boolean | UrlTree> {
+  ): Observable<boolean | UrlTree> {
     try {
-      return this.auth.isAuthenticated().then(isAuth => {
-        if (!isAuth) {
-          this.router
-            .navigate(['/user/signin'])
-            .catch(err => console.error(err));
-          sessionStorage.setItem('redirectPage', state.url);
-          return false;
-        }
-        return true;
-      });
+      return this.auth.isAuthenticated().pipe(
+        map(isAuth => {
+          if (!isAuth) {
+            this.router
+              .navigate(['/user/signin'])
+              .catch(err => console.error(err));
+            sessionStorage.setItem('redirectPage', state.url);
+            return false;
+          }
+          return true;
+        })
+      );
     } catch (err) {
       console.error('guard error', err);
-      return new Promise(reject => reject(false));
+      return of(false);
     }
   }
 }

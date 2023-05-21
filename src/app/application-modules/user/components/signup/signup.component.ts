@@ -45,20 +45,22 @@ export class SignupComponent implements OnInit {
           this.translateService.currentLang,
           this.favouriteLocation
         )
-        .then(status => {
-          if (status === 409) {
-            this.message = 'user.signup.already_exist';
-          } else if (status !== 201) {
-            this.message = 'user.signup.bad_request';
-          } else {
-            this.message = 'user.signup.registred';
-            this.toast.success('user.signup.registred');
-            this.router
-              .navigateByUrl('/user/signin')
-              .catch(err => console.error(err));
-          }
-        })
-        .catch(err => this.authService.handleError(err));
+        .subscribe(
+          status => {
+            if (status === 409) {
+              this.message = 'user.signup.already_exist';
+            } else if (status !== 201) {
+              this.message = 'user.signup.bad_request';
+            } else {
+              this.message = 'user.signup.registred';
+              this.toast.success('user.signup.registred');
+              this.router
+                .navigateByUrl('/user/signin')
+                .catch(err => console.error(err));
+            }
+          },
+          (err: Error) => this.authService.handleError(err)
+        );
     }
   }
 }

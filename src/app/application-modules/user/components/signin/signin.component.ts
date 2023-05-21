@@ -21,10 +21,9 @@ export class SigninComponent {
 
   login(): void {
     if (this.username && this.password) {
-      this.auth
-        .signin(this.username, this.password)
-        .then(isAuth => {
-          if (isAuth) {
+      this.auth.signin(this.username, this.password).subscribe(
+        connected => {
+          if (connected) {
             this.message = this.translate.instant(
               'user.signin.connected'
             ) as string;
@@ -41,8 +40,9 @@ export class SigninComponent {
               'user.signin.wrong'
             ) as string;
           }
-        })
-        .catch(err => this.auth.handleError(err));
+        },
+        (err: Error) => this.auth.handleError(err)
+      );
     }
   }
 }

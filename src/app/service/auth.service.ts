@@ -5,7 +5,7 @@ import {
   HttpErrorResponse,
   HttpResponse,
 } from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
+import {Observable, ReplaySubject} from 'rxjs';
 import {Token} from '../model/token';
 import jwtDecode, {InvalidTokenError} from 'jwt-decode';
 import {UtilsService} from './utils.service';
@@ -18,9 +18,7 @@ import {ConfigurationService} from './configuration.service';
   providedIn: 'root',
 })
 export class AuthService extends UtilsService {
-  token$: BehaviorSubject<Token | undefined> = new BehaviorSubject<
-    Token | undefined
-  >(undefined);
+  token$ = new ReplaySubject<Token | undefined>(1);
 
   constructor(
     private router: Router,
@@ -30,19 +28,7 @@ export class AuthService extends UtilsService {
   ) {
     super(httpClient, toast);
     this.baseUrl = configurationService.get().apiUrl;
-    this.apiUrl = configurationService.get().weatherUrl;
-  }
-
-  private static setToken(token: string): void {
-    localStorage.removeItem('token');
-    localStorage.setItem('token', token);
-  }
-
-  private reject(loggout: boolean): Promise<boolean> {
-    if (loggout) {
-      this.logout(loggout);
-    }
-    return new Promise(resolve => resolve(false));
+    this.apiUrl = configurationService.get().userUrl;
   }
 
   logout(showToast: boolean): void {
@@ -56,54 +42,57 @@ export class AuthService extends UtilsService {
     }
   }
 
-  isAuthenticated(): Promise<boolean> {
-    const token = this.token$.getValue();
-    if (
-      Utils.isNotBlank(token) &&
-      (!token.exp || token.exp * 1000 > new Date().getTime())
-    ) {
-      return new Promise(resolve => resolve(true));
-    } else {
-      try {
-        const jwtToken = jwtDecode<Token>(localStorage.getItem('token') ?? '');
-        if (!jwtToken.exp || jwtToken.exp * 1000 > new Date().getTime()) {
-          return new Promise(resolve => resolve(true));
+  isAuthenticated(): Observable<boolean> {
+    return this.token$.asObservable().pipe(
+      map(token => {
+        if (
+          Utils.isNotBlank(token) &&
+          (!token.exp || token.exp * 1000 > new Date().getTime())
+        ) {
+          return true;
         } else {
-          return this.reject(false);
+          try {
+            const jwtToken = jwtDecode<Token>(
+              localStorage.getItem('token') ?? ''
+            );
+            if (!jwtToken.exp || jwtToken.exp * 1000 > new Date().getTime()) {
+              return true;
+            } else {
+              return this.reject(false);
+            }
+          } catch (err) {
+            return this.reject(false);
+          }
         }
-      } catch (err) {
-        return this.reject(false);
-      }
-    }
+      })
+    );
   }
 
-  signin(username: string, password: string): Promise<boolean> {
+  signin(username: string, password: string): Observable<boolean> {
     return this.post<{token: string}>(
       'signin',
       {username, password},
       undefined,
       false
-    )
-      .pipe(
-        map(
-          (response: HttpResponse<{token: string}>) => {
-            if (response.body !== null && response.body) {
-              this.setToken(response.body.token);
-              this.toast.success('user.signin.connected');
-              return true;
-            } else {
-              console.error('no token', response.body);
-              return true;
-            }
-          },
-          (response: HttpErrorResponse) => {
-            this.handleError(response);
-            this.logout(false);
-            return false;
+    ).pipe(
+      map(
+        (response: HttpResponse<{token: string}>) => {
+          if (response.body !== null && response.body) {
+            this.setToken(response.body.token);
+            this.toast.success('user.signin.connected');
+            return true;
+          } else {
+            console.error('no token', response.body);
+            return true;
           }
-        )
+        },
+        (response: HttpErrorResponse) => {
+          this.handleError(response);
+          this.logout(false);
+          return false;
+        }
       )
-      .toPromise();
+    );
   }
 
   signup(
@@ -111,17 +100,17 @@ export class AuthService extends UtilsService {
     password: string,
     lang: string,
     favouriteLocation?: string
-  ): Promise<number> {
-    return new Promise<number>(resolve =>
-      this.post(
-        'signup',
-        {username, password, favouriteLocation, lang},
-        undefined
-      ).subscribe(
-        (response: HttpResponse<unknown>) => resolve(response.status),
+  ): Observable<number> {
+    return this.post(
+      'signup',
+      {username, password, favouriteLocation, lang},
+      undefined
+    ).pipe(
+      map(
+        response => response.status,
         (response: HttpErrorResponse) => {
           this.handleError(response);
-          return resolve(response.status);
+          return response.status;
         }
       )
     );
@@ -161,5 +150,17 @@ export class AuthService extends UtilsService {
   private setToken(token: string): void {
     AuthService.setToken(token);
     this.token$.next(jwtDecode<Token>(token));
+  }
+
+  private static setToken(token: string): void {
+    localStorage.removeItem('token');
+    localStorage.setItem('token', token);
+  }
+
+  private reject(loggout: boolean): boolean {
+    if (loggout) {
+      this.logout(loggout);
+    }
+    return false;
   }
 }
