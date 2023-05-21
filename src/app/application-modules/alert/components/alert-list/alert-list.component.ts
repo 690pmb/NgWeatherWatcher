@@ -21,6 +21,8 @@ import {AlertService} from '../../../../service/alert.service';
 import {MenuService} from '../../../../service/menu.service';
 import {Alert} from '../../../../model/alert/alert';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
+import {TitleCasePipe} from '@angular/common';
+import {DateTimePipe} from '../../../../shared/pipe/date-time.pipe';
 
 @Component({
   selector: 'app-alert-list',
@@ -43,6 +45,20 @@ import {MatBottomSheet} from '@angular/material/bottom-sheet';
 export class AlertListComponent implements OnInit, OnDestroy {
   @ViewChild('deleteButton')
   deleteButton!: TemplateRef<number>;
+
+  getFieldsValue: {[key: string]: (a: Alert) => string} = {
+    trigger_day: a =>
+      this.titleCasePipe.transform(
+        this.formatField(a.getTriggerDays(this.translate.currentLang), false)
+      ),
+    trigger_hour: a => this.datePipe.transform(a.triggerHour, 'hour') as string,
+    monitored_day: a =>
+      this.titleCasePipe.transform(
+        this.formatField(a.getMonitoredDays(), false)
+      ),
+    monitored_hour: a => this.formatField(a.monitoredHours, false),
+    location: a => a.location,
+  };
 
   alerts!: Alert[];
   shownAlerts!: Alert[];
@@ -71,7 +87,9 @@ export class AlertListComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     public translate: TranslateService,
     private menuService: MenuService,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private titleCasePipe: TitleCasePipe,
+    private datePipe: DateTimePipe
   ) {}
 
   ngOnInit(): void {
@@ -153,5 +171,10 @@ export class AlertListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+  unsorted(_a: any, _b: any): number {
+    return 0;
   }
 }

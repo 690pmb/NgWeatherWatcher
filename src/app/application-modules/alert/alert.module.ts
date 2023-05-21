@@ -25,6 +25,7 @@ import {AlertWeatherFieldComponent} from './components/alert-weather-field/alert
 import {MultipleComponent} from './components/multiple/multiple.component';
 import {ContainerDirective} from './components/multiple/container.directive';
 import {ReactiveFormsModule} from '@angular/forms';
+import {TitleCasePipe} from '@angular/common';
 
 const childRoutes: Routes = [
   {
@@ -74,6 +75,7 @@ const childRoutes: Routes = [
         new MyPaginator(translate, 'alert'),
       deps: [TranslateService],
     },
+    TitleCasePipe,
   ],
 })
 export class AlertModule {}

@@ -100,25 +100,22 @@
         <ng-container *ngIf="alert == expandedAlert">
           <mat-divider></mat-divider>
           <div class="alert-expand">
-            <div>
-              <span>{{ 'alert.trigger_day' | translate }}: </span>
-              {{
-                formatField(alert.getTriggerDays(translate.currentLang), false)
-                  | titlecase
-              }}
-            </div>
-            <div>
-              <span>{{ 'alert.monitored_day' | translate }}: </span>
-              {{ formatField(alert.getMonitoredDays(), false) | titlecase }}
-            </div>
-            <div>
-              <span>{{ 'alert.monitored_hour' | translate }}: </span
-              >{{ formatField(alert.monitoredHours, false) }}
-            </div>
-            <div>
-              <span>{{ 'alert.location' | translate }}: </span
-              >{{ alert.location }}
-            </div>
+            <ng-container
+              *ngFor="let getFieldValue of getFieldsValue | keyvalue : unsorted"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  alertField;
+                  context: {
+                    $implicit: {
+                      i18n: getFieldValue.key,
+                      value: getFieldValue.value(alert)
+                    }
+                  }
+                "
+              ></ng-container>
+            </ng-container>
+
             <div>
               <span>{{ 'alert.monitored_field' | translate }}: </span>
               <ng-container
@@ -156,6 +153,12 @@
     ></mat-row>
   </mat-table>
 </ng-container>
+
+<ng-template #alertField let-field>
+  <div>
+    <span>{{ 'alert.' + field.i18n | translate }}: </span>{{ field.value }}
+  </div>
+</ng-template>
 
 <ng-template #deleteButton let-data>
   <button

@@ -20,7 +20,7 @@ export class AlertService extends UtilsService {
   ) {
     super(httpClient, toast);
     this.baseUrl = configurationService.get().apiUrl;
-    this.apiUrl = configurationService.get().weatherUrl;
+    this.apiUrl = configurationService.get().alertUrl;
   }
 
   getAllByUser(): Observable<Alert[]> {
