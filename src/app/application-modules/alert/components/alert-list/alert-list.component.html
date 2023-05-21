@@ -77,15 +77,16 @@
 
     <ng-container matColumnDef="edit">
       <mat-header-cell mat-header-cell *matHeaderCellDef>
-        {{ 'global.edit' | translate }}
+        {{ 'alert.action' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
         <button
-          type="button"
-          mat-raised-button
-          routerLink="/alert/edit/{{ alert.id }}"
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          (click)="$event.stopPropagation()"
+          [matMenuTriggerData]="{alert}"
         >
-          <fa-icon [icon]="faEdit"></fa-icon>
+          <fa-icon [icon]="faMenu"></fa-icon>
         </button>
       </mat-cell>
     </ng-container>
@@ -164,7 +165,7 @@
   <button
     type="button"
     mat-raised-button
-    (click)="delete()"
+    (click)="delete(selected)"
     appClickOutside
     (outside)="resetSelection()"
   >
@@ -174,3 +175,16 @@
     </div>
   </button>
 </ng-template>
+
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-alert="alert">
+    <button mat-menu-item routerLink="/alert/edit/{{ alert.id }}">
+      {{ 'global.edit' | translate }}&nbsp;
+      <fa-icon [icon]="faEdit"></fa-icon>
+    </button>
+    <button mat-menu-item (click)="delete([alert.id])">
+      {{ 'alert.delete' | translate }}&nbsp;
+      <fa-icon [icon]="faTrash"></fa-icon>
+    </button>
+  </ng-template>
+</mat-menu>

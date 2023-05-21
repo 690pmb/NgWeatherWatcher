@@ -10,6 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {
   faCheck,
   faEdit,
+  faEllipsisVertical,
   faPlusSquare,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
@@ -68,6 +69,7 @@ export class AlertListComponent implements OnInit, OnDestroy {
   faEdit = faEdit;
   faTrash = faTrash;
   faPlus = faPlusSquare;
+  faMenu = faEllipsisVertical;
   subs: Subscription[] = [];
   expandedAlert?: Alert;
   selected: number[] = [];
@@ -156,9 +158,9 @@ export class AlertListComponent implements OnInit, OnDestroy {
     return this.selected.includes(id);
   }
 
-  delete(): void {
-    this.alertService.deleteBydIds(this.selected).subscribe(() => {
-      this.alerts = this.alerts.filter(a => !this.selected.includes(a.id));
+  delete(ids: number[]): void {
+    this.alertService.deleteBydIds(ids).subscribe(() => {
+      this.alerts = this.alerts.filter(a => !ids.includes(a.id));
       this.resetSelection();
       this.filterAndPaginate(0);
     });

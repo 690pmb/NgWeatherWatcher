@@ -16,6 +16,7 @@ import {ClickOutsideDirective} from './click-outside.directive';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {AlertComponent} from './components/alert/alert.component';
 import {QuestionComponent} from './components/question/question.component';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {NouisliderModule} from 'ng2-nouislider';
 import {SliderComponent} from './components/slider/slider.component';
@@ -61,6 +62,7 @@ const childRoutes: Routes = [
     MatCheckboxModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatMenuModule,
     MatBottomSheetModule,
     MatPaginatorModule,
     NouisliderModule,

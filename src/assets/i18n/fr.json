@@ -65,6 +65,7 @@
     "every_days": "Tous les jours",
     "week_end": "Le week-end",
     "delete": "Supprimer",
+    "action": "Actions",
     "deleted": "{{size}} alerte(s) supprimée(s)",
     "created": "Alerte créee !",
     "updated": "Alerte mise à jour !",
