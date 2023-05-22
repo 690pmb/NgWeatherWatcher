@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Configuration} from '../model/configuration';
-import {from, Observable, of} from 'rxjs';
-import {tap, map} from 'rxjs/operators';
+import {Injectable, isDevMode} from '@angular/core';
 import {plainToInstance} from 'class-transformer';
+import {from, Observable, of} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
+import {Configuration} from '../model/configuration';
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +17,12 @@ export class ConfigurationService {
       ? of(this.configuration)
       : from(fetch('./assets/configuration.json').then(res => res.json())).pipe(
           map((config: Object) => plainToInstance(Configuration, config)),
-          tap(
-            (configuration: Configuration) =>
-              (this.configuration = configuration)
-          )
+          tap((configuration: Configuration) => {
+            this.configuration = configuration;
+            if (!isDevMode()) {
+              this.configuration.apiUrl = this.configuration.prodUrl;
+            }
+          })
         );
   }
 

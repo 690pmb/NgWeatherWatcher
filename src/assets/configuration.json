@@ -1,5 +1,6 @@
 {
-  "apiUrl": "https://{{apiUrl}}",
+  "apiUrl": "http://localhost:4200/api",
+  "prodUrl": "https://{{apiUrl}}",
   "userUrl": "users",
   "weatherUrl": "weathers",
   "alertUrl": "alerts",
