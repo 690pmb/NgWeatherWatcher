@@ -3,7 +3,8 @@
     "./node_modules/gts/",
     "plugin:jsdoc/recommended",
     "plugin:import/recommended",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:@angular-eslint/recommended"
   ],
   "settings": {
     "import/resolver": {
@@ -15,7 +16,8 @@
   "plugins": [
     "eslint-plugin-import",
     "eslint-plugin-jsdoc",
-    "eslint-plugin-prefer-arrow"
+    "eslint-plugin-prefer-arrow",
+    "@angular-eslint"
   ],
   "rules": {
     "prefer-arrow/prefer-arrow-functions": [
