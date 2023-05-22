@@ -5,6 +5,5 @@ dist/
 node_modules/
 .husky/
 *.conf.js
-cordova/
 *.conf.js
 .angular

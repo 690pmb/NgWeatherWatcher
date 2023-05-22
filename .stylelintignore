@@ -1,6 +1,5 @@
 build
 dist
 node_modules
-cordova
 .angular
 *.ts

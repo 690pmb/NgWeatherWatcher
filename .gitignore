@@ -43,13 +43,6 @@ npm-debug.log
 testem.log
 /typings
 
-# cordova
-cordova/NgWeatherWatcher/node_modules
-cordova/NgWeatherWatcher/www
-cordova/NgWeatherWatcher/platforms
-cordova/NgWeatherWatcher/plugins
-cordova/NgWeatherWatcher/hooks
-
 # System Files
 .DS_Store
 Thumbs.db
