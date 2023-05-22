@@ -2,13 +2,17 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
-  HttpParams,
   HttpResponse,
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, Observer, throwError, EMPTY} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ToastService} from './toast.service';
+import {
+  HttpPagedRequest,
+  HttpRequest,
+  HttpBodyRequest,
+} from '../model/http/http-request';
 
 type GobalError = HttpErrorResponse | string | ErrorEvent | Error;
 
@@ -73,18 +77,20 @@ export class UtilsService {
   }
 
   protected post<T>(
-    url: string,
-    body: unknown | null,
-    params?: HttpParams,
+    request: HttpBodyRequest,
     handleError = true
   ): Observable<HttpResponse<T>> {
     return this.httpClient
-      .post<T>(`${this.baseUrl}/${this.apiUrl}/${url}`, body, {
-        headers: UtilsService.getHeaders(),
-        observe: 'response',
-        params,
-        responseType: 'json',
-      })
+      .post<T>(
+        `${this.baseUrl}/${this.apiUrl}/${request.url ?? ''}`,
+        request.body,
+        {
+          headers: UtilsService.getHeaders(),
+          observe: 'response',
+          params: request.params,
+          responseType: 'json',
+        }
+      )
       .pipe(
         catchError((err: HttpErrorResponse) => {
           if (handleError) {
@@ -97,18 +103,18 @@ export class UtilsService {
       );
   }
 
-  protected put<T>(
-    url: string,
-    body: unknown | null,
-    params?: HttpParams
-  ): Observable<HttpResponse<T>> {
+  protected put<T>(request: HttpBodyRequest): Observable<HttpResponse<T>> {
     return this.httpClient
-      .put<T>(`${this.baseUrl}/${this.apiUrl}/${url}`, body, {
-        headers: UtilsService.getHeaders(),
-        observe: 'response',
-        params,
-        responseType: 'json',
-      })
+      .put<T>(
+        `${this.baseUrl}/${this.apiUrl}/${request.url ?? ''}`,
+        request.body,
+        {
+          headers: UtilsService.getHeaders(),
+          observe: 'response',
+          params: request.params,
+          responseType: 'json',
+        }
+      )
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.handleError(err);
@@ -117,11 +123,18 @@ export class UtilsService {
       );
   }
 
-  protected get<T>(url?: string, params?: HttpParams): Observable<T> {
+  protected getPaged<T, U>(request?: HttpPagedRequest<U>): Observable<T> {
+    return this.get({
+      ...request,
+      url: `${request?.url ?? ''}${request?.pageRequest?.toUrl()}`,
+    });
+  }
+
+  protected get<T>(request?: HttpRequest): Observable<T> {
     return this.httpClient
-      .get<T>(`${this.baseUrl}/${this.apiUrl}/${url ?? ''}`, {
+      .get<T>(`${this.baseUrl}/${this.apiUrl}/${request?.url ?? ''}`, {
         headers: UtilsService.getHeaders(),
-        params,
+        params: request?.params,
       })
       .pipe(
         map((response: T) => response),

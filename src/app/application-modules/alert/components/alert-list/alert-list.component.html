@@ -9,18 +9,28 @@
     <fa-icon [icon]="faPlus"></fa-icon>
   </div>
 </button>
-<ng-container *ngIf="alerts">
+<ng-container *ngIf="alerts$ | async as alerts">
   <div class="header">
     <mat-paginator
-      [length]="alerts.length"
-      [pageIndex]="pageIndex"
-      [pageSize]="pageSize"
-      (page)="navigate($event.pageIndex)"
+      [length]="alerts.totalElements"
+      [pageIndex]="alerts.number"
+      [pageSize]="alerts.size"
+      (page)="
+        navigate($event.pageIndex, pageRequest.sortField, pageRequest.sortDir)
+      "
     >
     </mat-paginator>
   </div>
-  <mat-table [dataSource]="shownAlerts" multiTemplateDataRows>
-    <ng-container matColumnDef="trigger-day">
+  <mat-table
+    [dataSource]="alerts.content"
+    multiTemplateDataRows
+    matSort
+    [matSortDirection]="pageRequest.sortDir"
+    [matSortActive]="pageRequest.sortField"
+    matSortDisableClear="true"
+    (matSortChange)="navigate(0, $event.active, $event.direction)"
+  >
+    <ng-container matColumnDef="triggerDays">
       <mat-header-cell mat-header-cell *matHeaderCellDef>
         {{ 'alert.trigger_day' | translate }}
       </mat-header-cell>
@@ -32,8 +42,8 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="trigger-hour">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
+    <ng-container matColumnDef="triggerHour">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ 'alert.trigger_hour' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
@@ -41,7 +51,7 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="monitored-hour">
+    <ng-container matColumnDef="monitoredHours">
       <mat-header-cell mat-header-cell *matHeaderCellDef>
         {{ 'alert.monitored_hour' | translate }}
       </mat-header-cell>
@@ -51,7 +61,7 @@
     </ng-container>
 
     <ng-container matColumnDef="location">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ 'alert.location' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
@@ -64,8 +74,8 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="force">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
+    <ng-container matColumnDef="forceNotification">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ 'alert.force_notification' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">

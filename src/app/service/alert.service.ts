@@ -8,6 +8,8 @@ import {ToastService} from './toast.service';
 import {UtilsService} from './utils.service';
 import {ConfigurationService} from './configuration.service';
 import {CreateAlert} from '../model/alert/create-alert';
+import {Page} from '../model/http/page';
+import {PageRequest} from '../model/http/page-request';
 
 @Injectable({
   providedIn: 'root',
@@ -23,26 +25,29 @@ export class AlertService extends UtilsService {
     this.apiUrl = configurationService.get().alertUrl;
   }
 
-  getAllByUser(): Observable<Alert[]> {
-    return this.get<Alert[]>().pipe(
-      map((alerts: Object[]) => plainToInstance(Alert, alerts))
+  getAllByUser(pageRequest?: PageRequest<Alert>): Observable<Page<Alert>> {
+    return this.getPaged<Page<Alert>, Alert>({pageRequest}).pipe(
+      map((alerts: Page<Alert>) => {
+        alerts.content = plainToInstance(Alert, alerts.content);
+        return alerts;
+      })
     );
   }
 
   getById(id: string): Observable<Alert> {
-    return this.get<Alert>(id).pipe(
+    return this.get<Alert>({url: id}).pipe(
       map((alerts: Object) => plainToInstance(Alert, alerts))
     );
   }
 
   create(alert: CreateAlert): Observable<boolean> {
-    return this.post<void>('', plainToInstance(CreateAlert, alert)).pipe(
+    return this.post<void>({body: plainToInstance(CreateAlert, alert)}).pipe(
       map(response => response.ok)
     );
   }
 
   update(alert: CreateAlert): Observable<boolean> {
-    return this.put<void>('', plainToInstance(CreateAlert, alert)).pipe(
+    return this.put<void>({body: plainToInstance(CreateAlert, alert)}).pipe(
       map(response => response.ok)
     );
   }

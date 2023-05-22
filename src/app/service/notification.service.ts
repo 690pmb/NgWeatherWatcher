@@ -42,16 +42,19 @@ export class NotificationService extends UtilsService {
             const key = push.getKey ? push.getKey('p256dh') : '';
             const auth = push.getKey ? push.getKey('auth') : '';
             if (key && auth) {
-              return this.post<Subscription>('subscriptions', {
-                endpoint: push.endpoint,
-                publicKey: btoa(
-                  String.fromCharCode.apply(null, [...new Uint8Array(key)])
-                ),
-                privateKey: btoa(
-                  String.fromCharCode.apply(null, [...new Uint8Array(auth)])
-                ),
-                userAgent: window.navigator.userAgent,
-              } as Subscription);
+              return this.post<Subscription>({
+                url: 'subscriptions',
+                body: {
+                  endpoint: push.endpoint,
+                  publicKey: btoa(
+                    String.fromCharCode.apply(null, [...new Uint8Array(key)])
+                  ),
+                  privateKey: btoa(
+                    String.fromCharCode.apply(null, [...new Uint8Array(auth)])
+                  ),
+                  userAgent: window.navigator.userAgent,
+                } as Subscription,
+              });
             } else {
               return EMPTY;
             }

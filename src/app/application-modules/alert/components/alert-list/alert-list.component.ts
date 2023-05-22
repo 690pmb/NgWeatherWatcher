@@ -1,12 +1,11 @@
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {
-  Component,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+  ActivatedRoute,
+  convertToParamMap,
+  ParamMap,
+  Router,
+} from '@angular/router';
 import {
   faCheck,
   faEdit,
@@ -15,15 +14,17 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import {TranslateService} from '@ngx-translate/core';
-import {Subscription} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {Utils} from '../../../../shared/utils';
+import {Subject} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
 import {AlertService} from '../../../../service/alert.service';
 import {MenuService} from '../../../../service/menu.service';
 import {Alert} from '../../../../model/alert/alert';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {TitleCasePipe} from '@angular/common';
 import {DateTimePipe} from '../../../../shared/pipe/date-time.pipe';
+import {SortField} from '../../../../model/sort';
+import {SortDirection} from '@angular/material/sort';
+import {PageRequest} from '../../../../model/http/page-request';
 
 @Component({
   selector: 'app-alert-list',
@@ -43,7 +44,7 @@ import {DateTimePipe} from '../../../../shared/pipe/date-time.pipe';
     ]),
   ],
 })
-export class AlertListComponent implements OnInit, OnDestroy {
+export class AlertListComponent implements OnInit {
   @ViewChild('deleteButton')
   deleteButton!: TemplateRef<number>;
 
@@ -61,25 +62,33 @@ export class AlertListComponent implements OnInit, OnDestroy {
     location: a => a.location,
   };
 
-  alerts!: Alert[];
-  shownAlerts!: Alert[];
-  pageIndex!: number;
-  pageSize = 10;
+  queryParam = new Subject<ParamMap>();
+  alerts$ = this.queryParam.pipe(
+    switchMap(queryParam => {
+      this.pageRequest.sortField = (queryParam.get('sortField') ??
+        'location') as SortField<Alert>;
+      this.pageRequest.sortDir =
+        (queryParam.get('sortDir') as SortDirection) ?? 'asc';
+      this.pageRequest.page = +(queryParam.get('page') ?? 0);
+      return this.alertService.getAllByUser(this.pageRequest);
+    })
+  );
+
+  pageRequest = new PageRequest<Alert>();
   faCheck = faCheck;
   faEdit = faEdit;
   faTrash = faTrash;
   faPlus = faPlusSquare;
   faMenu = faEllipsisVertical;
-  subs: Subscription[] = [];
   expandedAlert?: Alert;
   selected: number[] = [];
   expandedColumn = 'details';
-  columnsToDisplay = [
-    'trigger-day',
-    'trigger-hour',
-    'monitored-hour',
+  columnsToDisplay: (SortField<Alert> | 'edit')[] = [
+    'triggerDays',
+    'triggerHour',
+    'monitoredHours',
     'location',
-    'force',
+    'forceNotification',
     'edit',
   ];
 
@@ -96,34 +105,17 @@ export class AlertListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.menuService.title$.next('alert.title');
-    this.subs.push(
-      this.alertService.getAllByUser().subscribe(alerts => {
-        this.alerts = alerts;
-        this.subs.push(
-          this.activatedRoute.queryParamMap
-            .pipe(filter(q => q !== undefined))
-            .subscribe(queryParam =>
-              this.filterAndPaginate(
-                +Utils.getOrElse(queryParam.get('page'), '0')
-              )
-            )
-        );
-      })
-    );
+    this.activatedRoute.queryParamMap.subscribe(q => this.queryParam.next(q));
   }
 
-  filterAndPaginate(pageIndex: number): void {
-    this.pageIndex = pageIndex;
-    this.shownAlerts = this.alerts.slice(
-      this.pageIndex * this.pageSize,
-      (this.pageIndex + 1) * this.pageSize
-    );
-  }
-
-  navigate(page: number): void {
+  navigate(
+    page: number,
+    sortField?: SortField<Alert>,
+    sortDir?: SortDirection
+  ): void {
     this.router
       .navigate(['.'], {
-        queryParams: {page},
+        queryParams: {page, sortField, sortDir},
         replaceUrl: true,
         relativeTo: this.activatedRoute,
       })
@@ -160,19 +152,20 @@ export class AlertListComponent implements OnInit, OnDestroy {
 
   delete(ids: number[]): void {
     this.alertService.deleteBydIds(ids).subscribe(() => {
-      this.alerts = this.alerts.filter(a => !ids.includes(a.id));
       this.resetSelection();
-      this.filterAndPaginate(0);
+      this.queryParam.next(
+        convertToParamMap({
+          page: 0,
+          sortField: this.pageRequest.sortField,
+          sortDir: this.pageRequest.sortDir,
+        })
+      );
     });
   }
 
   resetSelection(): void {
     this.selected = [];
     this.bottomSheet.dismiss();
-  }
-
-  ngOnDestroy(): void {
-    this.subs.forEach(sub => sub.unsubscribe());
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any

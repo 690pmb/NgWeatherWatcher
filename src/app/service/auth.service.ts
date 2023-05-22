@@ -70,9 +70,7 @@ export class AuthService extends UtilsService {
 
   signin(username: string, password: string): Observable<boolean> {
     return this.post<{token: string}>(
-      'signin',
-      {username, password},
-      undefined,
+      {url: 'signin', body: {username, password}},
       false
     ).pipe(
       map(
@@ -101,11 +99,10 @@ export class AuthService extends UtilsService {
     lang: string,
     favouriteLocation?: string
   ): Observable<number> {
-    return this.post(
-      'signup',
-      {username, password, favouriteLocation, lang},
-      undefined
-    ).pipe(
+    return this.post({
+      url: 'signup',
+      body: {username, password, favouriteLocation, lang},
+    }).pipe(
       map(
         response => response.status,
         (response: HttpErrorResponse) => {
@@ -117,7 +114,7 @@ export class AuthService extends UtilsService {
   }
 
   edit(favouriteLocation: string): void {
-    this.put<{token: string}>('', {favouriteLocation}).subscribe(
+    this.put<{token: string}>({body: favouriteLocation}).subscribe(
       response => {
         if (response.body !== null && response.body) {
           this.setToken(response.body?.token);

@@ -22,7 +22,7 @@ export class WeatherService extends UtilsService {
   }
 
   search(term: string): Observable<Location[]> {
-    return this.get<Location[]>(`locations?query=${term}`);
+    return this.get<Location[]>({url: `locations?query=${term}`});
   }
 
   findForecastByLocation(
@@ -30,9 +30,8 @@ export class WeatherService extends UtilsService {
     days: string,
     lang: string
   ): Observable<Forecast> {
-    return this.get<Forecast>(
-      '',
-      new HttpParams({fromObject: {location, days, lang}})
-    );
+    return this.get<Forecast>({
+      params: new HttpParams({fromObject: {location, days, lang}}),
+    });
   }
 }

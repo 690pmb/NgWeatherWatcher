@@ -27,6 +27,7 @@ import {MultipleComponent} from './components/multiple/multiple.component';
 import {ContainerDirective} from './components/multiple/container.directive';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TitleCasePipe} from '@angular/common';
+import {MatSortModule} from '@angular/material/sort';
 
 const childRoutes: Routes = [
   {
@@ -63,6 +64,7 @@ const childRoutes: Routes = [
     MatSelectModule,
     ReactiveFormsModule,
     MatMenuModule,
+    MatSortModule,
     MatBottomSheetModule,
     MatPaginatorModule,
     NouisliderModule,
