@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate(
-    route: ActivatedRouteSnapshot,
+    _route: ActivatedRouteSnapshot, // eslint-disable-line
     state: RouterStateSnapshot
   ): Promise<boolean | UrlTree> {
     try {
@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
       });
     } catch (err) {
       console.error('guard error', err);
-      return new Promise((resolve, reject) => reject(false));
+      return new Promise(reject => reject(false));
     }
   }
 }

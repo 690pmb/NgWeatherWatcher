@@ -49,6 +49,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/assets",
               "src/favicon.ico",
@@ -87,7 +88,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1500kb",
+                  "maximumWarning": "500kb",
                   "maximumError": "2mb"
                 },
                 {
@@ -113,7 +114,15 @@
               "buildOptimizer": true,
               "outputPath": "cordova/NgWeatherWatcher/www"
             },
-            "development": {}
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "preserveSymlinks": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
           },
           "defaultConfiguration": "production"
         },

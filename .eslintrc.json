@@ -56,6 +56,8 @@
       }
     ],
     "no-console": ["error", {"allow": ["warn", "error"]}],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", {"args": "all"}],
     "max-lines-per-function": ["error", {"skipBlankLines": true}],
     "lines-between-class-members": [
       "error",
@@ -63,6 +65,7 @@
       {"exceptAfterSingleLine": true}
     ],
     "prefer-template": ["error"],
-    "no-useless-concat": ["error"]
+    "no-useless-concat": ["error"],
+    "no-duplicate-imports": ["error"]
   }
 }
