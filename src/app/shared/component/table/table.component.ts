@@ -13,15 +13,16 @@ import {
   ViewChild,
   TemplateRef,
   ElementRef,
-  Renderer2,
-  RendererStyleFlags2,
+  HostBinding,
+  AfterViewChecked,
 } from '@angular/core';
 
 export type Config<T> = {
   template?: TemplateRef<unknown>;
-  innerTemplate?: TemplateRef<unknown>;
+  additionalTemplate?: TemplateRef<unknown>;
   formatFields?: {[key: string]: (a: T) => string};
   empty?: string;
+  color?: string;
 };
 
 @Component({
@@ -29,7 +30,16 @@ export type Config<T> = {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent<T> implements AfterContentInit {
+export class TableComponent<T> implements AfterContentInit, AfterViewChecked {
+  @HostBinding('style.--row-height')
+  protected rowHeight!: string;
+
+  @HostBinding('style.--expand-height')
+  protected expandHeight?: string;
+
+  @HostBinding('style.--color')
+  protected color?: string;
+
   @ContentChildren(MatHeaderRowDef) headerRowDefs!: QueryList<MatHeaderRowDef>;
   @ContentChildren(MatRowDef) rowDefs!: QueryList<MatRowDef<T>>;
   @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
@@ -40,33 +50,35 @@ export class TableComponent<T> implements AfterContentInit {
   dataSource!: T[];
 
   @Input()
-  config!: Config<T>;
+  config?: Config<T>;
 
   expanded?: T;
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  constructor(private el: ElementRef) {}
+
+  ngAfterViewChecked(): void {
+    if (!this.expandHeight) {
+      const height = this.el.nativeElement.querySelector(
+        '.mat-column-details:not(.hide)'
+      )?.offsetHeight;
+      if (height) {
+        setTimeout(() => (this.expandHeight = `${height ?? 0}px`));
+      }
+    }
+  }
 
   expand(item: T): void {
     this.expanded = this.expanded === item ? undefined : item;
     if (this.expanded) {
-      setTimeout(
-        () =>
-          this.renderer.setStyle(
-            document.documentElement,
-            '--expand-height',
-            `${
-              this.el.nativeElement.querySelector(
-                '.mat-column-details:not(.hide)'
-              ).offsetHeight
-            }px`,
-            RendererStyleFlags2.DashCase
-          ),
-        0
-      );
+      this.rowHeight = `${
+        this.el.nativeElement.querySelector('.mat-row:not(.detail-row)')
+          ?.offsetHeight ?? 0
+      }px`;
     }
   }
 
   ngAfterContentInit(): void {
+    this.color = `var(--${this.config?.color})`;
     this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
     this.rowDefs.forEach(rowDef => this.table.addRowDef(rowDef));
     this.headerRowDefs.forEach(headerRowDef =>

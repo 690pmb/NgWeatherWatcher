@@ -44,7 +44,14 @@
     "chanceOfRain": "Probabilité de pluie",
     "chanceOfSnow": "Probabilité de neige",
     "temp": "Température",
-    "condition": "Météo"
+    "condition": "Météo",
+    "pressure": "Pression atmosphérique",
+    "humidity": "Humidité",
+    "cloud": "Couverture nuageuse",
+    "feelsLike": "Température ressentie",
+    "willItRain": "Va-t-il pleuvoir",
+    "willItSnow": "Va-t-il neiger",
+    "uv": "Indice UV"
   },
   "dashboard": {
     "show_all": "Afficher tout"
