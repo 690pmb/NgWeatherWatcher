@@ -66,6 +66,7 @@
     "week_end": "Le week-end",
     "delete": "Supprimer",
     "action": "Actions",
+    "empty": "Aucune alerte",
     "deleted": "{{size}} alerte(s) supprimée(s)",
     "created": "Alerte créee !",
     "updated": "Alerte mise à jour !",

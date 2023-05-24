@@ -1,0 +1,47 @@
+@use '/src/app/styles/imports' as *;
+
+$row-height: 48px;
+
+.mat-table {
+  background: none !important;
+}
+
+.mat-row {
+  min-height: 0 !important;
+}
+
+.detail-row {
+  transform: translateY($row-height);
+
+  ::ng-deep &.expanded + .mat-row {
+    transform: translateY(calc(-1 * var(--expand-height)));
+  }
+
+  .mat-cell {
+    text-align: center;
+  }
+}
+
+::ng-deep .mat-column-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  span {
+    color: $darken-theme;
+    font-weight: bold;
+  }
+}
+
+.no-data {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 500px) {
+  .mat-cell,
+  .mat-header-cell {
+    font-size: 11px !important;
+  }
+}

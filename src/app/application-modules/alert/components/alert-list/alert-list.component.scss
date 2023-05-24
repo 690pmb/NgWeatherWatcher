@@ -31,13 +31,8 @@
   }
 }
 
-.mat-table,
 .mat-paginator {
   background: none !important;
-}
-
-.alert-detail {
-  overflow: hidden;
 }
 
 .alert-row {
@@ -47,25 +42,6 @@
 
 .row-selected {
   @include bg-color('purple');
-}
-
-.mat-row {
-  min-height: 0 !important;
-}
-
-.alert-expand {
-  display: flex;
-  flex-direction: column;
-}
-
-.mat-column-details {
-  border-bottom-style: unset !important;
-  width: 100%;
-
-  span {
-    color: $darken-theme;
-    font-weight: bold;
-  }
 }
 
 ::ng-deep .delete-button .mat-raised-button {
@@ -80,7 +56,7 @@
 }
 
 @media (max-width: 500px) {
-  .mat-table {
+  ::ng-deep .mat-table {
     width: 100vw;
   }
 

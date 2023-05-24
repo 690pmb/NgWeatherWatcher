@@ -219,6 +219,7 @@ export class AlertComponent implements OnInit {
     if (this.existingAlert?.id) {
       this.alertService.update(alert).subscribe(() => {
         this.toast.success('alert.updated');
+        this.router.navigateByUrl('alert');
       });
     } else {
       this.alertService.create(alert).subscribe(() => {
