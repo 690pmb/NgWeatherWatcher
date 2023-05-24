@@ -4,7 +4,6 @@ import {
   MatPaginatorModule,
 } from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatTableModule} from '@angular/material/table';
 import {RouterModule, Routes} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -58,7 +57,6 @@ const childRoutes: Routes = [
     ContainerDirective,
   ],
   imports: [
-    MatTableModule,
     MatBadgeModule,
     MatCheckboxModule,
     MatSelectModule,

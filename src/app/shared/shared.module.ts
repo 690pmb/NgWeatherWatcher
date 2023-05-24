@@ -18,6 +18,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {SearchLocationComponent} from './component/search-location/search-location.component';
 import {IconPipe} from './pipe/icon.pipe';
 import {DateTimePipe} from './pipe/date-time.pipe';
+import {MatTableModule} from '@angular/material/table';
+import {TableComponent} from './component/table/table.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import {DateTimePipe} from './pipe/date-time.pipe';
     MenuComponent,
     IconPipe,
     DateTimePipe,
+    TableComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,7 @@ import {DateTimePipe} from './pipe/date-time.pipe';
     MatToolbarModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatTableModule,
     MatAutocompleteModule,
     MatSidenavModule,
     MatInputModule,
@@ -46,6 +50,8 @@ import {DateTimePipe} from './pipe/date-time.pipe';
   ],
   exports: [
     TranslateModule,
+    MatTableModule,
+    TableComponent,
     CommonModule,
     FormsModule,
     MatButtonModule,

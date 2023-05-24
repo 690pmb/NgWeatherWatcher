@@ -1,4 +1,3 @@
-import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {
   ActivatedRoute,
@@ -30,25 +29,12 @@ import {PageRequest} from '../../../../model/http/page-request';
   selector: 'app-alert-list',
   templateUrl: './alert-list.component.html',
   styleUrls: ['./alert-list.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state(
-        'collapsed',
-        style({height: '0px', minHeight: '0', display: 'none'})
-      ),
-      state('expanded', style({height: '*'})),
-      transition(
-        'expanded <=> collapsed',
-        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
-      ),
-    ]),
-  ],
 })
 export class AlertListComponent implements OnInit {
   @ViewChild('deleteButton')
   deleteButton!: TemplateRef<number>;
 
-  getFieldsValue: {[key: string]: (a: Alert) => string} = {
+  formatFields: {[key: string]: (a: Alert) => string} = {
     trigger_day: a =>
       this.titleCasePipe.transform(
         this.formatField(a.getTriggerDays(this.translate.currentLang), false)
@@ -80,9 +66,7 @@ export class AlertListComponent implements OnInit {
   faTrash = faTrash;
   faPlus = faPlusSquare;
   faMenu = faEllipsisVertical;
-  expandedAlert?: Alert;
   selected: number[] = [];
-  expandedColumn = 'details';
   columnsToDisplay: (SortField<Alert> | 'edit')[] = [
     'triggerDays',
     'triggerHour',
@@ -132,10 +116,6 @@ export class AlertListComponent implements OnInit {
     return `${result.map(a => this.translate.instant(a)).join(', ')}${ellips}`;
   }
 
-  expand(alert: Alert): void {
-    this.expandedAlert = this.expandedAlert === alert ? undefined : alert;
-  }
-
   handleSelection(id: number): void {
     this.selected.push(id);
     this.bottomSheet.open(this.deleteButton, {
@@ -166,10 +146,5 @@ export class AlertListComponent implements OnInit {
   resetSelection(): void {
     this.selected = [];
     this.bottomSheet.dismiss();
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-  unsorted(_a: any, _b: any): number {
-    return 0;
   }
 }

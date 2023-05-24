@@ -1,0 +1,41 @@
+<mat-table [dataSource]="dataSource" multiTemplateDataRows>
+  <ng-container matColumnDef="details">
+    <mat-cell *matCellDef="let item" [class.hide]="expanded !== item">
+      <ng-container
+        *ngFor="let formatField of config.formatFields | keyvalue : unsorted"
+      >
+        <ng-container
+          *ngTemplateOutlet="
+            config.template;
+            context: {
+              $implicit: {
+                i18n: formatField.key,
+                value: formatField.value(item)
+              }
+            }
+          "
+        ></ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="config.innerTemplate">
+        <ng-template
+          *ngTemplateOutlet="config.innerTemplate; context: {$implicit: {item}}"
+        ></ng-template>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container *ngIf="config.template || config.innerTemplate">
+    <mat-row
+      *matRowDef="let row; columns: ['details']"
+      class="detail-row"
+      [class.expanded]="expanded === row"
+    ></mat-row>
+  </ng-container>
+
+  <ng-container *ngIf="config.empty">
+    <tr *matNoDataRow class="no-data">
+      <td>{{ config.empty | translate }}</td>
+    </tr>
+  </ng-container>
+</mat-table>

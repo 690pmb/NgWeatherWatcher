@@ -66,6 +66,7 @@
     "week_end": "The week-end",
     "delete": "Delete",
     "action": "Actions",
+    "empty": "No alert",
     "deleted": "{{0}} deleted alert(s)",
     "created": "Alert created !",
     "updated": "Alert updated !",
