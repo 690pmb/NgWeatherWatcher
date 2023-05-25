@@ -19,7 +19,7 @@ import {SearchLocationComponent} from './component/search-location/search-locati
 import {IconPipe} from './pipe/icon.pipe';
 import {DateTimePipe} from './pipe/date-time.pipe';
 import {MatTableModule} from '@angular/material/table';
-import {TableComponent} from './component/table/table.component';
+import {TableExpandComponent} from './component/table-expand/table-expand.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import {TableComponent} from './component/table/table.component';
     MenuComponent,
     IconPipe,
     DateTimePipe,
-    TableComponent,
+    TableExpandComponent,
   ],
   imports: [
     CommonModule,
@@ -51,7 +51,7 @@ import {TableComponent} from './component/table/table.component';
   exports: [
     TranslateModule,
     MatTableModule,
-    TableComponent,
+    TableExpandComponent,
     CommonModule,
     FormsModule,
     MatButtonModule,

@@ -25,7 +25,7 @@
         </mat-paginator>
       </div>
 
-      <app-table
+      <app-table-expand
         #table
         [dataSource]="hours"
         [config]="{template: forecastField, formatFields, color: 'white'}"
@@ -83,7 +83,7 @@
           *matRowDef="let hours; columns: columnsToDisplay"
           (click)="table.expand(hours)"
         ></mat-row>
-      </app-table>
+      </app-table-expand>
     </div>
   </ng-container>
 </app-dashboard>

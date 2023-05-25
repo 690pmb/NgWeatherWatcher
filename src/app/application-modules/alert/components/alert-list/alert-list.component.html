@@ -21,7 +21,7 @@
     >
     </mat-paginator>
   </div>
-  <app-table
+  <app-table-expand
     #table
     [dataSource]="alerts.content"
     [config]="{
@@ -135,7 +135,7 @@
       [speed]="selected.length > 0 ? 'fast' : 'slow'"
       (selected)="handleSelection(alert.id)"
     ></mat-row>
-  </app-table>
+  </app-table-expand>
 </ng-container>
 
 <ng-template #alertField let-field>

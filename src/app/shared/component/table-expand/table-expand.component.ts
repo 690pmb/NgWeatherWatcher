@@ -26,11 +26,13 @@ export type Config<T> = {
 };
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss'],
+  selector: 'app-table-expand',
+  templateUrl: './table-expand.component.html',
+  styleUrls: ['./table-expand.component.scss'],
 })
-export class TableComponent<T> implements AfterContentInit, AfterViewChecked {
+export class TableExpandComponent<T>
+  implements AfterContentInit, AfterViewChecked
+{
   @HostBinding('style.--row-height')
   protected rowHeight!: string;
 
