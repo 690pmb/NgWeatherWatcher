@@ -68,6 +68,9 @@ export class TableComponent<T> implements AfterContentInit, AfterViewChecked {
   }
 
   expand(item: T): void {
+    if (this.expanded !== item) {
+      this.expandHeight = undefined;
+    }
     this.expanded = this.expanded === item ? undefined : item;
     if (this.expanded) {
       this.rowHeight = `${
