@@ -9,6 +9,7 @@ export type WeatherFieldConfig = {
 
 export class Configuration {
   apiUrl!: string;
+  prodUrl!: string;
   userUrl!: string;
   weatherUrl!: string;
   alertUrl!: string;
