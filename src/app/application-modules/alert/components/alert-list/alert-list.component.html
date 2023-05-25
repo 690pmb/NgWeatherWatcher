@@ -26,9 +26,10 @@
     [dataSource]="alerts.content"
     [config]="{
       template: alertField,
-      innerTemplate,
+      additionalTemplate,
       formatFields,
-      empty: 'alert.empty'
+      empty: 'alert.empty',
+      color: 'darken-theme'
     }"
     matSort
     [matSortDirection]="pageRequest.sortDir"
@@ -107,7 +108,7 @@
       </mat-cell>
     </ng-container>
 
-    <ng-template let-data #innerTemplate>
+    <ng-template let-data #additionalTemplate>
       <div>
         <span>{{ 'alert.monitored_field' | translate }}: </span>
         <ng-container

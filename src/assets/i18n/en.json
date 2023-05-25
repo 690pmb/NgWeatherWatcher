@@ -44,7 +44,14 @@
     "chanceOfRain": "Chance of rain",
     "chanceOfSnow": "Chance of snow",
     "temp": "Temperature",
-    "condition": "Weather"
+    "condition": "Weather",
+    "pressure": "Atmospheric pressure",
+    "humidity": "Humidity",
+    "cloud": "Cloud cover",
+    "feelsLike": "Feels like temperature",
+    "willItRain": "Will it rain",
+    "willItSnow": "Will it snow",
+    "uv": "UV index"
   },
   "dashboard": {
     "show_all": "Show all"

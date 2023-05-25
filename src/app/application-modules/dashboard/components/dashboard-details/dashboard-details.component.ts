@@ -38,6 +38,18 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   pageSize = 8;
   index!: number;
   subs: Subscription[] = [];
+  formatFields: {[key: string]: (h: Hour) => string} = {
+    feelsLike: h => `${h.feelsLikeC} °C`,
+    cloud: h => `${h.cloud} %`,
+    humidity: h => `${h.humidity} %`,
+    uv: h => `${h.uv}`,
+    pressure: h => `${h.pressureMb} mbar`,
+    willItRain: h =>
+      `${this.translate.instant(`global.${h.willItRain === 1}`)}`,
+    willItSnow: h =>
+      `${this.translate.instant(`global.${h.willItSnow === 1}`)}`,
+    chanceOfSnow: h => `${h.chanceOfSnow} %`,
+  };
 
   constructor(
     private weatherService: WeatherService,

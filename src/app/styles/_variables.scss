@@ -37,10 +37,11 @@ $depth: (
 
 $bezier: cubic-bezier(0.86, 0, 0.07, 1);
 $font-family: arial, 'Helvetica Neue', helvetica, sans-serif;
-/* stylelint-disable */
-$dark-primary-text: rgb(get-color('black'), 0.87);
-/* stylelint-enable */
 $light-primary-text: get-color('white');
 $toolbar-height: 56px;
 $darken-theme: darken(get-color('theme'), 20%);
+/* stylelint-disable */
+$dark-primary-text: rgb(get-color('black'), 0.87);
+$colors: map.set($colors, 'darken-theme', $darken-theme);
+/* stylelint-enable */
 $alert-edit-margin: 15px;

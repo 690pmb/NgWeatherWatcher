@@ -1,20 +1,24 @@
 @use '/src/app/styles/imports' as *;
 
-$row-height: 48px;
-
 .mat-table {
   background: none !important;
 }
 
-.mat-row {
+::ng-deep .mat-row {
   min-height: 0 !important;
 }
 
 .detail-row {
-  transform: translateY($row-height);
+  border-bottom-width: 0;
+  transform: translateY(var(--row-height));
 
   ::ng-deep &.expanded + .mat-row {
+    border-bottom-width: 0;
     transform: translateY(calc(-1 * var(--expand-height)));
+  }
+
+  &.expanded {
+    border-bottom-width: 1px;
   }
 
   .mat-cell {
@@ -28,7 +32,7 @@ $row-height: 48px;
   width: 100%;
 
   span {
-    color: $darken-theme;
+    color: var(--color);
     font-weight: bold;
   }
 }

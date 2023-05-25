@@ -1,3 +1,5 @@
+@use '/src/app/styles/imports' as *;
+
 .wrapper {
   margin-top: 25px;
   touch-action: pan-y !important;
@@ -28,7 +30,15 @@
   }
 }
 
-.mat-table {
+.forecast-field {
+  @include color('white');
+
+  span {
+    font-weight: 900 !important;
+  }
+}
+
+::ng-deep.mat-table {
   width: 90vw;
 }
 
@@ -36,13 +46,12 @@
   display: none;
 }
 
-.mat-table,
 .mat-paginator {
   background: none !important;
 }
 
 @media (max-width: 500px) {
-  .mat-table {
+  ::ng-deep.mat-table {
     width: 100vw;
   }
 

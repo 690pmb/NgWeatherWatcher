@@ -24,7 +24,12 @@
         >
         </mat-paginator>
       </div>
-      <mat-table [dataSource]="hours">
+
+      <app-table
+        #table
+        [dataSource]="hours"
+        [config]="{template: forecastField, formatFields, color: 'white'}"
+      >
         <ng-container matColumnDef="time">
           <mat-header-cell mat-header-cell *matHeaderCellDef>
             {{ 'global.hour' | translate }}
@@ -74,8 +79,17 @@
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-        <mat-row *matRowDef="let hours; columns: columnsToDisplay"></mat-row>
-      </mat-table>
+        <mat-row
+          *matRowDef="let hours; columns: columnsToDisplay"
+          (click)="table.expand(hours)"
+        ></mat-row>
+      </app-table>
     </div>
   </ng-container>
 </app-dashboard>
+
+<ng-template #forecastField let-field>
+  <div class="forecast-field">
+    <span>{{ 'forecast.' + field.i18n | translate }}: </span>{{ field.value }}
+  </div>
+</ng-template>

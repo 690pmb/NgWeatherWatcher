@@ -2,11 +2,11 @@
   <ng-container matColumnDef="details">
     <mat-cell *matCellDef="let item" [class.hide]="expanded !== item">
       <ng-container
-        *ngFor="let formatField of config.formatFields | keyvalue : unsorted"
+        *ngFor="let formatField of config?.formatFields | keyvalue : unsorted"
       >
         <ng-container
           *ngTemplateOutlet="
-            config.template;
+            config?.template;
             context: {
               $implicit: {
                 i18n: formatField.key,
@@ -17,15 +17,18 @@
         ></ng-container>
       </ng-container>
 
-      <ng-container *ngIf="config.innerTemplate">
+      <ng-container *ngIf="config?.additionalTemplate">
         <ng-template
-          *ngTemplateOutlet="config.innerTemplate; context: {$implicit: {item}}"
+          *ngTemplateOutlet="
+            config?.additionalTemplate;
+            context: {$implicit: {item}}
+          "
         ></ng-template>
       </ng-container>
     </mat-cell>
   </ng-container>
 
-  <ng-container *ngIf="config.template || config.innerTemplate">
+  <ng-container *ngIf="config?.template || config?.additionalTemplate">
     <mat-row
       *matRowDef="let row; columns: ['details']"
       class="detail-row"
@@ -33,9 +36,9 @@
     ></mat-row>
   </ng-container>
 
-  <ng-container *ngIf="config.empty">
+  <ng-container *ngIf="config?.empty">
     <tr *matNoDataRow class="no-data">
-      <td>{{ config.empty | translate }}</td>
+      <td>{{ config?.empty | translate }}</td>
     </tr>
   </ng-container>
 </mat-table>

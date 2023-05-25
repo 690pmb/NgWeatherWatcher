@@ -6,8 +6,7 @@ import {
   ViewChild,
   AfterViewInit,
   ChangeDetectorRef,
-  Renderer2,
-  RendererStyleFlags2,
+  HostBinding,
 } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {
@@ -44,6 +43,9 @@ type Direction = 'UP' | 'DOWN';
   ],
 })
 export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
+  @HostBinding('style.--menu-width')
+  protected menuWidth?: string;
+
   @ViewChild('sidenav', {static: false}) sidenav!: MatSidenav;
   subs: Subscription[] = [];
   readonly toolbarHeight = 56;
@@ -62,8 +64,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     public authService: AuthService,
     private router: Router,
     public menuService: MenuService,
-    private cdk: ChangeDetectorRef,
-    private renderer: Renderer2
+    private cdk: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -115,16 +116,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setMenuWidth(): void {
     if (this.sidenav) {
-      setTimeout(
-        () =>
-          this.renderer.setStyle(
-            document.documentElement,
-            '--menu-width',
-            `${this.sidenav._getWidth()}px`,
-            RendererStyleFlags2.DashCase
-          ),
-        20
-      );
+      setTimeout(() => (this.menuWidth = `${this.sidenav._getWidth()}px`));
     }
   }
 
