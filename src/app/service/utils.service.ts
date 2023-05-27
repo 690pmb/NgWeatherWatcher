@@ -145,10 +145,12 @@ export class UtilsService {
       );
   }
 
-  protected delete(url?: string): Observable<void> {
+  protected delete(request?: HttpBodyRequest): Observable<void> {
     return this.httpClient
-      .delete<void>(`${this.baseUrl}/${this.apiUrl}/${url ?? ''}`, {
+      .delete<void>(`${this.baseUrl}/${this.apiUrl}/${request?.url ?? ''}`, {
         headers: UtilsService.getHeaders(),
+        params: request?.params,
+        body: request?.body,
       })
       .pipe(
         catchError((err: HttpErrorResponse) => {

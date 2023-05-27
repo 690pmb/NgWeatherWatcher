@@ -138,6 +138,8 @@
   "notification": {
     "not-supported": "Les notifications ne sont pas supportées",
     "success": "Abonnement aux notifications réussi",
-    "error": "Impossible de s'abonner aux notifications: {{err}}"
+    "error": "Impossible de s'abonner aux notifications: {{err}}",
+    "unsubscribed": "Désabonné",
+    "delete": "Se désabonner pour tous les autres appareils"
   }
 }

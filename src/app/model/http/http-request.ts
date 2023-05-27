@@ -11,5 +11,5 @@ export type HttpPagedRequest<T> = HttpRequest & {
 };
 
 export type HttpBodyRequest = HttpRequest & {
-  body: unknown | null;
+  body?: unknown | null;
 };

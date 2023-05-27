@@ -13,4 +13,12 @@
       (selected)="edit($event)"
     ></app-search-location>
   </div>
+  <div>
+    <button type="button" mat-raised-button (click)="delete()">
+      <div>
+        {{ 'notification.delete' | translate }}&nbsp;
+        <fa-icon [icon]="faBellSlash"></fa-icon>
+      </div>
+    </button>
+  </div>
 </div>

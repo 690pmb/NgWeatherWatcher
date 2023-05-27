@@ -138,6 +138,8 @@
   "notification": {
     "not-supported": "Notifications are not supported",
     "success": "Notification subscription successful",
-    "error": "Unable to subscribe to notifications: {{err}}"
+    "error": "Unable to subscribe to notifications: {{err}}",
+    "unsubscribed": "Unsubscribed",
+    "delete": "Unsubscribe for all other devices"
   }
 }
