@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {SwPush} from '@angular/service-worker';
-import {from, throwError, EMPTY} from 'rxjs';
-import {catchError, switchMap, filter} from 'rxjs/operators';
+import {from, throwError, EMPTY, Observable} from 'rxjs';
+import {catchError, switchMap, filter, tap} from 'rxjs/operators';
 import {UtilsService} from './utils.service';
 import {HttpClient} from '@angular/common/http';
 import {ToastService} from './toast.service';
@@ -74,5 +74,12 @@ export class NotificationService extends UtilsService {
     } else {
       this.toast.warning('notification.not-supported');
     }
+  }
+
+  deleteOthers(): Observable<void> {
+    return this.delete({
+      url: 'subscriptions',
+      body: {userAgent: window.navigator.userAgent},
+    }).pipe(tap(() => this.toast.success('notification.unsubscribed')));
   }
 }
