@@ -11,6 +11,8 @@ import {Utils} from '../../../../shared/utils';
 import {slideInOutAnimation} from './slide-in-out';
 import {MenuService} from '../../../../service/menu.service';
 import {WeatherService} from '../../../../service/weather.service';
+import {WeatherField} from '../../../../model/alert/weather-field';
+import {UNITS} from '../../../../model/alert/monitored-field';
 
 @Component({
   selector: 'app-dashboard-details',
@@ -39,16 +41,17 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   index!: number;
   subs: Subscription[] = [];
   formatFields: {[key: string]: (h: Hour) => string} = {
-    feelsLike: h => `${h.feelsLikeC} °C`,
-    cloud: h => `${h.cloud} %`,
-    humidity: h => `${h.humidity} %`,
-    uv: h => `${h.uv}`,
-    pressure: h => `${h.pressureMb} mbar`,
-    willItRain: h =>
+    feels_like: h => `${h.feelsLikeC} ${UNITS[WeatherField.FEELS_LIKE]}`,
+    cloud: h => `${h.cloud} ${UNITS[WeatherField.CLOUD]}`,
+    humidity: h => `${h.humidity} ${UNITS[WeatherField.HUMIDITY]}`,
+    uv: h => `${h.uv} ${UNITS[WeatherField.UV]}`,
+    pressure: h => `${h.pressureMb} ${UNITS[WeatherField.PRESSURE]}`,
+    will_it_rain: h =>
       `${this.translate.instant(`global.${h.willItRain === 1}`)}`,
-    willItSnow: h =>
+    will_it_snow: h =>
       `${this.translate.instant(`global.${h.willItSnow === 1}`)}`,
-    chanceOfSnow: h => `${h.chanceOfSnow} %`,
+    chance_of_snow: h =>
+      `${h.chanceOfSnow} ${UNITS[WeatherField.CHANCE_OF_SNOW]}`,
   };
 
   constructor(

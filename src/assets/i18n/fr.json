@@ -41,16 +41,16 @@
     "wind": "Vent",
     "precip": "Précipitation",
     "rain": "Pluie",
-    "chanceOfRain": "Probabilité de pluie",
-    "chanceOfSnow": "Probabilité de neige",
+    "chance_of_rain": "Probabilité de pluie",
+    "chance_of_snow": "Probabilité de neige",
     "temp": "Température",
     "condition": "Météo",
     "pressure": "Pression atmosphérique",
     "humidity": "Humidité",
     "cloud": "Couverture nuageuse",
-    "feelsLike": "Température ressentie",
-    "willItRain": "Va-t-il pleuvoir",
-    "willItSnow": "Va-t-il neiger",
+    "feels_like": "Température ressentie",
+    "will_it_rain": "Va-t-il pleuvoir",
+    "will_it_snow": "Va-t-il neiger",
     "uv": "Indice UV"
   },
   "dashboard": {
@@ -83,19 +83,7 @@
       "two_day_later": "le surlendemain"
     },
     "mat-table.itemsPerPageLabel": "Alertes par page: ",
-    "field": {
-      "placeholder": "Choisis un champ",
-      "temp": "Température",
-      "wind": "Vent",
-      "pressure": "Pression atmosphérique",
-      "precip": "Précipitation",
-      "humidity": "Humidité",
-      "cloud": "Ennuagement",
-      "feels_like": "Température ressentie",
-      "chance_of_rain": "Probabilité de pluie",
-      "chance_of_snow": "Probabilité de neige",
-      "uv": "UV"
-    }
+    "placeholder": "Choisis un champ"
   },
   "user": {
     "name_required": "Veuillez renseigner votre login",

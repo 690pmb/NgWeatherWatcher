@@ -41,16 +41,16 @@
     "wind": "Wind",
     "precip": "Precipitation",
     "rain": "Rain",
-    "chanceOfRain": "Chance of rain",
-    "chanceOfSnow": "Chance of snow",
+    "chance_of_rain": "Chance of rain",
+    "chance_of_snow": "Chance of snow",
     "temp": "Temperature",
     "condition": "Weather",
     "pressure": "Atmospheric pressure",
     "humidity": "Humidity",
     "cloud": "Cloud cover",
-    "feelsLike": "Feels like temperature",
-    "willItRain": "Will it rain",
-    "willItSnow": "Will it snow",
+    "feels_like": "Feels like temperature",
+    "will_it_rain": "Will it rain",
+    "will_it_snow": "Will it snow",
     "uv": "UV index"
   },
   "dashboard": {
@@ -83,19 +83,7 @@
       "two_day_later": "two day later"
     },
     "mat-table.itemsPerPageLabel": "Alert per page: ",
-    "field": {
-      "placeholder": "Pick a field",
-      "temp": "Temperature",
-      "wind": "Wind",
-      "pressure": "Atmospheric pressure",
-      "precip": "Precipitation",
-      "humidity": "Humidity",
-      "cloud": "Cloudiness",
-      "feels_like": "Feels like temperature",
-      "chance_of_rain": "Probability of rain",
-      "chance_of_snow": "Probability of snow",
-      "uv": "UV"
-    }
+    "placeholder": "Pick a field"
   },
   "user": {
     "name_required": "Username is required",

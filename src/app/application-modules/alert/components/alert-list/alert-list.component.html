@@ -117,7 +117,7 @@
             last as isLast
           "
         >
-          {{ 'alert.field.' + monitoredField.field.toLowerCase() | translate }}
+          {{ 'forecast.' + monitoredField.field.toLowerCase() | translate }}
           {{ monitoredField.summary }} {{ monitoredField.unit }}
           <ng-container *ngIf="!isLast"> / </ng-container>
         </ng-container>
