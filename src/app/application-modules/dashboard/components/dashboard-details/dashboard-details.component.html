@@ -35,7 +35,7 @@
             {{ 'global.hour' | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let hour">
-            {{ hour.time | date : 'H:mm' }}
+            {{ hour.time | date: 'H:mm' }}
           </mat-cell>
         </ng-container>
 
@@ -44,7 +44,7 @@
             {{ 'forecast.condition' | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let hour">
-            <img src="{{ hour.condition.icon | icon : hour.isDay }}" />
+            <img src="{{ hour.condition.icon | icon: hour.isDay }}" />
           </mat-cell>
         </ng-container>
 
