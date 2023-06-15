@@ -81,7 +81,9 @@ export class SliderComponent
           Math.round((this.configuration.min + this.configuration.max) * 0.625),
         ];
       }
-      this.selected.emit(this.configuration.initialValue ?? 0);
+      setTimeout(() =>
+        this.selected.emit(this.configuration.initialValue ?? 0)
+      );
     } else {
       this.configuration.initialValue = this.initialValue;
     }

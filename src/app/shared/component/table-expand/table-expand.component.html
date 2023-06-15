@@ -2,7 +2,7 @@
   <ng-container matColumnDef="details">
     <mat-cell *matCellDef="let item" [class.hide]="expanded !== item">
       <ng-container
-        *ngFor="let formatField of config?.formatFields | keyvalue: unsorted"
+        *ngFor="let formatField of config?.formatFields | keyvalue : unsorted"
       >
         <ng-container
           *ngTemplateOutlet="

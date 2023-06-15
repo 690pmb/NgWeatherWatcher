@@ -54,7 +54,7 @@
         {{ 'alert.trigger_hour' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
-        {{ alert.triggerHour | dateTime: 'hour' }}
+        {{ alert.triggerHour | dateTime : 'hour' }}
       </mat-cell>
     </ng-container>
 
@@ -73,7 +73,7 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
         <ng-container *ngIf="alert.location.length > 13"
-          >{{ alert.location | slice: 0:13 }}...</ng-container
+          >{{ alert.location | slice : 0 : 13 }}...</ng-container
         >
         <ng-container *ngIf="alert.location.length <= 13">{{
           alert.location
