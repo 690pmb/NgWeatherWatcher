@@ -14,11 +14,14 @@
       >
     </div>
   </app-question>
-  <app-question label="alert.trigger_hour" [ctrl]="alertForm.get('triggerHour')"
+  <app-question
+    *ngIf="alertForm.get('triggerHour') as trigger"
+    label="alert.trigger_hour"
+    [ctrl]="trigger"
     ><app-slider
       [configuration]="triggerHourConfig"
-      [initialValue]="this.alertForm.get('triggerHour')?.value"
-      (selected)="alertForm.get('triggerHour')?.setValue($event)"
+      [initialValue]="trigger.value"
+      (selected)="trigger.setValue($event)"
     ></app-slider>
   </app-question>
   <app-question label="alert.force_notification">
