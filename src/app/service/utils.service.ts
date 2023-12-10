@@ -95,10 +95,8 @@ export class UtilsService {
         catchError((err: HttpErrorResponse) => {
           if (handleError) {
             this.handleError(err);
-            return throwError(err);
-          } else {
-            return EMPTY;
           }
+          return throwError(err);
         })
       );
   }

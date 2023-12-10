@@ -5,12 +5,12 @@ import {
   HttpErrorResponse,
   HttpResponse,
 } from '@angular/common/http';
-import {Observable, ReplaySubject} from 'rxjs';
+import {Observable, ReplaySubject, of} from 'rxjs';
 import {Token} from '../model/token';
 import jwtDecode, {InvalidTokenError} from 'jwt-decode';
 import {UtilsService} from './utils.service';
 import {ToastService} from './toast.service';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {Utils} from '../shared/utils';
 import {ConfigurationService} from './configuration.service';
 
@@ -73,23 +73,22 @@ export class AuthService extends UtilsService {
       {url: 'signin', body: {username, password}},
       false
     ).pipe(
-      map(
-        (response: HttpResponse<{token: string}>) => {
-          if (response.body !== null && response.body) {
-            this.setToken(response.body.token);
-            this.toast.success('user.signin.connected');
-            return true;
-          } else {
-            console.error('no token', response.body);
-            return true;
-          }
-        },
-        (response: HttpErrorResponse) => {
-          this.handleError(response);
-          this.logout(false);
-          return false;
+      map((response: HttpResponse<{token: string}>) => {
+        if (response.body !== null && response.body) {
+          this.setToken(response.body.token);
+          this.toast.success('user.signin.connected');
+          return true;
+        } else {
+          console.error('no token', response.body);
+          return true;
         }
-      )
+      }),
+      catchError((response: HttpErrorResponse) => {
+        if (response.status !== 401) {
+          this.handleError(response);
+        }
+        return of(false);
+      })
     );
   }
 
@@ -99,17 +98,20 @@ export class AuthService extends UtilsService {
     lang: string,
     favouriteLocation?: string
   ): Observable<number> {
-    return this.post({
-      url: 'signup',
-      body: {username, password, favouriteLocation, lang},
-    }).pipe(
-      map(
-        response => response.status,
-        (response: HttpErrorResponse) => {
+    return this.post(
+      {
+        url: 'signup',
+        body: {username, password, favouriteLocation, lang},
+      },
+      false
+    ).pipe(
+      map(response => response.status),
+      catchError((response: HttpErrorResponse) => {
+        if (response.status !== 409 && response.status !== 201) {
           this.handleError(response);
-          return response.status;
         }
-      )
+        return of(response.status);
+      })
     );
   }
 
