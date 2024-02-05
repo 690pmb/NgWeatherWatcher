@@ -1,5 +1,5 @@
 import {Component, EventEmitter} from '@angular/core';
-import {WeatherFieldConfig} from '../../../../model/configuration';
+import {WeatherFieldConfig} from '@model/configuration';
 import {MultipleData} from '../../model/multiple-data';
 import {FormControl} from '@angular/forms';
 import {AlertWeatherField} from '../../model/alert-weather-field';

@@ -3,7 +3,7 @@ import {MonitoredField} from './monitored-field';
 import {Type, Expose, Transform} from 'class-transformer';
 import {DateTime} from 'luxon';
 import {DayOfWeek} from './day-of-week';
-import {Utils} from '../../shared/utils';
+import {Utils} from '@shared/utils';
 
 const ALL_DAYS = {key: 'every_days', value: Object.values(DayOfWeek)};
 const WORKING_DAYS = {

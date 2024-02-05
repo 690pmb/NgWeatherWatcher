@@ -1,4 +1,4 @@
-import {WeatherFieldConfig} from '../../../model/configuration';
+import {WeatherFieldConfig} from '@model/configuration';
 
 export type AlertWeatherField = {
   field: WeatherFieldConfig;

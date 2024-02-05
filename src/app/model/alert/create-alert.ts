@@ -1,6 +1,6 @@
 import {MonitoredDays} from './monitored-days';
 import {Transform, Type} from 'class-transformer';
-import {Utils} from '../../shared/utils';
+import {Utils} from '@shared/utils';
 import {CreateMonitoredField} from './create-monitored-field';
 import {DateTime} from 'luxon';
 

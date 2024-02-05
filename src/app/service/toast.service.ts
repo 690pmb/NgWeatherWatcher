@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslateService} from '@ngx-translate/core';
-import {Level} from '../model/level';
-import {Utils} from '../shared/utils';
+import {Level} from '@model/level';
+import {Utils} from '@shared/utils';
 
 type TranslateArgs = {[key: string]: string | number};
 

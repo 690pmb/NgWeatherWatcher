@@ -2,7 +2,7 @@ import {Injectable, isDevMode} from '@angular/core';
 import {plainToInstance} from 'class-transformer';
 import {from, Observable, of} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
-import {Configuration} from '../model/configuration';
+import {Configuration} from '@model/configuration';
 
 @Injectable({
   providedIn: 'root',

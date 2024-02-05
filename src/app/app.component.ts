@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from './service/auth.service';
-import {NotificationService} from './service/notification.service';
+import {AuthService} from '@services/auth.service';
+import {NotificationService} from '@services/notification.service';
 import {filter} from 'rxjs/operators';
-import {Token} from './model/token';
+import {Token} from '@model/token';
 import {environment} from '../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
 

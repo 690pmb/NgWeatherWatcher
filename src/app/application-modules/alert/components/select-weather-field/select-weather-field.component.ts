@@ -1,7 +1,7 @@
 import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
-import {ConfigurationService} from '../../../../service/configuration.service';
-import {WeatherFieldConfig} from '../../../../model/configuration';
-import {WeatherField} from '../../../../model/alert/weather-field';
+import {ConfigurationService} from '@services/configuration.service';
+import {WeatherFieldConfig} from '@model/configuration';
+import {WeatherField} from '@model/alert/weather-field';
 
 export type DropDownChoice = {key: WeatherField; value: WeatherFieldConfig};
 

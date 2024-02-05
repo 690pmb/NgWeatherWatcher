@@ -15,15 +15,15 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
-import {AlertService} from '../../../../service/alert.service';
-import {MenuService} from '../../../../service/menu.service';
-import {Alert} from '../../../../model/alert/alert';
+import {AlertService} from '@services/alert.service';
+import {MenuService} from '@services/menu.service';
+import {Alert} from '@model/alert/alert';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
 import {TitleCasePipe} from '@angular/common';
-import {DateTimePipe} from '../../../../shared/pipe/date-time.pipe';
-import {SortField} from '../../../../model/sort';
+import {DateTimePipe} from '@shared/pipe/date-time.pipe';
+import {SortField} from '@model/sort';
 import {SortDirection} from '@angular/material/sort';
-import {PageRequest} from '../../../../model/http/page-request';
+import {PageRequest} from '@model/http/page-request';
 
 @Component({
   selector: 'app-alert-list',

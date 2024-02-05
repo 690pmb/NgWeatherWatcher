@@ -18,8 +18,8 @@ import {
   mergeMap,
   switchMap,
 } from 'rxjs/operators';
-import {Location} from '../../../model/weather/location';
-import {WeatherService} from '../../../service/weather.service';
+import {Location} from '@model/weather/location';
+import {WeatherService} from '@services/weather.service';
 import {Utils} from '../../utils';
 
 @Component({

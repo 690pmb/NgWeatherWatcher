@@ -12,7 +12,7 @@ import {
   HttpPagedRequest,
   HttpRequest,
   HttpBodyRequest,
-} from '../model/http/http-request';
+} from '@model/http/http-request';
 
 type GobalError = HttpErrorResponse | string | ErrorEvent | Error;
 

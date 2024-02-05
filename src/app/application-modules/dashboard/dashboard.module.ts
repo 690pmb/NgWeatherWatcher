@@ -4,7 +4,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {RouterModule, Routes} from '@angular/router';
-import {SharedModule} from '../../shared/shared.module';
+import {SharedModule} from '@shared/shared.module';
 import {DashboardDetailsComponent} from './components/dashboard-details/dashboard-details.component';
 import {DashboardForecastComponent} from './components/dashboard-forecast/dashboard-forecast.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';

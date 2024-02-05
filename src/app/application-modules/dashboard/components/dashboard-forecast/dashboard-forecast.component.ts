@@ -4,12 +4,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {combineLatest, EMPTY, Observable, Observer, Subscription} from 'rxjs';
 import {distinctUntilChanged, filter, map, mergeMap} from 'rxjs/operators';
-import {Forecast} from '../../../../model/weather/forecast';
-import {WeatherService} from '../../../../service/weather.service';
-import {AuthService} from '../../../../service/auth.service';
-import {ToastService} from '../../../../service/toast.service';
-import {MenuService} from '../../../../service/menu.service';
-import {Token} from '../../../../model/token';
+import {Forecast} from '@model/weather/forecast';
+import {WeatherService} from '@services/weather.service';
+import {AuthService} from '@services/auth.service';
+import {ToastService} from '@services/toast.service';
+import {MenuService} from '@services/menu.service';
+import {Token} from '@model/token';
 
 @Component({
   selector: 'app-dashboard-forecast',

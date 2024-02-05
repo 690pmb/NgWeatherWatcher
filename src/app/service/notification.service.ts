@@ -6,7 +6,7 @@ import {UtilsService} from './utils.service';
 import {HttpClient} from '@angular/common/http';
 import {ToastService} from './toast.service';
 import {ConfigurationService} from './configuration.service';
-import {Subscription} from '../model/subscription';
+import {Subscription} from '@model/subscription';
 
 @Injectable({
   providedIn: 'root',

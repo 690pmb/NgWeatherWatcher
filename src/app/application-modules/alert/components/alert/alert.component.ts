@@ -3,15 +3,15 @@ import {DateTime} from 'luxon';
 import {SliderComponent} from '../slider/slider.component';
 import {MultipleData} from '../../model/multiple-data';
 import {TranslateService} from '@ngx-translate/core';
-import {AlertService} from '../../../../service/alert.service';
-import {CreateAlert} from '../../../../model/alert/create-alert';
-import {AuthService} from '../../../../service/auth.service';
-import {CreateMonitoredField} from '../../../../model/alert/create-monitored-field';
+import {AlertService} from '@services/alert.service';
+import {CreateAlert} from '@model/alert/create-alert';
+import {AuthService} from '@services/auth.service';
+import {CreateMonitoredField} from '@model/alert/create-monitored-field';
 import {SliderFormatter} from '../../model/slider-formatter';
-import {Utils} from '../../../../shared/utils';
+import {Utils} from '@shared/utils';
 import {AlertWeatherFieldComponent} from '../alert-weather-field/alert-weather-field.component';
 import {FormArray, FormBuilder, Validators} from '@angular/forms';
-import {ToastService} from '../../../../service/toast.service';
+import {ToastService} from '@services/toast.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AlertWeatherField} from '../../model/alert-weather-field';
 import {Pip, pipTypeMapping} from '../../model/pip';
@@ -19,7 +19,7 @@ import {SliderConfig} from '../../model/slider-config';
 import {SliderType} from '../../model/slider-type';
 import {of, iif} from 'rxjs';
 import {mergeMap, tap, map} from 'rxjs/operators';
-import {Alert} from '../../../../model/alert/alert';
+import {Alert} from '@model/alert/alert';
 
 @Component({
   selector: 'app-alert',

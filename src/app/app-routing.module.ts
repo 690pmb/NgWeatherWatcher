@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes, Router, NavigationError} from '@angular/router';
 import {AuthGuard} from './auth.guard';
 import {filter} from 'rxjs/operators';
-import {ToastService} from './service/toast.service';
+import {ToastService} from '@services/toast.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},

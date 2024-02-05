@@ -60,6 +60,9 @@
               "src/app/styles/styles.scss",
               "node_modules/nouislider/dist/nouislider.min.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/app/styles"]
+            },
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,

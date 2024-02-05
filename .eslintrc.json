@@ -45,6 +45,19 @@
         ]
       }
     ],
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ["@model", "@services", "@shared"]
+      }
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "message": "Please import directly from 'rxjs' instead",
+        "name": "rxjs/Rx"
+      }
+    ],
     "curly": ["warn"],
     "complexity": ["error", 12],
     "arrow-body-style": ["error", "as-needed"],

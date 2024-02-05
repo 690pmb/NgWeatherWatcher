@@ -14,10 +14,10 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthGuard} from './auth.guard';
-import {SharedModule} from './shared/shared.module';
+import {SharedModule} from '@shared/shared.module';
 import {Observable} from 'rxjs';
-import {ConfigurationService} from './service/configuration.service';
-import {Configuration} from './model/configuration';
+import {ConfigurationService} from '@services/configuration.service';
+import {Configuration} from '@model/configuration';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 

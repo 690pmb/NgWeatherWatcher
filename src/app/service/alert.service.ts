@@ -2,14 +2,14 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
-import {Alert} from '../model/alert/alert';
+import {Alert} from '@model/alert/alert';
 import {plainToInstance} from 'class-transformer';
 import {ToastService} from './toast.service';
 import {UtilsService} from './utils.service';
 import {ConfigurationService} from './configuration.service';
-import {CreateAlert} from '../model/alert/create-alert';
-import {Page} from '../model/http/page';
-import {PageRequest} from '../model/http/page-request';
+import {CreateAlert} from '@model/alert/create-alert';
+import {Page} from '@model/http/page';
+import {PageRequest} from '@model/http/page-request';
 
 @Injectable({
   providedIn: 'root',

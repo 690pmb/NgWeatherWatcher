@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../../../service/auth.service';
-import {ToastService} from '../../../../service/toast.service';
+import {AuthService} from '@services/auth.service';
+import {ToastService} from '@services/toast.service';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({

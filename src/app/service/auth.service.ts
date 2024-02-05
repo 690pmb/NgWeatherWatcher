@@ -6,12 +6,12 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import {Observable, ReplaySubject, of} from 'rxjs';
-import {Token} from '../model/token';
+import {Token} from '@model/token';
 import jwtDecode, {InvalidTokenError} from 'jwt-decode';
 import {UtilsService} from './utils.service';
 import {ToastService} from './toast.service';
 import {catchError, map} from 'rxjs/operators';
-import {Utils} from '../shared/utils';
+import {Utils} from '@shared/utils';
 import {ConfigurationService} from './configuration.service';
 
 @Injectable({

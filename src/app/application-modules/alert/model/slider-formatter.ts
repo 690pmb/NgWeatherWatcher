@@ -1,5 +1,5 @@
 import {NouiFormatter} from 'ng2-nouislider';
-import {Utils} from '../../../shared/utils';
+import {Utils} from '@shared/utils';
 
 export class SliderFormatter {
   static hourFormatter: NouiFormatter = {

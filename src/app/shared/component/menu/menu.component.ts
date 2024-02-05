@@ -18,10 +18,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {BehaviorSubject, fromEvent, Subscription} from 'rxjs';
 import {MatSidenav} from '@angular/material/sidenav';
-import {AuthService} from '../../../service/auth.service';
-import {MenuService} from '../../../service/menu.service';
+import {AuthService} from '@services/auth.service';
+import {MenuService} from '@services/menu.service';
 import {throttleTime, map, filter, distinctUntilChanged} from 'rxjs/operators';
-import {MenuItem} from '../../../model/menu-item';
+import {MenuItem} from '@model/menu-item';
 
 type Direction = 'UP' | 'DOWN';
 

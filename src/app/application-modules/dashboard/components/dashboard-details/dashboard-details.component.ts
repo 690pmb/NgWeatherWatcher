@@ -4,15 +4,15 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {combineLatest, Subscription, Observable, of, EMPTY, iif} from 'rxjs';
 import {filter, mergeMap, switchMap} from 'rxjs/operators';
-import {Forecast} from '../../../../model/weather/forecast';
-import {ForecastDay} from '../../../../model/weather/forecast-day';
-import {Hour} from '../../../../model/weather/hour';
-import {Utils} from '../../../../shared/utils';
+import {Forecast} from '@model/weather/forecast';
+import {ForecastDay} from '@model/weather/forecast-day';
+import {Hour} from '@model/weather/hour';
+import {Utils} from '@shared/utils';
 import {slideInOutAnimation} from './slide-in-out';
-import {MenuService} from '../../../../service/menu.service';
-import {WeatherService} from '../../../../service/weather.service';
-import {WeatherField} from '../../../../model/alert/weather-field';
-import {UNITS} from '../../../../model/alert/monitored-field';
+import {MenuService} from '@services/menu.service';
+import {WeatherService} from '@services/weather.service';
+import {WeatherField} from '@model/alert/weather-field';
+import {UNITS} from '@model/alert/monitored-field';
 
 @Component({
   selector: 'app-dashboard-details',
