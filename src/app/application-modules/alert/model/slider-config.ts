@@ -5,7 +5,7 @@ import {SliderType} from './slider-type';
 export interface SliderConfig {
   min: number;
   max: number;
-  initialValue?: SliderType;
+  initialValue: SliderType;
   multiple: boolean;
   fixedDragging?: number;
   formatter?: NouiFormatter;

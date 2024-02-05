@@ -6,6 +6,5 @@
   [step]="configuration.step ?? 1"
   [tooltips]="tooltips"
   [config]="config"
-  [(ngModel)]="configuration.initialValue"
-  (end)="selected.emit($event)"
+  [formControl]="ctrl"
 ></nouislider>

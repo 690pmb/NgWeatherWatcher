@@ -20,8 +20,7 @@
     [ctrl]="trigger"
     ><app-slider
       [configuration]="triggerHourConfig"
-      [initialValue]="trigger.value"
-      (selected)="trigger.setValue($event)"
+      [ctrl]="trigger"
     ></app-slider>
   </app-question>
   <app-question label="alert.force_notification">

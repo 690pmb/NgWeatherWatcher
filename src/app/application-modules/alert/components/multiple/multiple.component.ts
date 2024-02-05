@@ -99,7 +99,6 @@ export class MultipleComponent<T, U> implements OnInit {
     this.addListeners(component, dataAdd, dataDelete);
     if (ctrl) {
       component.instance.ctrl = ctrl;
-      component.instance.initialValue = ctrl.value;
       dataAdd.shown = last ?? false;
       dataDelete.shown = !last ?? true;
     }
@@ -110,17 +109,6 @@ export class MultipleComponent<T, U> implements OnInit {
     dataAdd: DataBtn,
     dataDelete: DataBtn
   ): void {
-    component.instance.selected.subscribe(s => {
-      if (
-        !this.createdList.find(c => c.component.instance === component.instance)
-          ?.component.instance.ctrl
-      ) {
-        const ctrl = new FormControl<T>(s, {nonNullable: true});
-        this.form?.push(ctrl);
-        component.instance.ctrl = ctrl;
-      }
-      component.instance.ctrl.setValue(s);
-    });
     component.instance.shownAddBtn.subscribe(s => (dataAdd.shown = s));
     component.instance.shownDeleteBtn.subscribe(s => (dataDelete.shown = s));
     dataAdd.clicked.subscribe(() => {
@@ -134,7 +122,7 @@ export class MultipleComponent<T, U> implements OnInit {
   destroy(ref: ComponentRef<MultipleData<T, U>>): void {
     const toDestroy = this.createdList.find(c => c.component === ref);
     this.createdList = this.createdList.filter(c => c.component !== ref);
-    if (toDestroy) {
+    if (toDestroy?.component.instance.ctrl) {
       this.form.removeAt(
         this.form.controls.indexOf(toDestroy?.component.instance.ctrl)
       );

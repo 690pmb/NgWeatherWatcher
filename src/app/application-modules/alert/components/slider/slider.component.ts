@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import {Component, Input, OnInit, EventEmitter} from '@angular/core';
 import {MultipleData} from '../../model/multiple-data';
 import {FormControl} from '@angular/forms';
 import {SliderConfig} from '../../model/slider-config';
@@ -18,27 +10,23 @@ import {SliderType} from '../../model/slider-type';
   styleUrls: ['./slider.component.scss'],
 })
 export class SliderComponent
-  implements OnInit, OnChanges, MultipleData<SliderType, SliderConfig>
+  implements OnInit, MultipleData<SliderType, SliderConfig>
 {
   @Input()
   configuration!: SliderConfig;
 
   @Input()
-  initialValue?: SliderType;
-
-  @Output()
-  selected = new EventEmitter<SliderType>();
+  ctrl?: FormControl<SliderType>;
 
   shownAddBtn = new EventEmitter<boolean>();
   shownDeleteBtn = new EventEmitter<boolean>();
-  ctrl!: FormControl<SliderType>;
   tooltips!: boolean | boolean[];
   config = {};
 
   constructor() {}
 
   ngOnInit() {
-    if (!this.initialValue) {
+    if (!this.ctrl?.value) {
       this.shownAddBtn.emit(true);
     }
     this.configuration.multiple = this.configuration.multiple ?? false;
@@ -54,12 +42,10 @@ export class SliderComponent
       };
     }
     this.tooltips = this.configuration.multiple ? [true, true] : true;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.initialValue?.currentValue) {
-      this.initialValue = undefined;
-      this.initValue();
+    if (!this.ctrl) {
+      this.ctrl = new FormControl<SliderType>(this.configuration.initialValue, {
+        nonNullable: true,
+      });
     }
   }
 
@@ -67,7 +53,7 @@ export class SliderComponent
     const mean = Math.floor(
       (this.configuration.min + this.configuration.max) / 2
     );
-    if (!this.initialValue) {
+    if (!this.ctrl?.value) {
       if (!this.configuration.multiple) {
         this.configuration.initialValue = mean;
       } else if (this.configuration.step && this.configuration.step !== 1) {
@@ -81,11 +67,8 @@ export class SliderComponent
           Math.round((this.configuration.min + this.configuration.max) * 0.625),
         ];
       }
-      setTimeout(() =>
-        this.selected.emit(this.configuration.initialValue ?? 0)
-      );
     } else {
-      this.configuration.initialValue = this.initialValue;
+      this.configuration.initialValue = this.ctrl.value;
     }
   }
 }

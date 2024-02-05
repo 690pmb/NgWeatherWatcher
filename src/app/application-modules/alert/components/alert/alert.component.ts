@@ -57,6 +57,7 @@ export class AlertComponent implements OnInit {
     min: 0,
     max: 1440,
     step: 60,
+    initialValue: 0,
     pips: this.hourPip,
     multiple: false,
     formatter: SliderFormatter.hourFormatter,
