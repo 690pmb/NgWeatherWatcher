@@ -26,6 +26,10 @@
     "posttest": "pnpm run lint",
     "up": "pnpm cache clean --force && pnpm update"
   },
+  "engines": {
+    "pnpm": ">=8",
+    "node": ">=16.20.0 <20.0.0"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~14.3.0",
