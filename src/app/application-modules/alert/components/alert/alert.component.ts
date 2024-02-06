@@ -212,7 +212,7 @@ export class AlertComponent implements OnInit {
                 field: a.field.field,
                 min: a.min,
                 max: a.max,
-              } as CreateMonitoredField)
+              }) as CreateMonitoredField
           ) ?? [],
       forceNotification: formValue.forceNotification ?? false,
     };
