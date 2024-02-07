@@ -55,7 +55,7 @@
     "luxon": "~3.3.0",
     "ng2-nouislider": "2.0.0",
     "nouislider": "15.7.1",
-    "reflect-metadata": "0.1.14",
+    "reflect-metadata": "0.2.1",
     "rxjs": "6.6.7",
     "tslib": "2.4.1",
     "zone.js": "~0.12.0"
