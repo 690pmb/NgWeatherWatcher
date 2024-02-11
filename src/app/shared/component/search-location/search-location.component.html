@@ -14,7 +14,7 @@
     #inputLocation="matInput"
     [formControl]="inputCtrl"
     (focus)="placeholder = undefined"
-    (blur)="placeholder = inputCtrl?.value || initialPlaceholder"
+    (blur)="placeholder = inputCtrl.value || initialPlaceholder"
   />
   <button
     mat-icon-button

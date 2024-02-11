@@ -6,12 +6,12 @@ import {FormControl, FormArray} from '@angular/forms';
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss'],
 })
-export class QuestionComponent {
+export class QuestionComponent<T> {
   @Input()
   label?: string;
 
   @Input()
-  ctrl?: FormControl | FormArray;
+  ctrl?: FormControl<T> | FormArray;
 
   constructor() {}
 }

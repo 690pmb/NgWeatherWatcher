@@ -13,4 +13,9 @@ export class SliderFormatter {
       }
     },
   };
+
+  static defaultFormatter: NouiFormatter = {
+    to: (value: number): string => `${Math.round(value)}`,
+    from: (value: string): number => +value,
+  };
 }

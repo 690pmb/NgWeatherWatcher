@@ -78,9 +78,9 @@
     "created": "Alert created !",
     "updated": "Alert updated !",
     "monitored_days": {
-      "same_day": "same day",
-      "next_day": "next day",
-      "two_day_later": "two day later"
+      "sameDay": "same day",
+      "nextDay": "next day",
+      "twoDayLater": "two day later"
     },
     "mat-table.itemsPerPageLabel": "Alert per page: ",
     "placeholder": "Pick a field"
