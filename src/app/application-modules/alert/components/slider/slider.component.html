@@ -2,10 +2,10 @@
   [connect]="configuration.multiple"
   [min]="configuration.min"
   [max]="configuration.max"
-  [format]="configuration.formatter"
+  [format]="configuration.formatter ?? SliderFormatter.defaultFormatter"
   [step]="configuration.step ?? 1"
-  [tooltips]="tooltips"
+  [tooltips]="$any(tooltips)"
   [config]="config"
-  [(ngModel)]="configuration.initialValue"
+  [(ngModel)]="configuration.value"
   (end)="selected.emit($event)"
 ></nouislider>

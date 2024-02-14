@@ -1,4 +1,4 @@
-import {MonitoredDays} from './monitored-days';
+import {MonitoredDay, MonitoredDays} from './monitored-days';
 import {MonitoredField} from './monitored-field';
 import {Type, Expose, Transform} from 'class-transformer';
 import {DateTime} from 'luxon';
@@ -44,13 +44,9 @@ export class Alert {
 
   @Expose()
   getMonitoredDays(): string[] {
-    return [
-      {key: 'same_day', value: this.monitoredDays.sameDay},
-      {key: 'next_day', value: this.monitoredDays.nextDay},
-      {key: 'two_day_later', value: this.monitoredDays.twoDayLater},
-    ]
-      .filter(monitored => monitored.value)
-      .map(monitored => `alert.monitored_days.${monitored.key}`);
+    return (Object.keys(MonitoredDay) as Array<keyof MonitoredDays>)
+      .filter(key => this.monitoredDays[key])
+      .map(monitored => `alert.monitored_days.${monitored}`);
   }
 
   @Expose()

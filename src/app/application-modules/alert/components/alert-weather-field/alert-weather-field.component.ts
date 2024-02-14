@@ -3,8 +3,9 @@ import {WeatherFieldConfig} from '@model/configuration';
 import {MultipleData} from '../../model/multiple-data';
 import {FormControl} from '@angular/forms';
 import {AlertWeatherField} from '../../model/alert-weather-field';
-import {SliderConfig} from '../../model/slider-config';
+import {SliderConfig} from '../../model/slider';
 import {Pip} from '../../model/pip';
+import {DefaultFormatter} from 'ng2-nouislider';
 
 @Component({
   selector: 'app-alert-weather-field',
@@ -12,7 +13,7 @@ import {Pip} from '../../model/pip';
   styleUrls: ['./alert-weather-field.component.scss'],
 })
 export class AlertWeatherFieldComponent
-  implements MultipleData<AlertWeatherField, SliderConfig>
+  implements MultipleData<AlertWeatherField, true>
 {
   selectedField?: WeatherFieldConfig;
   fieldPip: Pip = {
@@ -25,7 +26,7 @@ export class AlertWeatherFieldComponent
   shownDeleteBtn = new EventEmitter<boolean>();
   selected = new EventEmitter<AlertWeatherField>();
   ctrl!: FormControl<AlertWeatherField>;
-  configuration!: SliderConfig;
+  configuration!: SliderConfig<true>;
   initialValue?: AlertWeatherField;
 
   constructor() {}
@@ -36,8 +37,9 @@ export class AlertWeatherFieldComponent
       max: selected.max,
       step: selected.step ?? 1,
       multiple: true,
+      formatter: new DefaultFormatter(),
       pips: this.fieldPip,
-    } as SliderConfig;
+    };
     this.selectedField = selected;
   }
 }

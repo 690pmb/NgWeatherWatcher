@@ -6,6 +6,7 @@ import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import {FormArray, FormControl} from '@angular/forms';
+import {SliderConfig} from '../../model/slider';
 import {
   OnInit,
   Component,
@@ -24,7 +25,7 @@ export type DataBtn = {
   icon: IconDefinition;
 };
 
-export type Created<T, U> = {
+export type Created<T, U extends boolean> = {
   component: ComponentRef<MultipleData<T, U>>;
   addComponent: EmbeddedViewRef<unknown>;
   deleteComponent: EmbeddedViewRef<unknown>;
@@ -35,12 +36,12 @@ export type Created<T, U> = {
   templateUrl: './multiple.component.html',
   styleUrls: ['./multiple.component.scss'],
 })
-export class MultipleComponent<T, U> implements OnInit {
+export class MultipleComponent<T, U extends boolean> implements OnInit {
   @Input()
   compo!: Type<MultipleData<T, U>>;
 
   @Input()
-  configuration!: U;
+  configuration!: SliderConfig<U>;
 
   @Input()
   form!: FormArray<FormControl<T>>;

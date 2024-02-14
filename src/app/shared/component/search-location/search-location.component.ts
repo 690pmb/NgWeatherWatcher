@@ -35,7 +35,9 @@ export class SearchLocationComponent implements OnInit, OnChanges {
   showPlaceholder = true;
 
   @Input()
-  inputCtrl?: FormControl<string>;
+  inputCtrl: FormControl<string> = new FormControl('', {
+    nonNullable: true,
+  });
 
   @Output()
   selected = new EventEmitter<string>();
@@ -52,11 +54,6 @@ export class SearchLocationComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.initialPlaceholder = this.placeholder;
-    if (!this.inputCtrl) {
-      this.inputCtrl = new FormControl('', {
-        nonNullable: true,
-      });
-    }
     this.inputCtrl.valueChanges
       .pipe(
         debounceTime(300),
@@ -93,14 +90,14 @@ export class SearchLocationComponent implements OnInit, OnChanges {
   }
 
   select(location: string): void {
-    this.inputCtrl?.disable();
+    this.inputCtrl.disable();
     this.selected.emit(location);
-    setTimeout(() => this.inputCtrl?.enable(), 0);
+    setTimeout(() => this.inputCtrl.enable(), 0);
     this.placeholder = location;
   }
 
   reset(): void {
-    this.inputCtrl?.reset();
+    this.inputCtrl.reset();
     this.trigger.closePanel();
     this.selected.emit('');
     this.placeholder = this.initialPlaceholder || 'global.none';

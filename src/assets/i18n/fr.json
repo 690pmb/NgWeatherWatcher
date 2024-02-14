@@ -78,9 +78,9 @@
     "created": "Alerte créee !",
     "updated": "Alerte mise à jour !",
     "monitored_days": {
-      "same_day": "le jour même",
-      "next_day": "le lendemain",
-      "two_day_later": "le surlendemain"
+      "sameDay": "le jour même",
+      "nextDay": "le lendemain",
+      "twoDayLater": "le surlendemain"
     },
     "mat-table.itemsPerPageLabel": "Alertes par page: ",
     "placeholder": "Choisis un champ"

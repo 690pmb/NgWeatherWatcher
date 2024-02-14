@@ -33,9 +33,9 @@
     }"
     matSort
     [matSortDirection]="pageRequest.sortDir"
-    [matSortActive]="pageRequest.sortField"
+    [matSortActive]="pageRequest.sortField ?? ''"
     matSortDisableClear="true"
-    (matSortChange)="navigate(0, $event.active, $event.direction)"
+    (matSortChange)="navigate(0, $any($event.active), $event.direction)"
   >
     <ng-container matColumnDef="triggerDays">
       <mat-header-cell mat-header-cell *matHeaderCellDef>

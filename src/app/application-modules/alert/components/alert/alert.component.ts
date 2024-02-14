@@ -10,16 +10,32 @@ import {CreateMonitoredField} from '@model/alert/create-monitored-field';
 import {SliderFormatter} from '../../model/slider-formatter';
 import {Utils} from '@shared/utils';
 import {AlertWeatherFieldComponent} from '../alert-weather-field/alert-weather-field.component';
-import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  Validators,
+} from '@angular/forms';
 import {ToastService} from '@services/toast.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AlertWeatherField} from '../../model/alert-weather-field';
 import {Pip, pipTypeMapping} from '../../model/pip';
-import {SliderConfig} from '../../model/slider-config';
-import {SliderType} from '../../model/slider-type';
+import {SliderConfig, Value} from '../../model/slider';
 import {of, iif} from 'rxjs';
 import {mergeMap, tap, map} from 'rxjs/operators';
 import {Alert} from '@model/alert/alert';
+import {MonitoredDay} from '@model/alert/monitored-days';
+
+type AlertForm = {
+  triggerDays: FormArray<FormControl<boolean>>;
+  monitoredDays: FormArray<FormControl<boolean>>;
+  forceNotification: FormControl<boolean>;
+  triggerHour: FormControl<number>;
+  location: FormControl<string>;
+  monitoredHours: FormArray<FormControl<Value<false, number>>>;
+  monitoredFields: FormArray<FormControl<AlertWeatherField>>;
+};
 
 @Component({
   selector: 'app-alert',
@@ -43,17 +59,17 @@ export class AlertComponent implements OnInit {
     format: SliderFormatter.hourFormatter,
   };
 
-  triggerHourConfig: SliderConfig = {
+  triggerHourConfig: SliderConfig<false> = {
     min: 0,
     max: 1425,
-    initialValue: 720,
+    value: 720,
     step: 15,
     pips: this.hourPip,
     multiple: false,
     formatter: SliderFormatter.hourFormatter,
   };
 
-  monitoredHourConfig: SliderConfig = {
+  monitoredHourConfig: SliderConfig<false> = {
     min: 0,
     max: 1440,
     step: 60,
@@ -62,28 +78,27 @@ export class AlertComponent implements OnInit {
     formatter: SliderFormatter.hourFormatter,
   };
 
-  alertWeatherFieldComponent: Type<
-    MultipleData<AlertWeatherField, SliderConfig>
-  > = AlertWeatherFieldComponent;
+  alertWeatherFieldComponent: Type<MultipleData<AlertWeatherField, boolean>> =
+    AlertWeatherFieldComponent;
 
-  sliderComponent: Type<MultipleData<SliderType, SliderConfig>> =
+  sliderComponent: Type<MultipleData<Value<false, number>, false>> =
     SliderComponent;
 
-  alertForm = this.fb.group({
+  alertForm: FormGroup<AlertForm> = this.fb.group({
     triggerDays: this.fb.array<boolean>([], {validators: Utils.arrayValidator}),
     monitoredDays: this.fb.array<boolean>([], {
       validators: Utils.arrayValidator,
     }),
-    forceNotification: this.fb.control(false, {nonNullable: true}),
-    triggerHour: this.fb.control(0, {nonNullable: true}),
+    forceNotification: this.fb.control(false),
+    triggerHour: this.fb.control(0),
     location: this.fb.control('', Validators.required),
-    monitoredHours: this.fb.array<number>([]),
+    monitoredHours: this.fb.array<Value<false, number>>([]),
     monitoredFields: this.fb.array<AlertWeatherField>([], Validators.required),
   });
 
   constructor(
     private translate: TranslateService,
-    private fb: FormBuilder,
+    private fb: NonNullableFormBuilder,
     private alertService: AlertService,
     protected authService: AuthService,
     private toast: ToastService,
@@ -111,26 +126,32 @@ export class AlertComponent implements OnInit {
   private initFormValue(location?: string): void {
     this.ready = true;
     this.initLocation = location ?? '';
-    this.alertForm.get('location')?.setValue(this.initLocation);
+    this.alertForm.controls.location?.setValue(this.initLocation);
     this.initTriggerDays();
     this.initMonitoredDays();
-    this.alertForm
-      .get('forceNotification')
-      ?.setValue(this.existingAlert?.forceNotification ?? false);
+    this.alertForm.controls.forceNotification?.setValue(
+      this.existingAlert?.forceNotification ?? false
+    );
     this.initTriggerHour();
     this.existingAlert?.monitoredHours.forEach(m => {
       const split = m.split(':');
-      this.addToFormArray(
-        'monitoredHours',
-        Utils.timeToMinutes(+split[0], +split[1])
-      );
+      this.addToFormArray({
+        name: 'monitoredHours',
+        value: {
+          value: Utils.timeToMinutes(+split[0], +split[1]),
+          multiple: false,
+        },
+      });
     });
     this.existingAlert?.monitoredFields.forEach(f =>
-      this.addToFormArray('monitoredFields', {
-        min: f.min,
-        max: f.max,
-        field: {min: f.min, max: f.max, field: f.field},
-      } as AlertWeatherField)
+      this.addToFormArray({
+        name: 'monitoredFields',
+        value: {
+          min: f.min,
+          max: f.max,
+          field: {min: f.min, max: f.max, field: f.field},
+        } as AlertWeatherField,
+      })
     );
   }
 
@@ -149,39 +170,50 @@ export class AlertComponent implements OnInit {
       };
     });
     this.triggerDayChoices.forEach(d =>
-      this.addToFormArray(
-        'triggerDays',
-        existingTriggerDays?.includes(d.value.toLowerCase())
-      )
+      this.addToFormArray({
+        name: 'triggerDays',
+        value: existingTriggerDays?.includes(d.value.toLowerCase()) ?? false,
+      })
     );
   }
 
   private initMonitoredDays(): void {
     const existingMonitoredDays = this.existingAlert?.getMonitoredDays() ?? [];
-    this.monitoredDayChoices = ['same_day', 'next_day', 'two_day_later'].map(
+    this.monitoredDayChoices = Object.values(MonitoredDay).map(
       m => `alert.monitored_days.${m}`
     );
     this.monitoredDayChoices.forEach(m =>
-      this.addToFormArray('monitoredDays', existingMonitoredDays.includes(m))
+      this.addToFormArray({
+        name: 'monitoredDays',
+        value: existingMonitoredDays.includes(m),
+      })
     );
   }
 
   private initTriggerHour(): void {
     const existingTriggerHour = this.existingAlert?.triggerHour;
     if (existingTriggerHour) {
-      this.alertForm
-        .get('triggerHour')
-        ?.setValue(
-          Utils.timeToMinutes(
-            existingTriggerHour.hour,
-            existingTriggerHour.minute
-          )
-        );
+      this.alertForm.controls.triggerHour?.setValue(
+        Utils.timeToMinutes(
+          existingTriggerHour.hour,
+          existingTriggerHour.minute
+        )
+      );
     }
   }
 
-  addToFormArray<T>(name: string, value: T): void {
-    (this.alertForm.get(name) as FormArray).push(this.fb.control(value));
+  addToFormArray<
+    U extends {
+      [K in keyof AlertForm]: AlertForm[K] extends FormArray<
+        FormControl<infer O>
+      >
+        ? {name: K; value: O}
+        : never;
+    }[keyof AlertForm],
+  >(ctrl: U): void {
+    (this.alertForm.controls[ctrl.name] as FormArray).push(
+      this.fb.control(ctrl.value)
+    );
   }
 
   onSubmit(): void {
@@ -202,7 +234,9 @@ export class AlertComponent implements OnInit {
       triggerHour: formValue.triggerHour ?? 0,
       location: formValue.location ?? '',
       monitoredHours:
-        formValue.monitoredHours?.filter((t): t is number => !!t) ?? [],
+        formValue.monitoredHours
+          ?.map(v => v.value)
+          .filter((t): t is number => !!t) ?? [],
       monitoredFields:
         formValue.monitoredFields
           ?.filter((t): t is AlertWeatherField => !!t)

@@ -1,10 +1,13 @@
 <form [formGroup]="alertForm" (ngSubmit)="onSubmit()" *ngIf="ready">
-  <app-question label="alert.location" [ctrl]="alertForm.get('location')">
+  <app-question label="alert.location" [ctrl]="alertForm.controls.location">
     <app-search-location
-      [inputCtrl]="alertForm.get('location')"
+      [inputCtrl]="alertForm.controls.location"
     ></app-search-location>
   </app-question>
-  <app-question label="alert.trigger_day" [ctrl]="alertForm.get('triggerDays')">
+  <app-question
+    label="alert.trigger_day"
+    [ctrl]="alertForm.controls.triggerDays"
+  >
     <div class="row" formArrayName="triggerDays">
       <mat-checkbox
         *ngFor="let trigger of triggerDayChoices; let i = index"
@@ -15,25 +18,25 @@
     </div>
   </app-question>
   <app-question
-    *ngIf="alertForm.get('triggerHour') as trigger"
+    *ngIf="alertForm.controls.triggerHour as trigger"
     label="alert.trigger_hour"
     [ctrl]="trigger"
     ><app-slider
       [configuration]="triggerHourConfig"
-      [initialValue]="trigger.value"
-      (selected)="trigger.setValue($event)"
+      [initialValue]="{value: trigger.value, multiple: false}"
+      (selected)="trigger.setValue($event.value ?? 0)"
     ></app-slider>
   </app-question>
   <app-question label="alert.force_notification">
     <mat-checkbox color="primary" formControlName="forceNotification">{{
-      'global.' + alertForm.get('forceNotification')?.value
+      'global.' + alertForm.controls.forceNotification.value
         | translate
         | titlecase
     }}</mat-checkbox>
   </app-question>
   <app-question
     label="alert.monitored_day"
-    [ctrl]="alertForm.get('monitoredDays')"
+    [ctrl]="alertForm.controls.monitoredDays"
   >
     <div class="row" formArrayName="monitoredDays">
       <mat-checkbox
@@ -46,17 +49,17 @@
   </app-question>
   <app-question
     label="alert.monitored_field"
-    [ctrl]="alertForm.get('monitoredFields')"
+    [ctrl]="alertForm.controls.monitoredFields"
     ><app-multiple
       [compo]="alertWeatherFieldComponent"
-      [form]="alertForm.get('monitoredFields')"
+      [form]="alertForm.controls.monitoredFields"
     ></app-multiple>
   </app-question>
   <app-question label="alert.monitored_hour">
     <app-multiple
       [compo]="sliderComponent"
       [configuration]="monitoredHourConfig"
-      [form]="alertForm.get('monitoredHours')"
+      [form]="alertForm.controls.monitoredHours"
     ></app-multiple>
   </app-question>
 </form>
