@@ -3,7 +3,7 @@ import {NouiFormatter} from 'ng2-nouislider';
 
 export type PipTypeValue = -1 | 0 | 1 | 2;
 
-export type PipType = 'NONE' | 'NO_VALUE' | 'SMALL' | 'BIG';
+export type PipType = 'BIG' | 'NO_VALUE' | 'NONE' | 'SMALL';
 
 export const pipTypeMapping: {[key in PipType]: PipTypeValue} = {
   NONE: -1,

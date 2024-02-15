@@ -16,8 +16,8 @@ import {PageRequest} from '@model/http/page-request';
 })
 export class AlertService extends UtilsService {
   constructor(
-    protected httpClient: HttpClient,
-    protected toast: ToastService,
+    protected override httpClient: HttpClient,
+    protected override toast: ToastService,
     protected configurationService: ConfigurationService
   ) {
     super(httpClient, toast);
@@ -36,7 +36,7 @@ export class AlertService extends UtilsService {
 
   getById(id: string): Observable<Alert> {
     return this.get<Alert>({url: id}).pipe(
-      map((alerts: Object) => plainToInstance(Alert, alerts))
+      map((alerts: unknown) => plainToInstance(Alert, alerts))
     );
   }
 

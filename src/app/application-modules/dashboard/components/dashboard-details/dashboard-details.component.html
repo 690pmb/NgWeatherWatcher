@@ -1,11 +1,10 @@
 <app-dashboard>
   <ng-container *ngIf="forecast && forecast.forecastDay">
     <div
+      class="wrapper"
       [@slideInOut]="index"
-      [@slideInOut]="pageIndex"
       (swipeleft)="onSwipeLeft()"
       (swiperight)="onSwipeRight()"
-      class="wrapper"
     >
       <div class="show-all-header">
         <mat-slide-toggle
@@ -19,8 +18,8 @@
           [pageIndex]="pageIndex"
           [pageSize]="pageSize"
           [hidePageSize]="true"
-          (page)="navigate(date, $event.pageIndex)"
           [ngClass]="{hide: !showAll}"
+          (page)="navigate(date, $event.pageIndex)"
         >
         </mat-paginator>
       </div>
@@ -31,7 +30,7 @@
         [config]="{template: forecastField, formatFields, color: 'white'}"
       >
         <ng-container matColumnDef="time">
-          <mat-header-cell mat-header-cell *matHeaderCellDef>
+          <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'global.hour' | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let hour">
@@ -40,7 +39,7 @@
         </ng-container>
 
         <ng-container matColumnDef="condition">
-          <mat-header-cell mat-header-cell *matHeaderCellDef>
+          <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.condition' | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let hour">
@@ -49,28 +48,28 @@
         </ng-container>
 
         <ng-container matColumnDef="tempC">
-          <mat-header-cell mat-header-cell *matHeaderCellDef>
+          <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.temp' | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let hour"> {{ hour.tempC }} °C </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="windKph">
-          <mat-header-cell mat-header-cell *matHeaderCellDef>
+          <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.wind' | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let hour"> {{ hour.windKph }} km/h </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="precipMm">
-          <mat-header-cell mat-header-cell *matHeaderCellDef>
+          <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.precip' | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let hour"> {{ hour.precipMm }} mm </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="chanceOfRain">
-          <mat-header-cell mat-header-cell *matHeaderCellDef>
+          <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.rain' | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let hour">

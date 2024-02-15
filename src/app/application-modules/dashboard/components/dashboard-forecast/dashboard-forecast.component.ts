@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, TrackByFunction} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {combineLatest, EMPTY, Observable, Observer, Subscription} from 'rxjs';
@@ -10,6 +10,7 @@ import {AuthService} from '@services/auth.service';
 import {ToastService} from '@services/toast.service';
 import {MenuService} from '@services/menu.service';
 import {Token} from '@model/token';
+import {ForecastDay} from '@model/weather/forecast-day';
 
 @Component({
   selector: 'app-dashboard-forecast',
@@ -108,6 +109,12 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
       })
       .catch(err => console.error(err));
   }
+
+  trackByFn: TrackByFunction<ForecastDay> = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _index: number,
+    item: ForecastDay
+  ) => item.date;
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());

@@ -17,8 +17,8 @@ export class NotificationService extends UtilsService {
 
   constructor(
     private swPush: SwPush,
-    protected httpClient: HttpClient,
-    protected toast: ToastService,
+    protected override httpClient: HttpClient,
+    protected override toast: ToastService,
     protected configurationService: ConfigurationService
   ) {
     super(httpClient, toast);

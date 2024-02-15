@@ -4,13 +4,19 @@
     <h1>{{ 'global.geolocation.in_progress' | translate }}</h1>
   </div>
   <app-search-location
-    (selected)="navigate($event)"
-    [showPlaceholder]="false"
     class="search-location"
+    [showPlaceholder]="false"
+    (selected)="navigate($event)"
   ></app-search-location>
   <div *ngIf="forecast">
     <div class="weather-cover">
-      <div *ngFor="let forecastDay of forecast.forecastDay; last as last">
+      <div
+        *ngFor="
+          let forecastDay of forecast.forecastDay;
+          last as last;
+          trackBy: trackByFn
+        "
+      >
         <h2>
           <a
             [routerLink]="['/dashboard/details/', forecastDay.date]"

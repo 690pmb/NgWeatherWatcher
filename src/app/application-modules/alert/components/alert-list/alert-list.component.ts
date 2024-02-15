@@ -1,4 +1,10 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  TrackByFunction,
+  ViewChild,
+} from '@angular/core';
 import {
   ActivatedRoute,
   convertToParamMap,
@@ -24,6 +30,7 @@ import {DateTimePipe} from '@shared/pipe/date-time.pipe';
 import {SortField} from '@model/sort';
 import {SortDirection} from '@angular/material/sort';
 import {PageRequest} from '@model/http/page-request';
+import {MonitoredField} from '@model/alert/monitored-field';
 
 @Component({
   selector: 'app-alert-list',
@@ -147,4 +154,10 @@ export class AlertListComponent implements OnInit {
     this.selected = [];
     this.bottomSheet.dismiss();
   }
+
+  trackByFn: TrackByFunction<MonitoredField> = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _index: number,
+    item: MonitoredField
+  ) => item.field;
 }

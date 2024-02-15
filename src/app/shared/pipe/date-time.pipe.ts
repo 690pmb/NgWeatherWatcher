@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {DateTime} from 'luxon';
 
-type Format = 'full' | 'date' | 'hour';
+type Format = 'date' | 'full' | 'hour';
 
 @Pipe({
   name: 'dateTime',
@@ -16,7 +16,7 @@ export class DateTimePipe implements PipeTransform {
   transform(
     value: DateTime | DateTime[],
     format: Format = 'full'
-  ): string | string[] {
+  ): string[] | string {
     const fmt = DateTimePipe.typeFormat[format];
     if (value instanceof DateTime) {
       return value.toFormat(fmt);

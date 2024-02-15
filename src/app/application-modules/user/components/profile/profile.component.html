@@ -1,4 +1,4 @@
-<div class="profile-content" *ngIf="authService.token$ | async as user">
+<div *ngIf="authService.token$ | async as user" class="profile-content">
   <div>
     <span>{{ 'global.username' | translate }}:</span>{{ user.sub }}
   </div>

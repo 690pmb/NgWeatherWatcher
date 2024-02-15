@@ -4,19 +4,19 @@
     <mat-error>{{ message }}</mat-error>
     <mat-form-field appearance="outline">
       <input
-        matInput
-        [(ngModel)]="username"
-        placeholder="{{ 'global.username' | translate }}"
-        type="text"
         #inputName="ngModel"
+        matInput
+        type="text"
         name="inputName"
         required
         maxlength="30"
+        placeholder="{{ 'global.username' | translate }}"
+        [(ngModel)]="username"
       />
       <mat-error
         *ngIf="
-          inputName.errors != null &&
-          inputName.errors.required &&
+          inputName.errors !== null &&
+          inputName.errors['required'] &&
           !inputName.pristine
         "
       >
@@ -26,19 +26,19 @@
 
     <mat-form-field appearance="outline">
       <input
-        matInput
-        [(ngModel)]="password"
-        placeholder="{{ 'user.password' | translate }}"
-        type="password"
         #inputPassword="ngModel"
+        matInput
+        type="password"
         name="inputPassword"
         required
         maxlength="30"
+        placeholder="{{ 'user.password' | translate }}"
+        [(ngModel)]="password"
       />
       <mat-error
         *ngIf="
-          inputPassword.errors != null &&
-          inputPassword.errors.required &&
+          inputPassword.errors !== null &&
+          inputPassword.errors['required'] &&
           !inputPassword.pristine
         "
       >
@@ -50,8 +50,8 @@
       <button
         type="submit"
         mat-raised-button
-        (click)="login()"
         [disabled]="signinForm.invalid"
+        (click)="login()"
       >
         {{ 'user.signin.sign_in' | translate }}
       </button>

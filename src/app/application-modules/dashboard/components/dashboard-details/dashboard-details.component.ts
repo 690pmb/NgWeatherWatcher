@@ -149,12 +149,12 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   onSwipe(
     canSwipeNextDay: (i: number, p: number) => boolean,
     canSwipeNextPage: (p: number) => boolean,
-    next: 1 | -1
+    next: -1 | 1
   ): void {
     const index = this.getIndex();
     if (canSwipeNextDay(index, this.pageIndex)) {
       this.navigate(
-        this.forecast.forecastDay[this.index + next].date,
+        this.forecast.forecastDay[this.index + next]?.date ?? '',
         this.showAll ? (this.pageIndex === 0 ? 2 : 1) : 0
       );
     } else if (canSwipeNextPage(this.pageIndex)) {

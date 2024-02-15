@@ -16,7 +16,7 @@ export class ConfigurationService {
     return this.configuration
       ? of(this.configuration)
       : from(fetch('./assets/configuration.json').then(res => res.json())).pipe(
-          map((config: Object) => plainToInstance(Configuration, config)),
+          map((config: unknown) => plainToInstance(Configuration, config)),
           tap((configuration: Configuration) => {
             this.configuration = configuration;
             if (!isDevMode()) {

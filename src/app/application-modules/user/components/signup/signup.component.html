@@ -9,20 +9,20 @@
       hintLabel="{{ 'user.signup.username_hint' | translate }}"
     >
       <input
-        matInput
-        [(ngModel)]="username"
-        placeholder="{{ 'global.username' | translate }}"
-        type="text"
         #inputUsername="ngModel"
+        matInput
+        type="text"
         name="inputUsername"
         required
         minlength="4"
         maxlength="30"
+        placeholder="{{ 'global.username' | translate }}"
+        [(ngModel)]="username"
       />
       <mat-error
         *ngIf="
-          inputUsername.errors != null &&
-          inputUsername.errors.required &&
+          inputUsername.errors !== null &&
+          inputUsername.errors['required'] &&
           !inputUsername.pristine
         "
       >
@@ -30,8 +30,8 @@
       >
       <mat-error
         *ngIf="
-          inputUsername.errors != null &&
-          inputUsername.errors.minlength &&
+          inputUsername.errors !== null &&
+          inputUsername.errors['minlength'] &&
           !inputUsername.pristine
         "
       >
@@ -45,20 +45,20 @@
       hintLabel="{{ 'user.signup.password_hint' | translate }}"
     >
       <input
-        matInput
-        [(ngModel)]="password"
-        placeholder="{{ 'user.password' | translate }}"
-        type="password"
         #inputPassword="ngModel"
+        matInput
+        type="password"
         name="inputPassword"
         required
         minlength="6"
         maxlength="30"
+        placeholder="{{ 'user.password' | translate }}"
+        [(ngModel)]="password"
       />
       <mat-error
         *ngIf="
-          inputPassword.errors != null &&
-          inputPassword.errors.required &&
+          inputPassword.errors !== null &&
+          inputPassword.errors['required'] &&
           !inputPassword.pristine
         "
       >
@@ -66,8 +66,8 @@
       >
       <mat-error
         *ngIf="
-          inputPassword.errors != null &&
-          inputPassword.errors.minlength &&
+          inputPassword.errors !== null &&
+          inputPassword.errors['minlength'] &&
           !inputPassword.pristine
         "
       >
@@ -81,20 +81,20 @@
       hintLabel="{{ 'user.signup.password_hint' | translate }}"
     >
       <input
-        matInput
-        [(ngModel)]="password2"
-        placeholder="{{ 'user.signup.password2' | translate }}"
-        type="password"
         #inputPassword2="ngModel"
+        matInput
+        type="password"
         name="inputPassword2"
         required
         minlength="6"
         maxlength="30"
+        placeholder="{{ 'user.signup.password2' | translate }}"
+        [(ngModel)]="password2"
       />
       <mat-error
         *ngIf="
-          inputPassword2.errors != null &&
-          inputPassword2.errors.required &&
+          inputPassword2.errors !== null &&
+          inputPassword2.errors['required'] &&
           !inputPassword2.pristine
         "
       >
@@ -102,8 +102,8 @@
       >
       <mat-error
         *ngIf="
-          inputPassword2.errors != null &&
-          inputPassword2.errors.minlength &&
+          inputPassword2.errors !== null &&
+          inputPassword2.errors['minlength'] &&
           !inputPassword2.pristine
         "
       >
@@ -135,8 +135,8 @@
       <button
         type="submit"
         mat-raised-button
-        (click)="signup()"
         [disabled]="signupForm.invalid"
+        (click)="signup()"
       >
         {{ 'user.signup.sign_up' | translate }}
       </button>

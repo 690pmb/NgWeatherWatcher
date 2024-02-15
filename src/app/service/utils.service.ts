@@ -14,7 +14,7 @@ import {
   HttpBodyRequest,
 } from '@model/http/http-request';
 
-type GobalError = HttpErrorResponse | string | ErrorEvent | Error;
+type GobalError = Error | ErrorEvent | HttpErrorResponse | string;
 
 @Injectable({
   providedIn: 'root',

@@ -1,4 +1,4 @@
-<form [formGroup]="alertForm" (ngSubmit)="onSubmit()" *ngIf="ready">
+<form *ngIf="ready" [formGroup]="alertForm" (ngSubmit)="onSubmit()">
   <app-question label="alert.location" [ctrl]="alertForm.controls.location">
     <app-search-location
       [inputCtrl]="alertForm.controls.location"
@@ -10,7 +10,11 @@
   >
     <div class="row" formArrayName="triggerDays">
       <mat-checkbox
-        *ngFor="let trigger of triggerDayChoices; let i = index"
+        *ngFor="
+          let trigger of triggerDayChoices;
+          let i = index;
+          trackBy: trackByFn1
+        "
         color="primary"
         [formControlName]="i"
         >{{ trigger.value | titlecase }}</mat-checkbox
@@ -40,7 +44,11 @@
   >
     <div class="row" formArrayName="monitoredDays">
       <mat-checkbox
-        *ngFor="let monitoredDay of monitoredDayChoices; let i = index"
+        *ngFor="
+          let monitoredDay of monitoredDayChoices;
+          let i = index;
+          trackBy: trackByFn2
+        "
         color="primary"
         [formControlName]="i"
         >{{ monitoredDay | translate | titlecase }}</mat-checkbox

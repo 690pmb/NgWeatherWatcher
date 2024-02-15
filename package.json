@@ -62,6 +62,8 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "~14.2.13",
     "@angular-eslint/eslint-plugin": "~14.4.0",
+    "@angular-eslint/eslint-plugin-template": "~14.4",
+    "@angular-eslint/template-parser": "~14.4",
     "@angular/cli": "~14.2.13",
     "@angular/compiler-cli": "~14.3.0",
     "@types/luxon": "~3.3.8",
@@ -87,7 +89,7 @@
     "typescript": "4.6.4"
   },
   "lint-staged": {
-    "*.ts": "eslint --max-warnings 0 --fix",
+    "*.{ts, html}": "eslint --max-warnings 0 --fix",
     "*": "prettier --ignore-unknown --write",
     "*.scss": "stylelint --fix"
   }

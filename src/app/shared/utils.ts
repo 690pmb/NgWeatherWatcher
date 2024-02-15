@@ -7,7 +7,7 @@ import {
 import {Duration, DateTime} from 'luxon';
 
 export class Utils {
-  static isBlank<T>(str: T | undefined | null): str is undefined | null {
+  static isBlank<T>(str: T | null | undefined): str is null | undefined {
     return (
       str === undefined ||
       str === null ||
@@ -15,11 +15,11 @@ export class Utils {
     );
   }
 
-  static isNotBlank<T>(str: T | undefined | null): str is T {
+  static isNotBlank<T>(str: T | null | undefined): str is T {
     return !Utils.isBlank(str);
   }
 
-  static getOrElse<T>(nullableValue: T | undefined | null, defaultValue: T): T {
+  static getOrElse<T>(nullableValue: T | null | undefined, defaultValue: T): T {
     return Utils.isBlank(nullableValue) ? defaultValue : nullableValue;
   }
 

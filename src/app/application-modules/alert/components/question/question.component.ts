@@ -11,7 +11,7 @@ export class QuestionComponent<T> {
   label?: string;
 
   @Input()
-  ctrl?: FormControl<T> | FormArray;
+  ctrl?: FormArray | FormControl<T>;
 
   constructor() {}
 }

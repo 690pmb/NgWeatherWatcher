@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     _route: ActivatedRouteSnapshot, // eslint-disable-line
     state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> {
+  ): Observable<UrlTree | boolean> {
     try {
       return this.auth.isAuthenticated().pipe(
         map(isAuth => {

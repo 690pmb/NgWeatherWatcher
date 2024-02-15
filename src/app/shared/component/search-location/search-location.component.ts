@@ -6,6 +6,7 @@ import {
   ViewChild,
   OnInit,
   OnChanges,
+  TrackByFunction,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
@@ -102,4 +103,10 @@ export class SearchLocationComponent implements OnInit, OnChanges {
     this.selected.emit('');
     this.placeholder = this.initialPlaceholder || 'global.none';
   }
+
+  trackByFn: TrackByFunction<Location> = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _index: number,
+    item: Location
+  ) => item.id;
 }

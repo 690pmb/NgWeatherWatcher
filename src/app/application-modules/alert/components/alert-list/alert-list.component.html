@@ -23,6 +23,8 @@
   </div>
   <app-table-expand
     #table
+    matSort
+    matSortDisableClear="true"
     [dataSource]="alerts.content"
     [config]="{
       template: alertField,
@@ -31,14 +33,12 @@
       empty: 'alert.empty',
       color: 'darken-theme'
     }"
-    matSort
     [matSortDirection]="pageRequest.sortDir"
     [matSortActive]="pageRequest.sortField ?? ''"
-    matSortDisableClear="true"
     (matSortChange)="navigate(0, $any($event.active), $event.direction)"
   >
     <ng-container matColumnDef="triggerDays">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef mat-header-cell>
         {{ 'alert.trigger_day' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
@@ -50,7 +50,7 @@
     </ng-container>
 
     <ng-container matColumnDef="triggerHour">
-      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-header-cell mat-sort-header>
         {{ 'alert.trigger_hour' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
@@ -59,7 +59,7 @@
     </ng-container>
 
     <ng-container matColumnDef="monitoredHours">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef mat-header-cell>
         {{ 'alert.monitored_hour' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
@@ -68,7 +68,7 @@
     </ng-container>
 
     <ng-container matColumnDef="location">
-      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-header-cell mat-sort-header>
         {{ 'alert.location' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
@@ -82,7 +82,7 @@
     </ng-container>
 
     <ng-container matColumnDef="forceNotification">
-      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-header-cell mat-sort-header>
         {{ 'alert.force_notification' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
@@ -93,15 +93,16 @@
     </ng-container>
 
     <ng-container matColumnDef="edit">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef mat-header-cell>
         {{ 'alert.action' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
         <button
           mat-icon-button
+          type="button"
           [matMenuTriggerFor]="menu"
-          (click)="$event.stopPropagation()"
           [matMenuTriggerData]="{alert}"
+          (click)="$event.stopPropagation()"
         >
           <fa-icon [icon]="faMenu"></fa-icon>
         </button>
@@ -114,7 +115,8 @@
         <ng-container
           *ngFor="
             let monitoredField of data.item.monitoredFields;
-            last as isLast
+            last as isLast;
+            trackBy: trackByFn
           "
         >
           {{ 'forecast.' + monitoredField.field.toLowerCase() | translate }}
@@ -129,10 +131,10 @@
     <mat-row
       *matRowDef="let alert; columns: columnsToDisplay"
       class="alert-row"
-      (click)="table.expand(alert)"
-      [ngClass]="{'row-selected': isRowSelected(alert.id)}"
       appSelectRow
+      [ngClass]="{'row-selected': isRowSelected(alert.id)}"
       [speed]="selected.length > 0 ? 'fast' : 'slow'"
+      (click)="table.expand(alert)"
       (selected)="handleSelection(alert.id)"
     ></mat-row>
   </app-table-expand>
@@ -148,8 +150,8 @@
   <button
     type="button"
     mat-raised-button
-    (click)="delete(selected)"
     appClickOutside
+    (click)="delete(selected)"
     (outside)="resetSelection()"
   >
     <div [matBadge]="data.selected">
@@ -161,11 +163,11 @@
 
 <mat-menu #menu="matMenu">
   <ng-template matMenuContent let-alert="alert">
-    <button mat-menu-item routerLink="/alert/edit/{{ alert.id }}">
+    <button mat-menu-item type="button" routerLink="/alert/edit/{{ alert.id }}">
       {{ 'global.edit' | translate }}&nbsp;
       <fa-icon [icon]="faEdit"></fa-icon>
     </button>
-    <button mat-menu-item (click)="delete([alert.id])">
+    <button mat-menu-item type="button" (click)="delete([alert.id])">
       {{ 'alert.delete' | translate }}&nbsp;
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>

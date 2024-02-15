@@ -1,4 +1,11 @@
-import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Input,
+  Output,
+  TrackByFunction,
+} from '@angular/core';
 import {ConfigurationService} from '@services/configuration.service';
 import {WeatherFieldConfig} from '@model/configuration';
 import {WeatherField} from '@model/alert/weather-field';
@@ -35,4 +42,10 @@ export class SelectWeatherFieldComponent implements OnInit {
       }
     }
   }
+
+  trackByFn: TrackByFunction<DropDownChoice> = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _index: number,
+    item: DropDownChoice
+  ) => item.key;
 }

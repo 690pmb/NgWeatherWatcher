@@ -22,8 +22,8 @@ export class AuthService extends UtilsService {
 
   constructor(
     private router: Router,
-    protected httpClient: HttpClient,
-    protected toast: ToastService,
+    protected override httpClient: HttpClient,
+    protected override toast: ToastService,
     protected configurationService: ConfigurationService
   ) {
     super(httpClient, toast);

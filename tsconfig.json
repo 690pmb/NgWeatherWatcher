@@ -11,13 +11,18 @@
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
     "importHelpers": true,
     "typeRoots": ["../node_modules/@types"],
-    "target": "es2020",
-    "module": "es2020",
-    "lib": ["es2020", "dom"],
+    "target": "es2022",
+    "module": "es2022",
+    "lib": ["es2022", "dom"],
     "strict": true,
-    "noImplicitAny": true,
     "paths": {
       "@model/*": ["./src/app/model/*"],
       "@services/*": ["./src/app/service/*"],
@@ -28,6 +33,7 @@
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true,
     "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
 }

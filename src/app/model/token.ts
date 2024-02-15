@@ -9,5 +9,5 @@ import {JwtPayload} from 'jwt-decode';
  */
 export interface Token extends JwtPayload {
   location: string;
-  lang: 'fr' | 'en';
+  lang: 'en' | 'fr';
 }

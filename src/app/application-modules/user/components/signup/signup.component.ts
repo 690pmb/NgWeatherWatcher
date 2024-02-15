@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.username = params.username ? (params.username as string) : '';
+      this.username = params['username'] ? (params['username'] as string) : '';
     });
   }
 

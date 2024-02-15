@@ -15,7 +15,9 @@ import {
   ElementRef,
   HostBinding,
   AfterViewChecked,
+  TrackByFunction,
 } from '@angular/core';
+import {KeyValue} from '@angular/common';
 
 export type Config<T> = {
   template?: TemplateRef<unknown>;
@@ -90,6 +92,12 @@ export class TableExpandComponent<T>
       this.table.addHeaderRowDef(headerRowDef)
     );
   }
+
+  trackByFn: TrackByFunction<KeyValue<string, (a: T) => string>> = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _index: number,
+    item: KeyValue<string, (a: T) => string>
+  ) => item.key;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
   unsorted(_a: any, _b: any): number {

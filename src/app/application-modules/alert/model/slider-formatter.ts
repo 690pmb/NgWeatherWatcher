@@ -9,7 +9,7 @@ export class SliderFormatter {
       if (split.length !== 2) {
         return +value;
       } else {
-        return Utils.timeToMinutes(+split[0], +split[1]);
+        return Utils.timeToMinutes(+(split[0] ?? '0'), +(split[1] ?? '0'));
       }
     },
   };

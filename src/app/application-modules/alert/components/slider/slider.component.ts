@@ -32,7 +32,7 @@ export class SliderComponent<T extends boolean>
   shownAddBtn = new EventEmitter<boolean>();
   shownDeleteBtn = new EventEmitter<boolean>();
   ctrl!: FormControl<SliderValue<T>>;
-  tooltips!: boolean | boolean[];
+  tooltips!: boolean[] | boolean;
   SliderFormatter = SliderFormatter;
   config = {};
 
@@ -51,7 +51,7 @@ export class SliderComponent<T extends boolean>
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.initialValue?.currentValue.value) {
+    if (!changes['initialValue']?.currentValue.value) {
       this.initialValue = undefined;
       this.initValue();
     }

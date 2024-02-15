@@ -1,4 +1,4 @@
-import {Component, OnInit, Type} from '@angular/core';
+import {Component, OnInit, TrackByFunction, Type, inject} from '@angular/core';
 import {DateTime} from 'luxon';
 import {SliderComponent} from '../slider/slider.component';
 import {MultipleData} from '../../model/multiple-data';
@@ -26,6 +26,7 @@ import {of, iif} from 'rxjs';
 import {mergeMap, tap, map} from 'rxjs/operators';
 import {Alert} from '@model/alert/alert';
 import {MonitoredDay} from '@model/alert/monitored-days';
+import {MonitoredField} from '@model/alert/monitored-field';
 
 type AlertForm = {
   triggerDays: FormArray<FormControl<boolean>>;
@@ -43,6 +44,7 @@ type AlertForm = {
   styleUrls: ['./alert.component.scss'],
 })
 export class AlertComponent implements OnInit {
+  private fb = inject(NonNullableFormBuilder);
   initLocation!: string;
   existingAlert?: Alert;
   triggerDayChoices!: {key: string; value: string}[];
@@ -98,7 +100,6 @@ export class AlertComponent implements OnInit {
 
   constructor(
     private translate: TranslateService,
-    private fb: NonNullableFormBuilder,
     private alertService: AlertService,
     protected authService: AuthService,
     private toast: ToastService,
@@ -138,7 +139,7 @@ export class AlertComponent implements OnInit {
       this.addToFormArray({
         name: 'monitoredHours',
         value: {
-          value: Utils.timeToMinutes(+split[0], +split[1]),
+          value: Utils.timeToMinutes(+(split[0] ?? '0'), +(split[1] ?? '0')),
           multiple: false,
         },
       });
@@ -228,7 +229,7 @@ export class AlertComponent implements OnInit {
       triggerDays:
         formValue.triggerDays
           ?.map((t, i) =>
-            t ? this.triggerDayChoices[i].key.toUpperCase() : undefined
+            t ? this.triggerDayChoices[i]?.key.toUpperCase() : undefined
           )
           .filter((t): t is string => !!t) ?? [],
       triggerHour: formValue.triggerHour ?? 0,
@@ -262,4 +263,16 @@ export class AlertComponent implements OnInit {
       });
     }
   }
+
+  trackByFn1: TrackByFunction<{key: string; value: string}> = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _index: number,
+    item: {key: string; value: string}
+  ) => item.key;
+
+  trackByFn2: TrackByFunction<MonitoredField> = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _index: number,
+    item: MonitoredField
+  ) => item.field;
 }
