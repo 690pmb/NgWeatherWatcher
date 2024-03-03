@@ -1,5 +1,5 @@
-export interface Condition {
+export type Condition = {
   text: string;
   icon: string;
   code: number;
-}
+};

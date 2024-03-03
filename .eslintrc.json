@@ -105,7 +105,8 @@
         "@typescript-eslint/sort-type-constituents": "error",
         "@typescript-eslint/type-annotation-spacing": "error",
         "no-useless-concat": ["error"],
-        "no-duplicate-imports": ["error"]
+        "no-duplicate-imports": ["error"],
+        "@typescript-eslint/consistent-type-definitions": ["error", "type"]
       }
     }
   ]

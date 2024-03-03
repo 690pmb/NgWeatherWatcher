@@ -1,4 +1,4 @@
-export interface Location {
+export type Location = {
   id: number;
   name: string;
   region: string;
@@ -6,4 +6,4 @@ export interface Location {
   lat: number;
   lon: number;
   url: string;
-}
+};

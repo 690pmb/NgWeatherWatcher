@@ -1,6 +1,6 @@
 import {Condition} from './condition';
 
-export interface Day {
+export type Day = {
   maxTempC: number;
   minTempC: number;
   avgTempC: number;
@@ -14,4 +14,4 @@ export interface Day {
   dailyChanceOfRain: number;
   dailyWillItSnow: number;
   dailyChanceOfSnow: number;
-}
+};

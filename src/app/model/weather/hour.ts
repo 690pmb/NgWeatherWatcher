@@ -1,6 +1,6 @@
 import {Condition} from './condition';
 
-export interface Hour {
+export type Hour = {
   time: string;
   tempC: number;
   isDay: boolean;
@@ -17,4 +17,4 @@ export interface Hour {
   willItSnow: number;
   chanceOfSnow: number;
   uv: number;
-}
+};

@@ -7,7 +7,7 @@ import {JwtPayload} from 'jwt-decode';
  * @param {string} sub name
  * @param {string} location favourite user's location
  */
-export interface Token extends JwtPayload {
+export type Token = JwtPayload & {
   location: string;
   lang: 'en' | 'fr';
-}
+};
