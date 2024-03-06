@@ -61,7 +61,7 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
         )
         .subscribe(
           (location: string) => this.navigate(location),
-          err => {
+          (err: string) => {
             this.showSpinner = false;
             this.toast.info(err);
           }
@@ -80,7 +80,7 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
         )
         .subscribe(
           location => this.searchForecast(location),
-          err => this.weatherService.handleError(err)
+          (err: string) => this.weatherService.handleError(err)
         )
     );
   }
@@ -97,7 +97,7 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
           );
           this.forecast = forecast;
         },
-        err => this.weatherService.handleError(err)
+        (err: string) => this.weatherService.handleError(err)
       );
   }
 

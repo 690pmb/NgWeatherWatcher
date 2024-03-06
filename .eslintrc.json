@@ -25,8 +25,9 @@
         "plugin:import/typescript",
         "eslint:recommended",
         "plugin:n/recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@angular-eslint/recommended"
+        "plugin:@angular-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-type-checked",
+        "plugin:@typescript-eslint/stylistic-type-checked"
       ],
       "settings": {
         "import/resolver": {
@@ -36,8 +37,12 @@
         }
       },
       "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": true,
+        "tsconfigRootDir": "."
+      },
       "plugins": [
-        "eslint-plugin-import",
+        "import",
         "eslint-plugin-prefer-arrow",
         "@angular-eslint",
         "@typescript-eslint",
@@ -104,7 +109,33 @@
         "@typescript-eslint/type-annotation-spacing": "error",
         "no-useless-concat": ["error"],
         "no-duplicate-imports": ["error"],
-        "@typescript-eslint/consistent-type-definitions": ["error", "type"]
+        "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+        "@typescript-eslint/prefer-optional-chain": "error",
+        "@typescript-eslint/prefer-nullish-coalescing": "error",
+        "@typescript-eslint/restrict-plus-operands": "error",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/unbound-method": [
+          "error",
+          {
+            "ignoreStatic": true
+          }
+        ],
+        "@angular-eslint/component-max-inline-declarations": [
+          "error",
+          {
+            "template": 0,
+            "styles": 0,
+            "animations": 15
+          }
+        ],
+        "@angular-eslint/contextual-decorator": ["error"],
+        "@angular-eslint/no-pipe-impure": ["error"],
+        "@angular-eslint/relative-url-prefix": ["error"],
+        "@angular-eslint/sort-ngmodule-metadata-arrays": [
+          "error",
+          {"locale": "en-US"}
+        ]
       }
     }
   ]

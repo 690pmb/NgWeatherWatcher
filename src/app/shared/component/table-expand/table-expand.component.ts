@@ -22,7 +22,7 @@ import {KeyValue} from '@angular/common';
 export type Config<T> = {
   template?: TemplateRef<Record<'i18n' | 'value', string>>;
   additionalTemplate?: TemplateRef<Record<'item', T>>;
-  formatFields?: {[key: string]: (a: T) => string};
+  formatFields?: Record<string, (a: T) => string>;
   empty?: string;
   color?: string;
 };
@@ -62,11 +62,12 @@ export class TableExpandComponent<T>
 
   ngAfterViewChecked(): void {
     if (!this.expandHeight) {
-      const height = this.el.nativeElement.querySelector(
-        '.mat-column-details:not(.hide)'
-      )?.offsetHeight;
+      const height =
+        (this.el.nativeElement as HTMLElement).querySelector<HTMLElement>(
+          '.mat-column-details:not(.hide)'
+        )?.offsetHeight ?? 0;
       if (height) {
-        setTimeout(() => (this.expandHeight = `${height ?? 0}px`));
+        setTimeout(() => (this.expandHeight = `${height}px`));
       }
     }
   }
@@ -78,8 +79,9 @@ export class TableExpandComponent<T>
     this.expanded = this.expanded === item ? undefined : item;
     if (this.expanded) {
       this.rowHeight = `${
-        this.el.nativeElement.querySelector('.mat-mdc-row:not(.detail-row)')
-          ?.offsetHeight ?? 0
+        (this.el.nativeElement as HTMLElement).querySelector<HTMLElement>(
+          '.mat-mdc-row:not(.detail-row)'
+        )?.offsetHeight ?? 0
       }px`;
     }
   }

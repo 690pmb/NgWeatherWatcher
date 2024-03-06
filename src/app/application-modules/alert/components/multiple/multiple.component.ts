@@ -52,8 +52,6 @@ export class MultipleComponent<T, U extends boolean> implements OnInit {
 
   createdList: Created<T, U>[] = [];
 
-  constructor() {}
-
   ngOnInit(): void {
     this.host.viewContainerRef.clear();
     if (!this.form.length) {

@@ -4,7 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Level} from '@model/level';
 import {Utils} from '@shared/utils';
 
-type TranslateArgs = {[key: string]: number | string};
+type TranslateArgs = Record<string, number | string>;
 
 @Injectable({providedIn: 'root'})
 export class ToastService {
@@ -16,7 +16,7 @@ export class ToastService {
   open(level: Level, message: string, translateArgs?: TranslateArgs): void {
     if (Utils.isNotBlank(message)) {
       this.snackBar.open(
-        this.translate.instant(message, translateArgs),
+        this.translate.instant(message, translateArgs) as string,
         undefined,
         {
           duration: 3000,

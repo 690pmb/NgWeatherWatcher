@@ -29,8 +29,6 @@ export class AlertWeatherFieldComponent
   configuration!: SliderConfig<true>;
   initialValue?: AlertWeatherField;
 
-  constructor() {}
-
   configureSlider(selected: WeatherFieldConfig): void {
     this.configuration = {
       min: selected.min,

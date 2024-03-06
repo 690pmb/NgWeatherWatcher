@@ -36,6 +36,4 @@ export class SelectRowDirective {
   }
 
   setTimeoutConst?: number;
-
-  constructor() {}
 }

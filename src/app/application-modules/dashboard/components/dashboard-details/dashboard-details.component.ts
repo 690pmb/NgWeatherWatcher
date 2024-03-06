@@ -49,7 +49,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   index!: number;
   subs: Subscription[] = [];
   alertId?: string;
-  formatFields: {[key: string]: (h: Hour) => string} = {
+  formatFields: Record<string, (h: Hour) => string> = {
     feels_like: h => `${h.feelsLikeC} ${UNITS[WeatherField.FEELS_LIKE]}`,
     cloud: h => `${h.cloud} ${UNITS[WeatherField.CLOUD]}`,
     humidity: h => `${h.humidity} ${UNITS[WeatherField.HUMIDITY]}`,
@@ -118,7 +118,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     return of(this.location.getState() as Forecast).pipe(
       mergeMap(forecast =>
         iif(
-          () => !forecast || !forecast.forecastDay,
+          () => !forecast?.forecastDay,
           of(this.place).pipe(
             switchMap(place => {
               if (place) {

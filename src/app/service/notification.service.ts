@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {SwPush} from '@angular/service-worker';
 import {from, throwError, EMPTY, Observable} from 'rxjs';
 import {catchError, switchMap, filter, tap} from 'rxjs/operators';
-import {UtilsService} from './utils.service';
+import {GobalError, UtilsService} from './utils.service';
 import {HttpClient} from '@angular/common/http';
 import {ToastService} from './toast.service';
 import {ConfigurationService} from './configuration.service';
@@ -59,7 +59,7 @@ export class NotificationService extends UtilsService {
               return EMPTY;
             }
           }),
-          catchError(err => {
+          catchError((err: GobalError) => {
             this.toast.error('notification.error', {
               err: NotificationService.getErrorMessage(err),
             });

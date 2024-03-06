@@ -29,10 +29,10 @@ const childRoutes: Routes = [
     HighlightDirective,
   ],
   imports: [
-    MatProgressSpinnerModule,
-    MatTableModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     MatSlideToggleModule,
+    MatTableModule,
     SharedModule.forChild(),
     RouterModule.forChild(childRoutes),
   ],
