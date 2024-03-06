@@ -44,7 +44,7 @@ export class Alert {
 
   @Expose()
   getMonitoredDays(): string[] {
-    return (Object.keys(MonitoredDay) as Array<keyof MonitoredDays>)
+    return (Object.keys(MonitoredDay) as (keyof MonitoredDays)[])
       .filter(key => this.monitoredDays[key])
       .map(monitored => `alert.monitored_days.${monitored}`);
   }

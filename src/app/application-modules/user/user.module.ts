@@ -21,7 +21,7 @@ const childRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [SignupComponent, SigninComponent, ProfileComponent],
+  declarations: [ProfileComponent, SigninComponent, SignupComponent],
   imports: [
     SharedModule.forChild(),
     MatFormFieldModule,

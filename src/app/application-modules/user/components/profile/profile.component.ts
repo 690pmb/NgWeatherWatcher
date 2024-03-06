@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.menuService.title$.next(
-      this.translateService.instant('user.profile.title')
+      this.translateService.instant('user.profile.title') as string
     );
   }
 

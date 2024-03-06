@@ -38,7 +38,7 @@ export class AppRoutingModule {
     router.events
       .pipe(filter((e): e is NavigationError => e instanceof NavigationError))
       .subscribe(e => {
-        toast.error(e.error.message);
+        toast.error(e.error.message as string);
         router.navigateByUrl('/dashboard');
       });
   }

@@ -41,7 +41,7 @@ export class AlertListComponent implements OnInit {
   @ViewChild('deleteButton')
   deleteButton!: TemplateRef<number>;
 
-  formatFields: {[key: string]: (a: Alert) => string} = {
+  formatFields: Record<string, (a: Alert) => string> = {
     trigger_day: a =>
       this.titleCasePipe.transform(
         this.formatField(a.getTriggerDays(this.translate.currentLang), false)

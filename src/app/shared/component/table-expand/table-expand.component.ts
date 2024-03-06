@@ -22,7 +22,7 @@ import {KeyValue} from '@angular/common';
 export type Config<T> = {
   template?: TemplateRef<unknown>;
   additionalTemplate?: TemplateRef<unknown>;
-  formatFields?: {[key: string]: (a: T) => string};
+  formatFields?: Record<string, (a: T) => string>;
   empty?: string;
   color?: string;
 };

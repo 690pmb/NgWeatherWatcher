@@ -36,7 +36,7 @@ export class SearchLocationComponent implements OnInit, OnChanges {
   showPlaceholder = true;
 
   @Input()
-  inputCtrl: FormControl<string> = new FormControl('', {
+  inputCtrl = new FormControl<string>('', {
     nonNullable: true,
   });
 

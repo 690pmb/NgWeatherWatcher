@@ -24,10 +24,10 @@ import {environment} from '../environments/environment';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
-    HammerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    HammerModule,
     SharedModule.forRoot(),
     TranslateModule.forRoot({
       useDefaultLang: false,

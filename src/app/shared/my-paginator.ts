@@ -5,7 +5,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class MyPaginator extends MatPaginatorIntl {
   constructor(
     private translate: TranslateService,
-    public prefix: string = 'global'
+    public prefix = 'global'
   ) {
     super();
     this.translate.onLangChange.subscribe(() => {

@@ -4,7 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Level} from '@model/level';
 import {Utils} from '@shared/utils';
 
-type TranslateArgs = {[key: string]: number | string};
+type TranslateArgs = Record<string, number | string>;
 
 @Injectable({providedIn: 'root'})
 export class ToastService {

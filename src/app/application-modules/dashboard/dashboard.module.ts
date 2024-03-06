@@ -27,10 +27,10 @@ const childRoutes: Routes = [
     DashboardForecastComponent,
   ],
   imports: [
-    MatProgressSpinnerModule,
-    MatTableModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     MatSlideToggleModule,
+    MatTableModule,
     SharedModule.forChild(),
     RouterModule.forChild(childRoutes),
   ],
