@@ -9,7 +9,7 @@ import {
   TrackByFunction,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {MatLegacyAutocompleteTrigger as MatAutocompleteTrigger} from '@angular/material/legacy-autocomplete';
 import {faLocationArrow, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {iif, Observable, Observer, of} from 'rxjs';
 import {

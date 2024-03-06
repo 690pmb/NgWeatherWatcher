@@ -1,9 +1,9 @@
 import {
-  MatColumnDef,
-  MatHeaderRowDef,
-  MatRowDef,
-  MatTable,
-} from '@angular/material/table';
+  MatLegacyColumnDef as MatColumnDef,
+  MatLegacyHeaderRowDef as MatHeaderRowDef,
+  MatLegacyRowDef as MatRowDef,
+  MatLegacyTable as MatTable,
+} from '@angular/material/legacy-table';
 import {
   AfterContentInit,
   Component,
