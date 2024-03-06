@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
-import {MatLegacyPaginatorModule as MatPaginatorModule} from '@angular/material/legacy-paginator';
-import {MatLegacyProgressSpinnerModule as MatProgressSpinnerModule} from '@angular/material/legacy-progress-spinner';
-import {MatLegacySlideToggleModule as MatSlideToggleModule} from '@angular/material/legacy-slide-toggle';
-import {MatLegacyTableModule as MatTableModule} from '@angular/material/legacy-table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatTableModule} from '@angular/material/table';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '@shared/shared.module';
 import {DashboardDetailsComponent} from './components/dashboard-details/dashboard-details.component';

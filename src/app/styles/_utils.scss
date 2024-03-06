@@ -1,47 +1,60 @@
 @use './variables' as *;
+@use 'sass:color';
 
-@mixin bg-color($color: 'theme') {
-  background-color: get-color($color);
+@mixin important($properties...) {
+  @each $key, $value, $important in $properties {
+    $imp: '';
+    @if $important {
+      $imp: '!important';
+    }
+
+    #{$key}: #{$value} #{$imp};
+  }
+}
+
+@mixin bg-color($color: 'theme', $important: false) {
+  @include important(('background-color', get-color($color), $important));
 }
 
 @mixin color($color: 'theme', $important: false) {
-  @if $important {
-    color: get-color($color) !important;
-  } @else {
-    color: get-color($color);
-  }
+  @include important(('color', get-color($color), $important));
 }
 
 @mixin font($size, $color, $weight: normal, $important: false) {
-  @if $important {
-    font-size: #{$size}px !important;
-    font-weight: $weight !important;
-  } @else {
-    font-size: #{$size}px;
-    font-weight: $weight;
-  }
+  @include important(
+    ('font-size', #{$size}px, $important),
+    ('font-weight', $weight, $important)
+  );
   @include color($color, $important);
 }
 
-@mixin border($color: 'theme', $size: 1px) {
-  border: solid $size get-color($color) !important;
+@mixin adjust($c, $a) {
+  color: color.adjust($color: get-color($c), $lightness: $a);
 }
 
-@mixin box-shadow {
-  box-shadow: 1px 1px 20px $black;
+@mixin border($color: 'theme', $size: 1px) {
+  @include important(('border', '#{$size} solid #{get-color($color)}', true));
 }
 
 @mixin box-sizing {
   box-sizing: border-box;
 }
 
-@mixin size($size) {
-  height: $size;
-  width: $size;
+@mixin size($size, $important: false) {
+  @include important(
+    ('height', $size, $important),
+    ('width', $size, $important)
+  );
 }
 
 @mixin mq($type, $value) {
   @media only screen and (#{$type}-width: #{$value}) {
+    @content;
+  }
+}
+
+@mixin deep() {
+  :host ::ng-deep {
     @content;
   }
 }

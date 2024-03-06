@@ -1,6 +1,6 @@
-import {MatLegacyInputModule as MatInputModule} from '@angular/material/legacy-input';
+import {MatInputModule} from '@angular/material/input';
 import {NgModule} from '@angular/core';
-import {MatLegacyFormFieldModule as MatFormFieldModule} from '@angular/material/legacy-form-field';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {Routes, RouterModule} from '@angular/router';
 
 import {SignupComponent} from './components/signup/signup.component';

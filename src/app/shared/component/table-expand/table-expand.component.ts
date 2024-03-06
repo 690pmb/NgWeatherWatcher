@@ -1,9 +1,9 @@
 import {
-  MatLegacyColumnDef as MatColumnDef,
-  MatLegacyHeaderRowDef as MatHeaderRowDef,
-  MatLegacyRowDef as MatRowDef,
-  MatLegacyTable as MatTable,
-} from '@angular/material/legacy-table';
+  MatColumnDef,
+  MatHeaderRowDef,
+  MatRowDef,
+  MatTable,
+} from '@angular/material/table';
 import {
   AfterContentInit,
   Component,
@@ -20,8 +20,8 @@ import {
 import {KeyValue} from '@angular/common';
 
 export type Config<T> = {
-  template?: TemplateRef<unknown>;
-  additionalTemplate?: TemplateRef<unknown>;
+  template?: TemplateRef<Record<'i18n' | 'value', string>>;
+  additionalTemplate?: TemplateRef<Record<'item', T>>;
   formatFields?: {[key: string]: (a: T) => string};
   empty?: string;
   color?: string;
@@ -78,7 +78,7 @@ export class TableExpandComponent<T>
     this.expanded = this.expanded === item ? undefined : item;
     if (this.expanded) {
       this.rowHeight = `${
-        this.el.nativeElement.querySelector('.mat-row:not(.detail-row)')
+        this.el.nativeElement.querySelector('.mat-mdc-row:not(.detail-row)')
           ?.offsetHeight ?? 0
       }px`;
     }

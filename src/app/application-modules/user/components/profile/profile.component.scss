@@ -14,7 +14,7 @@
 }
 
 span {
-  @include color();
+  @include color;
 
   font-weight: bold;
   padding-right: 5px;
