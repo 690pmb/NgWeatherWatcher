@@ -17,3 +17,9 @@
 
   font-weight: bold;
 }
+
+@include deep {
+  .mat-divider {
+    margin: 1px;
+  }
+}

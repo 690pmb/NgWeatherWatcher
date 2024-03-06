@@ -81,17 +81,6 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="forceNotification">
-      <mat-header-cell *matHeaderCellDef mat-header-cell mat-sort-header>
-        {{ 'alert.force_notification' | translate }}
-      </mat-header-cell>
-      <mat-cell *matCellDef="let alert">
-        <div *ngIf="alert.forceNotification">
-          <fa-icon [icon]="faCheck"></fa-icon>
-        </div>
-      </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef mat-header-cell>
         {{ 'alert.action' | translate }}
@@ -132,7 +121,7 @@
       *matRowDef="let alert; columns: columnsToDisplay"
       class="alert-row"
       appSelectRow
-      [ngClass]="{'row-selected': isRowSelected(alert.id)}"
+      [ngClass]="{'row-selected': selected.includes(alert.id)}"
       [speed]="selected.length > 0 ? 'fast' : 'slow'"
       (click)="table.expand(alert)"
       (selected)="handleSelection(alert.id)"
@@ -151,10 +140,11 @@
     type="button"
     mat-raised-button
     appClickOutside
+    [matBadge]="data.selected"
     (click)="delete(selected)"
     (outside)="resetSelection()"
   >
-    <div [matBadge]="data.selected">
+    <div>
       {{ 'alert.delete' | translate }}&nbsp;
       <fa-icon [icon]="faTrash"></fa-icon>
     </div>

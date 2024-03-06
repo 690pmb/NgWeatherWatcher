@@ -2,14 +2,13 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatLegacyAutocompleteModule as MatAutocompleteModule} from '@angular/material/legacy-autocomplete';
-import {MatLegacyButtonModule as MatButtonModule} from '@angular/material/legacy-button';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
-import {MatLegacyInputModule as MatInputModule} from '@angular/material/legacy-input';
-import {MatLegacyListModule as MatListModule} from '@angular/material/legacy-list';
+import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatLegacySnackBarModule as MatSnackBarModule} from '@angular/material/legacy-snack-bar';
-import {MatLegacyTooltipModule as MatTooltipModule} from '@angular/material/legacy-tooltip';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {RouterModule} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TranslateModule} from '@ngx-translate/core';
@@ -18,7 +17,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {SearchLocationComponent} from './component/search-location/search-location.component';
 import {IconPipe} from './pipe/icon.pipe';
 import {DateTimePipe} from './pipe/date-time.pipe';
-import {MatLegacyTableModule as MatTableModule} from '@angular/material/legacy-table';
+import {MatTableModule} from '@angular/material/table';
 import {TableExpandComponent} from './component/table-expand/table-expand.component';
 
 @NgModule({
@@ -45,7 +44,6 @@ import {TableExpandComponent} from './component/table-expand/table-expand.compon
     MatSidenavModule,
     MatInputModule,
     MatDividerModule,
-    MatTooltipModule,
     RouterModule.forChild([]),
   ],
   exports: [

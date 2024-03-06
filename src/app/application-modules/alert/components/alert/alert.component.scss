@@ -13,10 +13,16 @@
     flex-flow: wrap;
     gap: 10px;
   }
-  /* stylelint-disable */
-  ::ng-deep app-question:last-of-type .mat-divider {
-    /* stylelint-enable */
+}
+
+@include deep {
+  app-question:last-of-type .mat-divider {
     margin-bottom: 50px !important;
+    opacity: 0;
+  }
+
+  .mdc-checkbox svg {
+    @include color('white', true);
   }
 }
 
@@ -28,7 +34,7 @@
     margin: auto;
     width: 80%;
 
-    &.mat-button-disabled {
+    &:disabled {
       @include color('warning', true);
     }
   }

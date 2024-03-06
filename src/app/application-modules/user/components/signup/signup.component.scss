@@ -1,28 +1,25 @@
 @use 'imports' as *;
 
 .signup-content {
-  display: flex;
-  justify-content: center;
-  margin: 5vh auto;
-  padding: 25px;
+  padding: 5vh 25px;
   position: relative;
+
+  &,
+  form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    gap: 15px;
+  }
 }
 
-.mat-form-field {
-  display: inherit;
-  width: 300px;
+.mat-mdc-form-field {
+  width: 80vw;
+  max-width: 350px;
 }
 
 .signup-footer {
   display: flex;
-  padding-top: 1.25em;
-
-  button {
-    margin: 5px;
-  }
-}
-
-::ng-deep.mat-form-field-subscript-wrapper {
-  margin-top: 0 !important;
-  padding: 0 0 1em !important;
+  gap: 10px;
 }

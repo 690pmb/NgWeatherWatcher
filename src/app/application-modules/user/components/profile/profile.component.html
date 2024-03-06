@@ -14,11 +14,16 @@
     ></app-search-location>
   </div>
   <div>
-    <button type="button" mat-raised-button (click)="delete()">
-      <div>
+    <button
+      class="delete-button"
+      type="button"
+      mat-raised-button
+      (click)="delete()"
+    >
+      <span>
         {{ 'notification.delete' | translate }}&nbsp;
         <fa-icon [icon]="faBellSlash"></fa-icon>
-      </div>
+      </span>
     </button>
   </div>
 </div>

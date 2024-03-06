@@ -1,10 +1,11 @@
 @use 'imports' as *;
+@use 'sass:map';
 
 .toolbar {
   left: 0;
   position: fixed;
   top: 0;
-  z-index: map-get($depth, 'toolbar');
+  @include zindex('toolbar');
 
   h1 {
     font-size: 20px;
@@ -16,15 +17,18 @@
 .toogle-button {
   background-color: #fff !important;
   border-radius: 15% !important;
-  z-index: map-get($depth, 'content');
+  padding: 6px !important;
+  @include size(40px, true);
+  @include zindex('content');
 
   fa-icon {
     opacity: 1;
-    vertical-align: unset !important;
+    vertical-align: middle;
   }
 
   ::ng-deep svg {
-    vertical-align: middle;
+    display: block;
+    @include size(100%);
   }
 }
 
@@ -32,23 +36,26 @@
   height: 100%;
   position: relative;
   width: 100%;
-  z-index: map-get($depth, content);
+  @include zindex('content');
 }
 
 .mat-sidenav {
   top: $toolbar-height !important;
 }
 
-.active-nav-item {
-  @include color();
+@include deep {
+  /* stylelint-disable */
+  .active-nav-item .mdc-list-item__primary-text {
+    /* stylelint-enable */
+    @include color($important: true);
+  }
 }
 
 .nav-list {
   display: inline-flex;
   flex-direction: column;
   height: 95%;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: hidden visible;
 
   > * {
     margin: 0;

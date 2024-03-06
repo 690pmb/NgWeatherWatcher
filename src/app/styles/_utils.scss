@@ -1,47 +1,70 @@
 @use './variables' as *;
+@use 'sass:map';
+@use 'sass:color';
+@mixin important($properties...) {
+  @each $key, $value, $important in $properties {
+    $imp: '';
+    @if $important {
+      $imp: '!important';
+    }
 
-@mixin bg-color($color: 'theme', $opacity: 1) {
-  background-color: rgb(get-color($color), $opacity);
+    #{$key}: #{$value} #{$imp};
+  }
+}
+
+@mixin bg-color($color: 'theme', $important: false, $alpha: 1) {
+  @include important(
+    ('background-color', get-color($color, $alpha), $important)
+  );
 }
 
 @mixin color($color: 'theme', $important: false) {
-  @if $important {
-    color: get-color($color) !important;
-  } @else {
-    color: get-color($color);
-  }
+  @include important(('color', get-color($color), $important));
 }
 
 @mixin font($size, $color, $weight: normal, $important: false) {
-  @if $important {
-    font-size: #{$size}px !important;
-    font-weight: $weight !important;
-  } @else {
-    font-size: #{$size}px;
-    font-weight: $weight;
-  }
+  @include important(
+    ('font-size', #{$size}px, $important),
+    ('font-weight', $weight, $important)
+  );
   @include color($color, $important);
 }
 
-@mixin border($color: 'theme', $size: 1px) {
-  border: solid $size get-color($color) !important;
+@mixin adjust($c, $a) {
+  color: color.adjust($color: get-color($c), $lightness: $a);
 }
 
-@mixin box-shadow {
-  box-shadow: 1px 1px 20px $black;
+@mixin border($color: 'theme', $size: 1px) {
+  @include important(('border', '#{$size} solid #{get-color($color)}', true));
 }
 
 @mixin box-sizing {
   box-sizing: border-box;
 }
 
-@mixin size($size) {
-  height: $size;
-  width: $size;
+@mixin size($size, $important: false) {
+  @include important(
+    ('height', $size, $important),
+    ('width', $size, $important)
+  );
+}
+
+@mixin zindex($ref) {
+  @if map.has-key($depth, $ref) {
+    z-index: map.get($depth, $ref);
+  } @else {
+    @error 'Depth "#{$ref}" does not exist in z-index map. Available depth are: ' + map.keys($depth);
+  }
 }
 
 @mixin mq($type, $value) {
   @media only screen and (#{$type}-width: #{$value}) {
+    @content;
+  }
+}
+
+@mixin deep() {
+  :host ::ng-deep {
     @content;
   }
 }

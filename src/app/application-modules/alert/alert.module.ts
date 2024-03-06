@@ -1,9 +1,8 @@
 import {NgModule} from '@angular/core';
 import {
-  MatLegacyPaginatorIntl as MatPaginatorIntl,
-  MatLegacyPaginatorModule as MatPaginatorModule,
-} from '@angular/material/legacy-paginator';
-import {MatLegacySlideToggleModule as MatSlideToggleModule} from '@angular/material/legacy-slide-toggle';
+  MatPaginatorIntl,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
 import {RouterModule, Routes} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -15,11 +14,11 @@ import {ClickOutsideDirective} from './click-outside.directive';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {AlertComponent} from './components/alert/alert.component';
 import {QuestionComponent} from './components/question/question.component';
-import {MatLegacyMenuModule as MatMenuModule} from '@angular/material/legacy-menu';
-import {MatLegacyCheckboxModule as MatCheckboxModule} from '@angular/material/legacy-checkbox';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {NouisliderModule} from 'ng2-nouislider';
 import {SliderComponent} from './components/slider/slider.component';
-import {MatLegacySelectModule as MatSelectModule} from '@angular/material/legacy-select';
+import {MatSelectModule} from '@angular/material/select';
 import {SelectWeatherFieldComponent} from './components/select-weather-field/select-weather-field.component';
 import {AlertWeatherFieldComponent} from './components/alert-weather-field/alert-weather-field.component';
 import {MultipleComponent} from './components/multiple/multiple.component';
@@ -66,7 +65,6 @@ const childRoutes: Routes = [
     MatBottomSheetModule,
     MatPaginatorModule,
     NouisliderModule,
-    MatSlideToggleModule,
     SharedModule.forChild(),
     RouterModule.forChild(childRoutes),
   ],

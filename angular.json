@@ -105,7 +105,6 @@
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
-              "preserveSymlinks": true,
               "extractLicenses": true,
               "sourceMap": true,
               "namedChunks": true

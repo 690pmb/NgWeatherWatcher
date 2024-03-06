@@ -3,30 +3,55 @@
 .wrapper {
   margin-top: 25px;
   touch-action: pan-y !important;
+  width: 100vw;
 }
 
 .show-all-header {
   align-items: center;
   display: flex;
   flex-direction: row;
-  margin: 0 25%;
-}
-
-.mat-header-cell {
-  overflow: visible !important;
-}
-
-.mat-cell,
-.mat-header-cell {
-  color: #fff;
   justify-content: center;
+}
 
-  &:first-of-type {
-    padding-left: 10px !important;
+@include deep {
+  .mat-mdc-header-cell {
+    overflow: visible !important;
   }
 
-  &:last-of-type {
-    padding-right: 10px !important;
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    color: #fff;
+    justify-content: center;
+
+    &:first-of-type {
+      padding-left: 10px !important;
+    }
+
+    &:last-of-type {
+      padding-right: 10px !important;
+    }
+  }
+
+  .mat-mdc-paginator {
+    background: none !important;
+  }
+
+  .highlight {
+    &,
+    > * {
+      @include color('error');
+
+      font-weight: bold;
+    }
+  }
+
+  .mat-mdc-row:has(.highlight) {
+    @include bg-color('warning', false, 0.2);
+  }
+
+  .mat-mdc-paginator-range-label,
+  .mdc-switch svg {
+    display: none;
   }
 }
 
@@ -38,44 +63,17 @@
   }
 }
 
-::ng-deep.mat-table {
-  width: 90vw;
-}
+@media (width < 420px) {
+  @include deep {
+    .mat-mdc-cell,
+    .mat-mdc-header-cell {
+      &:first-of-type {
+        padding-left: 0 !important;
+      }
 
-.highlight {
-  &,
-  > * {
-    @include color('error');
-
-    font-weight: bold;
-  }
-}
-
-.mat-row:has(.highlight) {
-  @include bg-color('warning', 0.4);
-}
-
-::ng-deep.mat-paginator-range-label {
-  display: none;
-}
-
-.mat-paginator {
-  background: none !important;
-}
-
-@media (max-width: 500px) {
-  ::ng-deep.mat-table {
-    width: 100vw;
-  }
-
-  .mat-cell,
-  .mat-header-cell {
-    &:first-of-type {
-      padding-left: 0 !important;
-    }
-
-    &:last-of-type {
-      padding-right: 0 !important;
+      &:last-of-type {
+        padding-right: 0 !important;
+      }
     }
   }
 }

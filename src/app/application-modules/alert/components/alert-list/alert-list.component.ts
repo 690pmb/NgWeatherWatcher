@@ -12,7 +12,6 @@ import {
   Router,
 } from '@angular/router';
 import {
-  faCheck,
   faEdit,
   faEllipsisVertical,
   faPlusSquare,
@@ -44,6 +43,10 @@ export class AlertListComponent implements OnInit {
   deleteButton!: TemplateRef<number>;
 
   formatFields: {[key: string]: (a: Alert) => string} = {
+    force_notification: a =>
+      this.titleCasePipe.transform(
+        this.translate.instant(`global.${a.forceNotification}`)
+      ),
     trigger_day: a =>
       this.titleCasePipe.transform(
         this.formatField(a.getTriggerDays(this.translate.currentLang), false)
@@ -70,7 +73,6 @@ export class AlertListComponent implements OnInit {
   );
 
   pageRequest = new PageRequest<Alert>();
-  faCheck = faCheck;
   faEdit = faEdit;
   faTrash = faTrash;
   faPlus = faPlusSquare;
@@ -82,7 +84,6 @@ export class AlertListComponent implements OnInit {
     'triggerHour',
     'monitoredHours',
     'location',
-    'forceNotification',
     'edit',
   ];
 
@@ -127,17 +128,15 @@ export class AlertListComponent implements OnInit {
   }
 
   handleSelection(id: number): void {
-    this.selected.push(id);
+    if (!this.selected.includes(id)) {
+      this.selected.push(id);
+    }
     this.bottomSheet.open(this.deleteButton, {
       data: {selected: this.selected.length},
       hasBackdrop: false,
       closeOnNavigation: true,
       panelClass: 'delete-button',
     });
-  }
-
-  isRowSelected(id: number): boolean {
-    return this.selected.includes(id);
   }
 
   delete(ids: number[]): void {
