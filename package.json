@@ -61,9 +61,9 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~14.2.13",
-    "@angular-eslint/eslint-plugin": "~14.4.0",
-    "@angular-eslint/eslint-plugin-template": "~14.4",
-    "@angular-eslint/template-parser": "~14.4",
+    "@angular-eslint/eslint-plugin": "~17.3.0",
+    "@angular-eslint/eslint-plugin-template": "~17.3.0",
+    "@angular-eslint/template-parser": "~17.3.0",
     "@angular/cli": "~14.2.13",
     "@angular/compiler-cli": "~14.3.0",
     "@types/luxon": "~3.3.8",
