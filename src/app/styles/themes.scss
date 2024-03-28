@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
-@use './imports' as *;
-@include mat.core();
+@use 'imports' as *;
+@include mat.core;
 
 $my-primary: mat.define-palette(
   (

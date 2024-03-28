@@ -12,12 +12,12 @@
   margin: 0 25%;
 }
 
-.mat-header-cell {
+.mat-mdc-header-cell {
   overflow: visible !important;
 }
 
-.mat-cell,
-.mat-header-cell {
+.mat-mdc-cell,
+.mat-mdc-header-cell {
   color: #fff;
   justify-content: center;
 
@@ -38,25 +38,25 @@
   }
 }
 
-::ng-deep.mat-table {
+::ng-deep.mat-mdc-table {
   width: 90vw;
 }
 
-::ng-deep.mat-paginator-range-label {
+::ng-deep.mat-mdc-paginator-range-label {
   display: none;
 }
 
-.mat-paginator {
+.mat-mdc-paginator {
   background: none !important;
 }
 
-@media (max-width: 500px) {
-  ::ng-deep.mat-table {
+@media (width <= 500px) {
+  ::ng-deep.mat-mdc-table {
     width: 100vw;
   }
 
-  .mat-cell,
-  .mat-header-cell {
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
     &:first-of-type {
       padding-left: 0 !important;
     }

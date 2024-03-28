@@ -3,7 +3,6 @@ import {
   MatPaginatorIntl,
   MatPaginatorModule,
 } from '@angular/material/paginator';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {RouterModule, Routes} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -66,7 +65,6 @@ const childRoutes: Routes = [
     MatBottomSheetModule,
     MatPaginatorModule,
     NouisliderModule,
-    MatSlideToggleModule,
     SharedModule.forChild(),
     RouterModule.forChild(childRoutes),
   ],

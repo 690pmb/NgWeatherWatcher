@@ -5,7 +5,9 @@
 }
 
 ::ng-deep .search-panel {
-  .mat-option {
+  padding: 0 !important;
+
+  .mat-mdc-option {
     border-bottom: get-color('dark-gray') 1px solid;
     line-height: unset !important;
   }

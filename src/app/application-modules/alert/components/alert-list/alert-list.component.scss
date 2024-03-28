@@ -12,12 +12,8 @@
   justify-content: center;
 }
 
-.mat-header-cell {
-  word-break: break-word;
-}
-
-.mat-cell,
-.mat-header-cell {
+.mat-mdc-cell,
+.mat-mdc-header-cell {
   justify-content: center;
   overflow: visible !important;
   text-align: center;
@@ -31,7 +27,7 @@
   }
 }
 
-.mat-paginator {
+.mat-mdc-paginator {
   background: none !important;
 }
 
@@ -43,7 +39,7 @@
   @include bg-color('purple');
 }
 
-::ng-deep .delete-button .mat-raised-button {
+::ng-deep .delete-button .mat-mdc-raised-button {
   display: flex;
   margin: auto;
 }
@@ -54,13 +50,13 @@
   top: 8px;
 }
 
-@media (max-width: 500px) {
-  ::ng-deep .mat-table {
+@media (width <= 500px) {
+  ::ng-deep .mat-mdc-table {
     width: 100vw;
   }
 
-  .mat-cell,
-  .mat-header-cell {
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
     font-size: 11px !important;
 
     &:first-of-type {

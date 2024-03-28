@@ -9,7 +9,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TranslateModule} from '@ngx-translate/core';
@@ -45,7 +44,6 @@ import {TableExpandComponent} from './component/table-expand/table-expand.compon
     MatSidenavModule,
     MatInputModule,
     MatDividerModule,
-    MatTooltipModule,
     RouterModule.forChild([]),
   ],
   exports: [

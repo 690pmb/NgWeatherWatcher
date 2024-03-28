@@ -20,6 +20,10 @@ import {ConfigurationService} from '@services/configuration.service';
 import {Configuration} from '@model/configuration';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
+import {
+  MAT_RIPPLE_GLOBAL_OPTIONS,
+  RippleGlobalOptions,
+} from '@angular/material/core';
 
 @NgModule({
   declarations: [AppComponent],
@@ -65,6 +69,16 @@ import {environment} from '../environments/environment';
           conf.load(),
       deps: [ConfigurationService],
       multi: true,
+    },
+    {
+      provide: MAT_RIPPLE_GLOBAL_OPTIONS,
+      useValue: {
+        disabled: true,
+        animation: {
+          enterDuration: 0,
+          exitDuration: 0,
+        },
+      } satisfies RippleGlobalOptions,
     },
   ],
   bootstrap: [AppComponent],

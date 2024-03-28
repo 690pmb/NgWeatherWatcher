@@ -42,7 +42,7 @@
     *ngFor="let location of locations; trackBy: trackByFn"
     [value]="location.name"
   >
-    <div [matTooltip]="location.name">{{ location.name }}</div>
+    <div>{{ location.name }}</div>
     <div class="subtitle">
       {{ location.country
       }}<ng-container *ngIf="location.region">

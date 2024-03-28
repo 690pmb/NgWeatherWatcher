@@ -1,18 +1,42 @@
 @use 'imports' as *;
 
-.mat-table {
+.mat-mdc-table {
   background: none !important;
 }
 
-::ng-deep .mat-row {
-  min-height: 0 !important;
+@include deep {
+  .mat-mdc-row {
+    min-height: 0 !important;
+  }
+
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    padding: 0;
+  }
+
+  .mat-column-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    span {
+      color: var(--color);
+      font-weight: bold;
+    }
+  }
+
+  /* stylelint-disable */
+  .mdc-data-table__row:last-child .mdc-data-table__cell {
+    /* stylelint-enable */
+    border-bottom: rgb(0 0 0 / 12%) 1px solid !important;
+  }
 }
 
 .detail-row {
   border-bottom-width: 0;
   transform: translateY(var(--row-height));
 
-  ::ng-deep &.expanded + .mat-row {
+  ::ng-deep &.expanded + .mat-mdc-row {
     border-bottom-width: 0;
     transform: translateY(calc(-1 * var(--expand-height)));
   }
@@ -21,19 +45,8 @@
     border-bottom-width: 1px;
   }
 
-  .mat-cell {
+  .mat-mdc-cell {
     text-align: center;
-  }
-}
-
-::ng-deep .mat-column-details {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-
-  span {
-    color: var(--color);
-    font-weight: bold;
   }
 }
 
@@ -43,9 +56,9 @@
   justify-content: center;
 }
 
-@media (max-width: 500px) {
-  .mat-cell,
-  .mat-header-cell {
+@media (width <= 500px) {
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
     font-size: 11px !important;
   }
 }
