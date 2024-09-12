@@ -18,7 +18,10 @@ import {UNITS} from '@model/alert/monitored-field';
   selector: 'app-dashboard-details',
   templateUrl: './dashboard-details.component.html',
   styleUrls: ['./dashboard-details.component.scss'],
-  animations: [slideInOutAnimation],
+  animations: [
+    slideInOutAnimation('slideInOut'),
+    slideInOutAnimation('slideOutIn'),
+  ],
 })
 export class DashboardDetailsComponent implements OnInit, OnDestroy {
   date!: string;
@@ -34,6 +37,8 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     'precipMm',
     'chanceOfRain',
   ];
+
+  static readonly MAX_PAGE_INDEX = 2;
 
   showAll = false;
   pageIndex!: number;
@@ -155,7 +160,11 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     if (canSwipeNextDay(index, this.pageIndex)) {
       this.navigate(
         this.forecast.forecastDay[this.index + next]?.date ?? '',
-        this.showAll ? (this.pageIndex === 0 ? 2 : 1) : 0
+        this.showAll
+          ? this.pageIndex === 0
+            ? DashboardDetailsComponent.MAX_PAGE_INDEX
+            : 0
+          : 0
       );
     } else if (canSwipeNextPage(this.pageIndex)) {
       this.navigate(this.date, this.pageIndex + next);
@@ -176,8 +185,10 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     this.onSwipe(
       (i, p) =>
         (!this.showAll && i < this.forecast.forecastDay.length - 1) ||
-        (this.showAll && p === 2 && i < this.forecast.forecastDay.length - 1),
-      p => this.showAll && p < 2,
+        (this.showAll &&
+          p === DashboardDetailsComponent.MAX_PAGE_INDEX &&
+          i < this.forecast.forecastDay.length - 1),
+      p => this.showAll && p < DashboardDetailsComponent.MAX_PAGE_INDEX,
       1
     );
   }

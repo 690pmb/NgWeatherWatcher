@@ -8,9 +8,10 @@ import {
   trigger,
 } from '@angular/animations';
 
-export const slideInOutAnimation: AnimationTriggerMetadata = trigger(
-  'slideInOut',
-  [
+export const slideInOutAnimation: (
+  name: string
+) => AnimationTriggerMetadata = name =>
+  trigger(name, [
     transition(':increment', [
       query(
         ':enter',
@@ -35,5 +36,4 @@ export const slideInOutAnimation: AnimationTriggerMetadata = trigger(
         {optional: true}
       ),
     ]),
-  ]
-);
+  ]);
