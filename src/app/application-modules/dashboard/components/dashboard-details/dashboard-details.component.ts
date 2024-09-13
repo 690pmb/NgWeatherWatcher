@@ -3,7 +3,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {combineLatest, Subscription, Observable, of, EMPTY, iif} from 'rxjs';
-import {filter, mergeMap, switchMap} from 'rxjs/operators';
+import {filter, mergeMap, switchMap, map} from 'rxjs/operators';
 import {Forecast} from '@model/weather/forecast';
 import {ForecastDay} from '@model/weather/forecast-day';
 import {Hour} from '@model/weather/hour';
@@ -13,6 +13,7 @@ import {MenuService} from '@services/menu.service';
 import {WeatherService} from '@services/weather.service';
 import {WeatherField} from '@model/alert/weather-field';
 import {UNITS} from '@model/alert/monitored-field';
+import {HighlightService} from '../../services/highlight.service';
 
 @Component({
   selector: 'app-dashboard-details',
@@ -40,11 +41,13 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
 
   static readonly MAX_PAGE_INDEX = 2;
 
+  WeatherField = WeatherField;
   showAll = false;
   pageIndex!: number;
   pageSize = 8;
   index!: number;
   subs: Subscription[] = [];
+  alertId?: string;
   formatFields: {[key: string]: (h: Hour) => string} = {
     feels_like: h => `${h.feelsLikeC} ${UNITS[WeatherField.FEELS_LIKE]}`,
     cloud: h => `${h.cloud} ${UNITS[WeatherField.CLOUD]}`,
@@ -61,6 +64,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private weatherService: WeatherService,
+    private highlightService: HighlightService,
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private router: Router,
@@ -79,25 +83,32 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
         this.place = queryParam.get('location') ?? undefined;
         if (date) {
           this.date = date;
-          this.getForecast().subscribe(forecast => {
-            this.forecast = forecast;
-            this.menuService.title$.next(
-              `${this.forecast.location.name} - ${this.datePipe.transform(
-                this.date,
-                'fullDate',
-                '',
-                this.translate.currentLang
-              )}`
-            );
-            this.forecastDay = this.forecast.forecastDay.find(
-              day => day.date === this.date
-            );
-            this.index = this.getIndex();
-            this.filterAndPaginate(
-              queryParam.get('showAll') === 'true',
-              +Utils.getOrElse(queryParam.get('page'), '0')
-            );
-          });
+          this.getForecast()
+            .pipe(
+              map(forecast => {
+                this.forecast = forecast;
+                this.menuService.title$.next(
+                  `${this.forecast.location.name} - ${this.datePipe.transform(
+                    this.date,
+                    'fullDate',
+                    '',
+                    this.translate.currentLang
+                  )}`
+                );
+                this.forecastDay = this.forecast.forecastDay.find(
+                  day => day.date === this.date
+                );
+                this.index = this.getIndex();
+                this.filterAndPaginate(
+                  queryParam.get('showAll') === 'true',
+                  +Utils.getOrElse(queryParam.get('page'), '0')
+                );
+                this.alertId = queryParam.get('alert') ?? undefined;
+                return this.alertId;
+              }),
+              filter((a): a is string => Utils.isNotBlank(a))
+            )
+            .subscribe(a => this.highlightService.alertId$.next(a));
         }
       })
     );
@@ -128,6 +139,11 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
         )
       )
     );
+  }
+
+  getField(i18n: string): WeatherField | undefined {
+    return HighlightService.MAP_WEATHER_MONITORED.find(m => m.i18n === i18n)
+      ?.weatherField;
   }
 
   filterAndPaginate(showAll: boolean, pageIndex: number): void {
@@ -174,7 +190,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   navigate(date: string, page: number): void {
     this.router
       .navigate([`/dashboard/details/${date}`], {
-        queryParams: {showAll: this.showAll, page},
+        queryParams: {showAll: this.showAll, page, alert: this.alertId},
         state: this.forecast,
         replaceUrl: true,
       })

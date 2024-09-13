@@ -16,8 +16,8 @@ export const UNITS: {[key in WeatherField]: string} = {
 
 export class MonitoredField {
   field!: WeatherField;
-  min!: number;
-  max!: number;
+  min?: number;
+  max?: number;
 
   @Expose()
   get summary(): string {

@@ -52,36 +52,58 @@
           <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.temp' | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let hour"> {{ hour.tempC }} °C </mat-cell>
+          <mat-cell
+            *matCellDef="let hour"
+            [appHighlight]="WeatherField.TEMP"
+            [hour]="hour"
+          >
+            {{ hour.tempC }} °C
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="windKph">
           <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.wind' | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let hour"> {{ hour.windKph }} km/h </mat-cell>
+          <mat-cell
+            *matCellDef="let hour"
+            [appHighlight]="WeatherField.WIND"
+            [hour]="hour"
+          >
+            {{ hour.windKph }} km/h
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="precipMm">
           <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.precip' | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let hour"> {{ hour.precipMm }} mm </mat-cell>
+          <mat-cell
+            *matCellDef="let hour"
+            [appHighlight]="WeatherField.PRECIP"
+            [hour]="hour"
+          >
+            {{ hour.precipMm }} mm
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="chanceOfRain">
           <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.rain' | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let hour">
+          <mat-cell
+            *matCellDef="let hour"
+            [appHighlight]="WeatherField.CHANCE_OF_RAIN"
+            [hour]="hour"
+          >
             {{ hour.chanceOfRain }} %
           </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
         <mat-row
-          *matRowDef="let hours; columns: columnsToDisplay"
-          (click)="table.expand(hours)"
+          *matRowDef="let h; columns: columnsToDisplay"
+          (click)="table.expand(h)"
         ></mat-row>
       </app-table-expand>
     </div>
@@ -89,7 +111,11 @@
 </app-dashboard>
 
 <ng-template #forecastField let-field>
-  <div class="forecast-field">
+  <div
+    class="forecast-field"
+    [appHighlight]="getField(field.i18n)"
+    [hour]="field.expanded"
+  >
     <span>{{ 'forecast.' + field.i18n | translate }}: </span>{{ field.value }}
   </div>
 </ng-template>
