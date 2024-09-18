@@ -1,7 +1,7 @@
 @use './variables' as *;
 
-@mixin bg-color($color: 'theme') {
-  background-color: get-color($color);
+@mixin bg-color($color: 'theme', $opacity: 1) {
+  background-color: rgb(get-color($color), $opacity);
 }
 
 @mixin color($color: 'theme', $important: false) {

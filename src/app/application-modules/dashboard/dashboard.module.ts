@@ -8,6 +8,7 @@ import {SharedModule} from '@shared/shared.module';
 import {DashboardDetailsComponent} from './components/dashboard-details/dashboard-details.component';
 import {DashboardForecastComponent} from './components/dashboard-forecast/dashboard-forecast.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {HighlightDirective} from './directives/highlight.directive';
 
 const childRoutes: Routes = [
   {
@@ -25,6 +26,7 @@ const childRoutes: Routes = [
     DashboardComponent,
     DashboardDetailsComponent,
     DashboardForecastComponent,
+    HighlightDirective,
   ],
   imports: [
     MatProgressSpinnerModule,
