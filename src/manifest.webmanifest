@@ -2,9 +2,10 @@
   "name": "WeatherWatcher",
   "short_name": "NgWeather",
   "theme_color": "#69f0ae",
-  "description": "L'application qui vous aide à surveiller la météo !",
+  "description": "L'application qui surveille la météo !",
   "background_color": "#fafafa",
   "display": "standalone",
+  "orientation": "portrait",
   "scope": "./",
   "start_url": "./",
   "icons": [
