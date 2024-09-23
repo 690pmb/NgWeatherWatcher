@@ -82,4 +82,11 @@ export class SliderComponent<T extends boolean>
       this.configuration.value = this.initialValue.value;
     }
   }
+
+  select(event: number[] | number): void {
+    this.selected.emit({
+      value: event,
+      multiple: Array.isArray(event),
+    } as SliderValue<T>);
+  }
 }

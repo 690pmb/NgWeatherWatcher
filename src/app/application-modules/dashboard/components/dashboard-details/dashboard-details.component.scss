@@ -46,6 +46,7 @@
   &,
   > * {
     @include color('error');
+
     font-weight: bold;
   }
 }
