@@ -72,6 +72,7 @@
     "every_days": "Every days",
     "week_end": "The week-end",
     "delete": "Delete",
+    "preview": "Preview",
     "action": "Actions",
     "empty": "No alert",
     "deleted": "{{0}} deleted alert(s)",
