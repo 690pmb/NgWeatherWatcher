@@ -16,6 +16,7 @@ import {
   faEdit,
   faEllipsisVertical,
   faPlusSquare,
+  faSun,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import {TranslateService} from '@ngx-translate/core';
@@ -31,6 +32,7 @@ import {SortField} from '@model/sort';
 import {SortDirection} from '@angular/material/sort';
 import {PageRequest} from '@model/http/page-request';
 import {MonitoredField} from '@model/alert/monitored-field';
+import {DateTime} from 'luxon';
 
 @Component({
   selector: 'app-alert-list',
@@ -73,6 +75,7 @@ export class AlertListComponent implements OnInit {
   faTrash = faTrash;
   faPlus = faPlusSquare;
   faMenu = faEllipsisVertical;
+  faSun = faSun;
   selected: number[] = [];
   columnsToDisplay: (SortField<Alert> | 'edit')[] = [
     'triggerDays',
@@ -148,6 +151,17 @@ export class AlertListComponent implements OnInit {
         })
       );
     });
+  }
+
+  view(alert: Alert): void {
+    this.router
+      .navigate(
+        [`/dashboard/details/${DateTime.now().toFormat('yyyy-MM-dd')}`],
+        {
+          queryParams: {alert: alert.id, location: alert.location},
+        }
+      )
+      .catch(err => console.error(err));
   }
 
   resetSelection(): void {
