@@ -1,4 +1,4 @@
-import {CommonModule, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -63,7 +63,6 @@ import {TableExpandComponent} from './component/table-expand/table-expand.compon
     FontAwesomeModule,
     MenuComponent,
   ],
-  providers: [DatePipe],
 })
 export class SharedModule {
   constructor() {}

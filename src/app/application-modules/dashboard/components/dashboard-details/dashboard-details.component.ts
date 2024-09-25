@@ -1,4 +1,4 @@
-import {DatePipe, Location} from '@angular/common';
+import {Location} from '@angular/common';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
@@ -14,6 +14,7 @@ import {WeatherService} from '@services/weather.service';
 import {WeatherField} from '@model/alert/weather-field';
 import {UNITS} from '@model/alert/monitored-field';
 import {HighlightService} from '../../services/highlight.service';
+import {DateTimePipe} from '@shared/pipe/date-time.pipe';
 
 @Component({
   selector: 'app-dashboard-details',
@@ -70,7 +71,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private translate: TranslateService,
     private menuService: MenuService,
-    private datePipe: DatePipe
+    private datePipe: DateTimePipe
   ) {}
 
   ngOnInit(): void {
@@ -90,8 +91,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                 this.menuService.title$.next(
                   `${this.forecast.location.name} - ${this.datePipe.transform(
                     this.date,
-                    'fullDate',
-                    '',
+                    'beautiful',
                     this.translate.currentLang
                   )}`
                 );

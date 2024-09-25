@@ -23,7 +23,7 @@
             [queryParams]="{location: location}"
             [state]="forecast"
             >{{
-              forecastDay.date | date: 'fullDate' : '' : translate.currentLang
+              forecastDay.date | dateTime: 'beautiful' : translate.currentLang
             }}</a
           >
         </h2>
