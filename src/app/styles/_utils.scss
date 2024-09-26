@@ -1,6 +1,7 @@
 @use './variables' as *;
 @use 'sass:map';
 @use 'sass:color';
+
 @mixin important($properties...) {
   @each $key, $value, $important in $properties {
     $imp: '';
@@ -11,17 +12,14 @@
     #{$key}: #{$value} #{$imp};
   }
 }
-
 @mixin bg-color($color: 'theme', $important: false, $alpha: 1) {
   @include important(
     ('background-color', get-color($color, $alpha), $important)
   );
 }
-
 @mixin color($color: 'theme', $important: false) {
   @include important(('color', get-color($color), $important));
 }
-
 @mixin font($size, $color, $weight: normal, $important: false) {
   @include important(
     ('font-size', #{$size}px, $important),
@@ -29,26 +27,21 @@
   );
   @include color($color, $important);
 }
-
 @mixin adjust($c, $a) {
   color: color.adjust($color: get-color($c), $lightness: $a);
 }
-
 @mixin border($color: 'theme', $size: 1px) {
   @include important(('border', '#{$size} solid #{get-color($color)}', true));
 }
-
 @mixin box-sizing {
   box-sizing: border-box;
 }
-
 @mixin size($size, $important: false) {
   @include important(
     ('height', $size, $important),
     ('width', $size, $important)
   );
 }
-
 @mixin zindex($ref) {
   @if map.has-key($depth, $ref) {
     z-index: map.get($depth, $ref);
@@ -56,13 +49,11 @@
     @error 'Depth "#{$ref}" does not exist in z-index map. Available depth are: ' + map.keys($depth);
   }
 }
-
 @mixin mq($type, $value) {
   @media only screen and (#{$type}-width: #{$value}) {
     @content;
   }
 }
-
 @mixin deep() {
   :host ::ng-deep {
     @content;
@@ -78,7 +69,6 @@
     opacity: 1;
   }
 }
-
 @keyframes fade-out {
   0% {
     opacity: 1;
