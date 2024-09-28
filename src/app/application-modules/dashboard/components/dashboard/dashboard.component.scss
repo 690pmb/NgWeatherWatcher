@@ -1,3 +1,5 @@
+@use 'imports' as *;
+
 :host {
   align-items: center;
   display: flex;
@@ -16,5 +18,5 @@
   object-fit: cover;
   position: fixed;
   width: 100vw;
-  z-index: -1;
+  @include zindex('background');
 }

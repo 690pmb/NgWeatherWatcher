@@ -116,7 +116,7 @@ export class AuthService extends UtilsService {
   }
 
   edit(favouriteLocation: string): void {
-    this.put<{token: string}>({body: favouriteLocation}).subscribe(
+    this.put<{token: string}>({body: {favouriteLocation}}).subscribe(
       response => {
         if (response.body !== null && response.body) {
           this.setToken(response.body?.token);

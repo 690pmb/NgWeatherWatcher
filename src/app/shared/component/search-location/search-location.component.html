@@ -1,10 +1,11 @@
 <mat-form-field appearance="outline">
-  <button mat-icon-button type="button" matPrefix>
-    <fa-icon
-      size="2x"
-      [icon]="faLocationArrow"
-      (click)="geolocation(); $event.stopPropagation()"
-    ></fa-icon>
+  <button
+    mat-icon-button
+    type="button"
+    matIconPrefix
+    (click)="geolocation(); $event.stopPropagation()"
+  >
+    <fa-icon size="2x" [icon]="faLocationArrow"></fa-icon>
   </button>
   <input
     #inputLocation="matInput"
@@ -23,7 +24,7 @@
     "
     mat-icon-button
     type="button"
-    matSuffix
+    matIconSuffix
   >
     <fa-icon
       size="2x"
@@ -42,7 +43,7 @@
     *ngFor="let location of locations; trackBy: trackByFn"
     [value]="location.name"
   >
-    <div [matTooltip]="location.name">{{ location.name }}</div>
+    <div>{{ location.name }}</div>
     <div class="subtitle">
       {{ location.country
       }}<ng-container *ngIf="location.region">

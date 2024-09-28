@@ -1,9 +1,4 @@
 @use 'imports' as *;
-@use 'variables' as *;
-
-body {
-  font-family: $font-family !important;
-}
 
 h1,
 h2,
@@ -28,16 +23,20 @@ h4 {
 }
 
 fa-icon {
-  @include color();
+  @include color;
 }
 
-.mat-raised-button {
+.mat-mdc-raised-button {
+  height: 42px !important;
   @include border($size: 3px);
-  @include color();
+
+  &:not(:disabled) {
+    @include color($important: true);
+  }
 }
 
 .background-color {
-  @include bg-color();
+  @include bg-color;
 
   height: 100%;
   left: 0;
@@ -45,7 +44,7 @@ fa-icon {
   position: fixed;
   top: 0;
   width: 100vw;
-  z-index: map-get($depth, 'background') - 1;
+  @include zindex('background');
 }
 
 $levels: 'success', 'warning', 'error', 'info';

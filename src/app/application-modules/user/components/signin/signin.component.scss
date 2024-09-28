@@ -1,23 +1,26 @@
 @use 'imports' as *;
 
 .signin-content {
-  display: flex;
-  justify-content: center;
-  margin: 5vh auto;
-  padding: 25px;
+  padding: 5vh 25px;
   position: relative;
+
+  &,
+  form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    gap: 10px;
+  }
 }
 
-.mat-form-field {
-  display: inherit;
-  width: 300px;
+.mat-mdc-form-field {
+  width: 80vw;
+  max-width: 350px;
 }
 
 .signin-footer {
   display: flex;
   flex-direction: column;
-
-  button {
-    margin: 5px;
-  }
+  gap: 10px;
 }

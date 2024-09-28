@@ -1,4 +1,5 @@
 <mat-select
+  hideSingleSelectionIndicator
   placeholder="{{ 'alert.placeholder' | translate }}"
   [value]="initialChoice?.value"
   (selectionChange)="selected.emit($event.value)"

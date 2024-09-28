@@ -13,9 +13,14 @@
   gap: 20px;
 }
 
-span {
-  @include color();
+span:not(.delete-button) {
+  @include color;
 
   font-weight: bold;
   padding-right: 5px;
+}
+
+.delete-button {
+  width: 85vw;
+  height: 50px !important;
 }
