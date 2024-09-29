@@ -51,7 +51,14 @@
     "feels_like": "Feels like temperature",
     "will_it_rain": "Will it rain",
     "will_it_snow": "Will it snow",
-    "uv": "UV index"
+    "uv": "UV index",
+    "wind_direction": "Wind direction",
+    "wind_dir": {
+      "S": "South",
+      "N": "North",
+      "W": "West",
+      "E": "East"
+    }
   },
   "dashboard": {
     "show_all": "Show all"

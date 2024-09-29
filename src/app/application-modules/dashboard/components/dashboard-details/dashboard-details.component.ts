@@ -52,15 +52,19 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   formatFields: Record<string, (h: Hour) => string> = {
     feels_like: h => `${h.feelsLikeC} ${UNITS[WeatherField.FEELS_LIKE]}`,
     cloud: h => `${h.cloud} ${UNITS[WeatherField.CLOUD]}`,
-    humidity: h => `${h.humidity} ${UNITS[WeatherField.HUMIDITY]}`,
+    wind_direction: h =>
+      [...h.windDir]
+        .map(d => this.translate.instant(`forecast.wind_dir.${d}`) as string)
+        .join('-'),
     uv: h => `${h.uv} ${UNITS[WeatherField.UV]}`,
-    pressure: h => `${h.pressureMb} ${UNITS[WeatherField.PRESSURE]}`,
     will_it_rain: h =>
       `${this.translate.instant(`global.${h.willItRain === 1}`)}`,
     will_it_snow: h =>
       `${this.translate.instant(`global.${h.willItSnow === 1}`)}`,
     chance_of_snow: h =>
       `${h.chanceOfSnow} ${UNITS[WeatherField.CHANCE_OF_SNOW]}`,
+    humidity: h => `${h.humidity} ${UNITS[WeatherField.HUMIDITY]}`,
+    pressure: h => `${h.pressureMb} ${UNITS[WeatherField.PRESSURE]}`,
   };
 
   constructor(
