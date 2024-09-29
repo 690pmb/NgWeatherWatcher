@@ -42,16 +42,16 @@ export class AlertListComponent implements OnInit {
   @ViewChild('deleteButton')
   deleteButton!: TemplateRef<number>;
 
-  formatFields: {[key: string]: (a: Alert) => string} = {
+  formatFields: Record<string, (a: Alert) => string> = {
     force_notification: a =>
       this.titleCasePipe.transform(
-        this.translate.instant(`global.${a.forceNotification}`)
+        this.translate.instant(`global.${a.forceNotification}`) as string
       ),
     trigger_day: a =>
       this.titleCasePipe.transform(
         this.formatField(a.getTriggerDays(this.translate.currentLang), false)
       ),
-    trigger_hour: a => this.datePipe.transform(a.triggerHour, 'hour') as string,
+    trigger_hour: a => this.datePipe.transform(a.triggerHour, 'hour'),
     monitored_day: a =>
       this.titleCasePipe.transform(
         this.formatField(a.getMonitoredDays(), false)
@@ -124,7 +124,7 @@ export class AlertListComponent implements OnInit {
       result = result.slice(0, 2);
       ellips = '...';
     }
-    return `${result.map(a => this.translate.instant(a)).join(', ')}${ellips}`;
+    return `${result.map(a => this.translate.instant(a) as string).join(', ')}${ellips}`;
   }
 
   handleSelection(id: number): void {

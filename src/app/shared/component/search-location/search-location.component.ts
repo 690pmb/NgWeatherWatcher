@@ -22,6 +22,7 @@ import {
 import {Location} from '@model/weather/location';
 import {WeatherService} from '@services/weather.service';
 import {Utils} from '../../utils';
+import {GobalError} from '@services/utils.service';
 
 @Component({
   selector: 'app-search-location',
@@ -36,7 +37,7 @@ export class SearchLocationComponent implements OnInit, OnChanges {
   showPlaceholder = true;
 
   @Input()
-  inputCtrl: FormControl<string> = new FormControl('', {
+  inputCtrl = new FormControl<string>('', {
     nonNullable: true,
   });
 
@@ -66,7 +67,7 @@ export class SearchLocationComponent implements OnInit, OnChanges {
             of([])
           )
         ),
-        catchError(error => {
+        catchError((error: GobalError) => {
           this.weatherService.handleError(error);
           this.trigger.closePanel();
           return of([]);
@@ -101,7 +102,7 @@ export class SearchLocationComponent implements OnInit, OnChanges {
     this.inputCtrl.reset();
     this.trigger.closePanel();
     this.selected.emit('');
-    this.placeholder = this.initialPlaceholder || 'global.none';
+    this.placeholder = this.initialPlaceholder ?? 'global.none';
   }
 
   trackByFn: TrackByFunction<Location> = (

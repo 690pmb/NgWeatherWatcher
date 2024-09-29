@@ -7,7 +7,7 @@ import {DateTime} from 'luxon';
 export class CreateAlert {
   @Transform(
     ({value}) =>
-      `${Utils.formatMinutes(value, 'hh:mm:00.000')}${DateTime.now().toFormat(
+      `${Utils.formatMinutes(value as number, 'hh:mm:00.000')}${DateTime.now().toFormat(
         'ZZ'
       )}`
   )

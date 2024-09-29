@@ -10,8 +10,6 @@ import {Configuration} from '@model/configuration';
 export class ConfigurationService {
   configuration!: Configuration;
 
-  constructor() {}
-
   load(): Observable<Configuration> {
     return this.configuration
       ? of(this.configuration)

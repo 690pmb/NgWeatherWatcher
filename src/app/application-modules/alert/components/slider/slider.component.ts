@@ -36,8 +36,6 @@ export class SliderComponent<T extends boolean>
   SliderFormatter = SliderFormatter;
   config = {};
 
-  constructor() {}
-
   ngOnInit() {
     if (!this.initialValue?.value) {
       this.shownAddBtn.emit(true);

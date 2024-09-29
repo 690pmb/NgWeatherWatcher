@@ -12,6 +12,4 @@ export class QuestionComponent<T> {
 
   @Input()
   ctrl?: FormArray | FormControl<T>;
-
-  constructor() {}
 }

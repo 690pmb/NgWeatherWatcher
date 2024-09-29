@@ -21,6 +21,4 @@ export class ClickOutsideDirective {
   }
 
   inside = false;
-
-  constructor() {}
 }

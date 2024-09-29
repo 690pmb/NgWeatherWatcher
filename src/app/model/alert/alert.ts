@@ -22,7 +22,7 @@ const WEEK_END = {
 };
 
 export class Alert {
-  @Transform(({value}) => Utils.formatHours(value), {
+  @Transform(({value}) => Utils.formatHours(value as string), {
     toClassOnly: true,
   })
   triggerHour!: DateTime;
@@ -44,7 +44,7 @@ export class Alert {
 
   @Expose()
   getMonitoredDays(): string[] {
-    return (Object.keys(MonitoredDay) as Array<keyof MonitoredDays>)
+    return (Object.keys(MonitoredDay) as (keyof MonitoredDays)[])
       .filter(key => this.monitoredDays[key])
       .map(monitored => `alert.monitored_days.${monitored}`);
   }

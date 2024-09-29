@@ -2,6 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {DateTime} from 'luxon';
 
 type Format = 'beautiful' | 'date' | 'full' | 'hour';
+type Result<T> = T extends DateTime[] ? string[] : string;
 
 @Pipe({
   name: 'dateTime',
@@ -14,19 +15,19 @@ export class DateTimePipe implements PipeTransform {
     beautiful: 'DDDD',
   };
 
-  transform(
-    value: DateTime | DateTime[] | string,
+  transform<T extends DateTime | DateTime[] | string>(
+    value: T,
     format: Format = 'full',
     lang?: string
-  ): string[] | string {
+  ): Result<T> {
     const toFormat = (v: DateTime): string =>
       v.toFormat(DateTimePipe.typeFormat[format], {locale: lang});
-    if (value instanceof DateTime) {
-      return toFormat(value);
-    } else if (Array.isArray(value)) {
-      return value.map(v => toFormat(v));
+    if (Array.isArray(value)) {
+      return value.map(v => toFormat(v)) as Result<T>;
+    } else if (value instanceof DateTime) {
+      return toFormat(value) as Result<T>;
     } else {
-      return toFormat(DateTime.fromISO(value));
+      return toFormat(DateTime.fromISO(value)) as Result<T>;
     }
   }
 }

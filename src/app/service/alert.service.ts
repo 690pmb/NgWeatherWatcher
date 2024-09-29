@@ -53,7 +53,7 @@ export class AlertService extends UtilsService {
   }
 
   deleteBydIds(ids: number[]): Observable<void> {
-    return this.delete({url: `?ids=${ids}`}).pipe(
+    return this.delete({url: `?ids=${ids.toString()}`}).pipe(
       tap(() => this.toast.info('alert.deleted', {size: ids.length}))
     );
   }
