@@ -57,7 +57,9 @@ import {
       useFactory:
         (service: TranslateService): (() => Observable<string>) =>
         () =>
-          service.use(service.getBrowserLang() === 'fr' ? 'fr' : 'en' ?? 'fr'),
+          service.use(
+            service.getBrowserLang() === 'fr' ? 'fr' : ('en' ?? 'fr')
+          ),
       deps: [TranslateService],
       multi: true,
     },

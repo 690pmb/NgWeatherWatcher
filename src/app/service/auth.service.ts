@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import {Observable, ReplaySubject, of} from 'rxjs';
 import {Token} from '@model/token';
-import jwtDecode, {InvalidTokenError} from 'jwt-decode';
+import {jwtDecode, InvalidTokenError} from 'jwt-decode';
 import {UtilsService} from './utils.service';
 import {ToastService} from './toast.service';
 import {catchError, map} from 'rxjs/operators';
@@ -60,7 +60,7 @@ export class AuthService extends UtilsService {
             } else {
               return this.reject(false);
             }
-          } catch (err) {
+          } catch {
             return this.reject(false);
           }
         }

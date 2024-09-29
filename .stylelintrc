@@ -8,7 +8,6 @@
     "no-empty-source": null,
     "color-hex-length": "short",
     "max-nesting-depth": 2,
-    "selector-no-qualifying-type": null,
     "function-no-unknown": [
       true,
       {
@@ -22,8 +21,10 @@
         ]
       }
     ],
-    "at-rule-empty-line-before": null,
-    "at-rule-no-unknown": null,
+    "at-rule-empty-line-before": [
+      "always",
+      {"except": ["after-same-name", "inside-block"]}
+    ],
     "selector-pseudo-element-no-unknown": [
       true,
       {

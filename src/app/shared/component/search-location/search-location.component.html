@@ -11,7 +11,7 @@
     #inputLocation="matInput"
     type="text"
     matInput
-    placeholder="{{ (showPlaceholder ? placeholder ?? '' : '') | translate }}"
+    placeholder="{{ (showPlaceholder ? (placeholder ?? '') : '') | translate }}"
     [matAutocomplete]="auto"
     [formControl]="inputCtrl"
     (focus)="placeholder = undefined"
