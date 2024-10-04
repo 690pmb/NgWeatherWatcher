@@ -46,7 +46,7 @@
   }
 
   .mat-mdc-row:has(.highlight) {
-    @include bg-color('warning', false, 0.2);
+    @include bg-color('warning', true, 0.2);
   }
 
   .mat-mdc-paginator-range-label,
