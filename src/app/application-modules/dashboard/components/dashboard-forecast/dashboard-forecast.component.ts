@@ -95,6 +95,7 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
           this.menuService.title$.next(
             `${forecast.location.name}, ${forecast.location.region} - ${forecast.location.country}`
           );
+          this.menuService.location = forecast.location.name;
           this.forecast = forecast;
         },
         (err: string) => this.weatherService.handleError(err)
