@@ -29,12 +29,9 @@
     mat-icon-button
     type="button"
     matIconSuffix
+    (click)="reset(); $event.stopPropagation()"
   >
-    <fa-icon
-      size="2x"
-      [icon]="faTimes"
-      (click)="$event.stopPropagation(); reset()"
-    ></fa-icon>
+    <fa-icon size="2x" [icon]="faTimes"></fa-icon>
   </button>
 </mat-form-field>
 <mat-autocomplete

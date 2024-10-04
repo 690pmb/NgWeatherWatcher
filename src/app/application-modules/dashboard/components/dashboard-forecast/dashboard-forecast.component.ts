@@ -103,12 +103,14 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
   }
 
   navigate(location: string): void {
-    this.router
-      .navigate(['.'], {
-        queryParams: {location},
-        relativeTo: this.activatedRoute,
-      })
-      .catch(err => console.error(err));
+    if (location) {
+      this.router
+        .navigate(['.'], {
+          queryParams: {location},
+          relativeTo: this.activatedRoute,
+        })
+        .catch(err => console.error(err));
+    }
   }
 
   trackByFn: TrackByFunction<ForecastDay> = (
