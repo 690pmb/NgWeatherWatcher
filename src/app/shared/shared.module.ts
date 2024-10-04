@@ -19,6 +19,7 @@ import {IconPipe} from './pipe/icon.pipe';
 import {DateTimePipe} from './pipe/date-time.pipe';
 import {MatTableModule} from '@angular/material/table';
 import {TableExpandComponent} from './component/table-expand/table-expand.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {TableExpandComponent} from './component/table-expand/table-expand.compon
     IconPipe,
     MatButtonModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
     MatSnackBarModule,
     MatTableModule,
     MenuComponent,
@@ -53,6 +55,7 @@ import {TableExpandComponent} from './component/table-expand/table-expand.compon
     MatDividerModule,
     MatInputModule,
     MatListModule,
+    MatProgressSpinnerModule,
     MatSidenavModule,
     MatSnackBarModule,
     MatTableModule,

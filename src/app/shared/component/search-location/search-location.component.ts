@@ -49,6 +49,7 @@ export class SearchLocationComponent implements OnInit, OnChanges {
 
   locations: Location[] = [];
   initialPlaceholder?: string;
+  showSpinner = false;
   faLocationArrow = faLocationArrow;
   faTimes = faTimes;
 
@@ -81,11 +82,13 @@ export class SearchLocationComponent implements OnInit, OnChanges {
   }
 
   geolocation(): void {
+    this.showSpinner = true;
     new Observable((observer: Observer<string>) =>
       WeatherService.findUserPosition(observer)
     )
       .pipe(switchMap(location => this.weatherService.search(location)))
       .subscribe(locations => {
+        this.showSpinner = false;
         this.locations = locations;
         this.trigger.openPanel();
       });

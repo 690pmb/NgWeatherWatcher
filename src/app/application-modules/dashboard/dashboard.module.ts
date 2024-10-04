@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {RouterModule, Routes} from '@angular/router';
@@ -30,7 +29,6 @@ const childRoutes: Routes = [
   ],
   imports: [
     MatPaginatorModule,
-    MatProgressSpinnerModule,
     MatSlideToggleModule,
     MatTableModule,
     SharedModule.forChild(),

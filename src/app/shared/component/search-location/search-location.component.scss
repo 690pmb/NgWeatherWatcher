@@ -4,6 +4,14 @@
   margin: 0 3px;
 }
 
+.spinner-wrapper {
+  @include color;
+
+  .mat-mdc-progress-spinner {
+    margin: auto;
+  }
+}
+
 ::ng-deep .search-panel {
   padding: 0 !important;
 
