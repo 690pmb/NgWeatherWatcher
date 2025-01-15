@@ -121,6 +121,7 @@
             "ignoreStatic": true
           }
         ],
+        "@angular-eslint/sort-lifecycle-methods": ["error"],
         "@angular-eslint/component-max-inline-declarations": [
           "error",
           {

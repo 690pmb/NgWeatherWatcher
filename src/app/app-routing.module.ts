@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes, Router, NavigationError} from '@angular/router';
-import {AuthGuard} from './auth.guard';
+import {authGuard} from './auth.guard';
 import {filter} from 'rxjs/operators';
 import {ToastService} from '@services/toast.service';
 
@@ -12,7 +12,7 @@ const routes: Routes = [
       import('./application-modules/dashboard/dashboard.module').then(
         m => m.DashboardModule
       ),
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
   },
   {
     path: 'alert',
@@ -20,7 +20,7 @@ const routes: Routes = [
       import('./application-modules/alert/alert.module').then(
         m => m.AlertModule
       ),
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
   },
   {
     path: 'user',

@@ -11,23 +11,24 @@ import {
   Input,
   QueryList,
   ViewChild,
-  TemplateRef,
   ElementRef,
   HostBinding,
   AfterViewChecked,
   TrackByFunction,
 } from '@angular/core';
 import {KeyValue} from '@angular/common';
+import {Template} from '@model/template';
 
 export type Config<T> = {
-  template?: TemplateRef<Record<'i18n' | 'value', string>>;
-  additionalTemplate?: TemplateRef<Record<'item', T>>;
+  template?: Template<{i18n: string; value: string; expanded?: T}>;
+  additionalTemplate?: Template<Record<'item', T>>;
   formatFields?: Record<string, (a: T) => string>;
   empty?: string;
   color?: string;
 };
 
 @Component({
+  standalone: true,
   selector: 'app-table-expand',
   templateUrl: './table-expand.component.html',
   styleUrls: ['./table-expand.component.scss'],
@@ -60,6 +61,15 @@ export class TableExpandComponent<T>
 
   constructor(private el: ElementRef) {}
 
+  ngAfterContentInit(): void {
+    this.color = `var(--${this.config?.color})`;
+    this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
+    this.rowDefs.forEach(rowDef => this.table.addRowDef(rowDef));
+    this.headerRowDefs.forEach(headerRowDef =>
+      this.table.addHeaderRowDef(headerRowDef)
+    );
+  }
+
   ngAfterViewChecked(): void {
     if (!this.expandHeight) {
       const height =
@@ -84,15 +94,6 @@ export class TableExpandComponent<T>
         )?.offsetHeight ?? 0
       }px`;
     }
-  }
-
-  ngAfterContentInit(): void {
-    this.color = `var(--${this.config?.color})`;
-    this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
-    this.rowDefs.forEach(rowDef => this.table.addRowDef(rowDef));
-    this.headerRowDefs.forEach(headerRowDef =>
-      this.table.addHeaderRowDef(headerRowDef)
-    );
   }
 
   trackByFn: TrackByFunction<KeyValue<string, (a: T) => string>> = (

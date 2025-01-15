@@ -36,6 +36,13 @@ export class SliderComponent<T extends boolean>
   SliderFormatter = SliderFormatter;
   config = {};
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes['initialValue']?.currentValue.value) {
+      this.initialValue = undefined;
+      this.initValue();
+    }
+  }
+
   ngOnInit() {
     if (!this.initialValue?.value) {
       this.shownAddBtn.emit(true);
@@ -46,13 +53,6 @@ export class SliderComponent<T extends boolean>
       range: {min: [this.configuration.min], max: [this.configuration.max]},
     };
     this.tooltips = this.configuration.multiple ? [true, true] : true;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!changes['initialValue']?.currentValue.value) {
-      this.initialValue = undefined;
-      this.initValue();
-    }
   }
 
   private initValue(): void {

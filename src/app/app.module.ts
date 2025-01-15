@@ -13,7 +13,6 @@ import {
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AuthGuard} from './auth.guard';
 import {SharedModule} from '@shared/shared.module';
 import {Observable} from 'rxjs';
 import {ConfigurationService} from '@services/configuration.service';
@@ -51,15 +50,12 @@ import {
     }),
   ],
   providers: [
-    AuthGuard,
     {
       provide: APP_INITIALIZER,
       useFactory:
         (service: TranslateService): (() => Observable<string>) =>
         () =>
-          service.use(
-            service.getBrowserLang() === 'fr' ? 'fr' : ('en' ?? 'fr')
-          ),
+          service.use(service.getBrowserLang() === 'fr' ? 'fr' : 'en'),
       deps: [TranslateService],
       multi: true,
     },

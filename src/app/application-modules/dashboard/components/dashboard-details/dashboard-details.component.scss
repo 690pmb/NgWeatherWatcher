@@ -49,8 +49,7 @@
     @include bg-color('warning', true, 0.2);
   }
 
-  .mat-mdc-paginator-range-label,
-  .mdc-switch svg {
+  .mat-mdc-paginator-range-label {
     display: none;
   }
 }

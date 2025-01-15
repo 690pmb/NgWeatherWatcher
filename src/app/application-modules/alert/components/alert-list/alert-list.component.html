@@ -31,7 +31,7 @@
       additionalTemplate,
       formatFields,
       empty: 'alert.empty',
-      color: 'darken-theme',
+      color: 'darken-theme'
     }"
     [matSortDirection]="pageRequest.sortDir"
     [matSortActive]="pageRequest.sortField ?? ''"
@@ -98,7 +98,7 @@
       </mat-cell>
     </ng-container>
 
-    <ng-template let-data #additionalTemplate>
+    <ng-template #additionalTemplate let-data>
       <div>
         <span>{{ 'alert.monitored_field' | translate }}: </span>
         <ng-container
@@ -152,7 +152,7 @@
 </ng-template>
 
 <mat-menu #menu="matMenu">
-  <ng-template matMenuContent let-alert="alert">
+  <ng-template let-alert="alert" matMenuContent>
     <button mat-menu-item type="button" routerLink="/alert/edit/{{ alert.id }}">
       {{ 'global.edit' | translate }}&nbsp;
       <fa-icon [icon]="faEdit"></fa-icon>
