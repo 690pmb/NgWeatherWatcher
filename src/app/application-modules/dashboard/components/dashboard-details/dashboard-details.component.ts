@@ -92,6 +92,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
             .pipe(
               map(forecast => {
                 this.forecast = forecast;
+                this.menuService.location = forecast.location.name;
                 this.menuService.title$.next(
                   `${this.forecast.location.name} - ${this.datePipe.transform(
                     this.date,
