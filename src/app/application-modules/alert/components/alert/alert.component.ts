@@ -2,7 +2,7 @@ import {Component, OnInit, TrackByFunction, Type, inject} from '@angular/core';
 import {DateTime} from 'luxon';
 import {SliderComponent} from '../slider/slider.component';
 import {MultipleData} from '../../model/multiple-data';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateService, TranslateModule} from '@ngx-translate/core';
 import {AlertService} from '@services/alert.service';
 import {CreateAlert} from '@model/alert/create-alert';
 import {AuthService} from '@services/auth.service';
@@ -16,6 +16,8 @@ import {
   FormGroup,
   NonNullableFormBuilder,
   Validators,
+  FormsModule,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {ToastService} from '@services/toast.service';
 import {Router, ActivatedRoute} from '@angular/router';
@@ -27,6 +29,12 @@ import {mergeMap, tap, map} from 'rxjs/operators';
 import {Alert} from '@model/alert/alert';
 import {MonitoredDay} from '@model/alert/monitored-days';
 import {MonitoredField} from '@model/alert/monitored-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MultipleComponent} from '../multiple/multiple.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
+import {QuestionComponent} from '../question/question.component';
+import {NgIf, NgFor, TitleCasePipe} from '@angular/common';
 
 type AlertForm = {
   triggerDays: FormArray<FormControl<boolean>>;
@@ -42,6 +50,21 @@ type AlertForm = {
   selector: 'app-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    FormsModule,
+    ReactiveFormsModule,
+    QuestionComponent,
+    SearchLocationComponent,
+    NgFor,
+    MatCheckboxModule,
+    SliderComponent,
+    MultipleComponent,
+    MatButtonModule,
+    TitleCasePipe,
+    TranslateModule,
+  ],
 })
 export class AlertComponent implements OnInit {
   private fb = inject(NonNullableFormBuilder);
@@ -84,7 +107,7 @@ export class AlertComponent implements OnInit {
     AlertWeatherFieldComponent;
 
   sliderComponent: Type<MultipleData<Value<false, number>, false>> =
-    SliderComponent;
+    SliderComponent<false>;
 
   alertForm: FormGroup<AlertForm> = this.fb.group({
     triggerDays: this.fb.array<boolean>([], {validators: Utils.arrayValidator}),

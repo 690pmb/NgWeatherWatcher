@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import {Component, OnDestroy, OnInit, TrackByFunction} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {TranslateService, TranslateModule} from '@ngx-translate/core';
 import {combineLatest, EMPTY, Observable, Observer, Subscription} from 'rxjs';
 import {distinctUntilChanged, filter, map, mergeMap} from 'rxjs/operators';
 import {Forecast} from '@model/weather/forecast';
@@ -11,11 +11,31 @@ import {ToastService} from '@services/toast.service';
 import {MenuService} from '@services/menu.service';
 import {Token} from '@model/token';
 import {ForecastDay} from '@model/weather/forecast-day';
+import {IconPipe} from '../../../../shared/pipe/icon.pipe';
+import {DateTimePipe} from '../../../../shared/pipe/date-time.pipe';
+import {MatDividerModule} from '@angular/material/divider';
+import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {NgIf, NgFor} from '@angular/common';
+import {DashboardComponent} from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-dashboard-forecast',
   templateUrl: './dashboard-forecast.component.html',
   styleUrls: ['./dashboard-forecast.component.scss'],
+  standalone: true,
+  imports: [
+    DashboardComponent,
+    NgIf,
+    MatProgressSpinnerModule,
+    SearchLocationComponent,
+    NgFor,
+    RouterLink,
+    MatDividerModule,
+    DateTimePipe,
+    IconPipe,
+    TranslateModule,
+  ],
 })
 export class DashboardForecastComponent implements OnInit, OnDestroy {
   forecast?: Forecast;

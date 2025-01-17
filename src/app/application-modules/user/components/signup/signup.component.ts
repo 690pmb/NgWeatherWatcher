@@ -1,13 +1,30 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AuthService} from '@services/auth.service';
 import {ToastService} from '@services/toast.service';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {MatButtonModule} from '@angular/material/button';
+import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {NgIf} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule,
+    NgIf,
+    MatFormFieldModule,
+    MatInputModule,
+    SearchLocationComponent,
+    MatButtonModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class SignupComponent implements OnInit {
   username?: string;

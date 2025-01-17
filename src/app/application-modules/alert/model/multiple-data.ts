@@ -8,5 +8,5 @@ export type MultipleData<T, U extends boolean> = {
   selected: EventEmitter<T>;
   ctrl: FormControl<T>;
   initialValue?: T;
-  configuration: SliderConfig<U>;
+  configuration?: SliderConfig<U>;
 };

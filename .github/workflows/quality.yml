@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: 69pmb/deploy/workflow/ts-pnpm-quality@main
         with:
-          pnpm-version: 8
+          pnpm-version: 9.15.4
           node-version: '18.x'
   deploy:
     if: github.ref_name == 'main'

@@ -6,6 +6,7 @@ import {DateTime} from 'luxon';
 
 @Directive({
   selector: '[appHighlight]',
+  standalone: true,
 })
 export class HighlightDirective implements OnInit {
   @Input('appHighlight')

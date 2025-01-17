@@ -1,7 +1,7 @@
-import {Location} from '@angular/common';
+import {Location, NgIf, NgClass, DatePipe} from '@angular/common';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateService, TranslateModule} from '@ngx-translate/core';
 import {combineLatest, Subscription, Observable, of, EMPTY, iif} from 'rxjs';
 import {filter, mergeMap, switchMap, map} from 'rxjs/operators';
 import {Forecast} from '@model/weather/forecast';
@@ -15,6 +15,14 @@ import {WeatherField} from '@model/alert/weather-field';
 import {UNITS} from '@model/alert/monitored-field';
 import {HighlightService} from '../../services/highlight.service';
 import {DateTimePipe} from '@shared/pipe/date-time.pipe';
+import {IconPipe} from '../../../../shared/pipe/icon.pipe';
+import {HighlightDirective} from '../../directives/highlight.directive';
+import {MatTableModule} from '@angular/material/table';
+import {TableExpandComponent} from '../../../../shared/component/table-expand/table-expand.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {FormsModule} from '@angular/forms';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {DashboardComponent} from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-dashboard-details',
@@ -23,6 +31,21 @@ import {DateTimePipe} from '@shared/pipe/date-time.pipe';
   animations: [
     slideInOutAnimation('slideInOut'),
     slideInOutAnimation('slideOutIn'),
+  ],
+  standalone: true,
+  imports: [
+    DashboardComponent,
+    NgIf,
+    MatSlideToggleModule,
+    FormsModule,
+    MatPaginatorModule,
+    NgClass,
+    TableExpandComponent,
+    MatTableModule,
+    HighlightDirective,
+    DatePipe,
+    IconPipe,
+    TranslateModule,
   ],
 })
 export class DashboardDetailsComponent implements OnInit, OnDestroy {

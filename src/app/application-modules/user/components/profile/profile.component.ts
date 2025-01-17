@@ -1,14 +1,27 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '@services/auth.service';
 import {MenuService} from '@services/menu.service';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateService, TranslateModule} from '@ngx-translate/core';
 import {faBellSlash} from '@fortawesome/free-solid-svg-icons';
 import {NotificationService} from '@services/notification.service';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MatButtonModule} from '@angular/material/button';
+import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
+import {NgIf, AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    SearchLocationComponent,
+    MatButtonModule,
+    FontAwesomeModule,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class ProfileComponent implements OnInit {
   faBellSlash = faBellSlash;

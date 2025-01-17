@@ -10,6 +10,7 @@ import {
   convertToParamMap,
   ParamMap,
   Router,
+  RouterLink,
 } from '@angular/router';
 import {
   faEdit,
@@ -18,25 +19,81 @@ import {
   faSun,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateService, TranslateModule} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {AlertService} from '@services/alert.service';
 import {MenuService} from '@services/menu.service';
 import {Alert} from '@model/alert/alert';
-import {MatBottomSheet} from '@angular/material/bottom-sheet';
-import {TitleCasePipe} from '@angular/common';
+import {
+  MatBottomSheet,
+  MatBottomSheetModule,
+} from '@angular/material/bottom-sheet';
+import {
+  TitleCasePipe,
+  NgIf,
+  NgFor,
+  NgClass,
+  AsyncPipe,
+  SlicePipe,
+} from '@angular/common';
 import {DateTimePipe} from '@shared/pipe/date-time.pipe';
 import {SortField} from '@model/sort';
-import {SortDirection} from '@angular/material/sort';
+import {SortDirection, MatSortModule} from '@angular/material/sort';
 import {PageRequest} from '@model/http/page-request';
 import {MonitoredField} from '@model/alert/monitored-field';
 import {DateTime} from 'luxon';
+import {DateTimePipe as DateTimePipe_1} from '../../../../shared/pipe/date-time.pipe';
+import {MatBadgeModule} from '@angular/material/badge';
+import {ClickOutsideDirective} from '../../click-outside.directive';
+import {SelectRowDirective} from '../../select-row.directive';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTableModule} from '@angular/material/table';
+import {TableExpandComponent} from '../../../../shared/component/table-expand/table-expand.component';
+import {
+  MatPaginatorIntl,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MatButtonModule} from '@angular/material/button';
+import {MyPaginator} from '@shared/my-paginator';
 
 @Component({
   selector: 'app-alert-list',
   templateUrl: './alert-list.component.html',
   styleUrls: ['./alert-list.component.scss'],
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    RouterLink,
+    FontAwesomeModule,
+    NgIf,
+    MatPaginatorModule,
+    TableExpandComponent,
+    MatSortModule,
+    MatTableModule,
+    MatMenuModule,
+    MatBottomSheetModule,
+    NgFor,
+    SelectRowDirective,
+    NgClass,
+    ClickOutsideDirective,
+    MatBadgeModule,
+    AsyncPipe,
+    SlicePipe,
+    TitleCasePipe,
+    DateTimePipe_1,
+    TranslateModule,
+  ],
+  providers: [
+    TitleCasePipe,
+    {
+      provide: MatPaginatorIntl,
+      useFactory: (translate: TranslateService): MyPaginator =>
+        new MyPaginator(translate, 'alert'),
+      deps: [TranslateService],
+    },
+  ],
 })
 export class AlertListComponent implements OnInit {
   @ViewChild('deleteButton')

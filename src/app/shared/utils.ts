@@ -34,9 +34,9 @@ export class Utils {
     }).as('minutes');
   }
 
-  static formatHours = (v: string): DateTime => DateTime.fromISO(v);
+  static readonly formatHours = (v: string): DateTime => DateTime.fromISO(v);
 
-  static arrayValidator: ValidatorFn = (
+  static readonly arrayValidator: ValidatorFn = (
     control: AbstractControl
   ): ValidationErrors | null =>
     (control as FormArray).controls.every(c => !c.value)

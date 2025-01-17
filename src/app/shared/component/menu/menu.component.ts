@@ -9,7 +9,12 @@ import {
   HostBinding,
   TrackByFunction,
 } from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  RouterLinkWithHref,
+  RouterOutlet,
+} from '@angular/router';
 import {
   faBars,
   faBell,
@@ -18,11 +23,17 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import {BehaviorSubject, fromEvent, Subscription} from 'rxjs';
-import {MatSidenav} from '@angular/material/sidenav';
+import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import {AuthService} from '@services/auth.service';
 import {MenuService} from '@services/menu.service';
 import {throttleTime, map, filter, distinctUntilChanged} from 'rxjs/operators';
 import {MenuItem} from '@model/menu-item';
+import {AsyncPipe, NgClass, NgFor, NgIf} from '@angular/common';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {TranslateModule} from '@ngx-translate/core';
+import {MatListModule} from '@angular/material/list';
 
 type Direction = 'DOWN' | 'UP';
 
@@ -42,6 +53,21 @@ type Direction = 'DOWN' | 'UP';
       transition('* => *', animate('100ms ease-in')),
     ]),
   ],
+  imports: [
+    AsyncPipe,
+    NgIf,
+    NgFor,
+    NgClass,
+    FontAwesomeModule,
+    MatButtonModule,
+    MatListModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    TranslateModule,
+    RouterOutlet,
+    RouterLinkWithHref,
+  ],
+  standalone: true,
 })
 export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostBinding('style.--menu-width')

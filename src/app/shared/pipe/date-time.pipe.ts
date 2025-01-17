@@ -6,6 +6,8 @@ type Result<T> = T extends DateTime[] ? string[] : string;
 
 @Pipe({
   name: 'dateTime',
+  standalone: true,
+  pure: true,
 })
 export class DateTimePipe implements PipeTransform {
   static readonly typeFormat: {[key in Format]: string} = {

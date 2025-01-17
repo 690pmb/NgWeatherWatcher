@@ -3,6 +3,7 @@ import {
   MatHeaderRowDef,
   MatRowDef,
   MatTable,
+  MatTableModule,
 } from '@angular/material/table';
 import {
   AfterContentInit,
@@ -11,23 +12,39 @@ import {
   Input,
   QueryList,
   ViewChild,
-  TemplateRef,
   ElementRef,
   HostBinding,
   AfterViewChecked,
   TrackByFunction,
 } from '@angular/core';
-import {KeyValue} from '@angular/common';
+import {
+  KeyValue,
+  KeyValuePipe,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {Template} from '@model/template';
+import {TranslateModule} from '@ngx-translate/core';
 
 export type Config<T> = {
-  template?: TemplateRef<Record<'i18n' | 'value', string>>;
-  additionalTemplate?: TemplateRef<Record<'item', T>>;
+  template?: Template<{i18n: string; value: string; expanded?: T}>;
+  additionalTemplate?: Template<Record<'item', T>>;
   formatFields?: Record<string, (a: T) => string>;
   empty?: string;
   color?: string;
 };
 
 @Component({
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    KeyValuePipe,
+    NgTemplateOutlet,
+    MatTableModule,
+    TranslateModule,
+  ],
   selector: 'app-table-expand',
   templateUrl: './table-expand.component.html',
   styleUrls: ['./table-expand.component.scss'],
@@ -50,7 +67,7 @@ export class TableExpandComponent<T>
 
   @ViewChild(MatTable, {static: true}) table!: MatTable<T>;
 
-  @Input()
+  @Input({required: true})
   dataSource!: T[];
 
   @Input()
@@ -59,6 +76,15 @@ export class TableExpandComponent<T>
   expanded?: T;
 
   constructor(private el: ElementRef) {}
+
+  ngAfterContentInit(): void {
+    this.color = `var(--${this.config?.color})`;
+    this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
+    this.rowDefs.forEach(rowDef => this.table.addRowDef(rowDef));
+    this.headerRowDefs.forEach(headerRowDef =>
+      this.table.addHeaderRowDef(headerRowDef)
+    );
+  }
 
   ngAfterViewChecked(): void {
     if (!this.expandHeight) {
@@ -84,15 +110,6 @@ export class TableExpandComponent<T>
         )?.offsetHeight ?? 0
       }px`;
     }
-  }
-
-  ngAfterContentInit(): void {
-    this.color = `var(--${this.config?.color})`;
-    this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
-    this.rowDefs.forEach(rowDef => this.table.addRowDef(rowDef));
-    this.headerRowDefs.forEach(headerRowDef =>
-      this.table.addHeaderRowDef(headerRowDef)
-    );
   }
 
   trackByFn: TrackByFunction<KeyValue<string, (a: T) => string>> = (

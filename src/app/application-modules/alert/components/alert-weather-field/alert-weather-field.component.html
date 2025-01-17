@@ -9,13 +9,13 @@
     value: initialValue
       ? [initialValue.field.min, initialValue.field.max]
       : undefined,
-    multiple: true,
+    multiple: true
   }"
   (selected)="
     selected.emit({
       field: selectedField,
       min: $event.value?.[0],
-      max: $event.value?.[1],
+      max: $event.value?.[1]
     });
     shownAddBtn.emit(true)
   "

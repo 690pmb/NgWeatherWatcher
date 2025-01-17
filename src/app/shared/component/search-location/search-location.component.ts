@@ -7,9 +7,13 @@ import {
   OnInit,
   OnChanges,
   TrackByFunction,
+  booleanAttribute,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {
+  MatAutocompleteModule,
+  MatAutocompleteTrigger,
+} from '@angular/material/autocomplete';
 import {faLocationArrow, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {iif, Observable, Observer, of} from 'rxjs';
 import {
@@ -23,17 +27,35 @@ import {Location} from '@model/weather/location';
 import {WeatherService} from '@services/weather.service';
 import {Utils} from '../../utils';
 import {GobalError} from '@services/utils.service';
+import {NgFor, NgIf} from '@angular/common';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {TranslateModule} from '@ngx-translate/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-search-location',
   templateUrl: './search-location.component.html',
   styleUrls: ['./search-location.component.scss'],
+  imports: [
+    NgIf,
+    NgFor,
+    FontAwesomeModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class SearchLocationComponent implements OnInit, OnChanges {
   @Input()
   placeholder?: string;
 
-  @Input()
+  @Input({transform: booleanAttribute})
   showPlaceholder = true;
 
   @Input()
@@ -55,6 +77,10 @@ export class SearchLocationComponent implements OnInit, OnChanges {
 
   constructor(private weatherService: WeatherService) {}
 
+  ngOnChanges(): void {
+    this.placeholder ||= 'global.none';
+  }
+
   ngOnInit(): void {
     this.initialPlaceholder = this.placeholder;
     this.inputCtrl.valueChanges
@@ -75,10 +101,6 @@ export class SearchLocationComponent implements OnInit, OnChanges {
         })
       )
       .subscribe(locations => (this.locations = locations));
-  }
-
-  ngOnChanges(): void {
-    this.placeholder ||= 'global.none';
   }
 
   geolocation(): void {

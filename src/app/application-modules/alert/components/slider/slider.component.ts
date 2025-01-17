@@ -8,19 +8,22 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {MultipleData} from '../../model/multiple-data';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormsModule} from '@angular/forms';
 import {SliderConfig, SliderValue} from '../../model/slider';
 import {SliderFormatter} from '../../model/slider-formatter';
+import {NouisliderComponent} from 'ng2-nouislider';
 
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss'],
+  standalone: true,
+  imports: [NouisliderComponent, FormsModule],
 })
 export class SliderComponent<T extends boolean>
   implements OnInit, OnChanges, MultipleData<SliderValue<T>, T>
 {
-  @Input()
+  @Input({required: true})
   configuration!: SliderConfig<T>;
 
   @Input()
@@ -36,6 +39,13 @@ export class SliderComponent<T extends boolean>
   SliderFormatter = SliderFormatter;
   config = {};
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes['initialValue']?.currentValue.value) {
+      this.initialValue = undefined;
+      this.initValue();
+    }
+  }
+
   ngOnInit() {
     if (!this.initialValue?.value) {
       this.shownAddBtn.emit(true);
@@ -46,13 +56,6 @@ export class SliderComponent<T extends boolean>
       range: {min: [this.configuration.min], max: [this.configuration.max]},
     };
     this.tooltips = this.configuration.multiple ? [true, true] : true;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!changes['initialValue']?.currentValue.value) {
-      this.initialValue = undefined;
-      this.initValue();
-    }
   }
 
   private initValue(): void {
