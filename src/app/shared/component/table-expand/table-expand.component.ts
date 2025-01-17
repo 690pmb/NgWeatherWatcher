@@ -67,7 +67,7 @@ export class TableExpandComponent<T>
 
   @ViewChild(MatTable, {static: true}) table!: MatTable<T>;
 
-  @Input()
+  @Input({required: true})
   dataSource!: T[];
 
   @Input()

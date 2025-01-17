@@ -18,9 +18,9 @@ import {
   ComponentRef,
   EmbeddedViewRef,
 } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf} from '@angular/common';
 
 export type DataBtn = {
   shown: boolean;
@@ -35,25 +35,20 @@ export type Created<T, U extends boolean> = {
 };
 
 @Component({
-    selector: 'app-multiple',
-    templateUrl: './multiple.component.html',
-    styleUrls: ['./multiple.component.scss'],
-    standalone: true,
-    imports: [
-        ContainerDirective,
-        NgIf,
-        MatButtonModule,
-        FontAwesomeModule,
-    ],
+  selector: 'app-multiple',
+  templateUrl: './multiple.component.html',
+  styleUrls: ['./multiple.component.scss'],
+  standalone: true,
+  imports: [ContainerDirective, NgIf, MatButtonModule, FontAwesomeModule],
 })
 export class MultipleComponent<T, U extends boolean> implements OnInit {
-  @Input()
+  @Input({required: true})
   compo!: Type<MultipleData<T, U>>;
 
   @Input()
-  configuration!: SliderConfig<U>;
+  configuration?: SliderConfig<U>;
 
-  @Input()
+  @Input({required: true})
   form!: FormArray<FormControl<T>>;
 
   @ViewChild(ContainerDirective, {static: true}) host!: ContainerDirective;
@@ -104,7 +99,9 @@ export class MultipleComponent<T, U extends boolean> implements OnInit {
       addComponent,
       deleteComponent,
     });
-    component.instance.configuration = {...this.configuration};
+    if (this.configuration) {
+      component.instance.configuration = {...this.configuration};
+    }
     this.addListeners(component, dataAdd, dataDelete);
     if (ctrl) {
       component.instance.ctrl = ctrl;
