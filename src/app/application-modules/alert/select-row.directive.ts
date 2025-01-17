@@ -10,6 +10,7 @@ type Speed = 'fast' | 'slow';
 
 @Directive({
   selector: '[appSelectRow]',
+  standalone: true,
 })
 export class SelectRowDirective {
   @Input()

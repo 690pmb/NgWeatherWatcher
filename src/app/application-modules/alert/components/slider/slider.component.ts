@@ -8,14 +8,17 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {MultipleData} from '../../model/multiple-data';
-import {FormControl} from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import {SliderConfig, SliderValue} from '../../model/slider';
 import {SliderFormatter} from '../../model/slider-formatter';
+import { NouisliderComponent } from 'ng2-nouislider';
 
 @Component({
-  selector: 'app-slider',
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.scss'],
+    selector: 'app-slider',
+    templateUrl: './slider.component.html',
+    styleUrls: ['./slider.component.scss'],
+    standalone: true,
+    imports: [NouisliderComponent, FormsModule],
 })
 export class SliderComponent<T extends boolean>
   implements OnInit, OnChanges, MultipleData<SliderValue<T>, T>

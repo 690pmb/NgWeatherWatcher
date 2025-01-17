@@ -1,12 +1,27 @@
 import {Component} from '@angular/core';
-import {Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import {Router, RouterLink} from '@angular/router';
+import {TranslateService, TranslateModule} from '@ngx-translate/core';
 import {AuthService} from '@services/auth.service';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf} from '@angular/common';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgIf,
+    MatButtonModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class SigninComponent {
   username = '';

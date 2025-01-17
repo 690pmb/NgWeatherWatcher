@@ -18,6 +18,9 @@ import {
   ComponentRef,
   EmbeddedViewRef,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf } from '@angular/common';
 
 export type DataBtn = {
   shown: boolean;
@@ -32,9 +35,16 @@ export type Created<T, U extends boolean> = {
 };
 
 @Component({
-  selector: 'app-multiple',
-  templateUrl: './multiple.component.html',
-  styleUrls: ['./multiple.component.scss'],
+    selector: 'app-multiple',
+    templateUrl: './multiple.component.html',
+    styleUrls: ['./multiple.component.scss'],
+    standalone: true,
+    imports: [
+        ContainerDirective,
+        NgIf,
+        MatButtonModule,
+        FontAwesomeModule,
+    ],
 })
 export class MultipleComponent<T, U extends boolean> implements OnInit {
   @Input()

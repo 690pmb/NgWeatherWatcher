@@ -121,6 +121,7 @@
             "ignoreStatic": true
           }
         ],
+        "@angular-eslint/prefer-standalone-component": ["error"],
         "@angular-eslint/sort-lifecycle-methods": ["error"],
         "@angular-eslint/component-max-inline-declarations": [
           "error",
@@ -132,11 +133,7 @@
         ],
         "@angular-eslint/contextual-decorator": ["error"],
         "@angular-eslint/no-pipe-impure": ["error"],
-        "@angular-eslint/relative-url-prefix": ["error"],
-        "@angular-eslint/sort-ngmodule-metadata-arrays": [
-          "error",
-          {"locale": "en-US"}
-        ]
+        "@angular-eslint/relative-url-prefix": ["error"]
       }
     }
   ]

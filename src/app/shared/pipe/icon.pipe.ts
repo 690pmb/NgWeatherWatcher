@@ -2,6 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'icon',
+  standalone: true,
+  pure: true,
 })
 export class IconPipe implements PipeTransform {
   transform(url: string, isDay = true): unknown {

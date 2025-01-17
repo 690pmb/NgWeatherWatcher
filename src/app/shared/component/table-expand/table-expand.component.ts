@@ -3,6 +3,7 @@ import {
   MatHeaderRowDef,
   MatRowDef,
   MatTable,
+  MatTableModule,
 } from '@angular/material/table';
 import {
   AfterContentInit,
@@ -16,8 +17,15 @@ import {
   AfterViewChecked,
   TrackByFunction,
 } from '@angular/core';
-import {KeyValue} from '@angular/common';
+import {
+  KeyValue,
+  KeyValuePipe,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {Template} from '@model/template';
+import {TranslateModule} from '@ngx-translate/core';
 
 export type Config<T> = {
   template?: Template<{i18n: string; value: string; expanded?: T}>;
@@ -29,6 +37,14 @@ export type Config<T> = {
 
 @Component({
   standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    KeyValuePipe,
+    NgTemplateOutlet,
+    MatTableModule,
+    TranslateModule,
+  ],
   selector: 'app-table-expand',
   templateUrl: './table-expand.component.html',
   styleUrls: ['./table-expand.component.scss'],
