@@ -10,7 +10,7 @@ import {AuthService} from '@services/auth.service';
 import {inject} from '@angular/core';
 
 export const authGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot
+  route: ActivatedRouteSnapshot,
 ): Observable<UrlTree | boolean> => {
   const auth = inject(AuthService);
   const router = inject(Router);
@@ -22,7 +22,7 @@ export const authGuard: CanActivateFn = (
           return router.parseUrl('/user/signin');
         }
         return true;
-      })
+      }),
     );
   } catch (err) {
     console.error('guard error', err);

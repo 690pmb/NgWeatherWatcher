@@ -10,7 +10,7 @@ export class PageRequest<T> {
   toUrl(): string {
     return `?page=${this.page}&size=${this.size}&${sortToUrl<T>(
       this.sortField,
-      this.sortDir
+      this.sortDir,
     )}`;
   }
 }

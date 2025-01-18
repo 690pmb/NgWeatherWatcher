@@ -10,7 +10,7 @@
         name="inputName"
         required
         maxlength="30"
-        placeholder="{{ 'global.username' | translate }}"
+        [placeholder]="'global.username' | translate"
         [(ngModel)]="username"
       />
       @if (
@@ -30,7 +30,7 @@
         name="inputPassword"
         required
         maxlength="30"
-        placeholder="{{ 'user.password' | translate }}"
+        [placeholder]="'user.password' | translate"
         [(ngModel)]="password"
       />
       @if (

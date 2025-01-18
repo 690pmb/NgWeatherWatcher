@@ -35,7 +35,7 @@ export class Alert {
         .map(v => v.toFormat('HH:mm')),
     {
       toClassOnly: true,
-    }
+    },
   )
   monitoredHours!: string[];
 
@@ -54,7 +54,7 @@ export class Alert {
     const summary = [ALL_DAYS, WORKING_DAYS, WEEK_END].find(
       days =>
         days.value.length === this.triggerDays.length &&
-        days.value.every(day => this.triggerDays.includes(day))
+        days.value.every(day => this.triggerDays.includes(day)),
     )?.key;
     if (enableSummary && summary) {
       return [`alert.${summary}`];

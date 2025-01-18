@@ -14,7 +14,7 @@ export class WeatherService extends UtilsService {
   constructor(
     protected override httpClient: HttpClient,
     protected override toast: ToastService,
-    protected configurationService: ConfigurationService
+    protected configurationService: ConfigurationService,
   ) {
     super(httpClient, toast);
     this.baseUrl = configurationService.get().apiUrl;
@@ -28,7 +28,7 @@ export class WeatherService extends UtilsService {
   findForecastByLocation(
     location: string,
     days: string,
-    lang: string
+    lang: string,
   ): Observable<Forecast> {
     return this.get<Forecast>({
       params: new HttpParams({fromObject: {location, days, lang}}),

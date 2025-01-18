@@ -8,7 +8,7 @@
     <!-- Username -->
     <mat-form-field
       appearance="outline"
-      hintLabel="{{ 'user.signup.username_hint' | translate }}"
+      [hintLabel]="'user.signup.username_hint' | translate"
     >
       <input
         #inputUsername="ngModel"
@@ -18,7 +18,7 @@
         required
         minlength="4"
         maxlength="30"
-        placeholder="{{ 'global.username' | translate }}"
+        [placeholder]="'global.username' | translate"
         [(ngModel)]="username"
       />
       @if (
@@ -40,7 +40,7 @@
     <!-- Password -->
     <mat-form-field
       appearance="outline"
-      hintLabel="{{ 'user.signup.password_hint' | translate }}"
+      [hintLabel]="'user.signup.password_hint' | translate"
     >
       <input
         #inputPassword="ngModel"
@@ -50,7 +50,7 @@
         required
         minlength="6"
         maxlength="30"
-        placeholder="{{ 'user.password' | translate }}"
+        [placeholder]="'user.password' | translate"
         [(ngModel)]="password"
       />
       @if (
@@ -72,7 +72,7 @@
     <!-- Password 2 -->
     <mat-form-field
       appearance="outline"
-      hintLabel="{{ 'user.signup.password_hint' | translate }}"
+      [hintLabel]="'user.signup.password_hint' | translate"
     >
       <input
         #inputPassword2="ngModel"
@@ -82,7 +82,7 @@
         required
         minlength="6"
         maxlength="30"
-        placeholder="{{ 'user.signup.password2' | translate }}"
+        [placeholder]="'user.signup.password2' | translate"
         [(ngModel)]="password2"
       />
       @if (
@@ -112,8 +112,7 @@
     <app-search-location
       placeholder="user.signin.favourite_location"
       (selected)="favouriteLocation = $event"
-    >
-    </app-search-location>
+    />
 
     <!-- Footer -->
     <div class="signup-footer">

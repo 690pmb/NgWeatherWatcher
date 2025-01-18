@@ -65,7 +65,7 @@ bootstrapApplication(AppComponent, {
         const translateService = inject(TranslateService);
         return () =>
           translateService.use(
-            translateService.getBrowserLang() === 'fr' ? 'fr' : 'en'
+            translateService.getBrowserLang() === 'fr' ? 'fr' : 'en',
           );
       },
       deps: [TranslateService],

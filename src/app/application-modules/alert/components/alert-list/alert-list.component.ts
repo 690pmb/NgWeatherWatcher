@@ -86,16 +86,16 @@ export class AlertListComponent implements OnInit {
   formatFields: Record<string, (a: Alert) => string> = {
     force_notification: a =>
       this.titleCasePipe.transform(
-        this.translate.instant(`global.${a.forceNotification}`) as string
+        this.translate.instant(`global.${a.forceNotification}`) as string,
       ),
     trigger_day: a =>
       this.titleCasePipe.transform(
-        this.formatField(a.getTriggerDays(this.translate.currentLang), false)
+        this.formatField(a.getTriggerDays(this.translate.currentLang), false),
       ),
     trigger_hour: a => this.datePipe.transform(a.triggerHour, 'hour'),
     monitored_day: a =>
       this.titleCasePipe.transform(
-        this.formatField(a.getMonitoredDays(), false)
+        this.formatField(a.getMonitoredDays(), false),
       ),
     monitored_hour: a => this.formatField(a.monitoredHours, false),
     location: a => a.location,
@@ -110,7 +110,7 @@ export class AlertListComponent implements OnInit {
         (queryParam.get('sortDir') as SortDirection) ?? 'asc';
       this.pageRequest.page = +(queryParam.get('page') ?? 0);
       return this.alertService.getAllByUser(this.pageRequest);
-    })
+    }),
   );
 
   pageRequest = new PageRequest<Alert>();
@@ -136,7 +136,7 @@ export class AlertListComponent implements OnInit {
     private menuService: MenuService,
     private bottomSheet: MatBottomSheet,
     private titleCasePipe: TitleCasePipe,
-    private datePipe: DateTimePipe
+    private datePipe: DateTimePipe,
   ) {}
 
   ngOnInit(): void {
@@ -147,7 +147,7 @@ export class AlertListComponent implements OnInit {
   navigate(
     page: number,
     sortField?: SortField<Alert>,
-    sortDir?: SortDirection
+    sortDir?: SortDirection,
   ): void {
     this.router
       .navigate(['.'], {
@@ -188,7 +188,7 @@ export class AlertListComponent implements OnInit {
           page: 0,
           sortField: this.pageRequest.sortField,
           sortDir: this.pageRequest.sortDir,
-        })
+        }),
       );
     });
   }
@@ -199,7 +199,7 @@ export class AlertListComponent implements OnInit {
         [`/dashboard/details/${DateTime.now().toFormat('yyyy-MM-dd')}`],
         {
           queryParams: {alert: alert.id, location: alert.location},
-        }
+        },
       )
       .catch(err => console.error(err));
   }

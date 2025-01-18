@@ -6,7 +6,7 @@
 >
   <div>
     {{ 'alert.create' | translate }}&nbsp;
-    <fa-icon [icon]="faPlus"></fa-icon>
+    <fa-icon [icon]="faPlus" />
   </div>
 </button>
 @if (alerts$ | async; as alerts) {
@@ -18,9 +18,9 @@
       (page)="
         navigate($event.pageIndex, pageRequest.sortField, pageRequest.sortDir)
       "
-    >
-    </mat-paginator>
+    />
   </div>
+  <!-- eslint-disable @angular-eslint/template/no-any -->
   <app-table-expand
     #table
     matSort
@@ -31,12 +31,13 @@
       additionalTemplate,
       formatFields,
       empty: 'alert.empty',
-      color: 'darken-theme'
+      color: 'darken-theme',
     }"
     [matSortDirection]="pageRequest.sortDir"
     [matSortActive]="pageRequest.sortField ?? ''"
     (matSortChange)="navigate(0, $any($event.active), $event.direction)"
   >
+    <!-- eslint-enable @angular-eslint/template/no-any -->
     <ng-container matColumnDef="triggerDays">
       <mat-header-cell *matHeaderCellDef mat-header-cell>
         {{ 'alert.trigger_day' | translate }}
@@ -89,7 +90,7 @@
           [matMenuTriggerData]="{alert}"
           (click)="$event.stopPropagation()"
         >
-          <fa-icon [icon]="faMenu"></fa-icon>
+          <fa-icon [icon]="faMenu" />
         </button>
       </mat-cell>
     </ng-container>
@@ -109,7 +110,7 @@
         }
       </div>
     </ng-template>
-    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="columnsToDisplay" />
     <mat-row
       *matRowDef="let alert; columns: columnsToDisplay"
       class="alert-row"
@@ -118,7 +119,7 @@
       [speed]="selected.length > 0 ? 'fast' : 'slow'"
       (click)="table.expand(alert)"
       (selected)="handleSelection(alert.id)"
-    ></mat-row>
+    />
   </app-table-expand>
 }
 
@@ -139,24 +140,28 @@
   >
     <div>
       {{ 'alert.delete' | translate }}&nbsp;
-      <fa-icon [icon]="faTrash"></fa-icon>
+      <fa-icon [icon]="faTrash" />
     </div>
   </button>
 </ng-template>
 
 <mat-menu #menu="matMenu">
   <ng-template let-alert="alert" matMenuContent>
-    <button mat-menu-item type="button" routerLink="/alert/edit/{{ alert.id }}">
+    <button
+      mat-menu-item
+      type="button"
+      [routerLink]="'/alert/edit/' + alert.id"
+    >
       {{ 'global.edit' | translate }}&nbsp;
-      <fa-icon [icon]="faEdit"></fa-icon>
+      <fa-icon [icon]="faEdit" />
     </button>
     <button mat-menu-item type="button" (click)="delete([alert.id])">
       {{ 'alert.delete' | translate }}&nbsp;
-      <fa-icon [icon]="faTrash"></fa-icon>
+      <fa-icon [icon]="faTrash" />
     </button>
     <button mat-menu-item type="button" (click)="view(alert)">
       {{ 'alert.preview' | translate }}&nbsp;
-      <fa-icon [icon]="faSun"></fa-icon>
+      <fa-icon [icon]="faSun" />
     </button>
   </ng-template>
 </mat-menu>

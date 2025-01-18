@@ -9,7 +9,7 @@ import {
 } from '@angular/animations';
 
 export const slideInOutAnimation: (
-  name: string
+  name: string,
 ) => AnimationTriggerMetadata = name =>
   trigger(name, [
     transition(':increment', [
@@ -21,7 +21,7 @@ export const slideInOutAnimation: (
             animate('200ms ease-out', style({transform: 'translateX(0%)'})),
           ]),
         ],
-        {optional: true}
+        {optional: true},
       ),
     ]),
     transition(':decrement', [
@@ -33,7 +33,7 @@ export const slideInOutAnimation: (
             animate('200ms ease-out', style({transform: 'translateX(0%)'})),
           ]),
         ],
-        {optional: true}
+        {optional: true},
       ),
     ]),
   ]);

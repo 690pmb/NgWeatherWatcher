@@ -23,8 +23,7 @@
           [hidePageSize]="true"
           [ngClass]="{hide: !showAll}"
           (page)="navigate(date, $event.pageIndex)"
-        >
-        </mat-paginator>
+        />
       </div>
       <app-table-expand
         #table
@@ -44,7 +43,7 @@
             {{ 'forecast.condition' | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let hour">
-            <img src="{{ hour.condition.icon | icon: hour.isDay }}" />
+            <img [src]="hour.condition.icon | icon: hour.isDay" />
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="tempC">
@@ -95,11 +94,11 @@
             {{ hour.chanceOfRain }} %
           </mat-cell>
         </ng-container>
-        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+        <mat-header-row *matHeaderRowDef="columnsToDisplay" />
         <mat-row
           *matRowDef="let h; columns: columnsToDisplay"
           (click)="table.expand(h)"
-        ></mat-row>
+        />
       </app-table-expand>
     </div>
   }

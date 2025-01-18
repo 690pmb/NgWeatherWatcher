@@ -68,7 +68,7 @@ export class TableExpandComponent<T>
     this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
     this.rowDefs.forEach(rowDef => this.table.addRowDef(rowDef));
     this.headerRowDefs.forEach(headerRowDef =>
-      this.table.addHeaderRowDef(headerRowDef)
+      this.table.addHeaderRowDef(headerRowDef),
     );
   }
 
@@ -76,7 +76,7 @@ export class TableExpandComponent<T>
     if (!this.expandHeight) {
       const height =
         (this.el.nativeElement as HTMLElement).querySelector<HTMLElement>(
-          '.mat-column-details:not(.hide)'
+          '.mat-column-details:not(.hide)',
         )?.offsetHeight ?? 0;
       if (height) {
         setTimeout(() => (this.expandHeight = `${height}px`));
@@ -92,7 +92,7 @@ export class TableExpandComponent<T>
     if (this.expanded) {
       this.rowHeight = `${
         (this.el.nativeElement as HTMLElement).querySelector<HTMLElement>(
-          '.mat-mdc-row:not(.detail-row)'
+          '.mat-mdc-row:not(.detail-row)',
         )?.offsetHeight ?? 0
       }px`;
     }

@@ -1,7 +1,7 @@
 <app-dashboard>
   @if (showSpinner) {
     <div class="spinner-wrapper">
-      <mat-spinner mode="indeterminate"></mat-spinner>
+      <mat-spinner mode="indeterminate" />
       <h1>{{ 'global.geolocation.in_progress' | translate }}</h1>
     </div>
   }
@@ -9,7 +9,7 @@
     class="search-location"
     [showPlaceholder]="false"
     (selected)="navigate($event)"
-  ></app-search-location>
+  />
   @if (forecast) {
     <div>
       <div class="weather-cover">
@@ -31,7 +31,7 @@
               >
             </h2>
             <div class="weather-day">
-              <img src="{{ forecastDay.day.condition.icon | icon }}" />
+              <img [src]="forecastDay.day.condition.icon | icon" />
               <div class="weather-day-items">
                 <div>{{ forecastDay.day.condition.text }}</div>
                 <div>
@@ -65,7 +65,7 @@
               </div>
             </div>
             @if (!last) {
-              <mat-divider></mat-divider>
+              <mat-divider />
             }
           </div>
         }

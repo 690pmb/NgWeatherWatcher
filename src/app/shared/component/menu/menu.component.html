@@ -12,7 +12,7 @@
       class="toogle-button mat-elevation-z4"
       (click)="sidenav.toggle(); setMenuWidth(); $event.stopPropagation()"
     >
-      <fa-icon size="2x" [icon]="faBars"></fa-icon>
+      <fa-icon size="2x" [icon]="faBars" />
     </button>
     @if (title) {
       <h1>
@@ -37,12 +37,12 @@
             routerLinkActive="active-nav-item"
             [routerLink]="item.route"
           >
-            <fa-icon [icon]="item.icon"></fa-icon>
+            <fa-icon [icon]="item.icon" />
             {{ item.label | translate }}
           </a>
         }
         <a mat-list-item (click)="logout()">
-          <fa-icon [icon]="faSignOutAlt"></fa-icon>
+          <fa-icon [icon]="faSignOutAlt" />
           {{ 'nav-bar.logout' | translate }}
         </a>
       </mat-nav-list>
@@ -60,7 +60,7 @@
   <mat-sidenav-content class="sidenav-content">
     <div class="background-color"></div>
     <div [ngClass]="{menu: (isLogged$ | async)}" [@menu]="direction">
-      <router-outlet></router-outlet>
+      <router-outlet />
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

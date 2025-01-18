@@ -14,7 +14,7 @@ export class ConfigurationService {
     return this.configuration
       ? of(this.configuration)
       : from(
-          window.fetch('./assets/configuration.json').then(res => res.json())
+          window.fetch('./assets/configuration.json').then(res => res.json()),
         ).pipe(
           map((config: unknown) => plainToInstance(Configuration, config)),
           tap((configuration: Configuration) => {
@@ -22,7 +22,7 @@ export class ConfigurationService {
             if (!isDevMode()) {
               this.configuration.apiUrl = this.configuration.prodUrl;
             }
-          })
+          }),
         );
   }
 

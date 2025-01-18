@@ -8,8 +8,8 @@ export class CreateAlert {
   @Transform(
     ({value}) =>
       `${Utils.formatMinutes(value as number, 'hh:mm:00.000')}${DateTime.now().toFormat(
-        'ZZ'
-      )}`
+        'ZZ',
+      )}`,
   )
   triggerHour!: number;
 
@@ -17,9 +17,9 @@ export class CreateAlert {
     (value as number[]).map(
       v =>
         `${Utils.formatMinutes(v, 'hh:mm:00.000')}${DateTime.now().toFormat(
-          'ZZ'
-        )}`
-    )
+          'ZZ',
+        )}`,
+    ),
   )
   monitoredHours!: number[];
 

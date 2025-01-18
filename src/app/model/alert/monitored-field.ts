@@ -1,7 +1,7 @@
 import {WeatherField} from './weather-field';
 import {Expose} from 'class-transformer';
 
-export const UNITS: {[key in WeatherField]: string} = {
+export const UNITS: Record<WeatherField, string> = {
   TEMP: '°C',
   CHANCE_OF_RAIN: '%',
   CHANCE_OF_SNOW: '%',

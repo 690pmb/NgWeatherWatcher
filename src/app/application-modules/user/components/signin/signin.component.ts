@@ -30,7 +30,7 @@ export class SigninComponent {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   login(): void {
@@ -39,7 +39,7 @@ export class SigninComponent {
         connected => {
           if (connected) {
             this.message = this.translate.instant(
-              'user.signin.connected'
+              'user.signin.connected',
             ) as string;
             const redirectPage = sessionStorage.getItem('redirectPage');
             if (redirectPage) {
@@ -51,11 +51,11 @@ export class SigninComponent {
             }
           } else {
             this.message = this.translate.instant(
-              'user.signin.wrong'
+              'user.signin.wrong',
             ) as string;
           }
         },
-        (err: Error) => this.auth.handleError(err)
+        (err: Error) => this.auth.handleError(err),
       );
     }
   }

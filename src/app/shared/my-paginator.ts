@@ -5,7 +5,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class MyPaginator extends MatPaginatorIntl {
   constructor(
     private translate: TranslateService,
-    public prefix = 'global'
+    public prefix = 'global',
   ) {
     super();
     this.translate.onLangChange.subscribe(() => {
@@ -16,26 +16,26 @@ export class MyPaginator extends MatPaginatorIntl {
 
   initTranslation(): void {
     this.itemsPerPageLabel = this.translate.instant(
-      `${this.prefix}.mat-table.itemsPerPageLabel`
+      `${this.prefix}.mat-table.itemsPerPageLabel`,
     ) as string;
     this.nextPageLabel = this.translate.instant(
-      'global.mat-table.nextPageLabel'
+      'global.mat-table.nextPageLabel',
     ) as string;
     this.previousPageLabel = this.translate.instant(
-      'global.mat-table.previousPageLabel'
+      'global.mat-table.previousPageLabel',
     ) as string;
     this.lastPageLabel = this.translate.instant(
-      'global.mat-table.lastPageLabel'
+      'global.mat-table.lastPageLabel',
     ) as string;
     this.firstPageLabel = this.translate.instant(
-      'global.mat-table.firstPageLabel'
+      'global.mat-table.firstPageLabel',
     ) as string;
   }
 
   override getRangeLabel = (
     page: number,
     pageSize: number,
-    length: number
+    length: number,
   ): string => {
     if (length === 0 || pageSize === 0) {
       return this.translate.instant('global.mat-table.no_result') as string;

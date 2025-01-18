@@ -1,4 +1,4 @@
-<ng-template appContainer></ng-template>
+<ng-template appContainer />
 <ng-template #btn let-data>
   @if (data.shown) {
     <button
@@ -7,7 +7,7 @@
       mat-raised-button
       (click)="data.clicked.emit()"
     >
-      <fa-icon size="2x" [icon]="data.icon"></fa-icon>
+      <fa-icon size="2x" [icon]="data.icon" />
     </button>
   }
 </ng-template>

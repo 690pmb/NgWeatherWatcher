@@ -1,6 +1,6 @@
 @if (showSpinner) {
   <div class="spinner-wrapper">
-    <mat-spinner mode="indeterminate"></mat-spinner>
+    <mat-spinner mode="indeterminate" />
     <h1>{{ 'global.geolocation.in_progress' | translate }}</h1>
   </div>
 }
@@ -11,13 +11,13 @@
     matIconPrefix
     (click)="geolocation(); $event.stopPropagation()"
   >
-    <fa-icon size="2x" [icon]="faLocationArrow"></fa-icon>
+    <fa-icon size="2x" [icon]="faLocationArrow" />
   </button>
   <input
     #inputLocation="matInput"
     type="text"
     matInput
-    placeholder="{{ (showPlaceholder ? placeholder ?? '' : '') | translate }}"
+    [placeholder]="(showPlaceholder ? (placeholder ?? '') : '') | translate"
     [matAutocomplete]="auto"
     [formControl]="inputCtrl"
     (focus)="placeholder = undefined"
@@ -33,7 +33,7 @@
       matIconSuffix
       (click)="reset(); $event.stopPropagation()"
     >
-      <fa-icon size="2x" [icon]="faTimes"></fa-icon>
+      <fa-icon size="2x" [icon]="faTimes" />
     </button>
   }
 </mat-form-field>

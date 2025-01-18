@@ -124,7 +124,7 @@ export class AlertComponent implements OnInit {
     protected authService: AuthService,
     private toast: ToastService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -135,11 +135,11 @@ export class AlertComponent implements OnInit {
             () => Utils.isNotBlank(id),
             this.alertService.getById(id ?? '').pipe(
               tap(a => (this.existingAlert = a)),
-              map(a => a.location)
+              map(a => a.location),
             ),
-            this.authService.token$.pipe(map(t => t?.location))
-          )
-        )
+            this.authService.token$.pipe(map(t => t?.location)),
+          ),
+        ),
       )
       .subscribe(location => this.initFormValue(location));
   }
@@ -151,7 +151,7 @@ export class AlertComponent implements OnInit {
     this.initTriggerDays();
     this.initMonitoredDays();
     this.alertForm.controls.forceNotification?.setValue(
-      this.existingAlert?.forceNotification ?? false
+      this.existingAlert?.forceNotification ?? false,
     );
     this.initTriggerHour();
     this.existingAlert?.monitoredHours.forEach(m => {
@@ -172,14 +172,14 @@ export class AlertComponent implements OnInit {
           max: f.max,
           field: {min: f.min, max: f.max, field: f.field},
         } as AlertWeatherField,
-      })
+      }),
     );
   }
 
   private initTriggerDays(): void {
     const existingTriggerDays = this.existingAlert?.getTriggerDays(
       this.translate.currentLang,
-      false
+      false,
     );
     this.triggerDayChoices = Array.from(Array(7).keys()).map(i => {
       const day = DateTime.fromFormat(`${i + 1} 8 2022`, 'd M yyyy');
@@ -194,20 +194,20 @@ export class AlertComponent implements OnInit {
       this.addToFormArray({
         name: 'triggerDays',
         value: existingTriggerDays?.includes(d.value.toLowerCase()) ?? false,
-      })
+      }),
     );
   }
 
   private initMonitoredDays(): void {
     const existingMonitoredDays = this.existingAlert?.getMonitoredDays() ?? [];
     this.monitoredDayChoices = Object.values(MonitoredDay).map(
-      m => `alert.monitored_days.${m}`
+      m => `alert.monitored_days.${m}`,
     );
     this.monitoredDayChoices.forEach(m =>
       this.addToFormArray({
         name: 'monitoredDays',
         value: existingMonitoredDays.includes(m),
-      })
+      }),
     );
   }
 
@@ -217,8 +217,8 @@ export class AlertComponent implements OnInit {
       this.alertForm.controls.triggerHour?.setValue(
         Utils.timeToMinutes(
           existingTriggerHour.hour,
-          existingTriggerHour.minute
-        )
+          existingTriggerHour.minute,
+        ),
       );
     }
   }
@@ -233,7 +233,7 @@ export class AlertComponent implements OnInit {
     }[keyof AlertForm],
   >(ctrl: U): void {
     (this.alertForm.controls[ctrl.name] as FormArray).push(
-      this.fb.control(ctrl.value)
+      this.fb.control(ctrl.value),
     );
   }
 
@@ -249,7 +249,7 @@ export class AlertComponent implements OnInit {
       triggerDays:
         formValue.triggerDays
           ?.map((t, i) =>
-            t ? this.triggerDayChoices[i]?.key.toUpperCase() : undefined
+            t ? this.triggerDayChoices[i]?.key.toUpperCase() : undefined,
           )
           .filter((t): t is string => !!t) ?? [],
       triggerHour: formValue.triggerHour ?? 0,
@@ -267,7 +267,7 @@ export class AlertComponent implements OnInit {
                 field: a.field.field,
                 min: a.min,
                 max: a.max,
-              }) as CreateMonitoredField
+              }) as CreateMonitoredField,
           ) ?? [],
       forceNotification: formValue.forceNotification ?? false,
     };

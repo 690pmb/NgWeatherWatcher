@@ -12,11 +12,11 @@
               $implicit: {
                 i18n: formatField.key,
                 value: formatField.value(item),
-                expanded
-              }
+                expanded,
+              },
             }
           "
-        ></ng-container>
+        />
       }
 
       @if (config?.additionalTemplate) {
@@ -25,7 +25,7 @@
             config?.additionalTemplate ?? null;
             context: {$implicit: {item}}
           "
-        ></ng-template>
+        />
       }
     </mat-cell>
   </ng-container>
@@ -35,7 +35,7 @@
       *matRowDef="let row; columns: ['details']"
       class="detail-row"
       [class.expanded]="expanded === row"
-    ></mat-row>
+    />
   }
 
   @if (config?.empty) {

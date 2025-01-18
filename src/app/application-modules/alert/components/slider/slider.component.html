@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/no-any -->
 <nouislider
   [connect]="configuration.multiple"
   [min]="configuration.min"
@@ -8,4 +9,5 @@
   [config]="config"
   [(ngModel)]="configuration.value"
   (end)="select($event)"
-></nouislider>
+/>
+<!-- eslint-enable @angular-eslint/template/no-any -->

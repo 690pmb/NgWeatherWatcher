@@ -1,9 +1,7 @@
 @if (ready) {
   <form [formGroup]="alertForm" (ngSubmit)="onSubmit()">
     <app-question label="alert.location" [ctrl]="alertForm.controls.location">
-      <app-search-location
-        [inputCtrl]="alertForm.controls.location"
-      ></app-search-location>
+      <app-search-location [inputCtrl]="alertForm.controls.location" />
     </app-question>
     <app-question
       label="alert.trigger_day"
@@ -23,7 +21,7 @@
           [configuration]="triggerHourConfig"
           [initialValue]="{value: trigger.value, multiple: false}"
           (selected)="trigger.setValue($event.value ?? 0)"
-        ></app-slider>
+        />
       </app-question>
     }
     <app-question label="alert.force_notification">
@@ -55,14 +53,14 @@
       ><app-multiple
         [compo]="alertWeatherFieldComponent"
         [form]="alertForm.controls.monitoredFields"
-      ></app-multiple>
+      />
     </app-question>
     <app-question label="alert.monitored_hour">
       <app-multiple
         [compo]="sliderComponent"
         [configuration]="monitoredHourConfig"
         [form]="alertForm.controls.monitoredHours"
-      ></app-multiple>
+      />
     </app-question>
   </form>
 }

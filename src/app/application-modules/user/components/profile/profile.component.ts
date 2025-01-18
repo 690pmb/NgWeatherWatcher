@@ -29,12 +29,12 @@ export class ProfileComponent implements OnInit {
     private menuService: MenuService,
     protected authService: AuthService,
     protected translateService: TranslateService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {}
 
   ngOnInit() {
     this.menuService.title$.next(
-      this.translateService.instant('user.profile.title') as string
+      this.translateService.instant('user.profile.title') as string,
     );
   }
 

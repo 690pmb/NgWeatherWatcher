@@ -89,7 +89,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     public authService: AuthService,
     private router: Router,
     public menuService: MenuService,
-    private cdk: ChangeDetectorRef
+    private cdk: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -100,7 +100,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           this.isLogged$.next(false);
         }
-      })
+      }),
     );
     this.menuService.title$.subscribe(t => {
       this.title = t;
@@ -125,7 +125,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
             return this.direction;
           }
         }),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       )
       .subscribe(dir => {
         this.direction = dir;

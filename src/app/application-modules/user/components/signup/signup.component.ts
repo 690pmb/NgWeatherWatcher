@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toast: ToastService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -59,7 +59,7 @@ export class SignupComponent implements OnInit {
           this.username,
           this.password,
           this.translateService.currentLang,
-          this.favouriteLocation
+          this.favouriteLocation,
         )
         .subscribe(
           status => {
@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit {
                 .catch(err => console.error(err));
             }
           },
-          (err: Error) => this.authService.handleError(err)
+          (err: Error) => this.authService.handleError(err),
         );
     }
   }

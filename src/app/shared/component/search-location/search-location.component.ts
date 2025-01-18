@@ -75,7 +75,7 @@ export class SearchLocationComponent implements OnInit, OnChanges {
   constructor(private weatherService: WeatherService) {}
 
   ngOnChanges(): void {
-    this.placeholder ||= 'global.none';
+    this.placeholder ??= 'global.none';
   }
 
   ngOnInit(): void {
@@ -88,14 +88,14 @@ export class SearchLocationComponent implements OnInit, OnChanges {
           iif(
             () => Utils.isNotBlank(term),
             this.weatherService.search(term ?? ''),
-            of([])
-          )
+            of([]),
+          ),
         ),
         catchError((error: GobalError) => {
           this.weatherService.handleError(error);
           this.trigger.closePanel();
           return of([]);
-        })
+        }),
       )
       .subscribe(locations => (this.locations = locations));
   }
@@ -103,7 +103,7 @@ export class SearchLocationComponent implements OnInit, OnChanges {
   geolocation(): void {
     this.showSpinner = true;
     new Observable((observer: Observer<string>) =>
-      WeatherService.findUserPosition(observer)
+      WeatherService.findUserPosition(observer),
     )
       .pipe(switchMap(location => this.weatherService.search(location)))
       .subscribe(locations => {

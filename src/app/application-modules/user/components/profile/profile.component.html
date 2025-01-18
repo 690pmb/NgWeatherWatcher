@@ -12,7 +12,7 @@
       ><app-search-location
         [placeholder]="user.location"
         (selected)="edit($event)"
-      ></app-search-location>
+      />
     </div>
     <div>
       <button
@@ -23,7 +23,7 @@
       >
         <span>
           {{ 'notification.delete' | translate }}&nbsp;
-          <fa-icon [icon]="faBellSlash"></fa-icon>
+          <fa-icon [icon]="faBellSlash" />
         </span>
       </button>
     </div>
