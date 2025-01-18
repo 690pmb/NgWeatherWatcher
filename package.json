@@ -83,7 +83,7 @@
     "postcss-sass": "0.5.0",
     "stylelint": "^16.13.2",
     "stylelint-config-sass-guidelines": "~12.1.0",
-    "stylelint-config-standard": "~36.0.1",
+    "stylelint-config-standard": "~37.0.0",
     "stylelint-config-standard-scss": "^14.0.0",
     "typescript": "~5.4.5"
   },
