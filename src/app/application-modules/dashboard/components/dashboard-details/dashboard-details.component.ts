@@ -1,7 +1,7 @@
-import {Location, NgIf, NgClass, DatePipe} from '@angular/common';
+import {Location, NgClass, DatePipe} from '@angular/common';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {combineLatest, Subscription, Observable, of, EMPTY, iif} from 'rxjs';
 import {filter, mergeMap, switchMap, map} from 'rxjs/operators';
 import {Forecast} from '@model/weather/forecast';
@@ -35,7 +35,6 @@ import {DashboardComponent} from '../dashboard/dashboard.component';
   standalone: true,
   imports: [
     DashboardComponent,
-    NgIf,
     MatSlideToggleModule,
     FormsModule,
     MatPaginatorModule,
@@ -45,7 +44,7 @@ import {DashboardComponent} from '../dashboard/dashboard.component';
     HighlightDirective,
     DatePipe,
     IconPipe,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class DashboardDetailsComponent implements OnInit, OnDestroy {
@@ -98,7 +97,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private translate: TranslateService,
     private menuService: MenuService,
-    private datePipe: DateTimePipe
+    private datePipe: DateTimePipe,
   ) {}
 
   ngOnInit(): void {
@@ -120,25 +119,25 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                   `${this.forecast.location.name} - ${this.datePipe.transform(
                     this.date,
                     'beautiful',
-                    this.translate.currentLang
-                  )}`
+                    this.translate.currentLang,
+                  )}`,
                 );
                 this.forecastDay = this.forecast.forecastDay.find(
-                  day => day.date === this.date
+                  day => day.date === this.date,
                 );
                 this.index = this.getIndex();
                 this.filterAndPaginate(
                   queryParam.get('showAll') === 'true',
-                  +Utils.getOrElse(queryParam.get('page'), '0')
+                  +Utils.getOrElse(queryParam.get('page'), '0'),
                 );
                 this.alertId = queryParam.get('alert') ?? undefined;
                 return this.alertId;
               }),
-              filter((a): a is string => Utils.isNotBlank(a))
+              filter((a): a is string => Utils.isNotBlank(a)),
             )
             .subscribe(a => this.highlightService.alertId$.next(a));
         }
-      })
+      }),
     );
   }
 
@@ -153,7 +152,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                 return this.weatherService.findForecastByLocation(
                   place,
                   '5',
-                  this.translate.currentLang
+                  this.translate.currentLang,
                 );
               } else {
                 this.router
@@ -161,11 +160,11 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                   .catch(err => console.error(err));
                 return EMPTY;
               }
-            })
+            }),
           ),
-          of(forecast)
-        )
-      )
+          of(forecast),
+        ),
+      ),
     );
   }
 
@@ -181,12 +180,12 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
       this.hours =
         this.forecastDay?.hour.slice(
           this.pageIndex * this.pageSize,
-          (this.pageIndex + 1) * this.pageSize
+          (this.pageIndex + 1) * this.pageSize,
         ) ?? [];
     } else {
       this.hours =
         this.forecastDay?.hour.filter(
-          h => new Date(h.time).getHours() % 3 === 0
+          h => new Date(h.time).getHours() % 3 === 0,
         ) ?? [];
     }
   }
@@ -198,7 +197,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   onSwipe(
     canSwipeNextDay: (i: number, p: number) => boolean,
     canSwipeNextPage: (p: number) => boolean,
-    next: -1 | 1
+    next: -1 | 1,
   ): void {
     const index = this.getIndex();
     if (canSwipeNextDay(index, this.pageIndex)) {
@@ -208,7 +207,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
           ? this.pageIndex === 0
             ? DashboardDetailsComponent.MAX_PAGE_INDEX
             : 0
-          : 0
+          : 0,
       );
     } else if (canSwipeNextPage(this.pageIndex)) {
       this.navigate(this.date, this.pageIndex + next);
@@ -233,7 +232,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
           p === DashboardDetailsComponent.MAX_PAGE_INDEX &&
           i < this.forecast.forecastDay.length - 1),
       p => this.showAll && p < DashboardDetailsComponent.MAX_PAGE_INDEX,
-      1
+      1,
     );
   }
 
@@ -243,7 +242,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
         (!this.showAll && i > 0) ||
         (this.showAll && i > 0 && this.pageIndex === 0),
       p => this.showAll && p > 0,
-      -1
+      -1,
     );
   }
 

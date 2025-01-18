@@ -2,12 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AuthService} from '@services/auth.service';
 import {ToastService} from '@services/toast.service';
-import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {MatButtonModule} from '@angular/material/button';
 import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {NgIf} from '@angular/common';
+
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -17,13 +17,12 @@ import {FormsModule} from '@angular/forms';
   standalone: true,
   imports: [
     FormsModule,
-    NgIf,
     MatFormFieldModule,
     MatInputModule,
     SearchLocationComponent,
     MatButtonModule,
     RouterLink,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class SignupComponent implements OnInit {
@@ -38,7 +37,7 @@ export class SignupComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toast: ToastService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -60,7 +59,7 @@ export class SignupComponent implements OnInit {
           this.username,
           this.password,
           this.translateService.currentLang,
-          this.favouriteLocation
+          this.favouriteLocation,
         )
         .subscribe(
           status => {
@@ -76,7 +75,7 @@ export class SignupComponent implements OnInit {
                 .catch(err => console.error(err));
             }
           },
-          (err: Error) => this.authService.handleError(err)
+          (err: Error) => this.authService.handleError(err),
         );
     }
   }

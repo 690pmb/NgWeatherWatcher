@@ -1,12 +1,13 @@
-<ng-template appContainer></ng-template>
+<ng-template appContainer />
 <ng-template #btn let-data>
-  <button
-    *ngIf="data.shown"
-    class="qty-btn"
-    type="button"
-    mat-raised-button
-    (click)="data.clicked.emit()"
-  >
-    <fa-icon size="2x" [icon]="data.icon"></fa-icon>
-  </button>
+  @if (data.shown) {
+    <button
+      class="qty-btn"
+      type="button"
+      mat-raised-button
+      (click)="data.clicked.emit()"
+    >
+      <fa-icon size="2x" [icon]="data.icon" />
+    </button>
+  }
 </ng-template>

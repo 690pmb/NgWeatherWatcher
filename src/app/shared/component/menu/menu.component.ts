@@ -7,7 +7,6 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   HostBinding,
-  TrackByFunction,
 } from '@angular/core';
 import {
   NavigationEnd,
@@ -28,11 +27,11 @@ import {AuthService} from '@services/auth.service';
 import {MenuService} from '@services/menu.service';
 import {throttleTime, map, filter, distinctUntilChanged} from 'rxjs/operators';
 import {MenuItem} from '@model/menu-item';
-import {AsyncPipe, NgClass, NgFor, NgIf} from '@angular/common';
+import {AsyncPipe, NgClass} from '@angular/common';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 import {MatListModule} from '@angular/material/list';
 
 type Direction = 'DOWN' | 'UP';
@@ -55,15 +54,13 @@ type Direction = 'DOWN' | 'UP';
   ],
   imports: [
     AsyncPipe,
-    NgIf,
-    NgFor,
     NgClass,
     FontAwesomeModule,
     MatButtonModule,
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
-    TranslateModule,
+    TranslatePipe,
     RouterOutlet,
     RouterLinkWithHref,
   ],
@@ -92,7 +89,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     public authService: AuthService,
     private router: Router,
     public menuService: MenuService,
-    private cdk: ChangeDetectorRef
+    private cdk: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -103,7 +100,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           this.isLogged$.next(false);
         }
-      })
+      }),
     );
     this.menuService.title$.subscribe(t => {
       this.title = t;
@@ -128,7 +125,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
             return this.direction;
           }
         }),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       )
       .subscribe(dir => {
         this.direction = dir;
@@ -147,10 +144,6 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
       setTimeout(() => (this.menuWidth = `${this.sidenav._getWidth()}px`));
     }
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  trackByFn: TrackByFunction<MenuItem> = (_index: number, item: MenuItem) =>
-    item.route;
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());

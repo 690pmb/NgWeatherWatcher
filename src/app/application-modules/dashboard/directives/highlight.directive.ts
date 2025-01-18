@@ -18,7 +18,7 @@ export class HighlightDirective implements OnInit {
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
-    private highlightService: HighlightService
+    private highlightService: HighlightService,
   ) {}
 
   ngOnInit(): void {
@@ -28,20 +28,20 @@ export class HighlightDirective implements OnInit {
         this.field &&
         alert?.monitoredHours.includes(
           DateTime.fromFormat(this.hour.time, 'yyyy-MM-dd HH:mm').toFormat(
-            'HH:mm'
-          )
+            'HH:mm',
+          ),
         ) &&
         alert.monitoredFields.map(m => m.field).includes(this.field)
       ) {
         const mapWeatherMonitored = HighlightService.MAP_WEATHER_MONITORED.find(
-          m => m.weatherField === this.field
+          m => m.weatherField === this.field,
         );
         if (
           mapWeatherMonitored &&
           HighlightService.between(
             alert.monitoredFields,
             mapWeatherMonitored.value(this.hour),
-            mapWeatherMonitored.weatherField
+            mapWeatherMonitored.weatherField,
           )
         ) {
           this.renderer.addClass(this.el.nativeElement, 'highlight');

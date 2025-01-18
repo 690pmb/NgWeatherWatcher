@@ -20,7 +20,6 @@ import {
 } from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
-import {NgIf} from '@angular/common';
 
 export type DataBtn = {
   shown: boolean;
@@ -39,7 +38,7 @@ export type Created<T, U extends boolean> = {
   templateUrl: './multiple.component.html',
   styleUrls: ['./multiple.component.scss'],
   standalone: true,
-  imports: [ContainerDirective, NgIf, MatButtonModule, FontAwesomeModule],
+  imports: [ContainerDirective, MatButtonModule, FontAwesomeModule],
 })
 export class MultipleComponent<T, U extends boolean> implements OnInit {
   @Input({required: true})
@@ -63,7 +62,7 @@ export class MultipleComponent<T, U extends boolean> implements OnInit {
       this.add();
     } else {
       Array.from(Array(this.form.length).keys()).forEach(i =>
-        this.add(this.form.at(i), i === this.form.length - 1)
+        this.add(this.form.at(i), i === this.form.length - 1),
       );
     }
   }
@@ -86,13 +85,13 @@ export class MultipleComponent<T, U extends boolean> implements OnInit {
       this.btn,
       {
         $implicit: dataAdd,
-      }
+      },
     );
     const deleteComponent = this.host.viewContainerRef.createEmbeddedView(
       this.btn,
       {
         $implicit: dataDelete,
-      }
+      },
     );
     this.createdList.push({
       component,
@@ -114,7 +113,7 @@ export class MultipleComponent<T, U extends boolean> implements OnInit {
   private addListeners(
     component: ComponentRef<MultipleData<T, U>>,
     dataAdd: DataBtn,
-    dataDelete: DataBtn
+    dataDelete: DataBtn,
   ): void {
     component.instance.selected.subscribe(s => {
       if (
@@ -142,7 +141,7 @@ export class MultipleComponent<T, U extends boolean> implements OnInit {
     this.createdList = this.createdList.filter(c => c.component !== ref);
     if (toDestroy) {
       this.form.removeAt(
-        this.form.controls.indexOf(toDestroy?.component.instance.ctrl)
+        this.form.controls.indexOf(toDestroy?.component.instance.ctrl),
       );
       toDestroy?.addComponent.destroy();
       toDestroy?.deleteComponent.destroy();

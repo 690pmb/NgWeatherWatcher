@@ -6,7 +6,6 @@ import {
   ViewChild,
   OnInit,
   OnChanges,
-  TrackByFunction,
   booleanAttribute,
 } from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
@@ -27,10 +26,10 @@ import {Location} from '@model/weather/location';
 import {WeatherService} from '@services/weather.service';
 import {Utils} from '../../utils';
 import {GobalError} from '@services/utils.service';
-import {NgFor, NgIf} from '@angular/common';
+
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -39,15 +38,13 @@ import {MatButtonModule} from '@angular/material/button';
   templateUrl: './search-location.component.html',
   styleUrls: ['./search-location.component.scss'],
   imports: [
-    NgIf,
-    NgFor,
     FontAwesomeModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatInputModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    TranslateModule,
+    TranslatePipe,
   ],
   standalone: true,
 })
@@ -78,7 +75,7 @@ export class SearchLocationComponent implements OnInit, OnChanges {
   constructor(private weatherService: WeatherService) {}
 
   ngOnChanges(): void {
-    this.placeholder ||= 'global.none';
+    this.placeholder ??= 'global.none';
   }
 
   ngOnInit(): void {
@@ -91,14 +88,14 @@ export class SearchLocationComponent implements OnInit, OnChanges {
           iif(
             () => Utils.isNotBlank(term),
             this.weatherService.search(term ?? ''),
-            of([])
-          )
+            of([]),
+          ),
         ),
         catchError((error: GobalError) => {
           this.weatherService.handleError(error);
           this.trigger.closePanel();
           return of([]);
-        })
+        }),
       )
       .subscribe(locations => (this.locations = locations));
   }
@@ -106,7 +103,7 @@ export class SearchLocationComponent implements OnInit, OnChanges {
   geolocation(): void {
     this.showSpinner = true;
     new Observable((observer: Observer<string>) =>
-      WeatherService.findUserPosition(observer)
+      WeatherService.findUserPosition(observer),
     )
       .pipe(switchMap(location => this.weatherService.search(location)))
       .subscribe(locations => {
@@ -129,10 +126,4 @@ export class SearchLocationComponent implements OnInit, OnChanges {
     this.selected.emit('');
     this.placeholder = this.initialPlaceholder ?? 'global.none';
   }
-
-  trackByFn: TrackByFunction<Location> = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _index: number,
-    item: Location
-  ) => item.id;
 }

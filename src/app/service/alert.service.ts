@@ -18,7 +18,7 @@ export class AlertService extends UtilsService {
   constructor(
     protected override httpClient: HttpClient,
     protected override toast: ToastService,
-    protected configurationService: ConfigurationService
+    protected configurationService: ConfigurationService,
   ) {
     super(httpClient, toast);
     this.baseUrl = configurationService.get().apiUrl;
@@ -30,31 +30,31 @@ export class AlertService extends UtilsService {
       map((alerts: Page<Alert>) => {
         alerts.content = plainToInstance(Alert, alerts.content);
         return alerts;
-      })
+      }),
     );
   }
 
   getById(id: string): Observable<Alert> {
     return this.get<Alert>({url: id}).pipe(
-      map((alerts: unknown) => plainToInstance(Alert, alerts))
+      map((alerts: unknown) => plainToInstance(Alert, alerts)),
     );
   }
 
   create(alert: CreateAlert): Observable<boolean> {
     return this.post<void>({body: plainToInstance(CreateAlert, alert)}).pipe(
-      map(response => response.ok)
+      map(response => response.ok),
     );
   }
 
   update(alert: CreateAlert): Observable<boolean> {
     return this.put<void>({body: plainToInstance(CreateAlert, alert)}).pipe(
-      map(response => response.ok)
+      map(response => response.ok),
     );
   }
 
   deleteBydIds(ids: number[]): Observable<void> {
     return this.delete({url: `?ids=${ids.toString()}`}).pipe(
-      tap(() => this.toast.info('alert.deleted', {size: ids.length}))
+      tap(() => this.toast.info('alert.deleted', {size: ids.length})),
     );
   }
 }

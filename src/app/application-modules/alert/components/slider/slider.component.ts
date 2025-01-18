@@ -60,7 +60,7 @@ export class SliderComponent<T extends boolean>
 
   private initValue(): void {
     const mean = Math.floor(
-      (this.configuration.min + this.configuration.max) / 2
+      (this.configuration.min + this.configuration.max) / 2,
     );
     if (!this.initialValue?.value) {
       if (!this.configuration.multiple) {
@@ -77,7 +77,7 @@ export class SliderComponent<T extends boolean>
         this.selected.emit({
           value: this.configuration.value,
           multiple: Array.isArray(this.configuration.value),
-        } as SliderValue<T>)
+        } as SliderValue<T>),
       );
     } else {
       this.configuration.value = this.initialValue.value;

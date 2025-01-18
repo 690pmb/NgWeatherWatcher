@@ -10,7 +10,7 @@ type Result<T> = T extends DateTime[] ? string[] : string;
   pure: true,
 })
 export class DateTimePipe implements PipeTransform {
-  static readonly typeFormat: {[key in Format]: string} = {
+  static readonly typeFormat: Record<Format, string> = {
     full: 'dd/MM/yyyy HH:mm',
     date: 'dd/MM/yyyy',
     hour: 'HH:mm',
@@ -20,7 +20,7 @@ export class DateTimePipe implements PipeTransform {
   transform<T extends DateTime | DateTime[] | string>(
     value: T,
     format: Format = 'full',
-    lang?: string
+    lang?: string,
   ): Result<T> {
     const toFormat = (v: DateTime): string =>
       v.toFormat(DateTimePipe.typeFormat[format], {locale: lang});

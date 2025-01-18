@@ -7,7 +7,7 @@ import {SliderConfig} from '../../model/slider';
 import {Pip} from '../../model/pip';
 import {DefaultFormatter} from 'ng2-nouislider';
 import {SliderComponent} from '../slider/slider.component';
-import {NgIf} from '@angular/common';
+
 import {SelectWeatherFieldComponent} from '../select-weather-field/select-weather-field.component';
 
 @Component({
@@ -15,7 +15,7 @@ import {SelectWeatherFieldComponent} from '../select-weather-field/select-weathe
   templateUrl: './alert-weather-field.component.html',
   styleUrls: ['./alert-weather-field.component.scss'],
   standalone: true,
-  imports: [SelectWeatherFieldComponent, NgIf, SliderComponent],
+  imports: [SelectWeatherFieldComponent, SliderComponent],
 })
 export class AlertWeatherFieldComponent
   implements MultipleData<AlertWeatherField, true>

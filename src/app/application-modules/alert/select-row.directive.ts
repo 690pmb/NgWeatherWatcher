@@ -24,7 +24,7 @@ export class SelectRowDirective {
       () => {
         this.selected.emit();
       },
-      this.speed === 'slow' ? 1000 : 200
+      this.speed === 'slow' ? 1000 : 200,
     );
   }
 

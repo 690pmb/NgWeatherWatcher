@@ -37,7 +37,7 @@ export class Utils {
   static readonly formatHours = (v: string): DateTime => DateTime.fromISO(v);
 
   static readonly arrayValidator: ValidatorFn = (
-    control: AbstractControl
+    control: AbstractControl,
   ): ValidationErrors | null =>
     (control as FormArray).controls.every(c => !c.value)
       ? {required: true}

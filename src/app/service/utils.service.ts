@@ -26,7 +26,7 @@ export class UtilsService {
 
   constructor(
     protected httpClient: HttpClient,
-    protected toast: ToastService
+    protected toast: ToastService,
   ) {}
 
   public static findUserPosition(observer: Observer<string>): void {
@@ -34,7 +34,7 @@ export class UtilsService {
       navigator.geolocation.getCurrentPosition(
         position =>
           observer.next(
-            `${position.coords.latitude},${position.coords.longitude}`
+            `${position.coords.latitude},${position.coords.longitude}`,
           ),
         err => {
           if (err.code === GeolocationPositionError.PERMISSION_DENIED) {
@@ -43,7 +43,7 @@ export class UtilsService {
             this.findUserPosition(observer);
           }
         },
-        {timeout: 5000}
+        {timeout: 5000},
       );
     } else {
       observer.error('global.geolocation.not_supported');
@@ -78,7 +78,7 @@ export class UtilsService {
 
   protected post<T>(
     request: HttpBodyRequest,
-    handleError = true
+    handleError = true,
   ): Observable<HttpResponse<T>> {
     return this.httpClient
       .post<T>(
@@ -89,7 +89,7 @@ export class UtilsService {
           observe: 'response',
           params: request.params,
           responseType: 'json',
-        }
+        },
       )
       .pipe(
         catchError((err: HttpErrorResponse) => {
@@ -97,7 +97,7 @@ export class UtilsService {
             this.handleError(err);
           }
           return throwError(err);
-        })
+        }),
       );
   }
 
@@ -111,13 +111,13 @@ export class UtilsService {
           observe: 'response',
           params: request.params,
           responseType: 'json',
-        }
+        },
       )
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.handleError(err);
           return throwError(err);
-        })
+        }),
       );
   }
 
@@ -139,7 +139,7 @@ export class UtilsService {
         catchError((err: HttpErrorResponse) => {
           this.handleError(err);
           return throwError(err);
-        })
+        }),
       );
   }
 
@@ -154,7 +154,7 @@ export class UtilsService {
         catchError((err: HttpErrorResponse) => {
           this.handleError(err);
           return EMPTY;
-        })
+        }),
       );
   }
 }

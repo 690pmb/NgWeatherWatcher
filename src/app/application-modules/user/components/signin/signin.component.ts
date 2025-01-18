@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
-import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {AuthService} from '@services/auth.service';
 import {MatButtonModule} from '@angular/material/button';
-import {NgIf} from '@angular/common';
+
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
@@ -17,10 +17,9 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    NgIf,
     MatButtonModule,
     RouterLink,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class SigninComponent {
@@ -31,7 +30,7 @@ export class SigninComponent {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   login(): void {
@@ -40,7 +39,7 @@ export class SigninComponent {
         connected => {
           if (connected) {
             this.message = this.translate.instant(
-              'user.signin.connected'
+              'user.signin.connected',
             ) as string;
             const redirectPage = sessionStorage.getItem('redirectPage');
             if (redirectPage) {
@@ -52,11 +51,11 @@ export class SigninComponent {
             }
           } else {
             this.message = this.translate.instant(
-              'user.signin.wrong'
+              'user.signin.wrong',
             ) as string;
           }
         },
-        (err: Error) => this.auth.handleError(err)
+        (err: Error) => this.auth.handleError(err),
       );
     }
   }

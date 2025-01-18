@@ -10,7 +10,7 @@ type TranslateArgs = Record<string, number | string>;
 export class ToastService {
   constructor(
     public snackBar: MatSnackBar,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   open(level: Level, message: string, translateArgs?: TranslateArgs): void {
@@ -21,7 +21,7 @@ export class ToastService {
         {
           duration: 3000,
           panelClass: `toast-${level}`,
-        }
+        },
       );
     }
   }

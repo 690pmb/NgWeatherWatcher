@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     private notificationService: NotificationService,
     private translateService: TranslateService,
     router: Router,
-    toast: ToastService
+    toast: ToastService,
   ) {
     router.events
       .pipe(filter((e): e is NavigationError => e instanceof NavigationError))

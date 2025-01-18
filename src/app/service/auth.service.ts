@@ -24,7 +24,7 @@ export class AuthService extends UtilsService {
     private router: Router,
     protected override httpClient: HttpClient,
     protected override toast: ToastService,
-    protected configurationService: ConfigurationService
+    protected configurationService: ConfigurationService,
   ) {
     super(httpClient, toast);
     this.baseUrl = configurationService.get().apiUrl;
@@ -53,7 +53,7 @@ export class AuthService extends UtilsService {
         } else {
           try {
             const jwtToken = jwtDecode<Token>(
-              localStorage.getItem('token') ?? ''
+              localStorage.getItem('token') ?? '',
             );
             if (!jwtToken.exp || jwtToken.exp * 1000 > new Date().getTime()) {
               return true;
@@ -64,14 +64,14 @@ export class AuthService extends UtilsService {
             return this.reject(false);
           }
         }
-      })
+      }),
     );
   }
 
   signin(username: string, password: string): Observable<boolean> {
     return this.post<{token: string}>(
       {url: 'signin', body: {username, password}},
-      false
+      false,
     ).pipe(
       map((response: HttpResponse<{token: string}>) => {
         if (response.body !== null && response.body) {
@@ -88,7 +88,7 @@ export class AuthService extends UtilsService {
           this.handleError(response);
         }
         return of(false);
-      })
+      }),
     );
   }
 
@@ -96,14 +96,14 @@ export class AuthService extends UtilsService {
     username: string,
     password: string,
     lang: string,
-    favouriteLocation?: string
+    favouriteLocation?: string,
   ): Observable<number> {
     return this.post(
       {
         url: 'signup',
         body: {username, password, favouriteLocation, lang},
       },
-      false
+      false,
     ).pipe(
       map(response => response.status),
       catchError((response: HttpErrorResponse) => {
@@ -111,7 +111,7 @@ export class AuthService extends UtilsService {
           this.handleError(response);
         }
         return of(response.status);
-      })
+      }),
     );
   }
 
@@ -123,7 +123,7 @@ export class AuthService extends UtilsService {
           this.toast.success('user.profile.updated');
         }
       },
-      (response: HttpErrorResponse) => this.handleError(response)
+      (response: HttpErrorResponse) => this.handleError(response),
     );
   }
 

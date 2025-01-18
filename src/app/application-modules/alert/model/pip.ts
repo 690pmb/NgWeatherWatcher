@@ -5,7 +5,7 @@ export type PipTypeValue = -1 | 0 | 1 | 2;
 
 export type PipType = 'BIG' | 'NO_VALUE' | 'NONE' | 'SMALL';
 
-export const pipTypeMapping: {[key in PipType]: PipTypeValue} = {
+export const pipTypeMapping: Record<PipType, PipTypeValue> = {
   NONE: -1,
   NO_VALUE: 0,
   SMALL: 1,

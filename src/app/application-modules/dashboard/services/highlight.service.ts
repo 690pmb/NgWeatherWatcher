@@ -20,7 +20,7 @@ export class HighlightService {
     filter((id): id is string => !!id),
     distinctUntilChanged(),
     switchMap(a => this.alertService.getById(a)),
-    shareReplay(1)
+    shareReplay(1),
   );
 
   static readonly MAP_WEATHER_MONITORED = [
@@ -69,7 +69,7 @@ export class HighlightService {
   static between(
     monitored: MonitoredField[],
     value: number,
-    weatherField: WeatherField
+    weatherField: WeatherField,
   ): boolean {
     const field = monitored.find(m => m.field === weatherField);
     return (

@@ -15,17 +15,10 @@ import {
   ElementRef,
   HostBinding,
   AfterViewChecked,
-  TrackByFunction,
 } from '@angular/core';
-import {
-  KeyValue,
-  KeyValuePipe,
-  NgFor,
-  NgIf,
-  NgTemplateOutlet,
-} from '@angular/common';
+import {KeyValuePipe, NgTemplateOutlet} from '@angular/common';
 import {Template} from '@model/template';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 
 export type Config<T> = {
   template?: Template<{i18n: string; value: string; expanded?: T}>;
@@ -37,14 +30,7 @@ export type Config<T> = {
 
 @Component({
   standalone: true,
-  imports: [
-    NgIf,
-    NgFor,
-    KeyValuePipe,
-    NgTemplateOutlet,
-    MatTableModule,
-    TranslateModule,
-  ],
+  imports: [KeyValuePipe, NgTemplateOutlet, MatTableModule, TranslatePipe],
   selector: 'app-table-expand',
   templateUrl: './table-expand.component.html',
   styleUrls: ['./table-expand.component.scss'],
@@ -82,7 +68,7 @@ export class TableExpandComponent<T>
     this.columnDefs.forEach(columnDef => this.table.addColumnDef(columnDef));
     this.rowDefs.forEach(rowDef => this.table.addRowDef(rowDef));
     this.headerRowDefs.forEach(headerRowDef =>
-      this.table.addHeaderRowDef(headerRowDef)
+      this.table.addHeaderRowDef(headerRowDef),
     );
   }
 
@@ -90,7 +76,7 @@ export class TableExpandComponent<T>
     if (!this.expandHeight) {
       const height =
         (this.el.nativeElement as HTMLElement).querySelector<HTMLElement>(
-          '.mat-column-details:not(.hide)'
+          '.mat-column-details:not(.hide)',
         )?.offsetHeight ?? 0;
       if (height) {
         setTimeout(() => (this.expandHeight = `${height}px`));
@@ -106,17 +92,11 @@ export class TableExpandComponent<T>
     if (this.expanded) {
       this.rowHeight = `${
         (this.el.nativeElement as HTMLElement).querySelector<HTMLElement>(
-          '.mat-mdc-row:not(.detail-row)'
+          '.mat-mdc-row:not(.detail-row)',
         )?.offsetHeight ?? 0
       }px`;
     }
   }
-
-  trackByFn: TrackByFunction<KeyValue<string, (a: T) => string>> = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _index: number,
-    item: KeyValue<string, (a: T) => string>
-  ) => item.key;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
   unsorted(_a: any, _b: any): number {

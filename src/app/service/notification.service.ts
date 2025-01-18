@@ -19,7 +19,7 @@ export class NotificationService extends UtilsService {
     private swPush: SwPush,
     protected override httpClient: HttpClient,
     protected override toast: ToastService,
-    protected configurationService: ConfigurationService
+    protected configurationService: ConfigurationService,
   ) {
     super(httpClient, toast);
     this.baseUrl = configurationService.get().apiUrl;
@@ -35,8 +35,8 @@ export class NotificationService extends UtilsService {
             from(
               this.swPush.requestSubscription({
                 serverPublicKey: this.VAPID_PUBLIC_KEY,
-              })
-            )
+              }),
+            ),
           ),
           switchMap(push => {
             const key = push.getKey ? push.getKey('p256dh') : '';
@@ -47,10 +47,10 @@ export class NotificationService extends UtilsService {
                 body: {
                   endpoint: push.endpoint,
                   publicKey: btoa(
-                    String.fromCharCode.apply(null, [...new Uint8Array(key)])
+                    String.fromCharCode.apply(null, [...new Uint8Array(key)]),
                   ),
                   privateKey: btoa(
-                    String.fromCharCode.apply(null, [...new Uint8Array(auth)])
+                    String.fromCharCode.apply(null, [...new Uint8Array(auth)]),
                   ),
                   userAgent: window.navigator.userAgent,
                 } as Subscription,
@@ -64,7 +64,7 @@ export class NotificationService extends UtilsService {
               err: NotificationService.getErrorMessage(err),
             });
             return throwError(err);
-          })
+          }),
         )
         .subscribe(response => {
           if (!response.ok) {

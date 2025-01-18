@@ -6,10 +6,10 @@
 >
   <div>
     {{ 'alert.create' | translate }}&nbsp;
-    <fa-icon [icon]="faPlus"></fa-icon>
+    <fa-icon [icon]="faPlus" />
   </div>
 </button>
-<ng-container *ngIf="alerts$ | async as alerts">
+@if (alerts$ | async; as alerts) {
   <div class="header">
     <mat-paginator
       [length]="alerts.totalElements"
@@ -18,9 +18,9 @@
       (page)="
         navigate($event.pageIndex, pageRequest.sortField, pageRequest.sortDir)
       "
-    >
-    </mat-paginator>
+    />
   </div>
+  <!-- eslint-disable @angular-eslint/template/no-any -->
   <app-table-expand
     #table
     matSort
@@ -31,12 +31,13 @@
       additionalTemplate,
       formatFields,
       empty: 'alert.empty',
-      color: 'darken-theme'
+      color: 'darken-theme',
     }"
     [matSortDirection]="pageRequest.sortDir"
     [matSortActive]="pageRequest.sortField ?? ''"
     (matSortChange)="navigate(0, $any($event.active), $event.direction)"
   >
+    <!-- eslint-enable @angular-eslint/template/no-any -->
     <ng-container matColumnDef="triggerDays">
       <mat-header-cell *matHeaderCellDef mat-header-cell>
         {{ 'alert.trigger_day' | translate }}
@@ -48,7 +49,6 @@
         }}
       </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="triggerHour">
       <mat-header-cell *matHeaderCellDef mat-header-cell mat-sort-header>
         {{ 'alert.trigger_hour' | translate }}
@@ -57,7 +57,6 @@
         {{ alert.triggerHour | dateTime: 'hour' }}
       </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="monitoredHours">
       <mat-header-cell *matHeaderCellDef mat-header-cell>
         {{ 'alert.monitored_hour' | translate }}
@@ -66,21 +65,19 @@
         {{ formatField(alert.monitoredHours, true) }}
       </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="location">
       <mat-header-cell *matHeaderCellDef mat-header-cell mat-sort-header>
         {{ 'alert.location' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
-        <ng-container *ngIf="alert.location.length > 13"
-          >{{ alert.location | slice: 0 : 13 }}...</ng-container
-        >
-        <ng-container *ngIf="alert.location.length <= 13">{{
-          alert.location
-        }}</ng-container>
+        @if (alert.location.length > 13) {
+          {{ alert.location | slice: 0 : 13 }}...
+        }
+        @if (alert.location.length <= 13) {
+          {{ alert.location }}
+        }
       </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef mat-header-cell>
         {{ 'alert.action' | translate }}
@@ -93,30 +90,27 @@
           [matMenuTriggerData]="{alert}"
           (click)="$event.stopPropagation()"
         >
-          <fa-icon [icon]="faMenu"></fa-icon>
+          <fa-icon [icon]="faMenu" />
         </button>
       </mat-cell>
     </ng-container>
-
     <ng-template #additionalTemplate let-data>
       <div>
         <span>{{ 'alert.monitored_field' | translate }}: </span>
-        <ng-container
-          *ngFor="
-            let monitoredField of data.item.monitoredFields;
-            last as isLast;
-            trackBy: trackByFn
-          "
-        >
+        @for (
+          monitoredField of data.item.monitoredFields;
+          track monitoredField.field;
+          let isLast = $last
+        ) {
           {{ 'forecast.' + monitoredField.field.toLowerCase() | translate }}
           {{ monitoredField.summary }} {{ monitoredField.unit }}
-          <ng-container *ngIf="!isLast"> / </ng-container>
-        </ng-container>
+          @if (!isLast) {
+            /
+          }
+        }
       </div>
     </ng-template>
-
-    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-
+    <mat-header-row *matHeaderRowDef="columnsToDisplay" />
     <mat-row
       *matRowDef="let alert; columns: columnsToDisplay"
       class="alert-row"
@@ -125,9 +119,9 @@
       [speed]="selected.length > 0 ? 'fast' : 'slow'"
       (click)="table.expand(alert)"
       (selected)="handleSelection(alert.id)"
-    ></mat-row>
+    />
   </app-table-expand>
-</ng-container>
+}
 
 <ng-template #alertField let-field>
   <div>
@@ -146,24 +140,28 @@
   >
     <div>
       {{ 'alert.delete' | translate }}&nbsp;
-      <fa-icon [icon]="faTrash"></fa-icon>
+      <fa-icon [icon]="faTrash" />
     </div>
   </button>
 </ng-template>
 
 <mat-menu #menu="matMenu">
   <ng-template let-alert="alert" matMenuContent>
-    <button mat-menu-item type="button" routerLink="/alert/edit/{{ alert.id }}">
+    <button
+      mat-menu-item
+      type="button"
+      [routerLink]="'/alert/edit/' + alert.id"
+    >
       {{ 'global.edit' | translate }}&nbsp;
-      <fa-icon [icon]="faEdit"></fa-icon>
+      <fa-icon [icon]="faEdit" />
     </button>
     <button mat-menu-item type="button" (click)="delete([alert.id])">
       {{ 'alert.delete' | translate }}&nbsp;
-      <fa-icon [icon]="faTrash"></fa-icon>
+      <fa-icon [icon]="faTrash" />
     </button>
     <button mat-menu-item type="button" (click)="view(alert)">
       {{ 'alert.preview' | translate }}&nbsp;
-      <fa-icon [icon]="faSun"></fa-icon>
+      <fa-icon [icon]="faSun" />
     </button>
   </ng-template>
 </mat-menu>

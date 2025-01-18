@@ -2,12 +2,25 @@
   "extends": [
     "stylelint-config-standard",
     "stylelint-config-sass-guidelines",
-    "stylelint-config-standard-scss"
+    "stylelint-config-standard-scss",
+    "@stylistic/stylelint-config"
   ],
   "rules": {
+    "declaration-property-value-no-unknown": [
+      true,
+      {
+        "ignoreProperties": {
+          "background-color": "/.+/",
+          "border": "/.+/",
+          "border-bottom": "/.+/",
+          "left": "/.+/"
+        }
+      }
+    ],
     "no-empty-source": null,
     "color-hex-length": "short",
     "max-nesting-depth": 2,
+    "@stylistic/string-quotes": "single",
     "function-no-unknown": [
       true,
       {
@@ -24,6 +37,10 @@
     "at-rule-empty-line-before": [
       "always",
       {"except": ["after-same-name", "inside-block"]}
+    ],
+    "@stylistic/block-closing-brace-newline-after": [
+      "always",
+      {"ignoreAtRules": ["if", "else"]}
     ],
     "selector-pseudo-element-no-unknown": [
       true,

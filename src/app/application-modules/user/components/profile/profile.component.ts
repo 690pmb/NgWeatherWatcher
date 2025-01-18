@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '@services/auth.service';
 import {MenuService} from '@services/menu.service';
-import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {faBellSlash} from '@fortawesome/free-solid-svg-icons';
 import {NotificationService} from '@services/notification.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
-import {NgIf, AsyncPipe} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -15,12 +15,11 @@ import {NgIf, AsyncPipe} from '@angular/common';
   styleUrls: ['./profile.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
     SearchLocationComponent,
     MatButtonModule,
     FontAwesomeModule,
     AsyncPipe,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class ProfileComponent implements OnInit {
@@ -30,12 +29,12 @@ export class ProfileComponent implements OnInit {
     private menuService: MenuService,
     protected authService: AuthService,
     protected translateService: TranslateService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {}
 
   ngOnInit() {
     this.menuService.title$.next(
-      this.translateService.instant('user.profile.title') as string
+      this.translateService.instant('user.profile.title') as string,
     );
   }
 

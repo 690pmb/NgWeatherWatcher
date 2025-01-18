@@ -1,12 +1,14 @@
 <h2>{{ 'user.signup.title' | translate }}:</h2>
 <div class="signup-content">
   <form #signupForm="ngForm">
-    <mat-error *ngIf="message">{{ message | translate }}</mat-error>
+    @if (message) {
+      <mat-error>{{ message | translate }}</mat-error>
+    }
 
     <!-- Username -->
     <mat-form-field
       appearance="outline"
-      hintLabel="{{ 'user.signup.username_hint' | translate }}"
+      [hintLabel]="'user.signup.username_hint' | translate"
     >
       <input
         #inputUsername="ngModel"
@@ -16,33 +18,29 @@
         required
         minlength="4"
         maxlength="30"
-        placeholder="{{ 'global.username' | translate }}"
+        [placeholder]="'global.username' | translate"
         [(ngModel)]="username"
       />
-      <mat-error
-        *ngIf="
-          inputUsername.errors !== null &&
-          inputUsername.errors['required'] &&
-          !inputUsername.pristine
-        "
-      >
-        {{ 'global.username_required' | translate }}</mat-error
-      >
-      <mat-error
-        *ngIf="
-          inputUsername.errors !== null &&
-          inputUsername.errors['minlength'] &&
-          !inputUsername.pristine
-        "
-      >
-        {{ 'global.minlength' | translate }}</mat-error
-      >
+      @if (
+        inputUsername.errors !== null &&
+        inputUsername.errors['required'] &&
+        !inputUsername.pristine
+      ) {
+        <mat-error> {{ 'global.username_required' | translate }}</mat-error>
+      }
+      @if (
+        inputUsername.errors !== null &&
+        inputUsername.errors['minlength'] &&
+        !inputUsername.pristine
+      ) {
+        <mat-error> {{ 'global.minlength' | translate }}</mat-error>
+      }
     </mat-form-field>
 
     <!-- Password -->
     <mat-form-field
       appearance="outline"
-      hintLabel="{{ 'user.signup.password_hint' | translate }}"
+      [hintLabel]="'user.signup.password_hint' | translate"
     >
       <input
         #inputPassword="ngModel"
@@ -52,33 +50,29 @@
         required
         minlength="6"
         maxlength="30"
-        placeholder="{{ 'user.password' | translate }}"
+        [placeholder]="'user.password' | translate"
         [(ngModel)]="password"
       />
-      <mat-error
-        *ngIf="
-          inputPassword.errors !== null &&
-          inputPassword.errors['required'] &&
-          !inputPassword.pristine
-        "
-      >
-        {{ 'user.password_required' | translate }}</mat-error
-      >
-      <mat-error
-        *ngIf="
-          inputPassword.errors !== null &&
-          inputPassword.errors['minlength'] &&
-          !inputPassword.pristine
-        "
-      >
-        {{ 'global.minlength' | translate }}</mat-error
-      >
+      @if (
+        inputPassword.errors !== null &&
+        inputPassword.errors['required'] &&
+        !inputPassword.pristine
+      ) {
+        <mat-error> {{ 'user.password_required' | translate }}</mat-error>
+      }
+      @if (
+        inputPassword.errors !== null &&
+        inputPassword.errors['minlength'] &&
+        !inputPassword.pristine
+      ) {
+        <mat-error> {{ 'global.minlength' | translate }}</mat-error>
+      }
     </mat-form-field>
 
     <!-- Password 2 -->
     <mat-form-field
       appearance="outline"
-      hintLabel="{{ 'user.signup.password_hint' | translate }}"
+      [hintLabel]="'user.signup.password_hint' | translate"
     >
       <input
         #inputPassword2="ngModel"
@@ -88,44 +82,37 @@
         required
         minlength="6"
         maxlength="30"
-        placeholder="{{ 'user.signup.password2' | translate }}"
+        [placeholder]="'user.signup.password2' | translate"
         [(ngModel)]="password2"
       />
-      <mat-error
-        *ngIf="
-          inputPassword2.errors !== null &&
-          inputPassword2.errors['required'] &&
-          !inputPassword2.pristine
-        "
-      >
-        {{ 'user.password_required' | translate }}</mat-error
-      >
-      <mat-error
-        *ngIf="
-          inputPassword2.errors !== null &&
-          inputPassword2.errors['minlength'] &&
-          !inputPassword2.pristine
-        "
-      >
-        {{ 'global.minlength' | translate }}</mat-error
-      >
+      @if (
+        inputPassword2.errors !== null &&
+        inputPassword2.errors['required'] &&
+        !inputPassword2.pristine
+      ) {
+        <mat-error> {{ 'user.password_required' | translate }}</mat-error>
+      }
+      @if (
+        inputPassword2.errors !== null &&
+        inputPassword2.errors['minlength'] &&
+        !inputPassword2.pristine
+      ) {
+        <mat-error> {{ 'global.minlength' | translate }}</mat-error>
+      }
     </mat-form-field>
 
-    <mat-error
-      *ngIf="
-        inputPassword.errors === null &&
-        inputPassword2.errors === null &&
-        password2 !== password
-      "
-    >
-      {{ 'user.signup.different' | translate }}</mat-error
-    >
+    @if (
+      inputPassword.errors === null &&
+      inputPassword2.errors === null &&
+      password2 !== password
+    ) {
+      <mat-error> {{ 'user.signup.different' | translate }}</mat-error>
+    }
 
     <app-search-location
       placeholder="user.signin.favourite_location"
       (selected)="favouriteLocation = $event"
-    >
-    </app-search-location>
+    />
 
     <!-- Footer -->
     <div class="signup-footer">
