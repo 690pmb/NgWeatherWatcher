@@ -1,7 +1,7 @@
 import {Location, NgIf, NgClass, DatePipe} from '@angular/common';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {combineLatest, Subscription, Observable, of, EMPTY, iif} from 'rxjs';
 import {filter, mergeMap, switchMap, map} from 'rxjs/operators';
 import {Forecast} from '@model/weather/forecast';
@@ -45,7 +45,7 @@ import {DashboardComponent} from '../dashboard/dashboard.component';
     HighlightDirective,
     DatePipe,
     IconPipe,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class DashboardDetailsComponent implements OnInit, OnDestroy {

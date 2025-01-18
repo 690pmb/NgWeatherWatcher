@@ -25,7 +25,7 @@ import {
   NgTemplateOutlet,
 } from '@angular/common';
 import {Template} from '@model/template';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 
 export type Config<T> = {
   template?: Template<{i18n: string; value: string; expanded?: T}>;
@@ -43,7 +43,7 @@ export type Config<T> = {
     KeyValuePipe,
     NgTemplateOutlet,
     MatTableModule,
-    TranslateModule,
+    TranslatePipe,
   ],
   selector: 'app-table-expand',
   templateUrl: './table-expand.component.html',

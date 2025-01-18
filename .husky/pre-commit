@@ -4,4 +4,4 @@ if [[ ! $(git config --get user.email) =~ .*gmail.* ]]; then
     exit 1
 fi
 
-lint-staged -q
+lint-staged -q --concurrent false

@@ -32,7 +32,7 @@ import {AsyncPipe, NgClass, NgFor, NgIf} from '@angular/common';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 import {MatListModule} from '@angular/material/list';
 
 type Direction = 'DOWN' | 'UP';
@@ -63,7 +63,7 @@ type Direction = 'DOWN' | 'UP';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
-    TranslateModule,
+    TranslatePipe,
     RouterOutlet,
     RouterLinkWithHref,
   ],

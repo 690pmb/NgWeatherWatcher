@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '@services/auth.service';
 import {MenuService} from '@services/menu.service';
-import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {faBellSlash} from '@fortawesome/free-solid-svg-icons';
 import {NotificationService} from '@services/notification.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -20,7 +20,7 @@ import {NgIf, AsyncPipe} from '@angular/common';
     MatButtonModule,
     FontAwesomeModule,
     AsyncPipe,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class ProfileComponent implements OnInit {

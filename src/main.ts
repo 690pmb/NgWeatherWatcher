@@ -1,7 +1,8 @@
 import {
-  enableProdMode,
   APP_INITIALIZER,
+  enableProdMode,
   importProvidersFrom,
+  inject,
 } from '@angular/core';
 import 'hammerjs';
 import 'reflect-metadata';
@@ -10,11 +11,7 @@ import {AppComponent} from './app/app.component';
 import {provideServiceWorker} from '@angular/service-worker';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {
-  withInterceptorsFromDi,
-  provideHttpClient,
-  HttpClient,
-} from '@angular/common/http';
+import {provideHttpClient, HttpClient} from '@angular/common/http';
 import {
   BrowserModule,
   HammerModule,
@@ -25,20 +22,18 @@ import {
   MAT_RIPPLE_GLOBAL_OPTIONS,
   RippleGlobalOptions,
 } from '@angular/material/core';
-import {Configuration} from '@model/configuration';
-import {ConfigurationService} from '@services/configuration.service';
-import {Observable} from 'rxjs';
 import {
-  TranslateService,
-  TranslateModule,
   TranslateLoader,
+  TranslateService,
+  provideTranslateService,
 } from '@ngx-translate/core';
-import {DateTimePipe} from '@shared/pipe/date-time.pipe';
 import localeEn from '@angular/common/locales/en';
 import localeFr from '@angular/common/locales/fr';
 import {registerLocaleData} from '@angular/common';
-import {provideRouter} from '@angular/router';
+import {provideRouter, withViewTransitions} from '@angular/router';
 import {routes} from './app/app-routing';
+import {ConfigurationService} from '@services/configuration.service';
+import {DateTimePipe} from '@shared/pipe/date-time.pipe';
 
 if (environment.production) {
   enableProdMode();
@@ -47,39 +42,41 @@ registerLocaleData(localeFr);
 registerLocaleData(localeEn);
 
 bootstrapApplication(AppComponent, {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   providers: [
-    provideRouter(routes),
-    importProvidersFrom(
-      BrowserModule,
-      HammerModule,
-      MatSnackBarModule,
-      TranslateModule.forRoot({
-        useDefaultLang: false,
-        defaultLanguage: 'en',
-        loader: {
-          provide: TranslateLoader,
-          useFactory: (http: HttpClient): TranslateHttpLoader =>
-            new TranslateHttpLoader(http, './assets/i18n/', '.json'),
-          deps: [HttpClient],
-        },
-      })
-    ),
+    provideRouter(routes, withViewTransitions()),
+    provideHttpClient(),
+    importProvidersFrom(BrowserModule, HammerModule, MatSnackBarModule),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    provideTranslateService({
+      useDefaultLang: false,
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient): TranslateHttpLoader =>
+          new TranslateHttpLoader(http, './assets/i18n/', '.json'),
+        deps: [HttpClient],
+      },
+    }),
     DateTimePipe,
     {
       provide: APP_INITIALIZER,
-      useFactory:
-        (service: TranslateService): (() => Observable<string>) =>
-        () =>
-          service.use(service.getBrowserLang() === 'fr' ? 'fr' : 'en'),
+      useFactory: () => {
+        const translateService = inject(TranslateService);
+        return () =>
+          translateService.use(
+            translateService.getBrowserLang() === 'fr' ? 'fr' : 'en'
+          );
+      },
       deps: [TranslateService],
       multi: true,
     },
     {
       provide: APP_INITIALIZER,
-      useFactory:
-        (conf: ConfigurationService): (() => Observable<Configuration>) =>
-        () =>
-          conf.load(),
+      useFactory: () => {
+        const conf = inject(ConfigurationService);
+        return () => conf.load();
+      },
       deps: [ConfigurationService],
       multi: true,
     },
@@ -100,6 +97,5 @@ bootstrapApplication(AppComponent, {
       registrationStrategy: 'registerWhenStable:30000',
     }),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
   ],
 }).catch(err => console.error(err));

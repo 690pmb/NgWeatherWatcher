@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AuthService} from '@services/auth.service';
 import {ToastService} from '@services/toast.service';
-import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {MatButtonModule} from '@angular/material/button';
 import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
 import {MatInputModule} from '@angular/material/input';
@@ -23,7 +23,7 @@ import {FormsModule} from '@angular/forms';
     SearchLocationComponent,
     MatButtonModule,
     RouterLink,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class SignupComponent implements OnInit {

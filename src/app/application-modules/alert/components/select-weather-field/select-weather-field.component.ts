@@ -9,7 +9,7 @@ import {
 import {ConfigurationService} from '@services/configuration.service';
 import {WeatherFieldConfig} from '@model/configuration';
 import {WeatherField} from '@model/alert/weather-field';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 import {MatOptionModule} from '@angular/material/core';
 import {NgFor} from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
@@ -21,7 +21,7 @@ export type DropDownChoice = {key: WeatherField; value: WeatherFieldConfig};
   templateUrl: './select-weather-field.component.html',
   styleUrls: ['./select-weather-field.component.scss'],
   standalone: true,
-  imports: [MatSelectModule, NgFor, MatOptionModule, TranslateModule],
+  imports: [MatSelectModule, NgFor, MatOptionModule, TranslatePipe],
 })
 export class SelectWeatherFieldComponent implements OnInit {
   @Input()

@@ -30,7 +30,7 @@ import {GobalError} from '@services/utils.service';
 import {NgFor, NgIf} from '@angular/common';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -47,7 +47,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    TranslateModule,
+    TranslatePipe,
   ],
   standalone: true,
 })

@@ -19,7 +19,7 @@ import {
   faSun,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {AlertService} from '@services/alert.service';
@@ -83,7 +83,7 @@ import {MyPaginator} from '@shared/my-paginator';
     SlicePipe,
     TitleCasePipe,
     DateTimePipe_1,
-    TranslateModule,
+    TranslatePipe,
   ],
   providers: [
     TitleCasePipe,

@@ -2,7 +2,7 @@ import {Component, OnInit, TrackByFunction, Type, inject} from '@angular/core';
 import {DateTime} from 'luxon';
 import {SliderComponent} from '../slider/slider.component';
 import {MultipleData} from '../../model/multiple-data';
-import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {AlertService} from '@services/alert.service';
 import {CreateAlert} from '@model/alert/create-alert';
 import {AuthService} from '@services/auth.service';
@@ -63,7 +63,7 @@ type AlertForm = {
     MultipleComponent,
     MatButtonModule,
     TitleCasePipe,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class AlertComponent implements OnInit {

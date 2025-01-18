@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
-import {TranslateService, TranslateModule} from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {AuthService} from '@services/auth.service';
 import {MatButtonModule} from '@angular/material/button';
 import {NgIf} from '@angular/common';
@@ -20,7 +20,7 @@ import {FormsModule} from '@angular/forms';
     NgIf,
     MatButtonModule,
     RouterLink,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class SigninComponent {
