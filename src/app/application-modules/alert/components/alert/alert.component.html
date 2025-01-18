@@ -1,76 +1,71 @@
-<form *ngIf="ready" [formGroup]="alertForm" (ngSubmit)="onSubmit()">
-  <app-question label="alert.location" [ctrl]="alertForm.controls.location">
-    <app-search-location
-      [inputCtrl]="alertForm.controls.location"
-    ></app-search-location>
-  </app-question>
-  <app-question
-    label="alert.trigger_day"
-    [ctrl]="alertForm.controls.triggerDays"
-  >
-    <div class="row" formArrayName="triggerDays">
-      <mat-checkbox
-        *ngFor="
-          let trigger of triggerDayChoices;
-          let i = index;
-          trackBy: trackByFn1
-        "
-        color="primary"
-        [formControlName]="i"
-        >{{ trigger.value | titlecase }}</mat-checkbox
-      >
-    </div>
-  </app-question>
-  <app-question
-    *ngIf="alertForm.controls.triggerHour as trigger"
-    label="alert.trigger_hour"
-    [ctrl]="trigger"
-    ><app-slider
-      [configuration]="triggerHourConfig"
-      [initialValue]="{value: trigger.value, multiple: false}"
-      (selected)="trigger.setValue($event.value ?? 0)"
-    ></app-slider>
-  </app-question>
-  <app-question label="alert.force_notification">
-    <mat-checkbox color="primary" formControlName="forceNotification">{{
-      'global.' + alertForm.controls.forceNotification.value
-        | translate
-        | titlecase
-    }}</mat-checkbox>
-  </app-question>
-  <app-question
-    label="alert.monitored_day"
-    [ctrl]="alertForm.controls.monitoredDays"
-  >
-    <div class="row" formArrayName="monitoredDays">
-      <mat-checkbox
-        *ngFor="
-          let monitoredDay of monitoredDayChoices;
-          let i = index;
-          trackBy: trackByFn2
-        "
-        color="primary"
-        [formControlName]="i"
-        >{{ monitoredDay | translate | titlecase }}</mat-checkbox
-      >
-    </div>
-  </app-question>
-  <app-question
-    label="alert.monitored_field"
-    [ctrl]="alertForm.controls.monitoredFields"
-    ><app-multiple
-      [compo]="alertWeatherFieldComponent"
-      [form]="alertForm.controls.monitoredFields"
-    ></app-multiple>
-  </app-question>
-  <app-question label="alert.monitored_hour">
-    <app-multiple
-      [compo]="sliderComponent"
-      [configuration]="monitoredHourConfig"
-      [form]="alertForm.controls.monitoredHours"
-    ></app-multiple>
-  </app-question>
-</form>
+@if (ready) {
+  <form [formGroup]="alertForm" (ngSubmit)="onSubmit()">
+    <app-question label="alert.location" [ctrl]="alertForm.controls.location">
+      <app-search-location
+        [inputCtrl]="alertForm.controls.location"
+      ></app-search-location>
+    </app-question>
+    <app-question
+      label="alert.trigger_day"
+      [ctrl]="alertForm.controls.triggerDays"
+    >
+      <div class="row" formArrayName="triggerDays">
+        @for (trigger of triggerDayChoices; track trigger.key; let i = $index) {
+          <mat-checkbox color="primary" [formControlName]="i">{{
+            trigger.value | titlecase
+          }}</mat-checkbox>
+        }
+      </div>
+    </app-question>
+    @if (alertForm.controls.triggerHour; as trigger) {
+      <app-question label="alert.trigger_hour" [ctrl]="trigger"
+        ><app-slider
+          [configuration]="triggerHourConfig"
+          [initialValue]="{value: trigger.value, multiple: false}"
+          (selected)="trigger.setValue($event.value ?? 0)"
+        ></app-slider>
+      </app-question>
+    }
+    <app-question label="alert.force_notification">
+      <mat-checkbox color="primary" formControlName="forceNotification">{{
+        'global.' + alertForm.controls.forceNotification.value
+          | translate
+          | titlecase
+      }}</mat-checkbox>
+    </app-question>
+    <app-question
+      label="alert.monitored_day"
+      [ctrl]="alertForm.controls.monitoredDays"
+    >
+      <div class="row" formArrayName="monitoredDays">
+        @for (
+          monitoredDay of monitoredDayChoices;
+          track monitoredDay;
+          let i = $index
+        ) {
+          <mat-checkbox color="primary" [formControlName]="i">{{
+            monitoredDay | translate | titlecase
+          }}</mat-checkbox>
+        }
+      </div>
+    </app-question>
+    <app-question
+      label="alert.monitored_field"
+      [ctrl]="alertForm.controls.monitoredFields"
+      ><app-multiple
+        [compo]="alertWeatherFieldComponent"
+        [form]="alertForm.controls.monitoredFields"
+      ></app-multiple>
+    </app-question>
+    <app-question label="alert.monitored_hour">
+      <app-multiple
+        [compo]="sliderComponent"
+        [configuration]="monitoredHourConfig"
+        [form]="alertForm.controls.monitoredHours"
+      ></app-multiple>
+    </app-question>
+  </form>
+}
 <div class="submit-btn">
   <button
     type="submit"

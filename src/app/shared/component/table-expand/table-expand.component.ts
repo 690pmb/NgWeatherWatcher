@@ -15,15 +15,8 @@ import {
   ElementRef,
   HostBinding,
   AfterViewChecked,
-  TrackByFunction,
 } from '@angular/core';
-import {
-  KeyValue,
-  KeyValuePipe,
-  NgFor,
-  NgIf,
-  NgTemplateOutlet,
-} from '@angular/common';
+import {KeyValuePipe, NgTemplateOutlet} from '@angular/common';
 import {Template} from '@model/template';
 import {TranslatePipe} from '@ngx-translate/core';
 
@@ -37,14 +30,7 @@ export type Config<T> = {
 
 @Component({
   standalone: true,
-  imports: [
-    NgIf,
-    NgFor,
-    KeyValuePipe,
-    NgTemplateOutlet,
-    MatTableModule,
-    TranslatePipe,
-  ],
+  imports: [KeyValuePipe, NgTemplateOutlet, MatTableModule, TranslatePipe],
   selector: 'app-table-expand',
   templateUrl: './table-expand.component.html',
   styleUrls: ['./table-expand.component.scss'],
@@ -111,12 +97,6 @@ export class TableExpandComponent<T>
       }px`;
     }
   }
-
-  trackByFn: TrackByFunction<KeyValue<string, (a: T) => string>> = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _index: number,
-    item: KeyValue<string, (a: T) => string>
-  ) => item.key;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
   unsorted(_a: any, _b: any): number {

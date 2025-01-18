@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import {Component, OnDestroy, OnInit, TrackByFunction} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {combineLatest, EMPTY, Observable, Observer, Subscription} from 'rxjs';
@@ -10,13 +10,12 @@ import {AuthService} from '@services/auth.service';
 import {ToastService} from '@services/toast.service';
 import {MenuService} from '@services/menu.service';
 import {Token} from '@model/token';
-import {ForecastDay} from '@model/weather/forecast-day';
 import {IconPipe} from '../../../../shared/pipe/icon.pipe';
 import {DateTimePipe} from '../../../../shared/pipe/date-time.pipe';
 import {MatDividerModule} from '@angular/material/divider';
 import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {NgIf, NgFor} from '@angular/common';
+
 import {DashboardComponent} from '../dashboard/dashboard.component';
 
 @Component({
@@ -26,10 +25,8 @@ import {DashboardComponent} from '../dashboard/dashboard.component';
   standalone: true,
   imports: [
     DashboardComponent,
-    NgIf,
     MatProgressSpinnerModule,
     SearchLocationComponent,
-    NgFor,
     RouterLink,
     MatDividerModule,
     DateTimePipe,
@@ -132,12 +129,6 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
         .catch(err => console.error(err));
     }
   }
-
-  trackByFn: TrackByFunction<ForecastDay> = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _index: number,
-    item: ForecastDay
-  ) => item.date;
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());

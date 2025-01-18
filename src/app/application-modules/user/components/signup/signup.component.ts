@@ -7,7 +7,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {NgIf} from '@angular/common';
+
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -17,7 +17,6 @@ import {FormsModule} from '@angular/forms';
   standalone: true,
   imports: [
     FormsModule,
-    NgIf,
     MatFormFieldModule,
     MatInputModule,
     SearchLocationComponent,

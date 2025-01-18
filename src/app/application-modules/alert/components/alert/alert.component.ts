@@ -1,4 +1,4 @@
-import {Component, OnInit, TrackByFunction, Type, inject} from '@angular/core';
+import {Component, OnInit, Type, inject} from '@angular/core';
 import {DateTime} from 'luxon';
 import {SliderComponent} from '../slider/slider.component';
 import {MultipleData} from '../../model/multiple-data';
@@ -28,13 +28,12 @@ import {of, iif} from 'rxjs';
 import {mergeMap, tap, map} from 'rxjs/operators';
 import {Alert} from '@model/alert/alert';
 import {MonitoredDay} from '@model/alert/monitored-days';
-import {MonitoredField} from '@model/alert/monitored-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MultipleComponent} from '../multiple/multiple.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
 import {QuestionComponent} from '../question/question.component';
-import {NgIf, NgFor, TitleCasePipe} from '@angular/common';
+import {TitleCasePipe} from '@angular/common';
 
 type AlertForm = {
   triggerDays: FormArray<FormControl<boolean>>;
@@ -52,12 +51,10 @@ type AlertForm = {
   styleUrls: ['./alert.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
     FormsModule,
     ReactiveFormsModule,
     QuestionComponent,
     SearchLocationComponent,
-    NgFor,
     MatCheckboxModule,
     SliderComponent,
     MultipleComponent,
@@ -286,16 +283,4 @@ export class AlertComponent implements OnInit {
       });
     }
   }
-
-  trackByFn1: TrackByFunction<{key: string; value: string}> = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _index: number,
-    item: {key: string; value: string}
-  ) => item.key;
-
-  trackByFn2: TrackByFunction<MonitoredField> = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _index: number,
-    item: MonitoredField
-  ) => item.field;
 }

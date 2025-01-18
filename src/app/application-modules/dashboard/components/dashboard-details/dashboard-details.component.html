@@ -1,5 +1,5 @@
 <app-dashboard>
-  <ng-container *ngIf="forecast && forecast.forecastDay">
+  @if (forecast && forecast.forecastDay) {
     <div
       class="wrapper"
       [@slideInOut]="pageIndex"
@@ -26,7 +26,6 @@
         >
         </mat-paginator>
       </div>
-
       <app-table-expand
         #table
         [dataSource]="hours"
@@ -40,7 +39,6 @@
             {{ hour.time | date: 'H:mm' }}
           </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="condition">
           <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.condition' | translate }}
@@ -49,7 +47,6 @@
             <img src="{{ hour.condition.icon | icon: hour.isDay }}" />
           </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="tempC">
           <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.temp' | translate }}
@@ -62,7 +59,6 @@
             {{ hour.tempC }} °C
           </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="windKph">
           <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.wind' | translate }}
@@ -75,7 +71,6 @@
             {{ hour.windKph }} km/h
           </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="precipMm">
           <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.precip' | translate }}
@@ -88,7 +83,6 @@
             {{ hour.precipMm }} mm
           </mat-cell>
         </ng-container>
-
         <ng-container matColumnDef="chanceOfRain">
           <mat-header-cell *matHeaderCellDef mat-header-cell>
             {{ 'forecast.rain' | translate }}
@@ -101,7 +95,6 @@
             {{ hour.chanceOfRain }} %
           </mat-cell>
         </ng-container>
-
         <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
         <mat-row
           *matRowDef="let h; columns: columnsToDisplay"
@@ -109,7 +102,7 @@
         ></mat-row>
       </app-table-expand>
     </div>
-  </ng-container>
+  }
 </app-dashboard>
 
 <ng-template #forecastField let-field>

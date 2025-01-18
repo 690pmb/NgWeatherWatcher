@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  TemplateRef,
-  TrackByFunction,
-  ViewChild,
-} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {
   ActivatedRoute,
   convertToParamMap,
@@ -29,19 +23,11 @@ import {
   MatBottomSheet,
   MatBottomSheetModule,
 } from '@angular/material/bottom-sheet';
-import {
-  TitleCasePipe,
-  NgIf,
-  NgFor,
-  NgClass,
-  AsyncPipe,
-  SlicePipe,
-} from '@angular/common';
+import {TitleCasePipe, NgClass, AsyncPipe, SlicePipe} from '@angular/common';
 import {DateTimePipe} from '@shared/pipe/date-time.pipe';
 import {SortField} from '@model/sort';
 import {SortDirection, MatSortModule} from '@angular/material/sort';
 import {PageRequest} from '@model/http/page-request';
-import {MonitoredField} from '@model/alert/monitored-field';
 import {DateTime} from 'luxon';
 import {DateTimePipe as DateTimePipe_1} from '../../../../shared/pipe/date-time.pipe';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -67,14 +53,12 @@ import {MyPaginator} from '@shared/my-paginator';
     MatButtonModule,
     RouterLink,
     FontAwesomeModule,
-    NgIf,
     MatPaginatorModule,
     TableExpandComponent,
     MatSortModule,
     MatTableModule,
     MatMenuModule,
     MatBottomSheetModule,
-    NgFor,
     SelectRowDirective,
     NgClass,
     ClickOutsideDirective,
@@ -224,10 +208,4 @@ export class AlertListComponent implements OnInit {
     this.selected = [];
     this.bottomSheet.dismiss();
   }
-
-  trackByFn: TrackByFunction<MonitoredField> = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _index: number,
-    item: MonitoredField
-  ) => item.field;
 }

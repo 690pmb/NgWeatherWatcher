@@ -1,4 +1,4 @@
-<ng-container *ngIf="isLogged$ | async">
+@if (isLogged$ | async) {
   <mat-toolbar
     class="toolbar mat-elevation-z4"
     color="primary"
@@ -14,45 +14,49 @@
     >
       <fa-icon size="2x" [icon]="faBars"></fa-icon>
     </button>
-    <h1 *ngIf="title">
-      {{ title | translate }}
-    </h1>
+    @if (title) {
+      <h1>
+        {{ title | translate }}
+      </h1>
+    }
   </mat-toolbar>
-</ng-container>
+}
 
 <mat-sidenav-container fullscreen [hasBackdrop]="true">
-  <mat-sidenav
-    *ngIf="isLogged$ | async"
-    #sidenav
-    [fixedInViewport]="true"
-    [autoFocus]="false"
-    [mode]="'over'"
-  >
-    <mat-nav-list class="nav-list" (click)="sidenav.close()">
+  @if (isLogged$ | async) {
+    <mat-sidenav
+      #sidenav
+      [fixedInViewport]="true"
+      [autoFocus]="false"
+      [mode]="'over'"
+    >
+      <mat-nav-list class="nav-list" (click)="sidenav.close()">
+        @for (item of menuItems; track item.route) {
+          <a
+            mat-list-item
+            routerLinkActive="active-nav-item"
+            [routerLink]="item.route"
+          >
+            <fa-icon [icon]="item.icon"></fa-icon>
+            {{ item.label | translate }}
+          </a>
+        }
+        <a mat-list-item (click)="logout()">
+          <fa-icon [icon]="faSignOutAlt"></fa-icon>
+          {{ 'nav-bar.logout' | translate }}
+        </a>
+      </mat-nav-list>
       <a
-        *ngFor="let item of menuItems; trackBy: trackByFn"
-        mat-list-item
-        routerLinkActive="active-nav-item"
-        [routerLink]="item.route"
-      >
-        <fa-icon [icon]="item.icon"></fa-icon>
-        {{ item.label | translate }}
-      </a>
-      <a mat-list-item (click)="logout()">
-        <fa-icon [icon]="faSignOutAlt"></fa-icon>
-        {{ 'nav-bar.logout' | translate }}
-      </a>
-    </mat-nav-list>
-    <a
-      href="https://www.weatherapi.com/"
-      title="Free Weather API"
-      class="weather-icon"
-      ><img
-        src="//cdn.weatherapi.com/v4/images/weatherapi_logo.png"
-        alt="Weather data by WeatherAPI.com"
-        border="0"
-    /></a>
-  </mat-sidenav>
+        href="https://www.weatherapi.com/"
+        title="Free Weather API"
+        class="weather-icon"
+        ><img
+          src="//cdn.weatherapi.com/v4/images/weatherapi_logo.png"
+          alt="Weather data by WeatherAPI.com"
+          border="0"
+      /></a>
+    </mat-sidenav>
+  }
   <mat-sidenav-content class="sidenav-content">
     <div class="background-color"></div>
     <div [ngClass]="{menu: (isLogged$ | async)}" [@menu]="direction">

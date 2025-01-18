@@ -9,7 +9,7 @@
     <fa-icon [icon]="faPlus"></fa-icon>
   </div>
 </button>
-<ng-container *ngIf="alerts$ | async as alerts">
+@if (alerts$ | async; as alerts) {
   <div class="header">
     <mat-paginator
       [length]="alerts.totalElements"
@@ -48,7 +48,6 @@
         }}
       </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="triggerHour">
       <mat-header-cell *matHeaderCellDef mat-header-cell mat-sort-header>
         {{ 'alert.trigger_hour' | translate }}
@@ -57,7 +56,6 @@
         {{ alert.triggerHour | dateTime: 'hour' }}
       </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="monitoredHours">
       <mat-header-cell *matHeaderCellDef mat-header-cell>
         {{ 'alert.monitored_hour' | translate }}
@@ -66,21 +64,19 @@
         {{ formatField(alert.monitoredHours, true) }}
       </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="location">
       <mat-header-cell *matHeaderCellDef mat-header-cell mat-sort-header>
         {{ 'alert.location' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let alert">
-        <ng-container *ngIf="alert.location.length > 13"
-          >{{ alert.location | slice: 0 : 13 }}...</ng-container
-        >
-        <ng-container *ngIf="alert.location.length <= 13">{{
-          alert.location
-        }}</ng-container>
+        @if (alert.location.length > 13) {
+          {{ alert.location | slice: 0 : 13 }}...
+        }
+        @if (alert.location.length <= 13) {
+          {{ alert.location }}
+        }
       </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef mat-header-cell>
         {{ 'alert.action' | translate }}
@@ -97,26 +93,23 @@
         </button>
       </mat-cell>
     </ng-container>
-
     <ng-template #additionalTemplate let-data>
       <div>
         <span>{{ 'alert.monitored_field' | translate }}: </span>
-        <ng-container
-          *ngFor="
-            let monitoredField of data.item.monitoredFields;
-            last as isLast;
-            trackBy: trackByFn
-          "
-        >
+        @for (
+          monitoredField of data.item.monitoredFields;
+          track monitoredField.field;
+          let isLast = $last
+        ) {
           {{ 'forecast.' + monitoredField.field.toLowerCase() | translate }}
           {{ monitoredField.summary }} {{ monitoredField.unit }}
-          <ng-container *ngIf="!isLast"> / </ng-container>
-        </ng-container>
+          @if (!isLast) {
+            /
+          }
+        }
       </div>
     </ng-template>
-
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-
     <mat-row
       *matRowDef="let alert; columns: columnsToDisplay"
       class="alert-row"
@@ -127,7 +120,7 @@
       (selected)="handleSelection(alert.id)"
     ></mat-row>
   </app-table-expand>
-</ng-container>
+}
 
 <ng-template #alertField let-field>
   <div>

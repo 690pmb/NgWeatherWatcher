@@ -1,12 +1,10 @@
 <mat-table multiTemplateDataRows [dataSource]="dataSource">
   <ng-container matColumnDef="details">
     <mat-cell *matCellDef="let item" [class.hide]="expanded !== item">
-      <ng-container
-        *ngFor="
-          let formatField of config?.formatFields | keyvalue: unsorted;
-          trackBy: trackByFn
-        "
-      >
+      @for (
+        formatField of config?.formatFields | keyvalue: unsorted;
+        track formatField.key
+      ) {
         <ng-container
           *ngTemplateOutlet="
             config?.template ?? null;
@@ -19,30 +17,30 @@
             }
           "
         ></ng-container>
-      </ng-container>
+      }
 
-      <ng-container *ngIf="config?.additionalTemplate">
+      @if (config?.additionalTemplate) {
         <ng-template
           *ngTemplateOutlet="
             config?.additionalTemplate ?? null;
             context: {$implicit: {item}}
           "
         ></ng-template>
-      </ng-container>
+      }
     </mat-cell>
   </ng-container>
 
-  <ng-container *ngIf="config?.template || config?.additionalTemplate">
+  @if (config?.template || config?.additionalTemplate) {
     <mat-row
       *matRowDef="let row; columns: ['details']"
       class="detail-row"
       [class.expanded]="expanded === row"
     ></mat-row>
-  </ng-container>
+  }
 
-  <ng-container *ngIf="config?.empty">
+  @if (config?.empty) {
     <tr *matNoDataRow class="no-data">
       <td>{{ config?.empty ?? '' | translate }}</td>
     </tr>
-  </ng-container>
+  }
 </mat-table>

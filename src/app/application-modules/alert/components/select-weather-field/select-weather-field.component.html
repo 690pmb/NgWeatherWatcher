@@ -4,9 +4,9 @@
   [value]="initialChoice?.value"
   (selectionChange)="selected.emit($event.value)"
 >
-  <mat-option
-    *ngFor="let choice of choices; trackBy: trackByFn"
-    [value]="choice.value"
-    >{{ 'forecast.' + choice.key.toLowerCase() | translate }}</mat-option
-  >
+  @for (choice of choices; track choice.key) {
+    <mat-option [value]="choice.value">{{
+      'forecast.' + choice.key.toLowerCase() | translate
+    }}</mat-option>
+  }
 </mat-select>

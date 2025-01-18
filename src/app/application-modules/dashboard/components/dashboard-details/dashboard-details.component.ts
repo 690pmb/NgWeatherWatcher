@@ -1,4 +1,4 @@
-import {Location, NgIf, NgClass, DatePipe} from '@angular/common';
+import {Location, NgClass, DatePipe} from '@angular/common';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService, TranslatePipe} from '@ngx-translate/core';
@@ -35,7 +35,6 @@ import {DashboardComponent} from '../dashboard/dashboard.component';
   standalone: true,
   imports: [
     DashboardComponent,
-    NgIf,
     MatSlideToggleModule,
     FormsModule,
     MatPaginatorModule,

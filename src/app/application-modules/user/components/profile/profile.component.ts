@@ -7,7 +7,7 @@ import {NotificationService} from '@services/notification.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
-import {NgIf, AsyncPipe} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +15,6 @@ import {NgIf, AsyncPipe} from '@angular/common';
   styleUrls: ['./profile.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
     SearchLocationComponent,
     MatButtonModule,
     FontAwesomeModule,

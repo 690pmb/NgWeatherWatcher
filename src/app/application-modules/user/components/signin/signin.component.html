@@ -13,15 +13,13 @@
         placeholder="{{ 'global.username' | translate }}"
         [(ngModel)]="username"
       />
-      <mat-error
-        *ngIf="
-          inputName.errors !== null &&
-          inputName.errors['required'] &&
-          !inputName.pristine
-        "
-      >
-        {{ 'global.username_required' | translate }}</mat-error
-      >
+      @if (
+        inputName.errors !== null &&
+        inputName.errors['required'] &&
+        !inputName.pristine
+      ) {
+        <mat-error> {{ 'global.username_required' | translate }}</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -35,15 +33,13 @@
         placeholder="{{ 'user.password' | translate }}"
         [(ngModel)]="password"
       />
-      <mat-error
-        *ngIf="
-          inputPassword.errors !== null &&
-          inputPassword.errors['required'] &&
-          !inputPassword.pristine
-        "
-      >
-        {{ 'user.password_required' | translate }}</mat-error
-      >
+      @if (
+        inputPassword.errors !== null &&
+        inputPassword.errors['required'] &&
+        !inputPassword.pristine
+      ) {
+        <mat-error> {{ 'user.password_required' | translate }}</mat-error>
+      }
     </mat-form-field>
 
     <div class="signin-footer">

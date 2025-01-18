@@ -2,21 +2,22 @@
   [initialValue]="initialValue?.field?.field"
   (selected)="configureSlider($event)"
 ></app-select-weather-field>
-<app-slider
-  *ngIf="selectedField"
-  [configuration]="configuration"
-  [initialValue]="{
-    value: initialValue
-      ? [initialValue.field.min, initialValue.field.max]
-      : undefined,
-    multiple: true
-  }"
-  (selected)="
-    selected.emit({
-      field: selectedField,
-      min: $event.value?.[0],
-      max: $event.value?.[1]
-    });
-    shownAddBtn.emit(true)
-  "
-></app-slider>
+@if (selectedField) {
+  <app-slider
+    [configuration]="configuration"
+    [initialValue]="{
+      value: initialValue
+        ? [initialValue.field.min, initialValue.field.max]
+        : undefined,
+      multiple: true
+    }"
+    (selected)="
+      selected.emit({
+        field: selectedField,
+        min: $event.value?.[0],
+        max: $event.value?.[1]
+      });
+      shownAddBtn.emit(true)
+    "
+  ></app-slider>
+}

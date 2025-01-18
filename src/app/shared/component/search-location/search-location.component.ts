@@ -6,7 +6,6 @@ import {
   ViewChild,
   OnInit,
   OnChanges,
-  TrackByFunction,
   booleanAttribute,
 } from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
@@ -27,7 +26,7 @@ import {Location} from '@model/weather/location';
 import {WeatherService} from '@services/weather.service';
 import {Utils} from '../../utils';
 import {GobalError} from '@services/utils.service';
-import {NgFor, NgIf} from '@angular/common';
+
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {TranslatePipe} from '@ngx-translate/core';
@@ -39,8 +38,6 @@ import {MatButtonModule} from '@angular/material/button';
   templateUrl: './search-location.component.html',
   styleUrls: ['./search-location.component.scss'],
   imports: [
-    NgIf,
-    NgFor,
     FontAwesomeModule,
     MatAutocompleteModule,
     MatButtonModule,
@@ -129,10 +126,4 @@ export class SearchLocationComponent implements OnInit, OnChanges {
     this.selected.emit('');
     this.placeholder = this.initialPlaceholder ?? 'global.none';
   }
-
-  trackByFn: TrackByFunction<Location> = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _index: number,
-    item: Location
-  ) => item.id;
 }

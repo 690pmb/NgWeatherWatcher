@@ -1,29 +1,31 @@
-<div *ngIf="authService.token$ | async as user" class="profile-content">
-  <div>
-    <span>{{ 'global.username' | translate }}:</span>{{ user.sub }}
+@if (authService.token$ | async; as user) {
+  <div class="profile-content">
+    <div>
+      <span>{{ 'global.username' | translate }}:</span>{{ user.sub }}
+    </div>
+    <div>
+      <span>{{ 'user.lang' | translate }}:</span
+      >{{ 'global.lang.' + user.lang | translate }}
+    </div>
+    <div>
+      <span>{{ 'user.signin.favourite_location' | translate }}:</span
+      ><app-search-location
+        [placeholder]="user.location"
+        (selected)="edit($event)"
+      ></app-search-location>
+    </div>
+    <div>
+      <button
+        class="delete-button"
+        type="button"
+        mat-raised-button
+        (click)="delete()"
+      >
+        <span>
+          {{ 'notification.delete' | translate }}&nbsp;
+          <fa-icon [icon]="faBellSlash"></fa-icon>
+        </span>
+      </button>
+    </div>
   </div>
-  <div>
-    <span>{{ 'user.lang' | translate }}:</span
-    >{{ 'global.lang.' + user.lang | translate }}
-  </div>
-  <div>
-    <span>{{ 'user.signin.favourite_location' | translate }}:</span
-    ><app-search-location
-      [placeholder]="user.location"
-      (selected)="edit($event)"
-    ></app-search-location>
-  </div>
-  <div>
-    <button
-      class="delete-button"
-      type="button"
-      mat-raised-button
-      (click)="delete()"
-    >
-      <span>
-        {{ 'notification.delete' | translate }}&nbsp;
-        <fa-icon [icon]="faBellSlash"></fa-icon>
-      </span>
-    </button>
-  </div>
-</div>
+}

@@ -1,7 +1,9 @@
-<div *ngIf="showSpinner" class="spinner-wrapper">
-  <mat-spinner mode="indeterminate"></mat-spinner>
-  <h1>{{ 'global.geolocation.in_progress' | translate }}</h1>
-</div>
+@if (showSpinner) {
+  <div class="spinner-wrapper">
+    <mat-spinner mode="indeterminate"></mat-spinner>
+    <h1>{{ 'global.geolocation.in_progress' | translate }}</h1>
+  </div>
+}
 <mat-form-field appearance="outline">
   <button
     mat-icon-button
@@ -21,18 +23,19 @@
     (focus)="placeholder = undefined"
     (blur)="placeholder = inputCtrl.value || initialPlaceholder"
   />
-  <button
-    *ngIf="
-      inputLocation.value ||
-      (placeholder && placeholder !== 'global.none' && showPlaceholder)
-    "
-    mat-icon-button
-    type="button"
-    matIconSuffix
-    (click)="reset(); $event.stopPropagation()"
-  >
-    <fa-icon size="2x" [icon]="faTimes"></fa-icon>
-  </button>
+  @if (
+    inputLocation.value ||
+    (placeholder && placeholder !== 'global.none' && showPlaceholder)
+  ) {
+    <button
+      mat-icon-button
+      type="button"
+      matIconSuffix
+      (click)="reset(); $event.stopPropagation()"
+    >
+      <fa-icon size="2x" [icon]="faTimes"></fa-icon>
+    </button>
+  }
 </mat-form-field>
 <mat-autocomplete
   #auto="matAutocomplete"
@@ -40,16 +43,15 @@
   class="search-panel"
   (optionSelected)="select($event.option.value)"
 >
-  <mat-option
-    *ngFor="let location of locations; trackBy: trackByFn"
-    [value]="location.name"
-  >
-    <div>{{ location.name }}</div>
-    <div class="subtitle">
-      {{ location.country
-      }}<ng-container *ngIf="location.region">
-        - {{ location.region }}</ng-container
-      >
-    </div>
-  </mat-option>
+  @for (location of locations; track location.id) {
+    <mat-option [value]="location.name">
+      <div>{{ location.name }}</div>
+      <div class="subtitle">
+        {{ location.country }}
+        @if (location.region) {
+          - {{ location.region }}
+        }
+      </div>
+    </mat-option>
+  }
 </mat-autocomplete>
