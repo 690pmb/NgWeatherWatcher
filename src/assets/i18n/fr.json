@@ -105,6 +105,7 @@
     "error_question": "Questions différentes",
     "wrong_answer": "Réponse incorrecte",
     "lang": "Langue",
+    "timezone": "Fuseau horaire",
     "logged_out": "Déconnecté",
     "logout": "Se déconnecter",
     "signin": {

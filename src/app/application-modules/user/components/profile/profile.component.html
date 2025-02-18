@@ -11,8 +11,23 @@
       <span>{{ 'user.signin.favourite_location' | translate }}:</span
       ><app-search-location
         [placeholder]="user.location"
-        (selected)="edit($event)"
+        (selected)="edit({favouriteLocation: $event})"
       />
+    </div>
+    <div>
+      <span>{{ 'user.timezone' | translate }}:</span>
+      <mat-form-field appearance="outline"
+        ><mat-select
+          panelClass="search-panel"
+          panelWidth
+          [value]="user.timezone"
+          (selectionChange)="edit({timezone: $event.value})"
+        >
+          @for (tz of timezones; track tz.key) {
+            <mat-option [value]="tz.value">{{ tz.key }}</mat-option>
+          }
+        </mat-select></mat-form-field
+      >
     </div>
     <div>
       <button

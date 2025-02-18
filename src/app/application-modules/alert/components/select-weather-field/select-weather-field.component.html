@@ -6,7 +6,7 @@
 >
   @for (choice of choices; track choice.key) {
     <mat-option [value]="choice.value">{{
-      'forecast.' + choice.key.toLowerCase() | translate
+      'forecast.' + choice.key | translate
     }}</mat-option>
   }
 </mat-select>

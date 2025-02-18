@@ -105,6 +105,7 @@
     "error_question": "Differents questions",
     "wrong_answer": "Incorrect answer",
     "lang": "Language",
+    "timezone": "Timezone",
     "logged_out": "Logged out",
     "logout": "Logout",
     "signin": {
