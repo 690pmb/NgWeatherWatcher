@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
       if (environment.production) {
         this.notificationService.subscribeToNotifications();
       }
-      this.translateService.use(t.lang);
+      this.translateService.use(t.lang === 'fr' ? 'fr' : 'en');
     });
   }
 }

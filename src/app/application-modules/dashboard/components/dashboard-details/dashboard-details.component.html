@@ -43,7 +43,10 @@
             {{ 'forecast.condition' | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let hour">
-            <img [src]="hour.condition.icon | icon: hour.isDay" />
+            <img
+              [src]="hour.condition.icon | icon: hour.isDay"
+              [matTooltip]="hour.condition.text"
+            />
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="tempC">

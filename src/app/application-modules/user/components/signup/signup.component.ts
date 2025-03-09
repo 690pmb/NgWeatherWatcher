@@ -9,6 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
 import {FormsModule} from '@angular/forms';
+import {LangComponent} from '@shared/component/lang/lang.component';
 
 @Component({
   selector: 'app-signup',
@@ -21,6 +22,7 @@ import {FormsModule} from '@angular/forms';
     MatInputModule,
     SearchLocationComponent,
     MatButtonModule,
+    LangComponent,
     RouterLink,
     TranslatePipe,
   ],
@@ -30,6 +32,7 @@ export class SignupComponent implements OnInit {
   password?: string;
   password2?: string;
   favouriteLocation?: string;
+  lang?: string;
   message?: string;
 
   constructor(
@@ -37,7 +40,7 @@ export class SignupComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toast: ToastService,
-    private translateService: TranslateService,
+    protected translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +61,7 @@ export class SignupComponent implements OnInit {
         .signup(
           this.username,
           this.password,
-          this.translateService.currentLang,
+          this.lang ?? this.translateService.currentLang,
           this.favouriteLocation,
         )
         .subscribe(

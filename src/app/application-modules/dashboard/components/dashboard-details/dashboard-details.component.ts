@@ -23,6 +23,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {DashboardComponent} from '../dashboard/dashboard.component';
+import {MatTooltip} from '@angular/material/tooltip';
+import {AuthService} from '@services/auth.service';
 
 @Component({
   selector: 'app-dashboard-details',
@@ -45,6 +47,7 @@ import {DashboardComponent} from '../dashboard/dashboard.component';
     DatePipe,
     IconPipe,
     TranslatePipe,
+    MatTooltip,
   ],
 })
 export class DashboardDetailsComponent implements OnInit, OnDestroy {
@@ -72,6 +75,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   alertId?: string;
   formatFields: Record<string, (h: Hour) => string> = {
+    summary: h => h.condition.text,
     feels_like: h => `${h.feelsLikeC} ${UNITS[WeatherField.FEELS_LIKE]}`,
     cloud: h => `${h.cloud} ${UNITS[WeatherField.CLOUD]}`,
     wind_direction: h =>
@@ -92,6 +96,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private weatherService: WeatherService,
     private highlightService: HighlightService,
+    private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private router: Router,
@@ -105,12 +110,13 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
       combineLatest([
         this.activatedRoute.paramMap.pipe(filter(p => p !== undefined)),
         this.activatedRoute.queryParamMap.pipe(filter(q => q !== undefined)),
-      ]).subscribe(([params, queryParam]) => {
+        this.authService.lang$,
+      ]).subscribe(([params, queryParam, lang]) => {
         const date = params.get('date');
         this.place = queryParam.get('location') ?? undefined;
         if (date) {
           this.date = date;
-          this.getForecast()
+          this.getForecast(lang)
             .pipe(
               map(forecast => {
                 this.forecast = forecast;
@@ -119,7 +125,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
                   `${this.forecast.location.name} - ${this.datePipe.transform(
                     this.date,
                     'beautiful',
-                    this.translate.currentLang,
+                    lang,
                   )}`,
                 );
                 this.forecastDay = this.forecast.forecastDay.find(
@@ -141,7 +147,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  getForecast(): Observable<Forecast> {
+  getForecast(lang: string): Observable<Forecast> {
     return of(this.location.getState() as Forecast).pipe(
       mergeMap(forecast =>
         iif(
@@ -151,8 +157,8 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
               if (place) {
                 return this.weatherService.findForecastByLocation(
                   place,
-                  '5',
-                  this.translate.currentLang,
+                  '3',
+                  lang,
                 );
               } else {
                 this.router

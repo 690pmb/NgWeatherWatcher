@@ -1,75 +1,74 @@
-<app-dashboard>
-  @if (showSpinner) {
-    <div class="spinner-wrapper">
-      <mat-spinner mode="indeterminate" />
-      <h1>{{ 'global.geolocation.in_progress' | translate }}</h1>
-    </div>
-  }
-  <app-search-location
-    class="search-location"
-    [showPlaceholder]="false"
-    (selected)="navigate($event)"
-  />
-  @if (forecast) {
-    <div>
-      <div class="weather-cover">
-        @for (
-          forecastDay of forecast.forecastDay;
-          track forecastDay.date;
-          let last = $last
-        ) {
-          <div>
-            <h2>
-              <a
-                [routerLink]="['/dashboard/details/', forecastDay.date]"
-                [queryParams]="{location: location}"
-                [state]="forecast"
-                >{{
-                  forecastDay.date
-                    | dateTime: 'beautiful' : translate.currentLang
-                }}</a
-              >
-            </h2>
-            <div class="weather-day">
-              <img [src]="forecastDay.day.condition.icon | icon" />
-              <div class="weather-day-items">
-                <div>{{ forecastDay.day.condition.text }}</div>
-                <div>
-                  {{ 'global.min' | translate }}:
-                  {{ forecastDay.day.minTempC }} °C
-                </div>
-                <div>
-                  {{ 'global.average' | translate }}:
-                  {{ forecastDay.day.avgTempC }} °C
-                </div>
-                <div>
-                  {{ 'global.max' | translate }}:
-                  {{ forecastDay.day.maxTempC }} °C
-                </div>
-                <div>
-                  {{ 'forecast.wind' | translate }}:
-                  {{ forecastDay.day.maxWindKph }} km/h
-                </div>
-                <div>
-                  {{ 'forecast.precip' | translate }}:
-                  {{ forecastDay.day.totalPrecipMm }} mm
-                </div>
-                <div>
-                  {{ 'forecast.chance_of_rain' | translate }}:
-                  {{ forecastDay.day.dailyChanceOfRain }} %
-                </div>
-                <div>
-                  {{ 'forecast.chance_of_snow' | translate }}:
-                  {{ forecastDay.day.dailyChanceOfSnow }} %
+@if (authService.lang$ | async; as lang) {
+  <app-dashboard>
+    @if (showSpinner) {
+      <div class="spinner-wrapper">
+        <mat-spinner mode="indeterminate" />
+        <h1>{{ 'global.geolocation.in_progress' | translate }}</h1>
+      </div>
+    }
+    <app-search-location
+      class="search-location"
+      [showPlaceholder]="false"
+      (selected)="navigate($event)"
+    />
+    @if (forecast) {
+      <div>
+        <div class="weather-cover">
+          @for (
+            forecastDay of forecast.forecastDay;
+            track forecastDay.date;
+            let last = $last
+          ) {
+            <div>
+              <h2>
+                <a
+                  [routerLink]="['/dashboard/details/', forecastDay.date]"
+                  [queryParams]="{location: location}"
+                  [state]="forecast"
+                  >{{ forecastDay.date | dateTime: 'beautiful' : lang }}</a
+                >
+              </h2>
+              <div class="weather-day">
+                <img [src]="forecastDay.day.condition.icon | icon" />
+                <div class="weather-day-items">
+                  <div>{{ forecastDay.day.condition.text }}</div>
+                  <div>
+                    {{ 'global.min' | translate }}:
+                    {{ forecastDay.day.minTempC }} °C
+                  </div>
+                  <div>
+                    {{ 'global.average' | translate }}:
+                    {{ forecastDay.day.avgTempC }} °C
+                  </div>
+                  <div>
+                    {{ 'global.max' | translate }}:
+                    {{ forecastDay.day.maxTempC }} °C
+                  </div>
+                  <div>
+                    {{ 'forecast.wind' | translate }}:
+                    {{ forecastDay.day.maxWindKph }} km/h
+                  </div>
+                  <div>
+                    {{ 'forecast.precip' | translate }}:
+                    {{ forecastDay.day.totalPrecipMm }} mm
+                  </div>
+                  <div>
+                    {{ 'forecast.chance_of_rain' | translate }}:
+                    {{ forecastDay.day.dailyChanceOfRain }} %
+                  </div>
+                  <div>
+                    {{ 'forecast.chance_of_snow' | translate }}:
+                    {{ forecastDay.day.dailyChanceOfSnow }} %
+                  </div>
                 </div>
               </div>
+              @if (!last) {
+                <mat-divider />
+              }
             </div>
-            @if (!last) {
-              <mat-divider />
-            }
-          </div>
-        }
+          }
+        </div>
       </div>
-    </div>
-  }
-</app-dashboard>
+    }
+  </app-dashboard>
+}

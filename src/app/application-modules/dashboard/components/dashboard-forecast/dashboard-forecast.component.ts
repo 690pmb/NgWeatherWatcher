@@ -17,6 +17,7 @@ import {SearchLocationComponent} from '../../../../shared/component/search-locat
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import {DashboardComponent} from '../dashboard/dashboard.component';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-forecast',
@@ -31,6 +32,7 @@ import {DashboardComponent} from '../dashboard/dashboard.component';
     MatDividerModule,
     DateTimePipe,
     IconPipe,
+    AsyncPipe,
     TranslatePipe,
   ],
 })
@@ -43,7 +45,7 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
   constructor(
     private weatherService: WeatherService,
     protected translate: TranslateService,
-    private authService: AuthService,
+    protected authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toast: ToastService,
@@ -85,8 +87,9 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
         ),
     );
     this.subs.push(
-      this.activatedRoute.queryParamMap
-        .pipe(
+      combineLatest([
+        this.authService.lang$,
+        this.activatedRoute.queryParamMap.pipe(
           filter(q => q !== undefined),
           map(query => query.get('location')),
           filter(
@@ -94,29 +97,27 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
               typeof l === 'string' && l !== null && l.trim() !== '',
           ),
           distinctUntilChanged(),
-        )
-        .subscribe(
-          location => this.searchForecast(location),
-          (err: string) => this.weatherService.handleError(err),
         ),
+      ]).subscribe(
+        ([lang, location]) => this.searchForecast(location, lang),
+        (err: string) => this.weatherService.handleError(err),
+      ),
     );
   }
 
-  searchForecast(location: string): void {
+  searchForecast(location: string, lang: string): void {
     this.showSpinner = false;
     this.location = location;
-    this.weatherService
-      .findForecastByLocation(location, '5', this.translate.currentLang)
-      .subscribe(
-        forecast => {
-          this.menuService.title$.next(
-            `${forecast.location.name}, ${forecast.location.region} - ${forecast.location.country}`,
-          );
-          this.menuService.location = forecast.location.name;
-          this.forecast = forecast;
-        },
-        (err: string) => this.weatherService.handleError(err),
-      );
+    this.weatherService.findForecastByLocation(location, '3', lang).subscribe(
+      forecast => {
+        this.menuService.title$.next(
+          `${forecast.location.name}, ${forecast.location.region} - ${forecast.location.country}`,
+        );
+        this.menuService.location = forecast.location.name;
+        this.forecast = forecast;
+      },
+      (err: string) => this.weatherService.handleError(err),
+    );
   }
 
   navigate(location: string): void {

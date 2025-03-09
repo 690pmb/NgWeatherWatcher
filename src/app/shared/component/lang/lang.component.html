@@ -1,0 +1,14 @@
+@if (availablesLangs$ | async; as langs) {
+  <mat-form-field appearance="outline"
+    ><mat-select
+      panelClass="search-panel"
+      panelWidth
+      [value]="initValue"
+      (selectionChange)="selected.emit($event.value)"
+    >
+      @for (lang of langs; track lang.key) {
+        <mat-option [value]="lang.value">{{ lang.key | titlecase }}</mat-option>
+      }
+    </mat-select></mat-form-field
+  >
+}

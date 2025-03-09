@@ -21,6 +21,11 @@ import {EditUser} from '@model/edit-user';
 })
 export class AuthService extends UtilsService {
   token$ = new ReplaySubject<Token | undefined>(1);
+  lang$ = this.token$.pipe(
+    map(token =>
+      token ? token.lang : navigator.language === 'fr' ? 'fr' : 'en',
+    ),
+  );
 
   constructor(
     private router: Router,

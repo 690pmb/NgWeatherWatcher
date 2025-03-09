@@ -12,6 +12,7 @@ import {DropDownChoice} from '@model/dropdown-choice';
 import {MatOption, MatSelect, MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {EditUser} from '@model/edit-user';
+import {LangComponent} from '@shared/component/lang/lang.component';
 
 @Component({
   selector: 'app-profile',
@@ -24,6 +25,7 @@ import {EditUser} from '@model/edit-user';
     FontAwesomeModule,
     AsyncPipe,
     MatFormFieldModule,
+    LangComponent,
     MatSelectModule,
     TranslatePipe,
     MatSelect,

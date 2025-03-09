@@ -1,0 +1,7 @@
+@use 'imports' as *;
+
+::ng-deep .search-panel {
+  .mat-mdc-option {
+    border-bottom: get-color('dark-gray') 1px solid;
+  }
+}

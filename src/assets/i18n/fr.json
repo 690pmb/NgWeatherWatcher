@@ -26,10 +26,6 @@
       "lastPageLabel": "Dernière Page",
       "firstPageLabel": "Première Page",
       "itemsPerPageLabel": "Objets par page: "
-    },
-    "lang": {
-      "fr": "Français",
-      "en": "Anglais"
     }
   },
   "nav-bar": {
@@ -48,6 +44,7 @@
     "pressure": "Pression atmosphérique",
     "humidity": "Humidité",
     "cloud": "Couverture nuageuse",
+    "summary": "Résumé",
     "feels_like": "Température ressentie",
     "will_it_rain": "Va-t-il pleuvoir",
     "will_it_snow": "Va-t-il neiger",

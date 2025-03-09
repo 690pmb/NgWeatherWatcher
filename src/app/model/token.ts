@@ -6,10 +6,11 @@ import {JwtPayload} from 'jwt-decode';
  * @param {string} jti Jwt id
  * @param {string} sub name
  * @param {string} location favourite user's location
+ * @param {string} lang user language
  * @param {string} timezone user timezone
  */
 export type Token = JwtPayload & {
   location: string;
-  lang: 'en' | 'fr';
+  lang: string;
   timezone: string;
 };

@@ -114,6 +114,11 @@
       (selected)="favouriteLocation = $event"
     />
 
+    <app-lang
+      [initValue]="translateService.currentLang"
+      (selected)="lang = $event"
+    />
+
     <!-- Footer -->
     <div class="signup-footer">
       <button type="button" mat-raised-button routerLink="/user">

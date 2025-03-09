@@ -21,6 +21,10 @@ export class WeatherService extends UtilsService {
     this.apiUrl = configurationService.get().weatherUrl;
   }
 
+  availableLangs(): Observable<string[]> {
+    return this.get<string[]>({url: 'langs'});
+  }
+
   search(term: string): Observable<Location[]> {
     return this.get<Location[]>({url: `locations?query=${term}`});
   }

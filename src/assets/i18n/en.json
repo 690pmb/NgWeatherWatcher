@@ -26,10 +26,6 @@
       "lastPageLabel": "Last Page",
       "firstPageLabel": "First Page",
       "itemsPerPageLabel": "Items per page: "
-    },
-    "lang": {
-      "fr": "French",
-      "en": "English"
     }
   },
   "nav-bar": {
@@ -48,6 +44,7 @@
     "pressure": "Atmospheric pressure",
     "humidity": "Humidity",
     "cloud": "Cloud cover",
+    "summary": "Summary",
     "feels_like": "Feels like temperature",
     "will_it_rain": "Will it rain",
     "will_it_snow": "Will it snow",
