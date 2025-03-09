@@ -8,6 +8,10 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
 import {AsyncPipe} from '@angular/common';
+import {DropDownChoice} from '@model/dropdown-choice';
+import {MatOption, MatSelect, MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {EditUser} from '@model/edit-user';
 
 @Component({
   selector: 'app-profile',
@@ -19,11 +23,18 @@ import {AsyncPipe} from '@angular/common';
     MatButtonModule,
     FontAwesomeModule,
     AsyncPipe,
+    MatFormFieldModule,
+    MatSelectModule,
     TranslatePipe,
+    MatSelect,
+    MatOption,
   ],
 })
 export class ProfileComponent implements OnInit {
   faBellSlash = faBellSlash;
+  timezones: DropDownChoice<string>[] = Intl.supportedValuesOf('timeZone').map(
+    tz => ({key: tz, value: tz.replace('_', ' ')}),
+  );
 
   constructor(
     private menuService: MenuService,
@@ -38,8 +49,8 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  edit(location: string): void {
-    this.authService.edit(location);
+  edit(user: Partial<EditUser>): void {
+    this.authService.edit(user);
   }
 
   delete(): void {

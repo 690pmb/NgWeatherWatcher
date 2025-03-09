@@ -6,8 +6,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 import {MatOptionModule} from '@angular/material/core';
 
 import {MatSelectModule} from '@angular/material/select';
-
-export type DropDownChoice = {key: WeatherField; value: WeatherFieldConfig};
+import {DropDownChoice} from '../../../../model/dropdown-choice';
 
 @Component({
   selector: 'app-select-weather-field',
@@ -16,26 +15,33 @@ export type DropDownChoice = {key: WeatherField; value: WeatherFieldConfig};
   standalone: true,
   imports: [MatSelectModule, MatOptionModule, TranslatePipe],
 })
-export class SelectWeatherFieldComponent implements OnInit {
+export class SelectWeatherFieldComponent<T extends WeatherFieldConfig>
+  implements OnInit
+{
   @Input()
   initialValue?: WeatherField;
 
   @Output()
   selected = new EventEmitter<WeatherFieldConfig>();
 
-  choices: DropDownChoice[] = [];
-  initialChoice?: DropDownChoice;
+  choices: DropDownChoice<T>[] = [];
+  initialChoice?: DropDownChoice<T>;
 
   constructor(private config: ConfigurationService) {}
 
   ngOnInit() {
     const weatherFields = this.config.configuration.weatherFields;
     this.choices = Object.values(WeatherField).map(key => ({
-      key,
-      value: {...weatherFields[key], field: key},
+      key: key.toLowerCase(),
+      value: {
+        ...weatherFields[key],
+        field: key,
+      } as T,
     }));
     if (this.initialValue) {
-      this.initialChoice = this.choices.find(c => c.key === this.initialValue);
+      this.initialChoice = this.choices.find(
+        c => c.key === this.initialValue?.toLowerCase(),
+      );
       if (this.initialChoice) {
         this.selected.emit(this.initialChoice.value);
       }

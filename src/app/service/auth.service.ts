@@ -13,6 +13,8 @@ import {ToastService} from './toast.service';
 import {catchError, map} from 'rxjs/operators';
 import {Utils} from '@shared/utils';
 import {ConfigurationService} from './configuration.service';
+import {DateTime} from 'luxon';
+import {EditUser} from '@model/edit-user';
 
 @Injectable({
   providedIn: 'root',
@@ -70,7 +72,13 @@ export class AuthService extends UtilsService {
 
   signin(username: string, password: string): Observable<boolean> {
     return this.post<{token: string}>(
-      {url: 'signin', body: {username, password}},
+      {
+        url: 'signin',
+        body: {
+          username,
+          password,
+        },
+      },
       false,
     ).pipe(
       map((response: HttpResponse<{token: string}>) => {
@@ -101,7 +109,13 @@ export class AuthService extends UtilsService {
     return this.post(
       {
         url: 'signup',
-        body: {username, password, favouriteLocation, lang},
+        body: {
+          username,
+          password,
+          favouriteLocation,
+          lang,
+          timezone: DateTime.now().toFormat('z'),
+        },
       },
       false,
     ).pipe(
@@ -115,8 +129,8 @@ export class AuthService extends UtilsService {
     );
   }
 
-  edit(favouriteLocation: string): void {
-    this.put<{token: string}>({body: {favouriteLocation}}).subscribe(
+  edit(user: Partial<EditUser>): void {
+    this.put<{token: string}>({body: user}).subscribe(
       response => {
         if (response.body !== null && response.body) {
           this.setToken(response.body?.token);

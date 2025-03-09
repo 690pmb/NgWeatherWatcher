@@ -24,3 +24,9 @@ span:not(.delete-button) {
   width: 85vw;
   height: 50px !important;
 }
+
+::ng-deep .search-panel {
+  .mat-mdc-option {
+    border-bottom: get-color('dark-gray') 1px solid;
+  }
+}
