@@ -22,14 +22,17 @@ export class MonitoredField {
   @Expose()
   get summary(): string {
     let minMax = '';
+    let suffix = '';
     if (this.min && this.max) {
       minMax = `${this.min} - ${this.max}`;
     } else if (this.min && !this.max) {
-      minMax = `${this.min} min`;
+      minMax = `${this.min}`;
+      suffix = 'min';
     } else if (!this.min && this.max) {
-      minMax = `${this.max} max`;
+      minMax = `${this.max}`;
+      suffix = 'max';
     }
-    return minMax;
+    return `${minMax} ${this.unit} ${suffix}`;
   }
 
   @Expose()

@@ -103,7 +103,7 @@
           let isLast = $last
         ) {
           {{ 'forecast.' + monitoredField.field.toLowerCase() | translate }}
-          {{ monitoredField.summary }} {{ monitoredField.unit }}
+          {{ monitoredField.summary }}
           @if (!isLast) {
             /
           }
