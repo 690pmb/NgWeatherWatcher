@@ -8,13 +8,13 @@
   "weatherFields": {
     "TEMP": {"min": -30, "max": 50},
     "WIND": {"min": 0, "max": 150, "step": 5},
-    "PRESSURE": {"min": 950, "max": 1050, "step": 5},
-    "PRECIP": {"min": 0, "max": 2000, "step": 20},
-    "HUMIDITY": {"min": 30, "max": 60, "step": 5},
+    "PRECIP": {"min": 0, "max": 10},
+    "CHANCE_OF_RAIN": {"min": 0, "max": 100, "step": 5},
     "CLOUD": {"min": 0, "max": 100, "step": 5},
     "FEELS_LIKE": {"min": -30, "max": 50},
-    "CHANCE_OF_RAIN": {"min": 0, "max": 100, "step": 5},
+    "UV": {"min": 1, "max": 11},
     "CHANCE_OF_SNOW": {"min": 0, "max": 100, "step": 5},
-    "UV": {"min": 1, "max": 11}
+    "HUMIDITY": {"min": 30, "max": 60, "step": 5},
+    "PRESSURE": {"min": 950, "max": 1050, "step": 5}
   }
 }
