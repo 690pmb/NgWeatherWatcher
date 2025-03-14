@@ -67,6 +67,7 @@
     "trigger_day": "Trigger day",
     "trigger_hour": "Trigger hour",
     "monitored_day": "Monitored day",
+    "toolip": "Weather API can only forecast up to 2 days in advance. Select trigger days to enable checkboxes.",
     "monitored_hour": "Monitored hour",
     "location": "Location",
     "required": "This field is required",
@@ -82,11 +83,6 @@
     "deleted": "{{0}} deleted alert(s)",
     "created": "Alert created !",
     "updated": "Alert updated !",
-    "monitored_days": {
-      "sameDay": "same day",
-      "nextDay": "next day",
-      "twoDayLater": "two day later"
-    },
     "mat-table.itemsPerPageLabel": "Alert per page: ",
     "placeholder": "Pick a field"
   },

@@ -1,4 +1,3 @@
-import {MonitoredDays} from './monitored-days';
 import {Transform, Type} from 'class-transformer';
 import {Utils} from '@shared/utils';
 import {CreateMonitoredField} from './create-monitored-field';
@@ -17,7 +16,7 @@ export class CreateAlert {
 
   triggerDays!: string[];
   id?: number;
-  monitoredDays!: MonitoredDays;
+  monitoredDays!: string[];
   location!: string;
   forceNotification!: boolean;
 }

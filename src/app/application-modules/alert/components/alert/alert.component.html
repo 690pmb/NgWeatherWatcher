@@ -24,6 +24,33 @@
         />
       </app-question>
     }
+    <app-question
+      label="alert.monitored_day"
+      [ctrl]="alertForm.controls.monitoredDays"
+    >
+      <div class="row" formArrayName="monitoredDays">
+        <fa-icon
+          [matTooltip]="'alert.tooltip' | translate"
+          [icon]="faCircleQuestion"
+        />
+        @for (
+          monitoredDay of monitoredDayChoices;
+          track monitoredDay.key;
+          let j = $index
+        ) {
+          <mat-checkbox color="primary" [formControlName]="j">{{
+            monitoredDay.value | titlecase
+          }}</mat-checkbox>
+        }
+      </div>
+    </app-question>
+    <app-question label="alert.monitored_hour">
+      <app-multiple
+        [compo]="sliderComponent"
+        [configuration]="monitoredHourConfig"
+        [form]="alertForm.controls.monitoredHours"
+      />
+    </app-question>
     <app-question label="alert.force_notification">
       <mat-checkbox color="primary" formControlName="forceNotification">{{
         'global.' + alertForm.controls.forceNotification.value
@@ -32,34 +59,11 @@
       }}</mat-checkbox>
     </app-question>
     <app-question
-      label="alert.monitored_day"
-      [ctrl]="alertForm.controls.monitoredDays"
-    >
-      <div class="row" formArrayName="monitoredDays">
-        @for (
-          monitoredDay of monitoredDayChoices;
-          track monitoredDay;
-          let i = $index
-        ) {
-          <mat-checkbox color="primary" [formControlName]="i">{{
-            monitoredDay | translate | titlecase
-          }}</mat-checkbox>
-        }
-      </div>
-    </app-question>
-    <app-question
       label="alert.monitored_field"
       [ctrl]="alertForm.controls.monitoredFields"
       ><app-multiple
         [compo]="alertWeatherFieldComponent"
         [form]="alertForm.controls.monitoredFields"
-      />
-    </app-question>
-    <app-question label="alert.monitored_hour">
-      <app-multiple
-        [compo]="sliderComponent"
-        [configuration]="monitoredHourConfig"
-        [form]="alertForm.controls.monitoredHours"
       />
     </app-question>
   </form>

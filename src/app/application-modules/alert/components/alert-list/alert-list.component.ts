@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {
   ActivatedRoute,
   convertToParamMap,
@@ -14,8 +14,8 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import {TranslateService, TranslatePipe} from '@ngx-translate/core';
-import {Subject} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
+import {Subject, Observable} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 import {AlertService} from '@services/alert.service';
 import {MenuService} from '@services/menu.service';
 import {Alert} from '@model/alert/alert';
@@ -43,6 +43,7 @@ import {
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {MyPaginator} from '@shared/my-paginator';
+import {AuthService} from '@services/auth.service';
 
 @Component({
   selector: 'app-alert-list',
@@ -83,23 +84,30 @@ export class AlertListComponent implements OnInit {
   @ViewChild('deleteButton')
   deleteButton!: TemplateRef<number>;
 
-  formatFields: Record<string, (a: Alert) => string> = {
-    force_notification: a =>
-      this.titleCasePipe.transform(
-        this.translate.instant(`global.${a.forceNotification}`) as string,
-      ),
-    trigger_day: a =>
-      this.titleCasePipe.transform(
-        this.formatField(a.getTriggerDays(this.translate.currentLang), false),
-      ),
-    trigger_hour: a => this.datePipe.transform(a.triggerHour, 'hour'),
-    monitored_day: a =>
-      this.titleCasePipe.transform(
-        this.formatField(a.getMonitoredDays(), false),
-      ),
-    monitored_hour: a => this.formatField(a.monitoredHours, false),
-    location: a => a.location,
-  };
+  lang$ = inject(AuthService).token$.pipe(
+    map(t => t?.lang ?? this.translate.currentLang),
+  );
+
+  formatFields$: Observable<Record<string, (a: Alert) => string>> =
+    this.lang$.pipe(
+      map(lang => ({
+        force_notification: a =>
+          this.titleCasePipe.transform(
+            this.translate.instant(`global.${a.forceNotification}`) as string,
+          ),
+        trigger_day: a =>
+          this.titleCasePipe.transform(
+            this.formatField(a.getTriggerDays(lang), false),
+          ),
+        trigger_hour: a => this.datePipe.transform(a.triggerHour, 'hour'),
+        monitored_day: a =>
+          this.titleCasePipe.transform(
+            this.formatField(a.getMonitoredDays(lang), false),
+          ),
+        monitored_hour: a => this.formatField(a.monitoredHours, false),
+        location: a => a.location,
+      })),
+    );
 
   queryParam = new Subject<ParamMap>();
   alerts$ = this.queryParam.pipe(

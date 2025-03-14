@@ -67,6 +67,7 @@
     "trigger_day": "Jour de notification",
     "trigger_hour": "Heures de notification",
     "monitored_day": "Jours surveillés",
+    "toolip": "La Weather API ne peut prévoir que jusqu'à deux jours à l'avance. Sélectionnez des jours de notification pour activer les cases à cocher.",
     "monitored_hour": "Heures surveillées",
     "location": "Localisation",
     "required": "Ce champ est obligatoire",
@@ -82,11 +83,6 @@
     "deleted": "{{size}} alerte(s) supprimée(s)",
     "created": "Alerte créee !",
     "updated": "Alerte mise à jour !",
-    "monitored_days": {
-      "sameDay": "le jour même",
-      "nextDay": "le lendemain",
-      "twoDayLater": "le surlendemain"
-    },
     "mat-table.itemsPerPageLabel": "Alertes par page: ",
     "placeholder": "Choisis un champ"
   },
