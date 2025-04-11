@@ -1,4 +1,3 @@
-import {MonitoredDay, MonitoredDays} from './monitored-days';
 import {MonitoredField} from './monitored-field';
 import {Type, Expose, Transform} from 'class-transformer';
 import {DateTime} from 'luxon';
@@ -19,6 +18,26 @@ const WORKING_DAYS = {
 const WEEK_END = {
   key: 'week_end',
   value: [DayOfWeek.SATURDAY, DayOfWeek.SUNDAY],
+};
+
+const formatDays = (
+  toFormat: DayOfWeek[],
+  locale: string,
+  enableSummary = true,
+): string[] => {
+  const summary = [ALL_DAYS, WORKING_DAYS, WEEK_END].find(
+    days =>
+      days.value.length === toFormat.length &&
+      days.value.every(day => toFormat.includes(day)),
+  )?.key;
+  if (enableSummary && summary) {
+    return [`alert.${summary}`];
+  } else {
+    return toFormat
+      .map(t => DateTime.fromFormat(t, 'EEEE'))
+      .sort()
+      .map(v => v.toFormat('EEEE', {locale}));
+  }
 };
 
 export class Alert {
@@ -43,33 +62,19 @@ export class Alert {
   monitoredFields!: MonitoredField[];
 
   @Expose()
-  getMonitoredDays(): string[] {
-    return (Object.keys(MonitoredDay) as (keyof MonitoredDays)[])
-      .filter(key => this.monitoredDays[key])
-      .map(monitored => `alert.monitored_days.${monitored}`);
+  getMonitoredDays(locale: string, enableSummary = true): string[] {
+    return formatDays(this.monitoredDays, locale, enableSummary);
   }
 
   @Expose()
   getTriggerDays(locale: string, enableSummary = true): string[] {
-    const summary = [ALL_DAYS, WORKING_DAYS, WEEK_END].find(
-      days =>
-        days.value.length === this.triggerDays.length &&
-        days.value.every(day => this.triggerDays.includes(day)),
-    )?.key;
-    if (enableSummary && summary) {
-      return [`alert.${summary}`];
-    } else {
-      return this.triggerDays
-        .map(t => DateTime.fromFormat(t, 'EEEE'))
-        .sort()
-        .map(v => v.toFormat('EEEE', {locale}));
-    }
+    return formatDays(this.triggerDays, locale, enableSummary);
   }
 
   id!: number;
   triggerDays!: DayOfWeek[];
 
-  monitoredDays!: MonitoredDays;
+  monitoredDays!: DayOfWeek[];
 
   location!: string;
   forceNotification!: boolean;
