@@ -1,4 +1,3 @@
-import {DecimalPipe} from '@angular/common';
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -8,9 +7,7 @@ export class MyPaginator extends MatPaginatorIntl {
     public prefix = 'global',
   ) {
     super();
-    this.translate.onLangChange.subscribe(() => {
-      this.initTranslation();
-    });
+    this.translate.onLangChange.subscribe(() => this.initTranslation());
     this.initTranslation();
   }
 
@@ -47,10 +44,8 @@ export class MyPaginator extends MatPaginatorIntl {
       startIndex < size
         ? Math.min(startIndex + pageSize, size)
         : startIndex + pageSize;
-    const decimalPipe = new DecimalPipe(this.translate.currentLang);
     return `${startIndex + 1} - ${endIndex} ${
       this.translate.instant('global.mat-table.of') as string
-    } 
-        ${decimalPipe.transform(size, '1.0', this.translate.currentLang)}`;
+    } ${size}`;
   };
 }

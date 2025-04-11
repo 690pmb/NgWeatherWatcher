@@ -3,10 +3,12 @@ import {Router, RouterLink} from '@angular/router';
 import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {AuthService} from '@services/auth.service';
 import {MatButtonModule} from '@angular/material/button';
-
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
+import {LangComponent} from '@shared/component/lang/lang.component';
+import {LangService} from '@services/lang.service';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-signin',
@@ -18,7 +20,9 @@ import {FormsModule} from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    LangComponent,
     RouterLink,
+    AsyncPipe,
     TranslatePipe,
   ],
 })
@@ -31,6 +35,7 @@ export class SigninComponent {
     private auth: AuthService,
     private router: Router,
     private translate: TranslateService,
+    protected langService: LangService,
   ) {}
 
   login(): void {

@@ -1,0 +1,135 @@
+{
+  "global": {
+    "cancel": "Cancelar",
+    "username": "Login",
+    "username_required": "Por favor, insira seu login",
+    "minlength": "Muito curto",
+    "hour": "Hora",
+    "min": "Min",
+    "max": "Max",
+    "true": "sim",
+    "false": "não",
+    "none": "Nenhum",
+    "average": "Média",
+    "expand": "Expandir",
+    "edit": "Editar",
+    "geolocation": {
+      "in_progress": "Geolocalização em progresso...",
+      "denied": "Geolocalização negada",
+      "not_supported": "Geolocalização não suportada"
+    },
+    "mat-table": {
+      "of": " de ",
+      "no_result": "Nenhum dado",
+      "nextPageLabel": "Próxima página",
+      "previousPageLabel": "Página anterior",
+      "lastPageLabel": "Última página",
+      "firstPageLabel": "Primeira página",
+      "itemsPerPageLabel": "Objetos por página: "
+    }
+  },
+  "nav-bar": {
+    "dashboard": "Painel de Controle",
+    "alert": "Minhas Alertas",
+    "logout": "Desconectar"
+  },
+  "forecast": {
+    "wind": "Vento",
+    "precip": "Precipitação",
+    "rain": "Chuva",
+    "chance_of_rain": "Probabilidade de chuva",
+    "chance_of_snow": "Probabilidade de neve",
+    "temp": "Temperatura",
+    "condition": "Clima",
+    "pressure": "Pressão atmosférica",
+    "humidity": "Umidade",
+    "cloud": "Cobertura de nuvens",
+    "summary": "Resumo",
+    "feels_like": "Sensação térmica",
+    "will_it_rain": "Vai chover?",
+    "will_it_snow": "Vai nevar?",
+    "uv": "Índice UV",
+    "wind_direction": "Direção do vento",
+    "wind_dir": {
+      "S": "Sul",
+      "N": "Norte",
+      "W": "Oeste",
+      "E": "Leste"
+    }
+  },
+  "dashboard": {
+    "show_all": "Mostrar tudo"
+  },
+  "alert": {
+    "title": "Minhas alertas",
+    "create": "Criar alerta",
+    "edit": "Editar alerta",
+    "trigger_day": "Dia de notificação",
+    "trigger_hour": "Horas de notificação",
+    "monitored_day": "Dias monitorados",
+    "toolip": "A API do Tempo só pode prever até dois dias à frente. Selecione dias de notificação para ativar as caixas de seleção.",
+    "monitored_hour": "Horas monitoradas",
+    "location": "Localização",
+    "required": "Este campo é obrigatório",
+    "force_notification": "Forçar notificação",
+    "monitored_field": "Dados monitorados",
+    "all_working_days": "Todos os dias de trabalho",
+    "every_days": "Todos os dias",
+    "week_end": "Fim de semana",
+    "delete": "Excluir",
+    "preview": "Pré-visualizar",
+    "action": "Ações",
+    "empty": "Nenhum alerta",
+    "deleted": "{{size}} alerta(s) excluído(s)",
+    "created": "Alerta criado!",
+    "updated": "Alerta atualizado!",
+    "mat-table.itemsPerPageLabel": "Alertas por página: ",
+    "placeholder": "Escolha um campo"
+  },
+  "user": {
+    "name_required": "Por favor, insira seu login",
+    "password": "Senha",
+    "password_required": "Por favor, insira sua senha",
+    "answer": "Resposta",
+    "answer_required": "Resposta obrigatória",
+    "question": "Pergunta secreta",
+    "question_required": "Pergunta obrigatória",
+    "error_password": "Senhas diferentes",
+    "error_question": "Perguntas diferentes",
+    "wrong_answer": "Resposta incorreta",
+    "lang": "Idioma",
+    "timezone": "Fuso horário",
+    "logged_out": "Desconectado",
+    "logout": "Desconectar-se",
+    "signin": {
+      "title": "IDENTIFICAR-SE",
+      "sign_in": "Entrar",
+      "connected": "Conectado!!",
+      "forgot": "Senha esquecida",
+      "wrong": "Entrada incorreta..",
+      "favourite_location": "Local favorito"
+    },
+    "signup": {
+      "title": "REGISTRAR-SE",
+      "sign_up": "Registrar",
+      "registred": "Registrado!!",
+      "already_exist": "Um usuário com este login já existe",
+      "bad_request": "Entradas incorretas",
+      "password2": "Digite sua senha novamente",
+      "different": "As senhas são diferentes",
+      "username_hint": "Entre 4 e 30 caracteres de comprimento",
+      "password_hint": "Entre 6 e 30 caracteres de comprimento"
+    },
+    "profile": {
+      "title": "Perfil",
+      "updated": "Perfil atualizado"
+    }
+  },
+  "notification": {
+    "not-supported": "Notificações não são suportadas",
+    "success": "Inscrição em notificações bem-sucedida",
+    "error": "Não foi possível inscrever-se para notificações: {{err}}",
+    "unsubscribed": "Desinscrito",
+    "delete": "Cancelar inscrição em todos os outros dispositivos"
+  }
+}

@@ -1,4 +1,4 @@
-@if (authService.lang$ | async; as lang) {
+@if (langService.getLang() | async; as lang) {
   <app-dashboard>
     @if (showSpinner) {
       <div class="spinner-wrapper">

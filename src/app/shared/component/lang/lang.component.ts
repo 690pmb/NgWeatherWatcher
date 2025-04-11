@@ -7,9 +7,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {DropDownChoice} from '@model/dropdown-choice';
 import {MatSelect} from '@angular/material/select';
-import {map, Observable} from 'rxjs';
+import {map, Observable, combineLatest} from 'rxjs';
 import {WeatherService} from '@services/weather.service';
 import {AsyncPipe, TitleCasePipe} from '@angular/common';
+import {LangService} from '@services/lang.service';
 
 @Component({
   selector: 'app-lang',
@@ -35,23 +36,29 @@ export class LangComponent {
   @Output()
   selected = new EventEmitter<string>();
 
-  static languageNames = new Intl.DisplayNames([navigator.language], {
-    type: 'language',
-  });
-
-  availablesLangs$: Observable<DropDownChoice<string>[]> = inject(
-    WeatherService,
-  )
-    .availableLangs()
+  readonly languageNames$ = inject(LangService)
+    .getLang()
     .pipe(
-      map(langs =>
-        langs
-          .filter(l => !l.includes('_'))
-          .map(l => ({
-            value: l,
-            key: LangComponent.languageNames.of(l) ?? '',
-          }))
-          .sort(),
+      map(
+        l =>
+          new Intl.DisplayNames([l], {
+            type: 'language',
+          }),
       ),
     );
+
+  availablesLangs$: Observable<DropDownChoice<string>[]> = combineLatest([
+    inject(WeatherService).availableLangs(),
+    this.languageNames$,
+  ]).pipe(
+    map(([availableLangs, languageNames]) =>
+      availableLangs
+        .filter(l => !l.includes('_'))
+        .map(l => ({
+          value: l,
+          key: languageNames.of(l) ?? '',
+        }))
+        .sort((l1, l2) => l1.key.localeCompare(l2.key)),
+    ),
+  );
 }

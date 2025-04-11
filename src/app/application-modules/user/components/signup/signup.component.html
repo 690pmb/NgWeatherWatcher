@@ -1,137 +1,136 @@
 <h2>{{ 'user.signup.title' | translate }}:</h2>
 <div class="signup-content">
-  <form #signupForm="ngForm">
-    @if (message) {
-      <mat-error>{{ message | translate }}</mat-error>
-    }
-
-    <!-- Username -->
-    <mat-form-field
-      appearance="outline"
-      [hintLabel]="'user.signup.username_hint' | translate"
-    >
-      <input
-        #inputUsername="ngModel"
-        matInput
-        type="text"
-        name="inputUsername"
-        required
-        minlength="4"
-        maxlength="30"
-        [placeholder]="'global.username' | translate"
-        [(ngModel)]="username"
-      />
-      @if (
-        inputUsername.errors !== null &&
-        inputUsername.errors['required'] &&
-        !inputUsername.pristine
-      ) {
-        <mat-error> {{ 'global.username_required' | translate }}</mat-error>
+  @if (langService.getLang() | async; as lang) {
+    <form #signupForm="ngForm">
+      @if (message) {
+        <mat-error>{{ message | translate }}</mat-error>
       }
-      @if (
-        inputUsername.errors !== null &&
-        inputUsername.errors['minlength'] &&
-        !inputUsername.pristine
-      ) {
-        <mat-error> {{ 'global.minlength' | translate }}</mat-error>
-      }
-    </mat-form-field>
 
-    <!-- Password -->
-    <mat-form-field
-      appearance="outline"
-      [hintLabel]="'user.signup.password_hint' | translate"
-    >
-      <input
-        #inputPassword="ngModel"
-        matInput
-        type="password"
-        name="inputPassword"
-        required
-        minlength="6"
-        maxlength="30"
-        [placeholder]="'user.password' | translate"
-        [(ngModel)]="password"
-      />
-      @if (
-        inputPassword.errors !== null &&
-        inputPassword.errors['required'] &&
-        !inputPassword.pristine
-      ) {
-        <mat-error> {{ 'user.password_required' | translate }}</mat-error>
-      }
-      @if (
-        inputPassword.errors !== null &&
-        inputPassword.errors['minlength'] &&
-        !inputPassword.pristine
-      ) {
-        <mat-error> {{ 'global.minlength' | translate }}</mat-error>
-      }
-    </mat-form-field>
-
-    <!-- Password 2 -->
-    <mat-form-field
-      appearance="outline"
-      [hintLabel]="'user.signup.password_hint' | translate"
-    >
-      <input
-        #inputPassword2="ngModel"
-        matInput
-        type="password"
-        name="inputPassword2"
-        required
-        minlength="6"
-        maxlength="30"
-        [placeholder]="'user.signup.password2' | translate"
-        [(ngModel)]="password2"
-      />
-      @if (
-        inputPassword2.errors !== null &&
-        inputPassword2.errors['required'] &&
-        !inputPassword2.pristine
-      ) {
-        <mat-error> {{ 'user.password_required' | translate }}</mat-error>
-      }
-      @if (
-        inputPassword2.errors !== null &&
-        inputPassword2.errors['minlength'] &&
-        !inputPassword2.pristine
-      ) {
-        <mat-error> {{ 'global.minlength' | translate }}</mat-error>
-      }
-    </mat-form-field>
-
-    @if (
-      inputPassword.errors === null &&
-      inputPassword2.errors === null &&
-      password2 !== password
-    ) {
-      <mat-error> {{ 'user.signup.different' | translate }}</mat-error>
-    }
-
-    <app-search-location
-      placeholder="user.signin.favourite_location"
-      (selected)="favouriteLocation = $event"
-    />
-
-    <app-lang
-      [initValue]="translateService.currentLang"
-      (selected)="lang = $event"
-    />
-
-    <!-- Footer -->
-    <div class="signup-footer">
-      <button type="button" mat-raised-button routerLink="/user">
-        {{ 'global.cancel' | translate }}
-      </button>
-      <button
-        type="submit"
-        mat-raised-button
-        [disabled]="signupForm.invalid"
-        (click)="signup()"
+      <!-- Username -->
+      <mat-form-field
+        appearance="outline"
+        [hintLabel]="'user.signup.username_hint' | translate"
       >
-        {{ 'user.signup.sign_up' | translate }}
-      </button>
-    </div>
-  </form>
+        <input
+          #inputUsername="ngModel"
+          matInput
+          type="text"
+          name="inputUsername"
+          required
+          minlength="4"
+          maxlength="30"
+          [placeholder]="'global.username' | translate"
+          [(ngModel)]="username"
+        />
+        @if (
+          inputUsername.errors !== null &&
+          inputUsername.errors['required'] &&
+          !inputUsername.pristine
+        ) {
+          <mat-error> {{ 'global.username_required' | translate }}</mat-error>
+        }
+        @if (
+          inputUsername.errors !== null &&
+          inputUsername.errors['minlength'] &&
+          !inputUsername.pristine
+        ) {
+          <mat-error> {{ 'global.minlength' | translate }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field
+        appearance="outline"
+        [hintLabel]="'user.signup.password_hint' | translate"
+      >
+        <input
+          #inputPassword="ngModel"
+          matInput
+          type="password"
+          name="inputPassword"
+          required
+          minlength="6"
+          maxlength="30"
+          [placeholder]="'user.password' | translate"
+          [(ngModel)]="password"
+        />
+        @if (
+          inputPassword.errors !== null &&
+          inputPassword.errors['required'] &&
+          !inputPassword.pristine
+        ) {
+          <mat-error> {{ 'user.password_required' | translate }}</mat-error>
+        }
+        @if (
+          inputPassword.errors !== null &&
+          inputPassword.errors['minlength'] &&
+          !inputPassword.pristine
+        ) {
+          <mat-error> {{ 'global.minlength' | translate }}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Password 2 -->
+      <mat-form-field
+        appearance="outline"
+        [hintLabel]="'user.signup.password_hint' | translate"
+      >
+        <input
+          #inputPassword2="ngModel"
+          matInput
+          type="password"
+          name="inputPassword2"
+          required
+          minlength="6"
+          maxlength="30"
+          [placeholder]="'user.signup.password2' | translate"
+          [(ngModel)]="password2"
+        />
+        @if (
+          inputPassword2.errors !== null &&
+          inputPassword2.errors['required'] &&
+          !inputPassword2.pristine
+        ) {
+          <mat-error> {{ 'user.password_required' | translate }}</mat-error>
+        }
+        @if (
+          inputPassword2.errors !== null &&
+          inputPassword2.errors['minlength'] &&
+          !inputPassword2.pristine
+        ) {
+          <mat-error> {{ 'global.minlength' | translate }}</mat-error>
+        }
+      </mat-form-field>
+
+      @if (
+        inputPassword.errors === null &&
+        inputPassword2.errors === null &&
+        password2 !== password
+      ) {
+        <mat-error> {{ 'user.signup.different' | translate }}</mat-error>
+      }
+
+      <app-search-location
+        placeholder="user.signin.favourite_location"
+        (selected)="favouriteLocation = $event"
+      />
+
+      <app-lang [initValue]="lang" (selected)="onLangChange($event)" />
+
+      <!-- Footer -->
+      <div class="signup-footer">
+        <button type="button" mat-raised-button routerLink="/user">
+          {{ 'global.cancel' | translate }}
+        </button>
+        <button
+          type="submit"
+          mat-raised-button
+          [disabled]="signupForm.invalid"
+          (click)="signup()"
+        >
+          {{ 'user.signup.sign_up' | translate }}
+        </button>
+      </div>
+    </form>
+  }
 </div>

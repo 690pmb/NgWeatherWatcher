@@ -29,13 +29,12 @@ import {SortField} from '@model/sort';
 import {SortDirection, MatSortModule} from '@angular/material/sort';
 import {PageRequest} from '@model/http/page-request';
 import {DateTime} from 'luxon';
-import {DateTimePipe as DateTimePipe_1} from '../../../../shared/pipe/date-time.pipe';
 import {MatBadgeModule} from '@angular/material/badge';
 import {ClickOutsideDirective} from '../../click-outside.directive';
 import {SelectRowDirective} from '../../select-row.directive';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTableModule} from '@angular/material/table';
-import {TableExpandComponent} from '../../../../shared/component/table-expand/table-expand.component';
+import {TableExpandComponent} from '@shared/component/table-expand/table-expand.component';
 import {
   MatPaginatorIntl,
   MatPaginatorModule,
@@ -43,7 +42,7 @@ import {
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {MyPaginator} from '@shared/my-paginator';
-import {AuthService} from '@services/auth.service';
+import {LangService} from '@services/lang.service';
 
 @Component({
   selector: 'app-alert-list',
@@ -67,7 +66,7 @@ import {AuthService} from '@services/auth.service';
     AsyncPipe,
     SlicePipe,
     TitleCasePipe,
-    DateTimePipe_1,
+    DateTimePipe,
     TranslatePipe,
   ],
   providers: [
@@ -84,9 +83,7 @@ export class AlertListComponent implements OnInit {
   @ViewChild('deleteButton')
   deleteButton!: TemplateRef<number>;
 
-  lang$ = inject(AuthService).token$.pipe(
-    map(t => t?.lang ?? this.translate.currentLang),
-  );
+  lang$ = inject(LangService).getLang();
 
   formatFields$: Observable<Record<string, (a: Alert) => string>> =
     this.lang$.pipe(

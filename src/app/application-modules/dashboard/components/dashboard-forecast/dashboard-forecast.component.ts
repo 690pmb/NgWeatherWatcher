@@ -10,14 +10,15 @@ import {AuthService} from '@services/auth.service';
 import {ToastService} from '@services/toast.service';
 import {MenuService} from '@services/menu.service';
 import {Token} from '@model/token';
-import {IconPipe} from '../../../../shared/pipe/icon.pipe';
-import {DateTimePipe} from '../../../../shared/pipe/date-time.pipe';
+import {IconPipe} from '@shared/pipe/icon.pipe';
+import {DateTimePipe} from '@shared/pipe/date-time.pipe';
 import {MatDividerModule} from '@angular/material/divider';
-import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
+import {SearchLocationComponent} from '@shared/component/search-location/search-location.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import {DashboardComponent} from '../dashboard/dashboard.component';
 import {AsyncPipe} from '@angular/common';
+import {LangService} from '@services/lang.service';
 
 @Component({
   selector: 'app-dashboard-forecast',
@@ -46,6 +47,7 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
     private weatherService: WeatherService,
     protected translate: TranslateService,
     protected authService: AuthService,
+    protected langService: LangService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toast: ToastService,
@@ -88,7 +90,7 @@ export class DashboardForecastComponent implements OnInit, OnDestroy {
     );
     this.subs.push(
       combineLatest([
-        this.authService.lang$,
+        this.langService.getLang(),
         this.activatedRoute.queryParamMap.pipe(
           filter(q => q !== undefined),
           map(query => query.get('location')),

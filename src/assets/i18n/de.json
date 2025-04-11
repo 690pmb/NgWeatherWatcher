@@ -1,0 +1,135 @@
+{
+  "global": {
+    "cancel": "Abbrechen",
+    "username": "Login",
+    "username_required": "Bitte geben Sie Ihren Login ein",
+    "minlength": "Zu kurz",
+    "hour": "Stunde",
+    "min": "Min",
+    "max": "Max",
+    "true": "ja",
+    "false": "nein",
+    "none": "Keines",
+    "average": "Durchschnitt",
+    "expand": "Erweitern",
+    "edit": "Bearbeiten",
+    "geolocation": {
+      "in_progress": "Geolokalisierung läuft...",
+      "denied": "Geolokalisierung verweigert",
+      "not_supported": "Geolokalisierung nicht unterstützt"
+    },
+    "mat-table": {
+      "of": " von ",
+      "no_result": "Keine Daten",
+      "nextPageLabel": "Nächste Seite",
+      "previousPageLabel": "Vorherige Seite",
+      "lastPageLabel": "Letzte Seite",
+      "firstPageLabel": "Erste Seite",
+      "itemsPerPageLabel": "Objekte pro Seite: "
+    }
+  },
+  "nav-bar": {
+    "dashboard": "Armaturenbrett",
+    "alert": "Meine Warnungen",
+    "logout": "Abmelden"
+  },
+  "forecast": {
+    "wind": "Wind",
+    "precip": "Niederschlag",
+    "rain": "Regen",
+    "chance_of_rain": "Regenwahrscheinlichkeit",
+    "chance_of_snow": "Schneewahrscheinlichkeit",
+    "temp": "Temperatur",
+    "condition": "Wetter",
+    "pressure": "Luftdruck",
+    "humidity": "Feuchtigkeit",
+    "cloud": "Wolkenbedeckung",
+    "summary": "Zusammenfassung",
+    "feels_like": "Gefühlte Temperatur",
+    "will_it_rain": "Wird es regnen?",
+    "will_it_snow": "Wird es schneien?",
+    "uv": "UV-Index",
+    "wind_direction": "Windrichtung",
+    "wind_dir": {
+      "S": "Süd",
+      "N": "Nord",
+      "W": "West",
+      "E": "Ost"
+    }
+  },
+  "dashboard": {
+    "show_all": "Alles anzeigen"
+  },
+  "alert": {
+    "title": "Meine Warnungen",
+    "create": "Warnung erstellen",
+    "edit": "Warnung bearbeiten",
+    "trigger_day": "Benachrichtigungstag",
+    "trigger_hour": "Benachrichtigungsstunden",
+    "monitored_day": "Überwachte Tage",
+    "toolip": "Die Wetter-API kann nur bis zu zwei Tage im Voraus vorhersagen. Wählen Sie Benachrichtigungstage, um die Kontrollkästchen zu aktivieren.",
+    "monitored_hour": "Überwachte Stunden",
+    "location": "Ort",
+    "required": "Dieses Feld ist erforderlich",
+    "force_notification": "Benachrichtigung erzwingen",
+    "monitored_field": "Überwachte Daten",
+    "all_working_days": "Alle Arbeitstage",
+    "every_days": "Jeden Tag",
+    "week_end": "Wochenende",
+    "delete": "Löschen",
+    "preview": "Vorschau",
+    "action": "Aktionen",
+    "empty": "Keine Warnungen",
+    "deleted": "{{size}} Warnung(en) gelöscht",
+    "created": "Warnung erstellt!",
+    "updated": "Warnung aktualisiert!",
+    "mat-table.itemsPerPageLabel": "Warnungen pro Seite: ",
+    "placeholder": "Wählen Sie ein Feld"
+  },
+  "user": {
+    "name_required": "Bitte geben Sie Ihren Login ein",
+    "password": "Passwort",
+    "password_required": "Bitte geben Sie Ihr Passwort ein",
+    "answer": "Antwort",
+    "answer_required": "Die Antwort ist erforderlich",
+    "question": "Geheime Frage",
+    "question_required": "Die Frage ist erforderlich",
+    "error_password": "Verschiedene Passwörter",
+    "error_question": "Verschiedene Fragen",
+    "wrong_answer": "Falsche Antwort",
+    "lang": "Sprache",
+    "timezone": "Zeitzone",
+    "logged_out": "Abgemeldet",
+    "logout": "Abmelden",
+    "signin": {
+      "title": "ANMELDEN",
+      "sign_in": "Einloggen",
+      "connected": "Verbunden!!",
+      "forgot": "Passwort vergessen",
+      "wrong": "Falsche Eingabe..",
+      "favourite_location": "Lieblingsort"
+    },
+    "signup": {
+      "title": "REGISTRIEREN",
+      "sign_up": "Registrieren",
+      "registred": "Registriert!!",
+      "already_exist": "Ein Benutzer mit diesem Login existiert bereits",
+      "bad_request": "Falsche Eingaben",
+      "password2": "Passwort erneut eingeben",
+      "different": "Passwörter sind unterschiedlich",
+      "username_hint": "Zwischen 4 und 30 Zeichen lang",
+      "password_hint": "Zwischen 6 und 30 Zeichen lang"
+    },
+    "profile": {
+      "title": "Profil",
+      "updated": "Profil aktualisiert"
+    }
+  },
+  "notification": {
+    "not-supported": "Benachrichtigungen werden nicht unterstützt",
+    "success": "Benachrichtigungsabonnement erfolgreich",
+    "error": "Benachrichtigungsabonnement fehlgeschlagen: {{err}}",
+    "unsubscribed": "Abgemeldet",
+    "delete": "Von allen anderen Geräten abmelden"
+  }
+}

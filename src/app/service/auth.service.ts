@@ -5,37 +5,43 @@ import {
   HttpErrorResponse,
   HttpResponse,
 } from '@angular/common/http';
+import {environment} from '../../environments/environment';
 import {Observable, ReplaySubject, of} from 'rxjs';
 import {Token} from '@model/token';
 import {jwtDecode, InvalidTokenError} from 'jwt-decode';
 import {UtilsService} from './utils.service';
 import {ToastService} from './toast.service';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, filter, map} from 'rxjs/operators';
 import {Utils} from '@shared/utils';
 import {ConfigurationService} from './configuration.service';
 import {DateTime} from 'luxon';
 import {EditUser} from '@model/edit-user';
+import {LangService} from './lang.service';
+import {NotificationService} from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService extends UtilsService {
   token$ = new ReplaySubject<Token | undefined>(1);
-  lang$ = this.token$.pipe(
-    map(token =>
-      token ? token.lang : navigator.language === 'fr' ? 'fr' : 'en',
-    ),
-  );
 
   constructor(
     private router: Router,
     protected override httpClient: HttpClient,
     protected override toast: ToastService,
     protected configurationService: ConfigurationService,
+    private langService: LangService,
+    private notificationService: NotificationService,
   ) {
     super(httpClient, toast);
     this.baseUrl = configurationService.get().apiUrl;
     this.apiUrl = configurationService.get().userUrl;
+    this.token$.pipe(filter((t): t is Token => !!t)).subscribe(token => {
+      this.langService.setLang(token.lang);
+      if (environment.production) {
+        this.notificationService.subscribeToNotifications();
+      }
+    });
   }
 
   logout(showToast: boolean): void {
@@ -90,11 +96,10 @@ export class AuthService extends UtilsService {
         if (response.body !== null && response.body) {
           this.setToken(response.body.token);
           this.toast.success('user.signin.connected');
-          return true;
         } else {
           console.error('no token', response.body);
-          return true;
         }
+        return true;
       }),
       catchError((response: HttpErrorResponse) => {
         if (response.status !== 401) {

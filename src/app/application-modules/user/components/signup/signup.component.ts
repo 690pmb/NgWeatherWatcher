@@ -4,12 +4,14 @@ import {AuthService} from '@services/auth.service';
 import {ToastService} from '@services/toast.service';
 import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {MatButtonModule} from '@angular/material/button';
-import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
+import {SearchLocationComponent} from '@shared/component/search-location/search-location.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
 import {FormsModule} from '@angular/forms';
 import {LangComponent} from '@shared/component/lang/lang.component';
+import {LangService} from '@services/lang.service';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-signup',
@@ -25,6 +27,7 @@ import {LangComponent} from '@shared/component/lang/lang.component';
     LangComponent,
     RouterLink,
     TranslatePipe,
+    AsyncPipe,
   ],
 })
 export class SignupComponent implements OnInit {
@@ -41,6 +44,7 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private toast: ToastService,
     protected translateService: TranslateService,
+    protected langService: LangService,
   ) {}
 
   ngOnInit(): void {
@@ -81,5 +85,10 @@ export class SignupComponent implements OnInit {
           (err: Error) => this.authService.handleError(err),
         );
     }
+  }
+
+  onLangChange(lang: string): void {
+    this.lang = lang;
+    this.langService.setLang(lang);
   }
 }
