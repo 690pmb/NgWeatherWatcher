@@ -15,16 +15,16 @@ import {WeatherField} from '@model/alert/weather-field';
 import {UNITS} from '@model/alert/monitored-field';
 import {HighlightService} from '../../services/highlight.service';
 import {DateTimePipe} from '@shared/pipe/date-time.pipe';
-import {IconPipe} from '../../../../shared/pipe/icon.pipe';
+import {IconPipe} from '@shared/pipe/icon.pipe';
 import {HighlightDirective} from '../../directives/highlight.directive';
 import {MatTableModule} from '@angular/material/table';
-import {TableExpandComponent} from '../../../../shared/component/table-expand/table-expand.component';
+import {TableExpandComponent} from '@shared/component/table-expand/table-expand.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {DashboardComponent} from '../dashboard/dashboard.component';
 import {MatTooltip} from '@angular/material/tooltip';
-import {AuthService} from '@services/auth.service';
+import {LangService} from '@services/lang.service';
 
 @Component({
   selector: 'app-dashboard-details',
@@ -96,8 +96,8 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private weatherService: WeatherService,
     private highlightService: HighlightService,
-    private authService: AuthService,
     private activatedRoute: ActivatedRoute,
+    protected langService: LangService,
     private location: Location,
     private router: Router,
     private translate: TranslateService,
@@ -110,7 +110,7 @@ export class DashboardDetailsComponent implements OnInit, OnDestroy {
       combineLatest([
         this.activatedRoute.paramMap.pipe(filter(p => p !== undefined)),
         this.activatedRoute.queryParamMap.pipe(filter(q => q !== undefined)),
-        this.authService.lang$,
+        this.langService.getLang(),
       ]).subscribe(([params, queryParam, lang]) => {
         const date = params.get('date');
         this.place = queryParam.get('location') ?? undefined;

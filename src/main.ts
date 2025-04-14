@@ -22,24 +22,17 @@ import {
   MAT_RIPPLE_GLOBAL_OPTIONS,
   RippleGlobalOptions,
 } from '@angular/material/core';
-import {
-  TranslateLoader,
-  TranslateService,
-  provideTranslateService,
-} from '@ngx-translate/core';
-import localeEn from '@angular/common/locales/en';
-import localeFr from '@angular/common/locales/fr';
-import {registerLocaleData} from '@angular/common';
+import {TranslateLoader, provideTranslateService} from '@ngx-translate/core';
 import {provideRouter, withViewTransitions} from '@angular/router';
 import {routes} from './app/app-routing';
 import {ConfigurationService} from '@services/configuration.service';
 import {DateTimePipe} from '@shared/pipe/date-time.pipe';
+import {LangService} from '@services/lang.service';
+import {first} from 'rxjs';
 
 if (environment.production) {
   enableProdMode();
 }
-registerLocaleData(localeFr);
-registerLocaleData(localeEn);
 
 bootstrapApplication(AppComponent, {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -50,7 +43,7 @@ bootstrapApplication(AppComponent, {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     provideTranslateService({
       useDefaultLang: false,
-      defaultLanguage: 'en',
+      defaultLanguage: LangService.DEFAULT_LANG,
       loader: {
         provide: TranslateLoader,
         useFactory: (http: HttpClient): TranslateHttpLoader =>
@@ -62,13 +55,10 @@ bootstrapApplication(AppComponent, {
     {
       provide: APP_INITIALIZER,
       useFactory: () => {
-        const translateService = inject(TranslateService);
-        return () =>
-          translateService.use(
-            translateService.getBrowserLang() === 'fr' ? 'fr' : 'en',
-          );
+        const langService = inject(LangService);
+        return () => langService.getLang().pipe(first());
       },
-      deps: [TranslateService],
+      deps: [LangService],
       multi: true,
     },
     {

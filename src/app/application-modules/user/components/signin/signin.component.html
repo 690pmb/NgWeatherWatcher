@@ -1,66 +1,68 @@
 <h2>{{ 'user.signin.title' | translate }}:</h2>
 <div class="signin-content">
-  <form #signinForm="ngForm">
-    <mat-error>{{ message }}</mat-error>
-    <mat-form-field appearance="outline">
-      <input
-        #inputName="ngModel"
-        matInput
-        type="text"
-        name="inputName"
-        required
-        maxlength="30"
-        [placeholder]="'global.username' | translate"
-        [(ngModel)]="username"
-      />
-      @if (
-        inputName.errors !== null &&
-        inputName.errors['required'] &&
-        !inputName.pristine
-      ) {
-        <mat-error> {{ 'global.username_required' | translate }}</mat-error>
-      }
-    </mat-form-field>
+  @if (langService.getLang() | async; as lang) {
+    <form #signinForm="ngForm">
+      <mat-error>{{ message }}</mat-error>
+      <mat-form-field appearance="outline">
+        <input
+          #inputName="ngModel"
+          matInput
+          type="text"
+          name="inputName"
+          required
+          maxlength="30"
+          [placeholder]="'global.username' | translate"
+          [(ngModel)]="username"
+        />
+        @if (
+          inputName.errors !== null &&
+          inputName.errors['required'] &&
+          !inputName.pristine
+        ) {
+          <mat-error> {{ 'global.username_required' | translate }}</mat-error>
+        }
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <input
-        #inputPassword="ngModel"
-        matInput
-        type="password"
-        name="inputPassword"
-        required
-        maxlength="30"
-        [placeholder]="'user.password' | translate"
-        [(ngModel)]="password"
-      />
-      @if (
-        inputPassword.errors !== null &&
-        inputPassword.errors['required'] &&
-        !inputPassword.pristine
-      ) {
-        <mat-error> {{ 'user.password_required' | translate }}</mat-error>
-      }
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input
+          #inputPassword="ngModel"
+          matInput
+          type="password"
+          name="inputPassword"
+          required
+          maxlength="30"
+          [placeholder]="'user.password' | translate"
+          [(ngModel)]="password"
+        />
+        @if (
+          inputPassword.errors !== null &&
+          inputPassword.errors['required'] &&
+          !inputPassword.pristine
+        ) {
+          <mat-error> {{ 'user.password_required' | translate }}</mat-error>
+        }
+      </mat-form-field>
+      <app-lang [initValue]="lang" (selected)="langService.setLang($event)" />
 
-    <div class="signin-footer">
-      <button
-        type="submit"
-        mat-raised-button
-        [disabled]="signinForm.invalid"
-        (click)="login()"
-      >
-        {{ 'user.signin.sign_in' | translate }}
-      </button>
-      <!-- <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: username}">{{'user.signin.forgot'|translate}}</button>-->
-      <button
-        type="button"
-        mat-raised-button
-        routerLink="/user/signup"
-        [queryParams]="{username: username}"
-      >
-        {{ 'user.signup.sign_up' | translate }}
-      </button>
-      <!-- <app-dropdown-language class="dropdown-center"></app-dropdown-language> -->
-    </div>
-  </form>
+      <div class="signin-footer">
+        <button
+          type="submit"
+          mat-raised-button
+          [disabled]="signinForm.invalid"
+          (click)="login()"
+        >
+          {{ 'user.signin.sign_in' | translate }}
+        </button>
+        <!-- <button type="button" class="btn btn-outline-primary" routerLink="/login/forgot" [queryParams]="{name: username}">{{'user.signin.forgot'|translate}}</button>-->
+        <button
+          type="button"
+          mat-raised-button
+          routerLink="/user/signup"
+          [queryParams]="{username: username}"
+        >
+          {{ 'user.signup.sign_up' | translate }}
+        </button>
+      </div>
+    </form>
+  }
 </div>

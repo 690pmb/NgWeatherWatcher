@@ -2,11 +2,11 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {
   Component,
   OnInit,
-  OnDestroy,
   ViewChild,
   AfterViewInit,
   ChangeDetectorRef,
   HostBinding,
+  inject,
 } from '@angular/core';
 import {
   NavigationEnd,
@@ -21,7 +21,7 @@ import {
   faSignOutAlt,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import {BehaviorSubject, fromEvent, Subscription} from 'rxjs';
+import {fromEvent} from 'rxjs';
 import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import {AuthService} from '@services/auth.service';
 import {MenuService} from '@services/menu.service';
@@ -66,15 +66,15 @@ type Direction = 'DOWN' | 'UP';
   ],
   standalone: true,
 })
-export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MenuComponent implements OnInit, AfterViewInit {
   @HostBinding('style.--menu-width')
   protected menuWidth?: string;
 
   @ViewChild('sidenav', {static: false}) sidenav!: MatSidenav;
 
-  subs: Subscription[] = [];
   readonly toolbarHeight = 56;
-  isLogged$ = new BehaviorSubject<boolean>(false);
+  authService = inject(AuthService);
+  isLogged$ = this.authService.token$.pipe(map(token => !!token));
   faBars = faBars;
   faSignOutAlt = faSignOutAlt;
   direction: Direction = 'UP';
@@ -86,22 +86,12 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   constructor(
-    public authService: AuthService,
     private router: Router,
     public menuService: MenuService,
     private cdk: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-    this.subs.push(
-      this.authService.token$.subscribe(token => {
-        if (token) {
-          this.isLogged$.next(true);
-        } else {
-          this.isLogged$.next(false);
-        }
-      }),
-    );
     this.menuService.title$.subscribe(t => {
       this.title = t;
       this.cdk.detectChanges();
@@ -143,9 +133,5 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.sidenav) {
       setTimeout(() => (this.menuWidth = `${this.sidenav._getWidth()}px`));
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subs.forEach(sub => sub.unsubscribe());
   }
 }

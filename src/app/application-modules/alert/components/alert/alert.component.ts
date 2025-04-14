@@ -2,7 +2,7 @@ import {Component, OnInit, Type, inject} from '@angular/core';
 import {DateTime} from 'luxon';
 import {SliderComponent} from '../slider/slider.component';
 import {MultipleData} from '../../model/multiple-data';
-import {TranslateService, TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 import {AlertService} from '@services/alert.service';
 import {CreateAlert} from '@model/alert/create-alert';
 import {AuthService} from '@services/auth.service';
@@ -30,13 +30,14 @@ import {Alert} from '@model/alert/alert';
 import {MatButtonModule} from '@angular/material/button';
 import {MultipleComponent} from '../multiple/multiple.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
+import {SearchLocationComponent} from '@shared/component/search-location/search-location.component';
 import {QuestionComponent} from '../question/question.component';
 import {TitleCasePipe} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {faCircleQuestion} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {DropDownChoice} from '@model/dropdown-choice';
+import {LangService} from '@services/lang.service';
 
 type AlertForm = {
   triggerDays: FormArray<FormControl<boolean>>;
@@ -125,9 +126,9 @@ export class AlertComponent implements OnInit {
   });
 
   constructor(
-    private translate: TranslateService,
     private alertService: AlertService,
     protected authService: AuthService,
+    protected langService: LangService,
     private toast: ToastService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -137,9 +138,10 @@ export class AlertComponent implements OnInit {
     combineLatest([
       of(this.activatedRoute.snapshot.paramMap.get('id')),
       this.authService.token$,
+      this.langService.getLang(),
     ])
       .pipe(
-        mergeMap(([id, token]) =>
+        mergeMap(([id, token, lang]) =>
           iif(
             () => Utils.isNotBlank(id),
             this.alertService.getById(id!).pipe(
@@ -150,7 +152,7 @@ export class AlertComponent implements OnInit {
           ).pipe(
             map(location => ({
               location,
-              lang: token?.lang ?? this.translate.currentLang,
+              lang,
             })),
           ),
         ),
@@ -213,7 +215,7 @@ export class AlertComponent implements OnInit {
       return {
         key: day.toFormat('EEEE'),
         value: day.toFormat('EEEE', {
-          locale: lang ?? this.translate.currentLang,
+          locale: lang,
         }),
       };
     });

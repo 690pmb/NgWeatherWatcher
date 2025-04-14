@@ -1,0 +1,135 @@
+{
+  "global": {
+    "cancel": "Cancelar",
+    "username": "Inicio de sesión",
+    "username_required": "Por favor, ingrese su inicio de sesión",
+    "minlength": "Demasiado corto",
+    "hour": "Hora",
+    "min": "Min",
+    "max": "Max",
+    "true": "sí",
+    "false": "no",
+    "none": "Ninguno",
+    "average": "Promedio",
+    "expand": "Expandir",
+    "edit": "Editar",
+    "geolocation": {
+      "in_progress": "Geolocalización en progreso...",
+      "denied": "Geolocalización denegada",
+      "not_supported": "Geolocalización no soportada"
+    },
+    "mat-table": {
+      "of": " de ",
+      "no_result": "Sin datos",
+      "nextPageLabel": "Página siguiente",
+      "previousPageLabel": "Página anterior",
+      "lastPageLabel": "Última página",
+      "firstPageLabel": "Primera página",
+      "itemsPerPageLabel": "Objetos por página: "
+    }
+  },
+  "nav-bar": {
+    "dashboard": "Panel de control",
+    "alert": "Mis alertas",
+    "logout": "Cerrar sesión"
+  },
+  "forecast": {
+    "wind": "Viento",
+    "precip": "Precipitación",
+    "rain": "Lluvia",
+    "chance_of_rain": "Probabilidad de lluvia",
+    "chance_of_snow": "Probabilidad de nieve",
+    "temp": "Temperatura",
+    "condition": "Estado del tiempo",
+    "pressure": "Presión atmosférica",
+    "humidity": "Humedad",
+    "cloud": "Cobertura nubosa",
+    "summary": "Resumen",
+    "feels_like": "Sensación térmica",
+    "will_it_rain": "¿Va a llover?",
+    "will_it_snow": "¿Va a nevar?",
+    "uv": "Índice UV",
+    "wind_direction": "Dirección del viento",
+    "wind_dir": {
+      "S": "Sur",
+      "N": "Norte",
+      "W": "Oeste",
+      "E": "Este"
+    }
+  },
+  "dashboard": {
+    "show_all": "Mostrar todo"
+  },
+  "alert": {
+    "title": "Mis alertas",
+    "create": "Crear una alerta",
+    "edit": "Modificar la alerta",
+    "trigger_day": "Día de notificación",
+    "trigger_hour": "Horas de notificación",
+    "monitored_day": "Días vigilados",
+    "toolip": "La API del tiempo solo puede prever hasta dos días adelante. Seleccione días de notificación para activar los cuadros de verificación.",
+    "monitored_hour": "Horas vigiladas",
+    "location": "Ubicación",
+    "required": "Este campo es obligatorio",
+    "force_notification": "Forzar la notificación",
+    "monitored_field": "Datos vigilados",
+    "all_working_days": "Todos los días laborales",
+    "every_days": "Todos los días",
+    "week_end": "El fin de semana",
+    "delete": "Eliminar",
+    "preview": "Previsualizar",
+    "action": "Acciones",
+    "empty": "Sin alertas",
+    "deleted": "{{size}} alerta(s) eliminada(s)",
+    "created": "¡Alerta creada!",
+    "updated": "¡Alerta actualizada!",
+    "mat-table.itemsPerPageLabel": "Alertas por página: ",
+    "placeholder": "Elige un campo"
+  },
+  "user": {
+    "name_required": "Por favor, ingrese su inicio de sesión",
+    "password": "Contraseña",
+    "password_required": "Por favor, ingrese su contraseña",
+    "answer": "Respuesta",
+    "answer_required": "La respuesta es obligatoria",
+    "question": "Pregunta secreta",
+    "question_required": "La pregunta es obligatoria",
+    "error_password": "Las contraseñas son diferentes",
+    "error_question": "Las preguntas son diferentes",
+    "wrong_answer": "Respuesta incorrecta",
+    "lang": "Idioma",
+    "timezone": "Zona horaria",
+    "logged_out": "Desconectado",
+    "logout": "Cerrar sesión",
+    "signin": {
+      "title": "IDENTIFICARSE",
+      "sign_in": "Iniciar sesión",
+      "connected": "¡Conectado!",
+      "forgot": "Olvidé mi contraseña",
+      "wrong": "Entrada incorrecta..",
+      "favourite_location": "Lugar favorito"
+    },
+    "signup": {
+      "title": "REGISTRARSE",
+      "sign_up": "Registrarse",
+      "registred": "¡Registrado!",
+      "already_exist": "Ya existe un usuario con este inicio de sesión",
+      "bad_request": "Entradas incorrectas",
+      "password2": "Escribe de nuevo tu contraseña",
+      "different": "Las contraseñas son diferentes",
+      "username_hint": "Entre 4 y 30 caracteres de longitud",
+      "password_hint": "Entre 6 y 30 caracteres de longitud"
+    },
+    "profile": {
+      "title": "Perfil",
+      "updated": "Perfil actualizado"
+    }
+  },
+  "notification": {
+    "not-supported": "Las notificaciones no están soportadas",
+    "success": "Suscripción a notificaciones exitosa",
+    "error": "No se pudo suscribir a las notificaciones: {{err}}",
+    "unsubscribed": "Desuscrito",
+    "delete": "Desuscribirse de todos los otros dispositivos"
+  }
+}

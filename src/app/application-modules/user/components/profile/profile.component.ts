@@ -6,13 +6,15 @@ import {faBellSlash} from '@fortawesome/free-solid-svg-icons';
 import {NotificationService} from '@services/notification.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
-import {SearchLocationComponent} from '../../../../shared/component/search-location/search-location.component';
+import {SearchLocationComponent} from '@shared/component/search-location/search-location.component';
 import {AsyncPipe} from '@angular/common';
 import {DropDownChoice} from '@model/dropdown-choice';
 import {MatOption, MatSelect, MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {EditUser} from '@model/edit-user';
 import {LangComponent} from '@shared/component/lang/lang.component';
+import {LangService} from '@services/lang.service';
+import {Observable, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -41,14 +43,23 @@ export class ProfileComponent implements OnInit {
   constructor(
     private menuService: MenuService,
     protected authService: AuthService,
+    protected langService: LangService,
     protected translateService: TranslateService,
     private notificationService: NotificationService,
   ) {}
 
   ngOnInit() {
-    this.menuService.title$.next(
-      this.translateService.instant('user.profile.title') as string,
-    );
+    this.langService
+      .getLang()
+      .pipe(
+        switchMap(
+          () =>
+            this.translateService.get(
+              'user.profile.title',
+            ) as Observable<string>,
+        ),
+      )
+      .subscribe(title => this.menuService.title$.next(title));
   }
 
   edit(user: Partial<EditUser>): void {
