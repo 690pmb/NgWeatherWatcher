@@ -160,13 +160,13 @@
       {{ 'global.edit' | translate }}&nbsp;
       <fa-icon [icon]="faEdit" />
     </button>
-    <button mat-menu-item type="button" (click)="delete([alert.id])">
-      {{ 'alert.delete' | translate }}&nbsp;
-      <fa-icon [icon]="faTrash" />
-    </button>
     <button mat-menu-item type="button" (click)="view(alert)">
       {{ 'alert.preview' | translate }}&nbsp;
       <fa-icon [icon]="faSun" />
+    </button>
+    <button mat-menu-item type="button" (click)="delete([alert.id])">
+      {{ 'alert.delete' | translate }}&nbsp;
+      <fa-icon [icon]="faTrash" />
     </button>
   </ng-template>
 </mat-menu>

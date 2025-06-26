@@ -39,13 +39,14 @@
   .highlight {
     &,
     > * {
-      @include color('error');
+      @include color('error', true);
 
       font-weight: bold;
     }
   }
 
-  .mat-mdc-row:has(.highlight) {
+  .mat-mdc-row:has(.highlight),
+  .mat-mdc-row:has(.highlight) + .mat-mdc-row {
     @include bg-color('warning', true, 0.2);
   }
 

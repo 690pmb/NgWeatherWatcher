@@ -21,7 +21,7 @@ import {Template} from '@model/template';
 import {TranslatePipe} from '@ngx-translate/core';
 
 export type Config<T> = {
-  template?: Template<{i18n: string; value: string; expanded?: T}>;
+  template?: Template<{i18n: string; value: string; item?: T}>;
   additionalTemplate?: Template<Record<'item', T>>;
   formatFields?: Record<string, (a: T) => string>;
   empty?: string;
@@ -79,7 +79,7 @@ export class TableExpandComponent<T>
           '.mat-column-details:not(.hide)',
         )?.offsetHeight ?? 0;
       if (height) {
-        setTimeout(() => (this.expandHeight = `${height}px`));
+        setTimeout(() => (this.expandHeight = `${height - 2}px`));
       }
     }
   }
@@ -91,9 +91,9 @@ export class TableExpandComponent<T>
     this.expanded = this.expanded === item ? undefined : item;
     if (this.expanded) {
       this.rowHeight = `${
-        (this.el.nativeElement as HTMLElement).querySelector<HTMLElement>(
+        ((this.el.nativeElement as HTMLElement).querySelector<HTMLElement>(
           '.mat-mdc-row:not(.detail-row)',
-        )?.offsetHeight ?? 0
+        )?.offsetHeight ?? 0) + 2
       }px`;
     }
   }
