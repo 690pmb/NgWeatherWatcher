@@ -44,11 +44,10 @@ export class AuthService extends UtilsService {
     });
   }
 
-  logout(showToast: boolean): void {
+  logout(showToast: boolean, redirectUrl = ''): void {
     localStorage.clear();
-    sessionStorage.clear();
     this.token$.next(undefined);
-    sessionStorage.setItem('redirectPage', '/');
+    sessionStorage.setItem('redirectPage', redirectUrl);
     this.router.navigate(['/user/signin']).catch(err => console.error(err));
     if (showToast) {
       this.toast.success('user.logged_out');
@@ -71,10 +70,10 @@ export class AuthService extends UtilsService {
             if (!jwtToken.exp || jwtToken.exp * 1000 > new Date().getTime()) {
               return true;
             } else {
-              return this.reject(false);
+              return false;
             }
           } catch {
-            return this.reject(false);
+            return false;
           }
         }
       }),
@@ -152,6 +151,7 @@ export class AuthService extends UtilsService {
   }
 
   getCurrentUser(): void {
+    const requestedUrl = `${window.location.pathname}${window.location.search}`;
     try {
       const token = localStorage.getItem('token');
       if (token) {
@@ -159,10 +159,10 @@ export class AuthService extends UtilsService {
         if (!jwtToken.exp || jwtToken.exp * 1000 > new Date().getTime()) {
           this.token$.next(jwtToken);
         } else {
-          this.logout(false);
+          this.logout(false, requestedUrl);
         }
       } else {
-        this.logout(false);
+        this.logout(false, requestedUrl);
       }
     } catch (err: unknown) {
       this.handleError(err as InvalidTokenError);
@@ -178,12 +178,5 @@ export class AuthService extends UtilsService {
   private static setToken(token: string): void {
     localStorage.removeItem('token');
     localStorage.setItem('token', token);
-  }
-
-  private reject(loggout: boolean): boolean {
-    if (loggout) {
-      this.logout(loggout);
-    }
-    return false;
   }
 }

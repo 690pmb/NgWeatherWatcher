@@ -49,7 +49,7 @@ export class SigninComponent {
             const redirectPage = sessionStorage.getItem('redirectPage');
             if (redirectPage) {
               this.router
-                .navigate([redirectPage])
+                .navigateByUrl(redirectPage)
                 .catch(err => console.error(err));
             } else {
               this.router.navigateByUrl('/').catch(err => console.error(err));

@@ -1,4 +1,4 @@
-import {Component, OnInit, Type, inject} from '@angular/core';
+import {Component, OnDestroy, OnInit, Type, inject} from '@angular/core';
 import {DateTime} from 'luxon';
 import {SliderComponent} from '../slider/slider.component';
 import {MultipleData} from '../../model/multiple-data';
@@ -24,7 +24,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {AlertWeatherField} from '../../model/alert-weather-field';
 import {Pip, pipTypeMapping} from '../../model/pip';
 import {SliderConfig, Value} from '../../model/slider';
-import {of, iif, combineLatest} from 'rxjs';
+import {of, iif, combineLatest, Subscription} from 'rxjs';
 import {mergeMap, tap, map, switchMap} from 'rxjs/operators';
 import {Alert} from '@model/alert/alert';
 import {MatButtonModule} from '@angular/material/button';
@@ -69,7 +69,7 @@ type AlertForm = {
     TranslatePipe,
   ],
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent implements OnInit, OnDestroy {
   private fb = inject(NonNullableFormBuilder);
   initLocation!: string;
   existingAlert?: Alert;
@@ -125,6 +125,8 @@ export class AlertComponent implements OnInit {
     monitoredFields: this.fb.array<AlertWeatherField>([], Validators.required),
   });
 
+  sub: Subscription[] = [];
+
   constructor(
     private alertService: AlertService,
     protected authService: AuthService,
@@ -135,33 +137,35 @@ export class AlertComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    combineLatest([
-      of(this.activatedRoute.snapshot.paramMap.get('id')),
-      this.authService.token$,
-      this.langService.getLang(),
-    ])
-      .pipe(
-        mergeMap(([id, token, lang]) =>
-          iif(
-            () => Utils.isNotBlank(id),
-            this.alertService.getById(id!).pipe(
-              tap(a => (this.existingAlert = a)),
-              map(a => a.location),
+    this.sub.push(
+      combineLatest([
+        of(this.activatedRoute.snapshot.paramMap.get('id')),
+        this.authService.token$,
+        this.langService.getLang(),
+      ])
+        .pipe(
+          mergeMap(([id, token, lang]) =>
+            iif(
+              () => Utils.isNotBlank(id),
+              this.alertService.getById(id!).pipe(
+                tap(a => (this.existingAlert = a)),
+                map(a => a.location),
+              ),
+              of(token?.location),
+            ).pipe(
+              map(location => ({
+                location,
+                lang,
+              })),
             ),
-            of(token?.location),
-          ).pipe(
-            map(location => ({
-              location,
-              lang,
-            })),
           ),
-        ),
-        tap(data => this.initFormValue(data.location ?? '', data.lang)),
-        switchMap(() => this.alertForm.controls.triggerDays.valueChanges),
-      )
-      .subscribe(triggerDays => {
-        this.setMonitorDaysStatus(triggerDays);
-      });
+          tap(data => this.initFormValue(data.location ?? '', data.lang)),
+          switchMap(() => this.alertForm.controls.triggerDays.valueChanges),
+        )
+        .subscribe(triggerDays => {
+          this.setMonitorDaysStatus(triggerDays);
+        }),
+    );
   }
 
   private initFormValue(location: string, lang: string): void {
@@ -279,6 +283,10 @@ export class AlertComponent implements OnInit {
         ?.map((t, i) => (t ? choices[i]?.key.toUpperCase() : undefined))
         .filter((t): t is string => !!t) ?? []
     );
+  }
+
+  ngOnDestroy(): void {
+    this.sub.forEach(s => s.unsubscribe());
   }
 
   onSubmit(): void {
