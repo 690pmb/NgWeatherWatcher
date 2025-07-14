@@ -2,6 +2,6 @@ import {WeatherFieldConfig} from '@model/configuration';
 
 export type AlertWeatherField = {
   field: WeatherFieldConfig;
-  min?: number;
-  max?: number;
+  min: number | null;
+  max: number | null;
 };

@@ -1,3 +1,17 @@
-:host ::ng-deep .ng2-nouislider {
-  margin: 45px 0 !important;
+@use 'imports' as *;
+
+@include deep {
+  .ng2-nouislider {
+    margin: 45px 0 !important;
+  }
+
+  /* stylelint-disable */
+  .noUi-origin[disabled] .noUi-handle {
+    /* stylelint-enable */
+    $disabled: 'light-gray';
+
+    box-shadow: none !important;
+    @include bg-color($disabled);
+    @include border($disabled);
+  }
 }
