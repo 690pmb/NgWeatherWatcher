@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import {
   Component,
   Input,
@@ -14,6 +13,12 @@ import {FormControl, FormsModule} from '@angular/forms';
 import {SliderConfig, SliderValue} from '../../model/slider';
 import {SliderFormatter} from '../../model/slider-formatter';
 import {NouisliderComponent} from 'ng2-nouislider';
+
+type Slider = {
+  setHandle(index: number, value: number): void;
+  enable(index: number): void;
+  disable(index: number): void;
+};
 
 @Component({
   selector: 'app-slider',
@@ -108,14 +113,12 @@ export class SliderComponent<T extends boolean>
   // eslint-disable-next-line complexity
   disable({min, max}: {min?: boolean; max?: boolean}, init = false): void {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const slider = this.slider?.slider;
+    const slider: Slider = this.slider?.slider;
 
-    if (!this.configuration.value) {
-      this.configuration.value = [
-        this.configuration.min,
-        this.configuration.max,
-      ];
-    }
+    this.configuration.value ??= [
+      this.configuration.min,
+      this.configuration.max,
+    ];
 
     if (this.configuration.multiple && slider) {
       if (max === false || min === false) {
@@ -123,15 +126,7 @@ export class SliderComponent<T extends boolean>
         const disabledIndex = max === false ? 1 : 0;
 
         // ENABLE
-        if (init) {
-          const enabledIndex = 1 - disabledIndex;
-          const enabledValue = Array.isArray(this.initialValue?.value)
-            ? (this.initialValue?.value[enabledIndex] ?? 0)
-            : this.configuration.value[enabledIndex];
-          this.configuration.value[enabledIndex] = enabledValue ?? 0;
-          slider.setHandle(enabledIndex, enabledValue);
-          slider.enable(enabledIndex);
-        }
+        this.enable(init, disabledIndex, slider);
 
         // DISABLE
         const disabledValue =
@@ -154,6 +149,19 @@ export class SliderComponent<T extends boolean>
         }
       }
       this.select(this.configuration.value);
+    }
+  }
+
+  private enable(init: boolean, disabledIndex: number, slider: Slider) {
+    if (init) {
+      const enabledIndex = 1 - disabledIndex;
+      const enabledValue =
+        (Array.isArray(this.initialValue?.value)
+          ? this.initialValue?.value[enabledIndex]
+          : this.configuration.value[enabledIndex]) ?? 0;
+      this.configuration.value[enabledIndex] = enabledValue ?? 0;
+      slider.setHandle(enabledIndex, enabledValue);
+      slider.enable(enabledIndex);
     }
   }
 
