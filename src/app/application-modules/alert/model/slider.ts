@@ -11,6 +11,6 @@ export type Slider = {
 };
 export type Value<T extends boolean, U> = {multiple: T; value?: U};
 export type SliderValue<T extends boolean> = T extends true
-  ? Value<true, number[]>
+  ? Value<true, (number | null)[]>
   : Value<false, number>;
 export type SliderConfig<T extends boolean> = Slider & SliderValue<T>;
